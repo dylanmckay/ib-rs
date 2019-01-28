@@ -67,34 +67,7 @@ impl<C: hyper::client::Connect>ContractApi for ContractApiClient<C> {
     }
 
     fn iserver_secdef_search_post(&self, symbol: ::models::Symbol) -> Box<Future<Item = Vec<::models::InlineResponse2008>, Error = Error>> {
-        let configuration: &configuration::Configuration<C> = self.configuration.borrow();
-
-        let method = hyper::Method::Post;
-
-        let uri_str = format!("{}/iserver/secdef/search", configuration.base_path);
-
-        let uri = uri_str.parse();
-        // TODO(farcaller): handle error
-        // if let Err(e) = uri {
-        //     return Box::new(futures::future::err(e));
-        // }
-        let mut req = hyper::Request::new(method, uri.unwrap());
-
-
-        let serialized = serde_json::to_string(&body).unwrap();
-        req.headers_mut().set(hyper::header::ContentType::json());
-        req.headers_mut().set(hyper::header::ContentLength(serialized.len() as u64));
-        req.set_body(serialized);
-
-        // send request
-        Box::new(
-            configuration.client.request(req).and_then(|res| { res.body().concat2() })
-            .map_err(|e| Error::from(e))
-            .and_then(|body| {
-                let parsed: Result<Vec<::models::InlineResponse2008>, _> = serde_json::from_slice(&body);
-                parsed.map_err(|e| Error::from(e))
-            }).map_err(|e| Error::from(e))
-        )
+        unimplemented!("swagger-codegen bug workaround");
     }
 
     fn trsrv_futures_get(&self, symbols: &str) -> Box<Future<Item = ::models::InlineResponse20015, Error = Error>> {

@@ -13,6 +13,7 @@ use std::borrow::Borrow;
 
 use hyper;
 use serde_json;
+use serde_json::Value;
 use futures;
 use futures::{Future, Stream};
 

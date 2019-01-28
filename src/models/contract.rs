@@ -33,8 +33,6 @@ pub struct Contract {
   instrument_type: Option<String>,
   #[serde(rename = "currency")]
   currency: Option<String>,
-  #[serde(rename = "companyName")]
-  company_name: Option<String>,
   #[serde(rename = "category")]
   category: Option<String>,
   #[serde(rename = "industry")]
@@ -54,7 +52,6 @@ impl Contract {
       local_symbol: None,
       instrument_type: None,
       currency: None,
-      company_name: None,
       category: None,
       industry: None,
       rules: None
@@ -178,23 +175,6 @@ impl Contract {
 
   pub fn reset_currency(&mut self) {
     self.currency = None;
-  }
-
-  pub fn set_company_name(&mut self, company_name: String) {
-    self.company_name = Some(company_name);
-  }
-
-  pub fn with_company_name(mut self, company_name: String) -> Contract {
-    self.company_name = Some(company_name);
-    self
-  }
-
-  pub fn company_name(&self) -> Option<&String> {
-    self.company_name.as_ref()
-  }
-
-  pub fn reset_company_name(&mut self) {
-    self.company_name = None;
   }
 
   pub fn set_category(&mut self, category: String) {
