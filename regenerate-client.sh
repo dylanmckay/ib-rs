@@ -57,7 +57,7 @@ sed -i 's/name = "swagger"/name = "ib"/g' Cargo.toml && sed -i 's/authors =.*$/a
 echo "    -> preserving crate version"
 sed -i "s/^version.*$/version = \"$crate_version\"/g" Cargo.toml
 echo "    -> setting description, repository, and documentation fields"
-sed -i 's/\[dependencies\]/description = "A Rust client to the Interactive Brokers HTTP REST API"\nrepository = "https:\/\/github.com\/dylanmckay\/ib-rs"\ndocumentation = "https:\/\/docs.rs\/ib"\n\n[dependencies]/g' Cargo.toml
+sed -i 's/\[dependencies\]/description = "A Rust client to the Interactive Brokers HTTP REST API"\nrepository = "https:\/\/github.com\/dylanmckay\/ib-rs"\ndocumentation = "https:\/\/docs.rs\/ib"\n\nlicense = "MIT"\n\n[dependencies]/g' Cargo.toml
 
 echo "  -> deleting junk files"
 rm git_push.sh
