@@ -58,6 +58,8 @@ echo "    -> preserving crate version"
 sed -i "s/^version.*$/version = \"$crate_version\"/g" Cargo.toml
 echo "    -> setting description, repository, and documentation fields"
 sed -i 's/\[dependencies\]/description = "A Rust client to the Interactive Brokers HTTP REST API"\nrepository = "https:\/\/github.com\/dylanmckay\/ib-rs"\ndocumentation = "https:\/\/docs.rs\/ib"\n\nlicense = "MIT"\n\n[dependencies]/g' Cargo.toml
+echo "    -> setting a concrete version for dependency 'tokio-core' as crates.io does not accept wildcards"
+sed -i 's/tokio-core = "\*"/tokio-core = "0.1"/g' Cargo.toml
 
 echo "  -> deleting junk files"
 rm git_push.sh
