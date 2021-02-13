@@ -1,24 +1,24 @@
-# \PnlApi
+# \IBCustApi
 
 All URIs are relative to *https://localhost:5000/v1/portal*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**iserver_account_pnl_partitioned_get**](PnlApi.md#iserver_account_pnl_partitioned_get) | **Get** /iserver/account/pnl/partitioned | PNL information for the selected account
+[**ibcust_entity_info_get**](IBCustApi.md#ibcust_entity_info_get) | **Get** /ibcust/entity/info | IBCust Entity Info
 
 
-# **iserver_account_pnl_partitioned_get**
-> ::models::InlineResponse20011 iserver_account_pnl_partitioned_get()
-PNL information for the selected account
+# **ibcust_entity_info_get**
+> Vec<::models::InlineResponse2005> ibcust_entity_info_get()
+IBCust Entity Info
 
-Returns an object containing pnl information for the selected account and its models (if any).
+Returns Applicant Id with all owner related entities
 
 ### Required Parameters
 This endpoint does not need any parameter.
 
 ### Return type
 
-[**::models::InlineResponse20011**](inline_response_200_11.md)
+[**Vec<::models::InlineResponse2005>**](inline_response_200_5.md)
 
 ### Authorization
 

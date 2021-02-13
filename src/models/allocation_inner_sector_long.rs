@@ -15,65 +15,48 @@ use serde_json::Value;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct AllocationInnerSectorLong {
-  #[serde(rename = "Others")]
-  others: Option<f32>,
-  #[serde(rename = "Utilities")]
-  utilities: Option<f32>,
+  #[serde(rename = "Communications")]
+  communications: Option<f32>,
   #[serde(rename = "Energy")]
   energy: Option<f32>,
-  #[serde(rename = "Technology")]
-  technology: Option<f32>,
   #[serde(rename = "Financial")]
   financial: Option<f32>,
-  #[serde(rename = "Communications")]
-  communications: Option<f32>
+  #[serde(rename = "Others")]
+  others: Option<f32>,
+  #[serde(rename = "Technology")]
+  technology: Option<f32>,
+  #[serde(rename = "Utilities")]
+  utilities: Option<f32>
 }
 
 impl AllocationInnerSectorLong {
   /// long positions allocation
   pub fn new() -> AllocationInnerSectorLong {
     AllocationInnerSectorLong {
-      others: None,
-      utilities: None,
+      communications: None,
       energy: None,
-      technology: None,
       financial: None,
-      communications: None
+      others: None,
+      technology: None,
+      utilities: None
     }
   }
 
-  pub fn set_others(&mut self, others: f32) {
-    self.others = Some(others);
+  pub fn set_communications(&mut self, communications: f32) {
+    self.communications = Some(communications);
   }
 
-  pub fn with_others(mut self, others: f32) -> AllocationInnerSectorLong {
-    self.others = Some(others);
+  pub fn with_communications(mut self, communications: f32) -> AllocationInnerSectorLong {
+    self.communications = Some(communications);
     self
   }
 
-  pub fn others(&self) -> Option<&f32> {
-    self.others.as_ref()
+  pub fn communications(&self) -> Option<&f32> {
+    self.communications.as_ref()
   }
 
-  pub fn reset_others(&mut self) {
-    self.others = None;
-  }
-
-  pub fn set_utilities(&mut self, utilities: f32) {
-    self.utilities = Some(utilities);
-  }
-
-  pub fn with_utilities(mut self, utilities: f32) -> AllocationInnerSectorLong {
-    self.utilities = Some(utilities);
-    self
-  }
-
-  pub fn utilities(&self) -> Option<&f32> {
-    self.utilities.as_ref()
-  }
-
-  pub fn reset_utilities(&mut self) {
-    self.utilities = None;
+  pub fn reset_communications(&mut self) {
+    self.communications = None;
   }
 
   pub fn set_energy(&mut self, energy: f32) {
@@ -93,23 +76,6 @@ impl AllocationInnerSectorLong {
     self.energy = None;
   }
 
-  pub fn set_technology(&mut self, technology: f32) {
-    self.technology = Some(technology);
-  }
-
-  pub fn with_technology(mut self, technology: f32) -> AllocationInnerSectorLong {
-    self.technology = Some(technology);
-    self
-  }
-
-  pub fn technology(&self) -> Option<&f32> {
-    self.technology.as_ref()
-  }
-
-  pub fn reset_technology(&mut self) {
-    self.technology = None;
-  }
-
   pub fn set_financial(&mut self, financial: f32) {
     self.financial = Some(financial);
   }
@@ -127,21 +93,55 @@ impl AllocationInnerSectorLong {
     self.financial = None;
   }
 
-  pub fn set_communications(&mut self, communications: f32) {
-    self.communications = Some(communications);
+  pub fn set_others(&mut self, others: f32) {
+    self.others = Some(others);
   }
 
-  pub fn with_communications(mut self, communications: f32) -> AllocationInnerSectorLong {
-    self.communications = Some(communications);
+  pub fn with_others(mut self, others: f32) -> AllocationInnerSectorLong {
+    self.others = Some(others);
     self
   }
 
-  pub fn communications(&self) -> Option<&f32> {
-    self.communications.as_ref()
+  pub fn others(&self) -> Option<&f32> {
+    self.others.as_ref()
   }
 
-  pub fn reset_communications(&mut self) {
-    self.communications = None;
+  pub fn reset_others(&mut self) {
+    self.others = None;
+  }
+
+  pub fn set_technology(&mut self, technology: f32) {
+    self.technology = Some(technology);
+  }
+
+  pub fn with_technology(mut self, technology: f32) -> AllocationInnerSectorLong {
+    self.technology = Some(technology);
+    self
+  }
+
+  pub fn technology(&self) -> Option<&f32> {
+    self.technology.as_ref()
+  }
+
+  pub fn reset_technology(&mut self) {
+    self.technology = None;
+  }
+
+  pub fn set_utilities(&mut self, utilities: f32) {
+    self.utilities = Some(utilities);
+  }
+
+  pub fn with_utilities(mut self, utilities: f32) -> AllocationInnerSectorLong {
+    self.utilities = Some(utilities);
+    self
+  }
+
+  pub fn utilities(&self) -> Option<&f32> {
+    self.utilities.as_ref()
+  }
+
+  pub fn reset_utilities(&mut self) {
+    self.utilities = None;
   }
 
 }

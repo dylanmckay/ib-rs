@@ -15,99 +15,31 @@ use serde_json::Value;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct AllocationInnerAssetClassShort {
-  #[serde(rename = "STK")]
-  STK: Option<f32>,
-  #[serde(rename = "OPT")]
-  OPT: Option<f32>,
-  #[serde(rename = "FUT")]
-  FUT: Option<f32>,
-  #[serde(rename = "WAR")]
-  WAR: Option<f32>,
   #[serde(rename = "BOND")]
   BOND: Option<f32>,
   #[serde(rename = "CASH")]
-  CASH: Option<f32>
+  CASH: Option<f32>,
+  #[serde(rename = "FUT")]
+  FUT: Option<f32>,
+  #[serde(rename = "OPT")]
+  OPT: Option<f32>,
+  #[serde(rename = "STK")]
+  STK: Option<f32>,
+  #[serde(rename = "WAR")]
+  WAR: Option<f32>
 }
 
 impl AllocationInnerAssetClassShort {
   /// short positions allocation
   pub fn new() -> AllocationInnerAssetClassShort {
     AllocationInnerAssetClassShort {
-      STK: None,
-      OPT: None,
-      FUT: None,
-      WAR: None,
       BOND: None,
-      CASH: None
+      CASH: None,
+      FUT: None,
+      OPT: None,
+      STK: None,
+      WAR: None
     }
-  }
-
-  pub fn set_STK(&mut self, STK: f32) {
-    self.STK = Some(STK);
-  }
-
-  pub fn with_STK(mut self, STK: f32) -> AllocationInnerAssetClassShort {
-    self.STK = Some(STK);
-    self
-  }
-
-  pub fn STK(&self) -> Option<&f32> {
-    self.STK.as_ref()
-  }
-
-  pub fn reset_STK(&mut self) {
-    self.STK = None;
-  }
-
-  pub fn set_OPT(&mut self, OPT: f32) {
-    self.OPT = Some(OPT);
-  }
-
-  pub fn with_OPT(mut self, OPT: f32) -> AllocationInnerAssetClassShort {
-    self.OPT = Some(OPT);
-    self
-  }
-
-  pub fn OPT(&self) -> Option<&f32> {
-    self.OPT.as_ref()
-  }
-
-  pub fn reset_OPT(&mut self) {
-    self.OPT = None;
-  }
-
-  pub fn set_FUT(&mut self, FUT: f32) {
-    self.FUT = Some(FUT);
-  }
-
-  pub fn with_FUT(mut self, FUT: f32) -> AllocationInnerAssetClassShort {
-    self.FUT = Some(FUT);
-    self
-  }
-
-  pub fn FUT(&self) -> Option<&f32> {
-    self.FUT.as_ref()
-  }
-
-  pub fn reset_FUT(&mut self) {
-    self.FUT = None;
-  }
-
-  pub fn set_WAR(&mut self, WAR: f32) {
-    self.WAR = Some(WAR);
-  }
-
-  pub fn with_WAR(mut self, WAR: f32) -> AllocationInnerAssetClassShort {
-    self.WAR = Some(WAR);
-    self
-  }
-
-  pub fn WAR(&self) -> Option<&f32> {
-    self.WAR.as_ref()
-  }
-
-  pub fn reset_WAR(&mut self) {
-    self.WAR = None;
   }
 
   pub fn set_BOND(&mut self, BOND: f32) {
@@ -142,6 +74,74 @@ impl AllocationInnerAssetClassShort {
 
   pub fn reset_CASH(&mut self) {
     self.CASH = None;
+  }
+
+  pub fn set_FUT(&mut self, FUT: f32) {
+    self.FUT = Some(FUT);
+  }
+
+  pub fn with_FUT(mut self, FUT: f32) -> AllocationInnerAssetClassShort {
+    self.FUT = Some(FUT);
+    self
+  }
+
+  pub fn FUT(&self) -> Option<&f32> {
+    self.FUT.as_ref()
+  }
+
+  pub fn reset_FUT(&mut self) {
+    self.FUT = None;
+  }
+
+  pub fn set_OPT(&mut self, OPT: f32) {
+    self.OPT = Some(OPT);
+  }
+
+  pub fn with_OPT(mut self, OPT: f32) -> AllocationInnerAssetClassShort {
+    self.OPT = Some(OPT);
+    self
+  }
+
+  pub fn OPT(&self) -> Option<&f32> {
+    self.OPT.as_ref()
+  }
+
+  pub fn reset_OPT(&mut self) {
+    self.OPT = None;
+  }
+
+  pub fn set_STK(&mut self, STK: f32) {
+    self.STK = Some(STK);
+  }
+
+  pub fn with_STK(mut self, STK: f32) -> AllocationInnerAssetClassShort {
+    self.STK = Some(STK);
+    self
+  }
+
+  pub fn STK(&self) -> Option<&f32> {
+    self.STK.as_ref()
+  }
+
+  pub fn reset_STK(&mut self) {
+    self.STK = None;
+  }
+
+  pub fn set_WAR(&mut self, WAR: f32) {
+    self.WAR = Some(WAR);
+  }
+
+  pub fn with_WAR(mut self, WAR: f32) -> AllocationInnerAssetClassShort {
+    self.WAR = Some(WAR);
+    self
+  }
+
+  pub fn WAR(&self) -> Option<&f32> {
+    self.WAR.as_ref()
+  }
+
+  pub fn reset_WAR(&mut self) {
+    self.WAR = None;
   }
 
 }

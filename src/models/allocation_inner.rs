@@ -17,10 +17,10 @@ use serde_json::Value;
 pub struct AllocationInner {
   #[serde(rename = "assetClass")]
   asset_class: Option<::models::AllocationInnerAssetClass>,
-  #[serde(rename = "sector")]
-  sector: Option<::models::AllocationInnerSector>,
   #[serde(rename = "group")]
-  group: Option<::models::AllocationInnerGroup>
+  group: Option<::models::AllocationInnerGroup>,
+  #[serde(rename = "sector")]
+  sector: Option<::models::AllocationInnerSector>
 }
 
 impl AllocationInner {
@@ -28,8 +28,8 @@ impl AllocationInner {
   pub fn new() -> AllocationInner {
     AllocationInner {
       asset_class: None,
-      sector: None,
-      group: None
+      group: None,
+      sector: None
     }
   }
 
@@ -50,23 +50,6 @@ impl AllocationInner {
     self.asset_class = None;
   }
 
-  pub fn set_sector(&mut self, sector: ::models::AllocationInnerSector) {
-    self.sector = Some(sector);
-  }
-
-  pub fn with_sector(mut self, sector: ::models::AllocationInnerSector) -> AllocationInner {
-    self.sector = Some(sector);
-    self
-  }
-
-  pub fn sector(&self) -> Option<&::models::AllocationInnerSector> {
-    self.sector.as_ref()
-  }
-
-  pub fn reset_sector(&mut self) {
-    self.sector = None;
-  }
-
   pub fn set_group(&mut self, group: ::models::AllocationInnerGroup) {
     self.group = Some(group);
   }
@@ -82,6 +65,23 @@ impl AllocationInner {
 
   pub fn reset_group(&mut self) {
     self.group = None;
+  }
+
+  pub fn set_sector(&mut self, sector: ::models::AllocationInnerSector) {
+    self.sector = Some(sector);
+  }
+
+  pub fn with_sector(mut self, sector: ::models::AllocationInnerSector) -> AllocationInner {
+    self.sector = Some(sector);
+    self
+  }
+
+  pub fn sector(&self) -> Option<&::models::AllocationInnerSector> {
+    self.sector.as_ref()
+  }
+
+  pub fn reset_sector(&mut self) {
+    self.sector = None;
   }
 
 }

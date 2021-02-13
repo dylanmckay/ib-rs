@@ -14,63 +14,29 @@ use serde_json::Value;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct ScannerParams {
+  #[serde(rename = "filter")]
+  filter: Option<Vec<::models::ScannerparamsFilter>>,
   /// for example-STK
   #[serde(rename = "instrument")]
   instrument: Option<String>,
-  /// for example-TOP_PERC_GAIN
-  #[serde(rename = "type")]
-  _type: Option<String>,
-  #[serde(rename = "filter")]
-  filter: Option<Vec<::models::ScannerparamsFilter>>,
   #[serde(rename = "location")]
   location: Option<String>,
   #[serde(rename = "size")]
-  size: Option<String>
+  size: Option<String>,
+  /// for example-TOP_PERC_GAIN
+  #[serde(rename = "type")]
+  _type: Option<String>
 }
 
 impl ScannerParams {
   pub fn new() -> ScannerParams {
     ScannerParams {
-      instrument: None,
-      _type: None,
       filter: None,
+      instrument: None,
       location: None,
-      size: None
+      size: None,
+      _type: None
     }
-  }
-
-  pub fn set_instrument(&mut self, instrument: String) {
-    self.instrument = Some(instrument);
-  }
-
-  pub fn with_instrument(mut self, instrument: String) -> ScannerParams {
-    self.instrument = Some(instrument);
-    self
-  }
-
-  pub fn instrument(&self) -> Option<&String> {
-    self.instrument.as_ref()
-  }
-
-  pub fn reset_instrument(&mut self) {
-    self.instrument = None;
-  }
-
-  pub fn set__type(&mut self, _type: String) {
-    self._type = Some(_type);
-  }
-
-  pub fn with__type(mut self, _type: String) -> ScannerParams {
-    self._type = Some(_type);
-    self
-  }
-
-  pub fn _type(&self) -> Option<&String> {
-    self._type.as_ref()
-  }
-
-  pub fn reset__type(&mut self) {
-    self._type = None;
   }
 
   pub fn set_filter(&mut self, filter: Vec<::models::ScannerparamsFilter>) {
@@ -88,6 +54,23 @@ impl ScannerParams {
 
   pub fn reset_filter(&mut self) {
     self.filter = None;
+  }
+
+  pub fn set_instrument(&mut self, instrument: String) {
+    self.instrument = Some(instrument);
+  }
+
+  pub fn with_instrument(mut self, instrument: String) -> ScannerParams {
+    self.instrument = Some(instrument);
+    self
+  }
+
+  pub fn instrument(&self) -> Option<&String> {
+    self.instrument.as_ref()
+  }
+
+  pub fn reset_instrument(&mut self) {
+    self.instrument = None;
   }
 
   pub fn set_location(&mut self, location: String) {
@@ -122,6 +105,23 @@ impl ScannerParams {
 
   pub fn reset_size(&mut self) {
     self.size = None;
+  }
+
+  pub fn set__type(&mut self, _type: String) {
+    self._type = Some(_type);
+  }
+
+  pub fn with__type(mut self, _type: String) -> ScannerParams {
+    self._type = Some(_type);
+    self
+  }
+
+  pub fn _type(&self) -> Option<&String> {
+    self._type.as_ref()
+  }
+
+  pub fn reset__type(&mut self) {
+    self._type = None;
   }
 
 }

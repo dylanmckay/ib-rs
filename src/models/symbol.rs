@@ -14,39 +14,25 @@ use serde_json::Value;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Symbol {
-  /// symbol or name to be searched
-  #[serde(rename = "symbol")]
-  symbol: String,
   /// should be true if the search is to be performed by name. false by default.
   #[serde(rename = "name")]
   name: Option<bool>,
   /// If search is done by name, only the assets provided in this field will be returned. Currently, only STK is supported.
   #[serde(rename = "secType")]
-  sec_type: Option<String>
+  sec_type: Option<String>,
+  /// symbol or name to be searched
+  #[serde(rename = "symbol")]
+  symbol: String
 }
 
 impl Symbol {
   pub fn new(symbol: String) -> Symbol {
     Symbol {
-      symbol: symbol,
       name: None,
-      sec_type: None
+      sec_type: None,
+      symbol: symbol
     }
   }
-
-  pub fn set_symbol(&mut self, symbol: String) {
-    self.symbol = symbol;
-  }
-
-  pub fn with_symbol(mut self, symbol: String) -> Symbol {
-    self.symbol = symbol;
-    self
-  }
-
-  pub fn symbol(&self) -> &String {
-    &self.symbol
-  }
-
 
   pub fn set_name(&mut self, name: bool) {
     self.name = Some(name);
@@ -81,6 +67,20 @@ impl Symbol {
   pub fn reset_sec_type(&mut self) {
     self.sec_type = None;
   }
+
+  pub fn set_symbol(&mut self, symbol: String) {
+    self.symbol = symbol;
+  }
+
+  pub fn with_symbol(mut self, symbol: String) -> Symbol {
+    self.symbol = symbol;
+    self
+  }
+
+  pub fn symbol(&self) -> &String {
+    &self.symbol
+  }
+
 
 }
 

@@ -21,6 +21,7 @@ All URIs are relative to *https://localhost:5000/v1/portal*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
+*AccountApi* | [**iserver_account_pnl_partitioned_get**](docs/AccountApi.md#iserver_account_pnl_partitioned_get) | **Get** /iserver/account/pnl/partitioned | PnL for the selected account
 *AccountApi* | [**iserver_account_post**](docs/AccountApi.md#iserver_account_post) | **Post** /iserver/account | Updates currently selected account to the provided account
 *AccountApi* | [**iserver_accounts_get**](docs/AccountApi.md#iserver_accounts_get) | **Get** /iserver/accounts | Brokerage Accounts
 *AccountApi* | [**portfolio_account_id_ledger_get**](docs/AccountApi.md#portfolio_account_id_ledger_get) | **Get** /portfolio/{accountId}/ledger | Account Ledger
@@ -44,19 +45,22 @@ Class | Method | HTTP request | Description
 *FYIApi* | [**fyi_settings_get**](docs/FYIApi.md#fyi_settings_get) | **Get** /fyi/settings | Get a list of subscriptions
 *FYIApi* | [**fyi_settings_typecode_post**](docs/FYIApi.md#fyi_settings_typecode_post) | **Post** /fyi/settings/{typecode} | enable/disable certain subscription
 *FYIApi* | [**fyi_unreadnumber_get**](docs/FYIApi.md#fyi_unreadnumber_get) | **Get** /fyi/unreadnumber | Get unread number of fyis
+*IBCustApi* | [**ibcust_entity_info_get**](docs/IBCustApi.md#ibcust_entity_info_get) | **Get** /ibcust/entity/info | IBCust Entity Info
 *MarketDataApi* | [**iserver_marketdata_history_get**](docs/MarketDataApi.md#iserver_marketdata_history_get) | **Get** /iserver/marketdata/history | Market Data History
 *MarketDataApi* | [**iserver_marketdata_snapshot_get**](docs/MarketDataApi.md#iserver_marketdata_snapshot_get) | **Get** /iserver/marketdata/snapshot | Market Data
 *OrderApi* | [**iserver_account_account_id_order_orig_customer_order_id_delete**](docs/OrderApi.md#iserver_account_account_id_order_orig_customer_order_id_delete) | **Delete** /iserver/account/{accountId}/order/{origCustomerOrderId} | Delete Order
 *OrderApi* | [**iserver_account_account_id_order_orig_customer_order_id_post**](docs/OrderApi.md#iserver_account_account_id_order_orig_customer_order_id_post) | **Post** /iserver/account/{accountId}/order/{origCustomerOrderId} | Modify Order
 *OrderApi* | [**iserver_account_account_id_order_post**](docs/OrderApi.md#iserver_account_account_id_order_post) | **Post** /iserver/account/{accountId}/order | Place Order
 *OrderApi* | [**iserver_account_account_id_order_whatif_post**](docs/OrderApi.md#iserver_account_account_id_order_whatif_post) | **Post** /iserver/account/{accountId}/order/whatif | Preview Order
+*OrderApi* | [**iserver_account_account_id_orders_post**](docs/OrderApi.md#iserver_account_account_id_orders_post) | **Post** /iserver/account/{accountId}/orders | Place Orders (Support bracket orders)
 *OrderApi* | [**iserver_account_orders_get**](docs/OrderApi.md#iserver_account_orders_get) | **Get** /iserver/account/orders | Live Orders
 *OrderApi* | [**iserver_reply_replyid_post**](docs/OrderApi.md#iserver_reply_replyid_post) | **Post** /iserver/reply/{replyid} | Place Order Reply
-*PnlApi* | [**iserver_account_pnl_partitioned_get**](docs/PnlApi.md#iserver_account_pnl_partitioned_get) | **Get** /iserver/account/pnl/partitioned | PNL information for the selected account
+*PnLApi* | [**iserver_account_pnl_partitioned_get**](docs/PnLApi.md#iserver_account_pnl_partitioned_get) | **Get** /iserver/account/pnl/partitioned | PnL for the selected account
 *PortfolioApi* | [**portfolio_account_id_allocation_get**](docs/PortfolioApi.md#portfolio_account_id_allocation_get) | **Get** /portfolio/{accountId}/allocation | Account Allocation
 *PortfolioApi* | [**portfolio_account_id_ledger_get**](docs/PortfolioApi.md#portfolio_account_id_ledger_get) | **Get** /portfolio/{accountId}/ledger | Account Ledger
 *PortfolioApi* | [**portfolio_account_id_meta_get**](docs/PortfolioApi.md#portfolio_account_id_meta_get) | **Get** /portfolio/{accountId}/meta | Account Information
 *PortfolioApi* | [**portfolio_account_id_position_conid_get**](docs/PortfolioApi.md#portfolio_account_id_position_conid_get) | **Get** /portfolio/{accountId}/position/{conid} | Position by Conid
+*PortfolioApi* | [**portfolio_account_id_positions_invalidate_post**](docs/PortfolioApi.md#portfolio_account_id_positions_invalidate_post) | **Post** /portfolio/{accountId}/positions/invalidate | Invalidates the backend cache of the Portfolio
 *PortfolioApi* | [**portfolio_account_id_positions_page_id_get**](docs/PortfolioApi.md#portfolio_account_id_positions_page_id_get) | **Get** /portfolio/{accountId}/positions/{pageId} | Portfolio Positions
 *PortfolioApi* | [**portfolio_account_id_summary_get**](docs/PortfolioApi.md#portfolio_account_id_summary_get) | **Get** /portfolio/{accountId}/summary | Account Summary
 *PortfolioApi* | [**portfolio_accounts_get**](docs/PortfolioApi.md#portfolio_accounts_get) | **Get** /portfolio/accounts | Portfolio Accounts
@@ -67,6 +71,11 @@ Class | Method | HTTP request | Description
 *PortfolioAnalystApi* | [**pa_summary_post**](docs/PortfolioAnalystApi.md#pa_summary_post) | **Post** /pa/summary | Account Balance&#39;s Summary
 *ScannerApi* | [**iserver_scanner_params_get**](docs/ScannerApi.md#iserver_scanner_params_get) | **Get** /iserver/scanner/params | get lists of available scanners
 *ScannerApi* | [**iserver_scanner_run_post**](docs/ScannerApi.md#iserver_scanner_run_post) | **Post** /iserver/scanner/run | run scanner to get a list of contracts
+*SessionApi* | [**iserver_auth_status_post**](docs/SessionApi.md#iserver_auth_status_post) | **Post** /iserver/auth/status | Authentication Status
+*SessionApi* | [**iserver_reauthenticate_post**](docs/SessionApi.md#iserver_reauthenticate_post) | **Post** /iserver/reauthenticate | Tries to re-authenticate to Brokerage
+*SessionApi* | [**logout_post**](docs/SessionApi.md#logout_post) | **Post** /logout | Ends the current session
+*SessionApi* | [**sso_validate_get**](docs/SessionApi.md#sso_validate_get) | **Get** /sso/validate | Validate SSO
+*SessionApi* | [**tickle_post**](docs/SessionApi.md#tickle_post) | **Post** /tickle | Ping the server to keep the session open
 *TradesApi* | [**iserver_account_trades_get**](docs/TradesApi.md#iserver_account_trades_get) | **Get** /iserver/account/trades | List of Trades for the selected account
 
 
@@ -86,6 +95,7 @@ Class | Method | HTTP request | Description
  - [AllocationInnerSector](docs/AllocationInnerSector.md)
  - [AllocationInnerSectorLong](docs/AllocationInnerSectorLong.md)
  - [AllocationInnerSectorShort](docs/AllocationInnerSectorShort.md)
+ - [AuthStatus](docs/AuthStatus.md)
  - [Body](docs/Body.md)
  - [Body1](docs/Body1.md)
  - [Body2](docs/Body2.md)
@@ -93,6 +103,7 @@ Class | Method | HTTP request | Description
  - [Body4](docs/Body4.md)
  - [Body5](docs/Body5.md)
  - [Body6](docs/Body6.md)
+ - [Body7](docs/Body7.md)
  - [CalendarRequest](docs/CalendarRequest.md)
  - [CalendarRequestDate](docs/CalendarRequestDate.md)
  - [CalendarRequestFilters](docs/CalendarRequestFilters.md)
@@ -104,13 +115,23 @@ Class | Method | HTTP request | Description
  - [FuturesInner](docs/FuturesInner.md)
  - [HistoryData](docs/HistoryData.md)
  - [HistorydataData](docs/HistorydataData.md)
+ - [IbcustentityinfoAddress](docs/IbcustentityinfoAddress.md)
+ - [IbcustentityinfoEntities](docs/IbcustentityinfoEntities.md)
+ - [IbcustentityinfoName](docs/IbcustentityinfoName.md)
  - [InlineResponse200](docs/InlineResponse200.md)
  - [InlineResponse2001](docs/InlineResponse2001.md)
  - [InlineResponse20010](docs/InlineResponse20010.md)
+ - [InlineResponse20010Amount](docs/InlineResponse20010Amount.md)
+ - [InlineResponse20010Equity](docs/InlineResponse20010Equity.md)
  - [InlineResponse20011](docs/InlineResponse20011.md)
  - [InlineResponse20012](docs/InlineResponse20012.md)
  - [InlineResponse20013](docs/InlineResponse20013.md)
  - [InlineResponse20014](docs/InlineResponse20014.md)
+ - [InlineResponse20014FilterList](docs/InlineResponse20014FilterList.md)
+ - [InlineResponse20014InstrumentList](docs/InlineResponse20014InstrumentList.md)
+ - [InlineResponse20014LocationTree](docs/InlineResponse20014LocationTree.md)
+ - [InlineResponse20014Locations](docs/InlineResponse20014Locations.md)
+ - [InlineResponse20014ScanTypeList](docs/InlineResponse20014ScanTypeList.md)
  - [InlineResponse20015](docs/InlineResponse20015.md)
  - [InlineResponse20016](docs/InlineResponse20016.md)
  - [InlineResponse20017](docs/InlineResponse20017.md)
@@ -118,21 +139,15 @@ Class | Method | HTTP request | Description
  - [InlineResponse20019](docs/InlineResponse20019.md)
  - [InlineResponse2002](docs/InlineResponse2002.md)
  - [InlineResponse20020](docs/InlineResponse20020.md)
- - [InlineResponse20020E](docs/InlineResponse20020E.md)
+ - [InlineResponse20021](docs/InlineResponse20021.md)
  - [InlineResponse2003](docs/InlineResponse2003.md)
  - [InlineResponse2004](docs/InlineResponse2004.md)
  - [InlineResponse2005](docs/InlineResponse2005.md)
- - [InlineResponse2005Amount](docs/InlineResponse2005Amount.md)
- - [InlineResponse2005Equity](docs/InlineResponse2005Equity.md)
  - [InlineResponse2006](docs/InlineResponse2006.md)
  - [InlineResponse2007](docs/InlineResponse2007.md)
  - [InlineResponse2008](docs/InlineResponse2008.md)
  - [InlineResponse2009](docs/InlineResponse2009.md)
- - [InlineResponse2009FilterList](docs/InlineResponse2009FilterList.md)
- - [InlineResponse2009InstrumentList](docs/InlineResponse2009InstrumentList.md)
- - [InlineResponse2009LocationTree](docs/InlineResponse2009LocationTree.md)
- - [InlineResponse2009Locations](docs/InlineResponse2009Locations.md)
- - [InlineResponse2009ScanTypeList](docs/InlineResponse2009ScanTypeList.md)
+ - [InlineResponse200E](docs/InlineResponse200E.md)
  - [InlineResponse400](docs/InlineResponse400.md)
  - [InlineResponse4001](docs/InlineResponse4001.md)
  - [InlineResponse500](docs/InlineResponse500.md)

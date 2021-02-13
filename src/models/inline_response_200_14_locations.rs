@@ -13,16 +13,16 @@
 use serde_json::Value;
 
 #[derive(Debug, Serialize, Deserialize)]
-pub struct InlineResponse2009Locations {
+pub struct InlineResponse20014Locations {
   #[serde(rename = "display_name")]
   display_name: Option<String>,
   #[serde(rename = "type")]
   _type: Option<String>
 }
 
-impl InlineResponse2009Locations {
-  pub fn new() -> InlineResponse2009Locations {
-    InlineResponse2009Locations {
+impl InlineResponse20014Locations {
+  pub fn new() -> InlineResponse20014Locations {
+    InlineResponse20014Locations {
       display_name: None,
       _type: None
     }
@@ -32,7 +32,7 @@ impl InlineResponse2009Locations {
     self.display_name = Some(display_name);
   }
 
-  pub fn with_display_name(mut self, display_name: String) -> InlineResponse2009Locations {
+  pub fn with_display_name(mut self, display_name: String) -> InlineResponse20014Locations {
     self.display_name = Some(display_name);
     self
   }
@@ -49,7 +49,7 @@ impl InlineResponse2009Locations {
     self._type = Some(_type);
   }
 
-  pub fn with__type(mut self, _type: String) -> InlineResponse2009Locations {
+  pub fn with__type(mut self, _type: String) -> InlineResponse20014Locations {
     self._type = Some(_type);
     self
   }

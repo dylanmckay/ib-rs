@@ -14,117 +14,33 @@ use serde_json::Value;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct InlineResponse20017 {
-  /// optional, if A doesn't exist, it means user can't toggle this option. 0-off, 1-on.
-  #[serde(rename = "A")]
-  A: Option<i32>,
-  /// fyi code
-  #[serde(rename = "FC")]
-  FC: Option<String>,
-  /// disclaimer read, 1 = yes, = 0 no.
-  #[serde(rename = "H")]
-  H: Option<i32>,
-  /// detailed description
-  #[serde(rename = "FD")]
-  FD: Option<String>,
-  /// title
-  #[serde(rename = "FN")]
-  FN: Option<String>
+  /// true means username is still logged in, false means it is not
+  #[serde(rename = "confirmed")]
+  confirmed: Option<bool>
 }
 
 impl InlineResponse20017 {
   pub fn new() -> InlineResponse20017 {
     InlineResponse20017 {
-      A: None,
-      FC: None,
-      H: None,
-      FD: None,
-      FN: None
+      confirmed: None
     }
   }
 
-  pub fn set_A(&mut self, A: i32) {
-    self.A = Some(A);
+  pub fn set_confirmed(&mut self, confirmed: bool) {
+    self.confirmed = Some(confirmed);
   }
 
-  pub fn with_A(mut self, A: i32) -> InlineResponse20017 {
-    self.A = Some(A);
+  pub fn with_confirmed(mut self, confirmed: bool) -> InlineResponse20017 {
+    self.confirmed = Some(confirmed);
     self
   }
 
-  pub fn A(&self) -> Option<&i32> {
-    self.A.as_ref()
+  pub fn confirmed(&self) -> Option<&bool> {
+    self.confirmed.as_ref()
   }
 
-  pub fn reset_A(&mut self) {
-    self.A = None;
-  }
-
-  pub fn set_FC(&mut self, FC: String) {
-    self.FC = Some(FC);
-  }
-
-  pub fn with_FC(mut self, FC: String) -> InlineResponse20017 {
-    self.FC = Some(FC);
-    self
-  }
-
-  pub fn FC(&self) -> Option<&String> {
-    self.FC.as_ref()
-  }
-
-  pub fn reset_FC(&mut self) {
-    self.FC = None;
-  }
-
-  pub fn set_H(&mut self, H: i32) {
-    self.H = Some(H);
-  }
-
-  pub fn with_H(mut self, H: i32) -> InlineResponse20017 {
-    self.H = Some(H);
-    self
-  }
-
-  pub fn H(&self) -> Option<&i32> {
-    self.H.as_ref()
-  }
-
-  pub fn reset_H(&mut self) {
-    self.H = None;
-  }
-
-  pub fn set_FD(&mut self, FD: String) {
-    self.FD = Some(FD);
-  }
-
-  pub fn with_FD(mut self, FD: String) -> InlineResponse20017 {
-    self.FD = Some(FD);
-    self
-  }
-
-  pub fn FD(&self) -> Option<&String> {
-    self.FD.as_ref()
-  }
-
-  pub fn reset_FD(&mut self) {
-    self.FD = None;
-  }
-
-  pub fn set_FN(&mut self, FN: String) {
-    self.FN = Some(FN);
-  }
-
-  pub fn with_FN(mut self, FN: String) -> InlineResponse20017 {
-    self.FN = Some(FN);
-    self
-  }
-
-  pub fn FN(&self) -> Option<&String> {
-    self.FN.as_ref()
-  }
-
-  pub fn reset_FN(&mut self) {
-    self.FN = None;
+  pub fn reset_confirmed(&mut self) {
+    self.confirmed = None;
   }
 
 }

@@ -10,12 +10,15 @@
 
 use std::rc::Rc;
 use std::borrow::Borrow;
+use std::borrow::Cow;
+use std::collections::HashMap;
 
 use hyper;
-use serde_json;
-use serde_json::Value;
+use serde_json::{self, Value};
 use futures;
 use futures::{Future, Stream};
+
+use hyper::header::UserAgent;
 
 use super::{Error, configuration};
 
@@ -32,62 +35,95 @@ impl<C: hyper::client::Connect> FYIApiClient<C> {
 }
 
 pub trait FYIApi {
-    fn fyi_deliveryoptions_device_id_delete(&self, device_id: &str) -> Box<Future<Item = Value, Error = Error>>;
-    fn fyi_deliveryoptions_device_post(&self, body: ::models::Body6) -> Box<Future<Item = ::models::InlineResponse20019, Error = Error>>;
-    fn fyi_deliveryoptions_email_put(&self, enabled: &str) -> Box<Future<Item = ::models::InlineResponse20019, Error = Error>>;
-    fn fyi_deliveryoptions_get(&self, ) -> Box<Future<Item = ::models::InlineResponse20020, Error = Error>>;
-    fn fyi_disclaimer_typecode_get(&self, typecode: &str) -> Box<Future<Item = ::models::InlineResponse20018, Error = Error>>;
-    fn fyi_disclaimer_typecode_put(&self, typecode: &str) -> Box<Future<Item = ::models::InlineResponse20019, Error = Error>>;
-    fn fyi_notifications_get(&self, max: &str, exclude: &str, include: &str) -> Box<Future<Item = ::models::Notifications, Error = Error>>;
-    fn fyi_notifications_more_get(&self, id: &str) -> Box<Future<Item = ::models::Notifications, Error = Error>>;
-    fn fyi_notifications_notification_id_put(&self, notification_id: &str) -> Box<Future<Item = Value, Error = Error>>;
-    fn fyi_settings_get(&self, ) -> Box<Future<Item = Vec<::models::InlineResponse20017>, Error = Error>>;
-    fn fyi_settings_typecode_post(&self, typecode: &str, body: ::models::Body5) -> Box<Future<Item = Value, Error = Error>>;
-    fn fyi_unreadnumber_get(&self, ) -> Box<Future<Item = ::models::InlineResponse20016, Error = Error>>;
+    fn fyi_deliveryoptions_device_id_delete(&self, device_id: &str) -> Box<Future<Item = Value, Error = Error<serde_json::Value>>>;
+    fn fyi_deliveryoptions_device_post(&self, body: ::models::Body) -> Box<Future<Item = ::models::InlineResponse2001, Error = Error<serde_json::Value>>>;
+    fn fyi_deliveryoptions_email_put(&self, enabled: &str) -> Box<Future<Item = ::models::InlineResponse2001, Error = Error<serde_json::Value>>>;
+    fn fyi_deliveryoptions_get(&self, ) -> Box<Future<Item = ::models::InlineResponse200, Error = Error<serde_json::Value>>>;
+    fn fyi_disclaimer_typecode_get(&self, typecode: &str) -> Box<Future<Item = ::models::InlineResponse2002, Error = Error<serde_json::Value>>>;
+    fn fyi_disclaimer_typecode_put(&self, typecode: &str) -> Box<Future<Item = ::models::InlineResponse2001, Error = Error<serde_json::Value>>>;
+    fn fyi_notifications_get(&self, max: &str, exclude: &str, include: &str) -> Box<Future<Item = ::models::Notifications, Error = Error<serde_json::Value>>>;
+    fn fyi_notifications_more_get(&self, id: &str) -> Box<Future<Item = ::models::Notifications, Error = Error<serde_json::Value>>>;
+    fn fyi_notifications_notification_id_put(&self, notification_id: &str) -> Box<Future<Item = Value, Error = Error<serde_json::Value>>>;
+    fn fyi_settings_get(&self, ) -> Box<Future<Item = Vec<::models::InlineResponse2003>, Error = Error<serde_json::Value>>>;
+    fn fyi_settings_typecode_post(&self, typecode: &str, body: ::models::Body1) -> Box<Future<Item = Value, Error = Error<serde_json::Value>>>;
+    fn fyi_unreadnumber_get(&self, ) -> Box<Future<Item = ::models::InlineResponse2004, Error = Error<serde_json::Value>>>;
 }
 
 
 impl<C: hyper::client::Connect>FYIApi for FYIApiClient<C> {
-    fn fyi_deliveryoptions_device_id_delete(&self, device_id: &str) -> Box<Future<Item = Value, Error = Error>> {
+    fn fyi_deliveryoptions_device_id_delete(&self, device_id: &str) -> Box<Future<Item = Value, Error = Error<serde_json::Value>>> {
         let configuration: &configuration::Configuration<C> = self.configuration.borrow();
 
         let method = hyper::Method::Delete;
 
-        let uri_str = format!("{}/fyi/deliveryoptions/{deviceId}", configuration.base_path, deviceId=device_id);
+        let query_string = {
+            let mut query = ::url::form_urlencoded::Serializer::new(String::new());
+            query.finish()
+        };
+        let uri_str = format!("{}/fyi/deliveryoptions/{deviceId}?{}", configuration.base_path, query_string, deviceId=device_id);
 
-        let uri = uri_str.parse();
         // TODO(farcaller): handle error
         // if let Err(e) = uri {
         //     return Box::new(futures::future::err(e));
         // }
-        let mut req = hyper::Request::new(method, uri.unwrap());
+        let mut uri: hyper::Uri = uri_str.parse().unwrap();
+
+        let mut req = hyper::Request::new(method, uri);
+
+        if let Some(ref user_agent) = configuration.user_agent {
+            req.headers_mut().set(UserAgent::new(Cow::Owned(user_agent.clone())));
+        }
+
 
 
 
         // send request
         Box::new(
-            configuration.client.request(req).and_then(|res| { res.body().concat2() })
+        configuration.client.request(req)
             .map_err(|e| Error::from(e))
+            .and_then(|resp| {
+                let status = resp.status();
+                resp.body().concat2()
+                    .and_then(move |body| Ok((status, body)))
+                    .map_err(|e| Error::from(e))
+            })
+            .and_then(|(status, body)| {
+                if status.is_success() {
+                    Ok(body)
+                } else {
+                    Err(Error::from((status, &*body)))
+                }
+            })
             .and_then(|body| {
                 let parsed: Result<Value, _> = serde_json::from_slice(&body);
                 parsed.map_err(|e| Error::from(e))
-            }).map_err(|e| Error::from(e))
+            })
         )
     }
 
-    fn fyi_deliveryoptions_device_post(&self, body: ::models::Body6) -> Box<Future<Item = ::models::InlineResponse20019, Error = Error>> {
+    fn fyi_deliveryoptions_device_post(&self, body: ::models::Body) -> Box<Future<Item = ::models::InlineResponse2001, Error = Error<serde_json::Value>>> {
         let configuration: &configuration::Configuration<C> = self.configuration.borrow();
 
         let method = hyper::Method::Post;
 
-        let uri_str = format!("{}/fyi/deliveryoptions/device", configuration.base_path);
+        let query_string = {
+            let mut query = ::url::form_urlencoded::Serializer::new(String::new());
+            query.finish()
+        };
+        let uri_str = format!("{}/fyi/deliveryoptions/device?{}", configuration.base_path, query_string);
 
-        let uri = uri_str.parse();
         // TODO(farcaller): handle error
         // if let Err(e) = uri {
         //     return Box::new(futures::future::err(e));
         // }
-        let mut req = hyper::Request::new(method, uri.unwrap());
+        let mut uri: hyper::Uri = uri_str.parse().unwrap();
+
+        let mut req = hyper::Request::new(method, uri);
+
+        if let Some(ref user_agent) = configuration.user_agent {
+            req.headers_mut().set(UserAgent::new(Cow::Owned(user_agent.clone())));
+        }
+
 
 
         let serialized = serde_json::to_string(&body).unwrap();
@@ -97,255 +133,456 @@ impl<C: hyper::client::Connect>FYIApi for FYIApiClient<C> {
 
         // send request
         Box::new(
-            configuration.client.request(req).and_then(|res| { res.body().concat2() })
+        configuration.client.request(req)
             .map_err(|e| Error::from(e))
+            .and_then(|resp| {
+                let status = resp.status();
+                resp.body().concat2()
+                    .and_then(move |body| Ok((status, body)))
+                    .map_err(|e| Error::from(e))
+            })
+            .and_then(|(status, body)| {
+                if status.is_success() {
+                    Ok(body)
+                } else {
+                    Err(Error::from((status, &*body)))
+                }
+            })
             .and_then(|body| {
-                let parsed: Result<::models::InlineResponse20019, _> = serde_json::from_slice(&body);
+                let parsed: Result<::models::InlineResponse2001, _> = serde_json::from_slice(&body);
                 parsed.map_err(|e| Error::from(e))
-            }).map_err(|e| Error::from(e))
+            })
         )
     }
 
-    fn fyi_deliveryoptions_email_put(&self, enabled: &str) -> Box<Future<Item = ::models::InlineResponse20019, Error = Error>> {
+    fn fyi_deliveryoptions_email_put(&self, enabled: &str) -> Box<Future<Item = ::models::InlineResponse2001, Error = Error<serde_json::Value>>> {
         let configuration: &configuration::Configuration<C> = self.configuration.borrow();
 
         let method = hyper::Method::Put;
 
-        let query = ::url::form_urlencoded::Serializer::new(String::new())
-            .append_pair("enabled", &enabled.to_string())
-            .finish();
-        let uri_str = format!("{}/fyi/deliveryoptions/email{}", configuration.base_path, query);
+        let query_string = {
+            let mut query = ::url::form_urlencoded::Serializer::new(String::new());
+            query.append_pair("enabled", &enabled.to_string());
+            query.finish()
+        };
+        let uri_str = format!("{}/fyi/deliveryoptions/email?{}", configuration.base_path, query_string);
 
-        let uri = uri_str.parse();
         // TODO(farcaller): handle error
         // if let Err(e) = uri {
         //     return Box::new(futures::future::err(e));
         // }
-        let mut req = hyper::Request::new(method, uri.unwrap());
+        let mut uri: hyper::Uri = uri_str.parse().unwrap();
+
+        let mut req = hyper::Request::new(method, uri);
+
+        if let Some(ref user_agent) = configuration.user_agent {
+            req.headers_mut().set(UserAgent::new(Cow::Owned(user_agent.clone())));
+        }
+
 
 
 
         // send request
         Box::new(
-            configuration.client.request(req).and_then(|res| { res.body().concat2() })
+        configuration.client.request(req)
             .map_err(|e| Error::from(e))
+            .and_then(|resp| {
+                let status = resp.status();
+                resp.body().concat2()
+                    .and_then(move |body| Ok((status, body)))
+                    .map_err(|e| Error::from(e))
+            })
+            .and_then(|(status, body)| {
+                if status.is_success() {
+                    Ok(body)
+                } else {
+                    Err(Error::from((status, &*body)))
+                }
+            })
             .and_then(|body| {
-                let parsed: Result<::models::InlineResponse20019, _> = serde_json::from_slice(&body);
+                let parsed: Result<::models::InlineResponse2001, _> = serde_json::from_slice(&body);
                 parsed.map_err(|e| Error::from(e))
-            }).map_err(|e| Error::from(e))
+            })
         )
     }
 
-    fn fyi_deliveryoptions_get(&self, ) -> Box<Future<Item = ::models::InlineResponse20020, Error = Error>> {
+    fn fyi_deliveryoptions_get(&self, ) -> Box<Future<Item = ::models::InlineResponse200, Error = Error<serde_json::Value>>> {
         let configuration: &configuration::Configuration<C> = self.configuration.borrow();
 
         let method = hyper::Method::Get;
 
-        let uri_str = format!("{}/fyi/deliveryoptions", configuration.base_path);
+        let query_string = {
+            let mut query = ::url::form_urlencoded::Serializer::new(String::new());
+            query.finish()
+        };
+        let uri_str = format!("{}/fyi/deliveryoptions?{}", configuration.base_path, query_string);
 
-        let uri = uri_str.parse();
         // TODO(farcaller): handle error
         // if let Err(e) = uri {
         //     return Box::new(futures::future::err(e));
         // }
-        let mut req = hyper::Request::new(method, uri.unwrap());
+        let mut uri: hyper::Uri = uri_str.parse().unwrap();
+
+        let mut req = hyper::Request::new(method, uri);
+
+        if let Some(ref user_agent) = configuration.user_agent {
+            req.headers_mut().set(UserAgent::new(Cow::Owned(user_agent.clone())));
+        }
+
 
 
 
         // send request
         Box::new(
-            configuration.client.request(req).and_then(|res| { res.body().concat2() })
+        configuration.client.request(req)
             .map_err(|e| Error::from(e))
+            .and_then(|resp| {
+                let status = resp.status();
+                resp.body().concat2()
+                    .and_then(move |body| Ok((status, body)))
+                    .map_err(|e| Error::from(e))
+            })
+            .and_then(|(status, body)| {
+                if status.is_success() {
+                    Ok(body)
+                } else {
+                    Err(Error::from((status, &*body)))
+                }
+            })
             .and_then(|body| {
-                let parsed: Result<::models::InlineResponse20020, _> = serde_json::from_slice(&body);
+                let parsed: Result<::models::InlineResponse200, _> = serde_json::from_slice(&body);
                 parsed.map_err(|e| Error::from(e))
-            }).map_err(|e| Error::from(e))
+            })
         )
     }
 
-    fn fyi_disclaimer_typecode_get(&self, typecode: &str) -> Box<Future<Item = ::models::InlineResponse20018, Error = Error>> {
+    fn fyi_disclaimer_typecode_get(&self, typecode: &str) -> Box<Future<Item = ::models::InlineResponse2002, Error = Error<serde_json::Value>>> {
         let configuration: &configuration::Configuration<C> = self.configuration.borrow();
 
         let method = hyper::Method::Get;
 
-        let uri_str = format!("{}/fyi/disclaimer/{typecode}", configuration.base_path, typecode=typecode);
+        let query_string = {
+            let mut query = ::url::form_urlencoded::Serializer::new(String::new());
+            query.finish()
+        };
+        let uri_str = format!("{}/fyi/disclaimer/{typecode}?{}", configuration.base_path, query_string, typecode=typecode);
 
-        let uri = uri_str.parse();
         // TODO(farcaller): handle error
         // if let Err(e) = uri {
         //     return Box::new(futures::future::err(e));
         // }
-        let mut req = hyper::Request::new(method, uri.unwrap());
+        let mut uri: hyper::Uri = uri_str.parse().unwrap();
+
+        let mut req = hyper::Request::new(method, uri);
+
+        if let Some(ref user_agent) = configuration.user_agent {
+            req.headers_mut().set(UserAgent::new(Cow::Owned(user_agent.clone())));
+        }
+
 
 
 
         // send request
         Box::new(
-            configuration.client.request(req).and_then(|res| { res.body().concat2() })
+        configuration.client.request(req)
             .map_err(|e| Error::from(e))
+            .and_then(|resp| {
+                let status = resp.status();
+                resp.body().concat2()
+                    .and_then(move |body| Ok((status, body)))
+                    .map_err(|e| Error::from(e))
+            })
+            .and_then(|(status, body)| {
+                if status.is_success() {
+                    Ok(body)
+                } else {
+                    Err(Error::from((status, &*body)))
+                }
+            })
             .and_then(|body| {
-                let parsed: Result<::models::InlineResponse20018, _> = serde_json::from_slice(&body);
+                let parsed: Result<::models::InlineResponse2002, _> = serde_json::from_slice(&body);
                 parsed.map_err(|e| Error::from(e))
-            }).map_err(|e| Error::from(e))
+            })
         )
     }
 
-    fn fyi_disclaimer_typecode_put(&self, typecode: &str) -> Box<Future<Item = ::models::InlineResponse20019, Error = Error>> {
+    fn fyi_disclaimer_typecode_put(&self, typecode: &str) -> Box<Future<Item = ::models::InlineResponse2001, Error = Error<serde_json::Value>>> {
         let configuration: &configuration::Configuration<C> = self.configuration.borrow();
 
         let method = hyper::Method::Put;
 
-        let uri_str = format!("{}/fyi/disclaimer/{typecode}", configuration.base_path, typecode=typecode);
+        let query_string = {
+            let mut query = ::url::form_urlencoded::Serializer::new(String::new());
+            query.finish()
+        };
+        let uri_str = format!("{}/fyi/disclaimer/{typecode}?{}", configuration.base_path, query_string, typecode=typecode);
 
-        let uri = uri_str.parse();
         // TODO(farcaller): handle error
         // if let Err(e) = uri {
         //     return Box::new(futures::future::err(e));
         // }
-        let mut req = hyper::Request::new(method, uri.unwrap());
+        let mut uri: hyper::Uri = uri_str.parse().unwrap();
+
+        let mut req = hyper::Request::new(method, uri);
+
+        if let Some(ref user_agent) = configuration.user_agent {
+            req.headers_mut().set(UserAgent::new(Cow::Owned(user_agent.clone())));
+        }
+
 
 
 
         // send request
         Box::new(
-            configuration.client.request(req).and_then(|res| { res.body().concat2() })
+        configuration.client.request(req)
             .map_err(|e| Error::from(e))
+            .and_then(|resp| {
+                let status = resp.status();
+                resp.body().concat2()
+                    .and_then(move |body| Ok((status, body)))
+                    .map_err(|e| Error::from(e))
+            })
+            .and_then(|(status, body)| {
+                if status.is_success() {
+                    Ok(body)
+                } else {
+                    Err(Error::from((status, &*body)))
+                }
+            })
             .and_then(|body| {
-                let parsed: Result<::models::InlineResponse20019, _> = serde_json::from_slice(&body);
+                let parsed: Result<::models::InlineResponse2001, _> = serde_json::from_slice(&body);
                 parsed.map_err(|e| Error::from(e))
-            }).map_err(|e| Error::from(e))
+            })
         )
     }
 
-    fn fyi_notifications_get(&self, max: &str, exclude: &str, include: &str) -> Box<Future<Item = ::models::Notifications, Error = Error>> {
+    fn fyi_notifications_get(&self, max: &str, exclude: &str, include: &str) -> Box<Future<Item = ::models::Notifications, Error = Error<serde_json::Value>>> {
         let configuration: &configuration::Configuration<C> = self.configuration.borrow();
 
         let method = hyper::Method::Get;
 
-        let query = ::url::form_urlencoded::Serializer::new(String::new())
-            .append_pair("exclude", &exclude.to_string())
-            .append_pair("include", &include.to_string())
-            .append_pair("max", &max.to_string())
-            .finish();
-        let uri_str = format!("{}/fyi/notifications{}", configuration.base_path, query);
+        let query_string = {
+            let mut query = ::url::form_urlencoded::Serializer::new(String::new());
+            query.append_pair("exclude", &exclude.to_string());
+            query.append_pair("include", &include.to_string());
+            query.append_pair("max", &max.to_string());
+            query.finish()
+        };
+        let uri_str = format!("{}/fyi/notifications?{}", configuration.base_path, query_string);
 
-        let uri = uri_str.parse();
         // TODO(farcaller): handle error
         // if let Err(e) = uri {
         //     return Box::new(futures::future::err(e));
         // }
-        let mut req = hyper::Request::new(method, uri.unwrap());
+        let mut uri: hyper::Uri = uri_str.parse().unwrap();
+
+        let mut req = hyper::Request::new(method, uri);
+
+        if let Some(ref user_agent) = configuration.user_agent {
+            req.headers_mut().set(UserAgent::new(Cow::Owned(user_agent.clone())));
+        }
+
 
 
 
         // send request
         Box::new(
-            configuration.client.request(req).and_then(|res| { res.body().concat2() })
+        configuration.client.request(req)
             .map_err(|e| Error::from(e))
+            .and_then(|resp| {
+                let status = resp.status();
+                resp.body().concat2()
+                    .and_then(move |body| Ok((status, body)))
+                    .map_err(|e| Error::from(e))
+            })
+            .and_then(|(status, body)| {
+                if status.is_success() {
+                    Ok(body)
+                } else {
+                    Err(Error::from((status, &*body)))
+                }
+            })
             .and_then(|body| {
                 let parsed: Result<::models::Notifications, _> = serde_json::from_slice(&body);
                 parsed.map_err(|e| Error::from(e))
-            }).map_err(|e| Error::from(e))
+            })
         )
     }
 
-    fn fyi_notifications_more_get(&self, id: &str) -> Box<Future<Item = ::models::Notifications, Error = Error>> {
+    fn fyi_notifications_more_get(&self, id: &str) -> Box<Future<Item = ::models::Notifications, Error = Error<serde_json::Value>>> {
         let configuration: &configuration::Configuration<C> = self.configuration.borrow();
 
         let method = hyper::Method::Get;
 
-        let query = ::url::form_urlencoded::Serializer::new(String::new())
-            .append_pair("id", &id.to_string())
-            .finish();
-        let uri_str = format!("{}/fyi/notifications/more{}", configuration.base_path, query);
+        let query_string = {
+            let mut query = ::url::form_urlencoded::Serializer::new(String::new());
+            query.append_pair("id", &id.to_string());
+            query.finish()
+        };
+        let uri_str = format!("{}/fyi/notifications/more?{}", configuration.base_path, query_string);
 
-        let uri = uri_str.parse();
         // TODO(farcaller): handle error
         // if let Err(e) = uri {
         //     return Box::new(futures::future::err(e));
         // }
-        let mut req = hyper::Request::new(method, uri.unwrap());
+        let mut uri: hyper::Uri = uri_str.parse().unwrap();
+
+        let mut req = hyper::Request::new(method, uri);
+
+        if let Some(ref user_agent) = configuration.user_agent {
+            req.headers_mut().set(UserAgent::new(Cow::Owned(user_agent.clone())));
+        }
+
 
 
 
         // send request
         Box::new(
-            configuration.client.request(req).and_then(|res| { res.body().concat2() })
+        configuration.client.request(req)
             .map_err(|e| Error::from(e))
+            .and_then(|resp| {
+                let status = resp.status();
+                resp.body().concat2()
+                    .and_then(move |body| Ok((status, body)))
+                    .map_err(|e| Error::from(e))
+            })
+            .and_then(|(status, body)| {
+                if status.is_success() {
+                    Ok(body)
+                } else {
+                    Err(Error::from((status, &*body)))
+                }
+            })
             .and_then(|body| {
                 let parsed: Result<::models::Notifications, _> = serde_json::from_slice(&body);
                 parsed.map_err(|e| Error::from(e))
-            }).map_err(|e| Error::from(e))
+            })
         )
     }
 
-    fn fyi_notifications_notification_id_put(&self, notification_id: &str) -> Box<Future<Item = Value, Error = Error>> {
+    fn fyi_notifications_notification_id_put(&self, notification_id: &str) -> Box<Future<Item = Value, Error = Error<serde_json::Value>>> {
         let configuration: &configuration::Configuration<C> = self.configuration.borrow();
 
         let method = hyper::Method::Put;
 
-        let uri_str = format!("{}/fyi/notifications/{notificationId}", configuration.base_path, notificationId=notification_id);
+        let query_string = {
+            let mut query = ::url::form_urlencoded::Serializer::new(String::new());
+            query.finish()
+        };
+        let uri_str = format!("{}/fyi/notifications/{notificationId}?{}", configuration.base_path, query_string, notificationId=notification_id);
 
-        let uri = uri_str.parse();
         // TODO(farcaller): handle error
         // if let Err(e) = uri {
         //     return Box::new(futures::future::err(e));
         // }
-        let mut req = hyper::Request::new(method, uri.unwrap());
+        let mut uri: hyper::Uri = uri_str.parse().unwrap();
+
+        let mut req = hyper::Request::new(method, uri);
+
+        if let Some(ref user_agent) = configuration.user_agent {
+            req.headers_mut().set(UserAgent::new(Cow::Owned(user_agent.clone())));
+        }
+
 
 
 
         // send request
         Box::new(
-            configuration.client.request(req).and_then(|res| { res.body().concat2() })
+        configuration.client.request(req)
             .map_err(|e| Error::from(e))
+            .and_then(|resp| {
+                let status = resp.status();
+                resp.body().concat2()
+                    .and_then(move |body| Ok((status, body)))
+                    .map_err(|e| Error::from(e))
+            })
+            .and_then(|(status, body)| {
+                if status.is_success() {
+                    Ok(body)
+                } else {
+                    Err(Error::from((status, &*body)))
+                }
+            })
             .and_then(|body| {
                 let parsed: Result<Value, _> = serde_json::from_slice(&body);
                 parsed.map_err(|e| Error::from(e))
-            }).map_err(|e| Error::from(e))
+            })
         )
     }
 
-    fn fyi_settings_get(&self, ) -> Box<Future<Item = Vec<::models::InlineResponse20017>, Error = Error>> {
+    fn fyi_settings_get(&self, ) -> Box<Future<Item = Vec<::models::InlineResponse2003>, Error = Error<serde_json::Value>>> {
         let configuration: &configuration::Configuration<C> = self.configuration.borrow();
 
         let method = hyper::Method::Get;
 
-        let uri_str = format!("{}/fyi/settings", configuration.base_path);
+        let query_string = {
+            let mut query = ::url::form_urlencoded::Serializer::new(String::new());
+            query.finish()
+        };
+        let uri_str = format!("{}/fyi/settings?{}", configuration.base_path, query_string);
 
-        let uri = uri_str.parse();
         // TODO(farcaller): handle error
         // if let Err(e) = uri {
         //     return Box::new(futures::future::err(e));
         // }
-        let mut req = hyper::Request::new(method, uri.unwrap());
+        let mut uri: hyper::Uri = uri_str.parse().unwrap();
+
+        let mut req = hyper::Request::new(method, uri);
+
+        if let Some(ref user_agent) = configuration.user_agent {
+            req.headers_mut().set(UserAgent::new(Cow::Owned(user_agent.clone())));
+        }
+
 
 
 
         // send request
         Box::new(
-            configuration.client.request(req).and_then(|res| { res.body().concat2() })
+        configuration.client.request(req)
             .map_err(|e| Error::from(e))
+            .and_then(|resp| {
+                let status = resp.status();
+                resp.body().concat2()
+                    .and_then(move |body| Ok((status, body)))
+                    .map_err(|e| Error::from(e))
+            })
+            .and_then(|(status, body)| {
+                if status.is_success() {
+                    Ok(body)
+                } else {
+                    Err(Error::from((status, &*body)))
+                }
+            })
             .and_then(|body| {
-                let parsed: Result<Vec<::models::InlineResponse20017>, _> = serde_json::from_slice(&body);
+                let parsed: Result<Vec<::models::InlineResponse2003>, _> = serde_json::from_slice(&body);
                 parsed.map_err(|e| Error::from(e))
-            }).map_err(|e| Error::from(e))
+            })
         )
     }
 
-    fn fyi_settings_typecode_post(&self, typecode: &str, body: ::models::Body5) -> Box<Future<Item = Value, Error = Error>> {
+    fn fyi_settings_typecode_post(&self, typecode: &str, body: ::models::Body1) -> Box<Future<Item = Value, Error = Error<serde_json::Value>>> {
         let configuration: &configuration::Configuration<C> = self.configuration.borrow();
 
         let method = hyper::Method::Post;
 
-        let uri_str = format!("{}/fyi/settings/{typecode}", configuration.base_path, typecode=typecode);
+        let query_string = {
+            let mut query = ::url::form_urlencoded::Serializer::new(String::new());
+            query.finish()
+        };
+        let uri_str = format!("{}/fyi/settings/{typecode}?{}", configuration.base_path, query_string, typecode=typecode);
 
-        let uri = uri_str.parse();
         // TODO(farcaller): handle error
         // if let Err(e) = uri {
         //     return Box::new(futures::future::err(e));
         // }
-        let mut req = hyper::Request::new(method, uri.unwrap());
+        let mut uri: hyper::Uri = uri_str.parse().unwrap();
+
+        let mut req = hyper::Request::new(method, uri);
+
+        if let Some(ref user_agent) = configuration.user_agent {
+            req.headers_mut().set(UserAgent::new(Cow::Owned(user_agent.clone())));
+        }
+
 
 
         let serialized = serde_json::to_string(&body).unwrap();
@@ -355,39 +592,75 @@ impl<C: hyper::client::Connect>FYIApi for FYIApiClient<C> {
 
         // send request
         Box::new(
-            configuration.client.request(req).and_then(|res| { res.body().concat2() })
+        configuration.client.request(req)
             .map_err(|e| Error::from(e))
+            .and_then(|resp| {
+                let status = resp.status();
+                resp.body().concat2()
+                    .and_then(move |body| Ok((status, body)))
+                    .map_err(|e| Error::from(e))
+            })
+            .and_then(|(status, body)| {
+                if status.is_success() {
+                    Ok(body)
+                } else {
+                    Err(Error::from((status, &*body)))
+                }
+            })
             .and_then(|body| {
                 let parsed: Result<Value, _> = serde_json::from_slice(&body);
                 parsed.map_err(|e| Error::from(e))
-            }).map_err(|e| Error::from(e))
+            })
         )
     }
 
-    fn fyi_unreadnumber_get(&self, ) -> Box<Future<Item = ::models::InlineResponse20016, Error = Error>> {
+    fn fyi_unreadnumber_get(&self, ) -> Box<Future<Item = ::models::InlineResponse2004, Error = Error<serde_json::Value>>> {
         let configuration: &configuration::Configuration<C> = self.configuration.borrow();
 
         let method = hyper::Method::Get;
 
-        let uri_str = format!("{}/fyi/unreadnumber", configuration.base_path);
+        let query_string = {
+            let mut query = ::url::form_urlencoded::Serializer::new(String::new());
+            query.finish()
+        };
+        let uri_str = format!("{}/fyi/unreadnumber?{}", configuration.base_path, query_string);
 
-        let uri = uri_str.parse();
         // TODO(farcaller): handle error
         // if let Err(e) = uri {
         //     return Box::new(futures::future::err(e));
         // }
-        let mut req = hyper::Request::new(method, uri.unwrap());
+        let mut uri: hyper::Uri = uri_str.parse().unwrap();
+
+        let mut req = hyper::Request::new(method, uri);
+
+        if let Some(ref user_agent) = configuration.user_agent {
+            req.headers_mut().set(UserAgent::new(Cow::Owned(user_agent.clone())));
+        }
+
 
 
 
         // send request
         Box::new(
-            configuration.client.request(req).and_then(|res| { res.body().concat2() })
+        configuration.client.request(req)
             .map_err(|e| Error::from(e))
+            .and_then(|resp| {
+                let status = resp.status();
+                resp.body().concat2()
+                    .and_then(move |body| Ok((status, body)))
+                    .map_err(|e| Error::from(e))
+            })
+            .and_then(|(status, body)| {
+                if status.is_success() {
+                    Ok(body)
+                } else {
+                    Err(Error::from((status, &*body)))
+                }
+            })
             .and_then(|body| {
-                let parsed: Result<::models::InlineResponse20016, _> = serde_json::from_slice(&body);
+                let parsed: Result<::models::InlineResponse2004, _> = serde_json::from_slice(&body);
                 parsed.map_err(|e| Error::from(e))
-            }).map_err(|e| Error::from(e))
+            })
         )
     }
 

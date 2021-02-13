@@ -15,18 +15,22 @@ use serde_json::Value;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct SecdefInner {
-  #[serde(rename = "conid")]
-  conid: Option<i32>,
-  #[serde(rename = "name")]
-  name: Option<String>,
   #[serde(rename = "assetClass")]
   asset_class: Option<String>,
+  #[serde(rename = "conid")]
+  conid: Option<i32>,
   #[serde(rename = "expiry")]
   expiry: Option<String>,
-  #[serde(rename = "lastTradingDay")]
-  last_trading_day: Option<String>,
+  #[serde(rename = "fullName")]
+  full_name: Option<String>,
   #[serde(rename = "group")]
   group: Option<String>,
+  #[serde(rename = "lastTradingDay")]
+  last_trading_day: Option<String>,
+  #[serde(rename = "name")]
+  name: Option<String>,
+  #[serde(rename = "pageSize")]
+  page_size: Option<i32>,
   #[serde(rename = "putOrCall")]
   put_or_call: Option<String>,
   #[serde(rename = "sector")]
@@ -38,66 +42,28 @@ pub struct SecdefInner {
   #[serde(rename = "ticker")]
   ticker: Option<String>,
   #[serde(rename = "undConid")]
-  und_conid: Option<i32>,
-  #[serde(rename = "fullName")]
-  full_name: Option<String>,
-  #[serde(rename = "pageSize")]
-  page_size: Option<i32>
+  und_conid: Option<i32>
 }
 
 impl SecdefInner {
   /// security definition information
   pub fn new() -> SecdefInner {
     SecdefInner {
-      conid: None,
-      name: None,
       asset_class: None,
+      conid: None,
       expiry: None,
-      last_trading_day: None,
+      full_name: None,
       group: None,
+      last_trading_day: None,
+      name: None,
+      page_size: None,
       put_or_call: None,
       sector: None,
       sector_group: None,
       strike: None,
       ticker: None,
-      und_conid: None,
-      full_name: None,
-      page_size: None
+      und_conid: None
     }
-  }
-
-  pub fn set_conid(&mut self, conid: i32) {
-    self.conid = Some(conid);
-  }
-
-  pub fn with_conid(mut self, conid: i32) -> SecdefInner {
-    self.conid = Some(conid);
-    self
-  }
-
-  pub fn conid(&self) -> Option<&i32> {
-    self.conid.as_ref()
-  }
-
-  pub fn reset_conid(&mut self) {
-    self.conid = None;
-  }
-
-  pub fn set_name(&mut self, name: String) {
-    self.name = Some(name);
-  }
-
-  pub fn with_name(mut self, name: String) -> SecdefInner {
-    self.name = Some(name);
-    self
-  }
-
-  pub fn name(&self) -> Option<&String> {
-    self.name.as_ref()
-  }
-
-  pub fn reset_name(&mut self) {
-    self.name = None;
   }
 
   pub fn set_asset_class(&mut self, asset_class: String) {
@@ -117,6 +83,23 @@ impl SecdefInner {
     self.asset_class = None;
   }
 
+  pub fn set_conid(&mut self, conid: i32) {
+    self.conid = Some(conid);
+  }
+
+  pub fn with_conid(mut self, conid: i32) -> SecdefInner {
+    self.conid = Some(conid);
+    self
+  }
+
+  pub fn conid(&self) -> Option<&i32> {
+    self.conid.as_ref()
+  }
+
+  pub fn reset_conid(&mut self) {
+    self.conid = None;
+  }
+
   pub fn set_expiry(&mut self, expiry: String) {
     self.expiry = Some(expiry);
   }
@@ -132,6 +115,40 @@ impl SecdefInner {
 
   pub fn reset_expiry(&mut self) {
     self.expiry = None;
+  }
+
+  pub fn set_full_name(&mut self, full_name: String) {
+    self.full_name = Some(full_name);
+  }
+
+  pub fn with_full_name(mut self, full_name: String) -> SecdefInner {
+    self.full_name = Some(full_name);
+    self
+  }
+
+  pub fn full_name(&self) -> Option<&String> {
+    self.full_name.as_ref()
+  }
+
+  pub fn reset_full_name(&mut self) {
+    self.full_name = None;
+  }
+
+  pub fn set_group(&mut self, group: String) {
+    self.group = Some(group);
+  }
+
+  pub fn with_group(mut self, group: String) -> SecdefInner {
+    self.group = Some(group);
+    self
+  }
+
+  pub fn group(&self) -> Option<&String> {
+    self.group.as_ref()
+  }
+
+  pub fn reset_group(&mut self) {
+    self.group = None;
   }
 
   pub fn set_last_trading_day(&mut self, last_trading_day: String) {
@@ -151,21 +168,38 @@ impl SecdefInner {
     self.last_trading_day = None;
   }
 
-  pub fn set_group(&mut self, group: String) {
-    self.group = Some(group);
+  pub fn set_name(&mut self, name: String) {
+    self.name = Some(name);
   }
 
-  pub fn with_group(mut self, group: String) -> SecdefInner {
-    self.group = Some(group);
+  pub fn with_name(mut self, name: String) -> SecdefInner {
+    self.name = Some(name);
     self
   }
 
-  pub fn group(&self) -> Option<&String> {
-    self.group.as_ref()
+  pub fn name(&self) -> Option<&String> {
+    self.name.as_ref()
   }
 
-  pub fn reset_group(&mut self) {
-    self.group = None;
+  pub fn reset_name(&mut self) {
+    self.name = None;
+  }
+
+  pub fn set_page_size(&mut self, page_size: i32) {
+    self.page_size = Some(page_size);
+  }
+
+  pub fn with_page_size(mut self, page_size: i32) -> SecdefInner {
+    self.page_size = Some(page_size);
+    self
+  }
+
+  pub fn page_size(&self) -> Option<&i32> {
+    self.page_size.as_ref()
+  }
+
+  pub fn reset_page_size(&mut self) {
+    self.page_size = None;
   }
 
   pub fn set_put_or_call(&mut self, put_or_call: String) {
@@ -268,40 +302,6 @@ impl SecdefInner {
 
   pub fn reset_und_conid(&mut self) {
     self.und_conid = None;
-  }
-
-  pub fn set_full_name(&mut self, full_name: String) {
-    self.full_name = Some(full_name);
-  }
-
-  pub fn with_full_name(mut self, full_name: String) -> SecdefInner {
-    self.full_name = Some(full_name);
-    self
-  }
-
-  pub fn full_name(&self) -> Option<&String> {
-    self.full_name.as_ref()
-  }
-
-  pub fn reset_full_name(&mut self) {
-    self.full_name = None;
-  }
-
-  pub fn set_page_size(&mut self, page_size: i32) {
-    self.page_size = Some(page_size);
-  }
-
-  pub fn with_page_size(mut self, page_size: i32) -> SecdefInner {
-    self.page_size = Some(page_size);
-    self
-  }
-
-  pub fn page_size(&self) -> Option<&i32> {
-    self.page_size.as_ref()
-  }
-
-  pub fn reset_page_size(&mut self) {
-    self.page_size = None;
   }
 
 }

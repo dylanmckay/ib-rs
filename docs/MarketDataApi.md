@@ -47,10 +47,10 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **iserver_marketdata_snapshot_get**
-> Vec<::models::InlineResponse2007> iserver_marketdata_snapshot_get(conids, optional)
+> Vec<::models::InlineResponse20013> iserver_marketdata_snapshot_get(conids, optional)
 Market Data
 
-Get Market Data for the given conid(s). The end-point will return by default bid, ask, last, change, change pct, close, listing exchange. See response fields for a list of available fields that can be request via fields argument. 
+Get Market Data for the given conid(s). The end-point will return by default bid, ask, last, change, change pct, close, listing exchange. See response fields for a list of available fields that can be request via fields argument. The endpoint /iserver/accounts should be called prior to /iserver/marketdata/snapshot. To receive all available fields the /snapshot endpoint will need to be called several times. 
 
 ### Required Parameters
 
@@ -65,12 +65,12 @@ Optional parameters are passed through a map[string]interface{}.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **conids** | **String**| list of conids separated by comma | 
- **since** | **i32**| time period since which updates are required | 
+ **since** | **i32**| time period since which updates are required. uses epoch time with milliseconds. | 
  **fields** | **String**| list of fields separated by comma | 
 
 ### Return type
 
-[**Vec<::models::InlineResponse2007>**](inline_response_200_7.md)
+[**Vec<::models::InlineResponse20013>**](inline_response_200_13.md)
 
 ### Authorization
 

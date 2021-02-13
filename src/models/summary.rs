@@ -15,122 +15,54 @@ use serde_json::Value;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Summary {
-  #[serde(rename = "total")]
-  total: Option<::models::SummaryTotal>,
-  /// date format-- yyyy-MM-dd
-  #[serde(rename = "startDate")]
-  start_date: Option<String>,
-  #[serde(rename = "excludedAccounts")]
-  excluded_accounts: Option<Vec<::models::SummaryExcludedAccounts>>,
-  #[serde(rename = "lastSuccessfulUpdate")]
-  last_successful_update: Option<String>,
   #[serde(rename = "accountSummaries")]
   account_summaries: Option<Vec<::models::SummaryAccountSummaries>>,
+  #[serde(rename = "balanceByDate")]
+  balance_by_date: Option<::models::SummaryBalanceByDate>,
+  #[serde(rename = "currency")]
+  currency: Option<String>,
   #[serde(rename = "endDate")]
   end_date: Option<String>,
+  #[serde(rename = "excludedAccounts")]
+  excluded_accounts: Option<Vec<::models::SummaryExcludedAccounts>>,
   /// indicator of user having configured any external accounts
   #[serde(rename = "hasExternalAccounts")]
   has_external_accounts: Option<bool>,
-  #[serde(rename = "rc")]
-  rc: Option<i32>,
-  #[serde(rename = "currency")]
-  currency: Option<String>,
-  #[serde(rename = "userId")]
-  user_id: Option<String>,
+  #[serde(rename = "lastSuccessfulUpdate")]
+  last_successful_update: Option<String>,
   #[serde(rename = "pm")]
   pm: Option<String>,
+  #[serde(rename = "rc")]
+  rc: Option<i32>,
+  /// date format-- yyyy-MM-dd
+  #[serde(rename = "startDate")]
+  start_date: Option<String>,
+  #[serde(rename = "total")]
+  total: Option<::models::SummaryTotal>,
+  #[serde(rename = "userId")]
+  user_id: Option<String>,
   #[serde(rename = "view")]
-  view: Option<String>,
-  #[serde(rename = "balanceByDate")]
-  balance_by_date: Option<::models::SummaryBalanceByDate>
+  view: Option<String>
 }
 
 impl Summary {
   /// account information
   pub fn new() -> Summary {
     Summary {
-      total: None,
-      start_date: None,
-      excluded_accounts: None,
-      last_successful_update: None,
       account_summaries: None,
-      end_date: None,
-      has_external_accounts: None,
-      rc: None,
+      balance_by_date: None,
       currency: None,
-      user_id: None,
+      end_date: None,
+      excluded_accounts: None,
+      has_external_accounts: None,
+      last_successful_update: None,
       pm: None,
-      view: None,
-      balance_by_date: None
+      rc: None,
+      start_date: None,
+      total: None,
+      user_id: None,
+      view: None
     }
-  }
-
-  pub fn set_total(&mut self, total: ::models::SummaryTotal) {
-    self.total = Some(total);
-  }
-
-  pub fn with_total(mut self, total: ::models::SummaryTotal) -> Summary {
-    self.total = Some(total);
-    self
-  }
-
-  pub fn total(&self) -> Option<&::models::SummaryTotal> {
-    self.total.as_ref()
-  }
-
-  pub fn reset_total(&mut self) {
-    self.total = None;
-  }
-
-  pub fn set_start_date(&mut self, start_date: String) {
-    self.start_date = Some(start_date);
-  }
-
-  pub fn with_start_date(mut self, start_date: String) -> Summary {
-    self.start_date = Some(start_date);
-    self
-  }
-
-  pub fn start_date(&self) -> Option<&String> {
-    self.start_date.as_ref()
-  }
-
-  pub fn reset_start_date(&mut self) {
-    self.start_date = None;
-  }
-
-  pub fn set_excluded_accounts(&mut self, excluded_accounts: Vec<::models::SummaryExcludedAccounts>) {
-    self.excluded_accounts = Some(excluded_accounts);
-  }
-
-  pub fn with_excluded_accounts(mut self, excluded_accounts: Vec<::models::SummaryExcludedAccounts>) -> Summary {
-    self.excluded_accounts = Some(excluded_accounts);
-    self
-  }
-
-  pub fn excluded_accounts(&self) -> Option<&Vec<::models::SummaryExcludedAccounts>> {
-    self.excluded_accounts.as_ref()
-  }
-
-  pub fn reset_excluded_accounts(&mut self) {
-    self.excluded_accounts = None;
-  }
-
-  pub fn set_last_successful_update(&mut self, last_successful_update: String) {
-    self.last_successful_update = Some(last_successful_update);
-  }
-
-  pub fn with_last_successful_update(mut self, last_successful_update: String) -> Summary {
-    self.last_successful_update = Some(last_successful_update);
-    self
-  }
-
-  pub fn last_successful_update(&self) -> Option<&String> {
-    self.last_successful_update.as_ref()
-  }
-
-  pub fn reset_last_successful_update(&mut self) {
-    self.last_successful_update = None;
   }
 
   pub fn set_account_summaries(&mut self, account_summaries: Vec<::models::SummaryAccountSummaries>) {
@@ -150,55 +82,21 @@ impl Summary {
     self.account_summaries = None;
   }
 
-  pub fn set_end_date(&mut self, end_date: String) {
-    self.end_date = Some(end_date);
+  pub fn set_balance_by_date(&mut self, balance_by_date: ::models::SummaryBalanceByDate) {
+    self.balance_by_date = Some(balance_by_date);
   }
 
-  pub fn with_end_date(mut self, end_date: String) -> Summary {
-    self.end_date = Some(end_date);
+  pub fn with_balance_by_date(mut self, balance_by_date: ::models::SummaryBalanceByDate) -> Summary {
+    self.balance_by_date = Some(balance_by_date);
     self
   }
 
-  pub fn end_date(&self) -> Option<&String> {
-    self.end_date.as_ref()
+  pub fn balance_by_date(&self) -> Option<&::models::SummaryBalanceByDate> {
+    self.balance_by_date.as_ref()
   }
 
-  pub fn reset_end_date(&mut self) {
-    self.end_date = None;
-  }
-
-  pub fn set_has_external_accounts(&mut self, has_external_accounts: bool) {
-    self.has_external_accounts = Some(has_external_accounts);
-  }
-
-  pub fn with_has_external_accounts(mut self, has_external_accounts: bool) -> Summary {
-    self.has_external_accounts = Some(has_external_accounts);
-    self
-  }
-
-  pub fn has_external_accounts(&self) -> Option<&bool> {
-    self.has_external_accounts.as_ref()
-  }
-
-  pub fn reset_has_external_accounts(&mut self) {
-    self.has_external_accounts = None;
-  }
-
-  pub fn set_rc(&mut self, rc: i32) {
-    self.rc = Some(rc);
-  }
-
-  pub fn with_rc(mut self, rc: i32) -> Summary {
-    self.rc = Some(rc);
-    self
-  }
-
-  pub fn rc(&self) -> Option<&i32> {
-    self.rc.as_ref()
-  }
-
-  pub fn reset_rc(&mut self) {
-    self.rc = None;
+  pub fn reset_balance_by_date(&mut self) {
+    self.balance_by_date = None;
   }
 
   pub fn set_currency(&mut self, currency: String) {
@@ -218,21 +116,72 @@ impl Summary {
     self.currency = None;
   }
 
-  pub fn set_user_id(&mut self, user_id: String) {
-    self.user_id = Some(user_id);
+  pub fn set_end_date(&mut self, end_date: String) {
+    self.end_date = Some(end_date);
   }
 
-  pub fn with_user_id(mut self, user_id: String) -> Summary {
-    self.user_id = Some(user_id);
+  pub fn with_end_date(mut self, end_date: String) -> Summary {
+    self.end_date = Some(end_date);
     self
   }
 
-  pub fn user_id(&self) -> Option<&String> {
-    self.user_id.as_ref()
+  pub fn end_date(&self) -> Option<&String> {
+    self.end_date.as_ref()
   }
 
-  pub fn reset_user_id(&mut self) {
-    self.user_id = None;
+  pub fn reset_end_date(&mut self) {
+    self.end_date = None;
+  }
+
+  pub fn set_excluded_accounts(&mut self, excluded_accounts: Vec<::models::SummaryExcludedAccounts>) {
+    self.excluded_accounts = Some(excluded_accounts);
+  }
+
+  pub fn with_excluded_accounts(mut self, excluded_accounts: Vec<::models::SummaryExcludedAccounts>) -> Summary {
+    self.excluded_accounts = Some(excluded_accounts);
+    self
+  }
+
+  pub fn excluded_accounts(&self) -> Option<&Vec<::models::SummaryExcludedAccounts>> {
+    self.excluded_accounts.as_ref()
+  }
+
+  pub fn reset_excluded_accounts(&mut self) {
+    self.excluded_accounts = None;
+  }
+
+  pub fn set_has_external_accounts(&mut self, has_external_accounts: bool) {
+    self.has_external_accounts = Some(has_external_accounts);
+  }
+
+  pub fn with_has_external_accounts(mut self, has_external_accounts: bool) -> Summary {
+    self.has_external_accounts = Some(has_external_accounts);
+    self
+  }
+
+  pub fn has_external_accounts(&self) -> Option<&bool> {
+    self.has_external_accounts.as_ref()
+  }
+
+  pub fn reset_has_external_accounts(&mut self) {
+    self.has_external_accounts = None;
+  }
+
+  pub fn set_last_successful_update(&mut self, last_successful_update: String) {
+    self.last_successful_update = Some(last_successful_update);
+  }
+
+  pub fn with_last_successful_update(mut self, last_successful_update: String) -> Summary {
+    self.last_successful_update = Some(last_successful_update);
+    self
+  }
+
+  pub fn last_successful_update(&self) -> Option<&String> {
+    self.last_successful_update.as_ref()
+  }
+
+  pub fn reset_last_successful_update(&mut self) {
+    self.last_successful_update = None;
   }
 
   pub fn set_pm(&mut self, pm: String) {
@@ -252,6 +201,74 @@ impl Summary {
     self.pm = None;
   }
 
+  pub fn set_rc(&mut self, rc: i32) {
+    self.rc = Some(rc);
+  }
+
+  pub fn with_rc(mut self, rc: i32) -> Summary {
+    self.rc = Some(rc);
+    self
+  }
+
+  pub fn rc(&self) -> Option<&i32> {
+    self.rc.as_ref()
+  }
+
+  pub fn reset_rc(&mut self) {
+    self.rc = None;
+  }
+
+  pub fn set_start_date(&mut self, start_date: String) {
+    self.start_date = Some(start_date);
+  }
+
+  pub fn with_start_date(mut self, start_date: String) -> Summary {
+    self.start_date = Some(start_date);
+    self
+  }
+
+  pub fn start_date(&self) -> Option<&String> {
+    self.start_date.as_ref()
+  }
+
+  pub fn reset_start_date(&mut self) {
+    self.start_date = None;
+  }
+
+  pub fn set_total(&mut self, total: ::models::SummaryTotal) {
+    self.total = Some(total);
+  }
+
+  pub fn with_total(mut self, total: ::models::SummaryTotal) -> Summary {
+    self.total = Some(total);
+    self
+  }
+
+  pub fn total(&self) -> Option<&::models::SummaryTotal> {
+    self.total.as_ref()
+  }
+
+  pub fn reset_total(&mut self) {
+    self.total = None;
+  }
+
+  pub fn set_user_id(&mut self, user_id: String) {
+    self.user_id = Some(user_id);
+  }
+
+  pub fn with_user_id(mut self, user_id: String) -> Summary {
+    self.user_id = Some(user_id);
+    self
+  }
+
+  pub fn user_id(&self) -> Option<&String> {
+    self.user_id.as_ref()
+  }
+
+  pub fn reset_user_id(&mut self) {
+    self.user_id = None;
+  }
+
   pub fn set_view(&mut self, view: String) {
     self.view = Some(view);
   }
@@ -267,23 +284,6 @@ impl Summary {
 
   pub fn reset_view(&mut self) {
     self.view = None;
-  }
-
-  pub fn set_balance_by_date(&mut self, balance_by_date: ::models::SummaryBalanceByDate) {
-    self.balance_by_date = Some(balance_by_date);
-  }
-
-  pub fn with_balance_by_date(mut self, balance_by_date: ::models::SummaryBalanceByDate) -> Summary {
-    self.balance_by_date = Some(balance_by_date);
-    self
-  }
-
-  pub fn balance_by_date(&self) -> Option<&::models::SummaryBalanceByDate> {
-    self.balance_by_date.as_ref()
-  }
-
-  pub fn reset_balance_by_date(&mut self) {
-    self.balance_by_date = None;
   }
 
 }

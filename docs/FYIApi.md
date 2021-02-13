@@ -44,18 +44,18 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **fyi_deliveryoptions_device_post**
-> ::models::InlineResponse20019 fyi_deliveryoptions_device_post(body)
+> ::models::InlineResponse2001 fyi_deliveryoptions_device_post(body)
 enable/disable device option
 
 ### Required Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-  **body** | [**Body6**](Body6.md)| device info | 
+  **body** | [**Body**](Body.md)| device info | 
 
 ### Return type
 
-[**::models::InlineResponse20019**](inline_response_200_19.md)
+[**::models::InlineResponse2001**](inline_response_200_1.md)
 
 ### Authorization
 
@@ -69,7 +69,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **fyi_deliveryoptions_email_put**
-> ::models::InlineResponse20019 fyi_deliveryoptions_email_put(enabled)
+> ::models::InlineResponse2001 fyi_deliveryoptions_email_put(enabled)
 enable/disable email option
 
 ### Required Parameters
@@ -80,7 +80,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**::models::InlineResponse20019**](inline_response_200_19.md)
+[**::models::InlineResponse2001**](inline_response_200_1.md)
 
 ### Authorization
 
@@ -94,7 +94,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **fyi_deliveryoptions_get**
-> ::models::InlineResponse20020 fyi_deliveryoptions_get()
+> ::models::InlineResponse200 fyi_deliveryoptions_get()
 Get delivery options
 
 options for sending fyis to email and other devices 
@@ -104,7 +104,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**::models::InlineResponse20020**](inline_response_200_20.md)
+[**::models::InlineResponse200**](inline_response_200.md)
 
 ### Authorization
 
@@ -118,7 +118,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **fyi_disclaimer_typecode_get**
-> ::models::InlineResponse20018 fyi_disclaimer_typecode_get(typecode)
+> ::models::InlineResponse2002 fyi_disclaimer_typecode_get(typecode)
 get disclaimer for a certain kind of fyi
 
 ### Required Parameters
@@ -129,7 +129,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**::models::InlineResponse20018**](inline_response_200_18.md)
+[**::models::InlineResponse2002**](inline_response_200_2.md)
 
 ### Authorization
 
@@ -143,7 +143,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **fyi_disclaimer_typecode_put**
-> ::models::InlineResponse20019 fyi_disclaimer_typecode_put(typecode)
+> ::models::InlineResponse2001 fyi_disclaimer_typecode_put(typecode)
 mark disclaimer read
 
 ### Required Parameters
@@ -154,7 +154,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**::models::InlineResponse20019**](inline_response_200_19.md)
+[**::models::InlineResponse2001**](inline_response_200_1.md)
 
 ### Authorization
 
@@ -253,7 +253,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **fyi_settings_get**
-> Vec<::models::InlineResponse20017> fyi_settings_get()
+> Vec<::models::InlineResponse2003> fyi_settings_get()
 Get a list of subscriptions
 
 return the current choices of subscriptions, we can toggle the option 
@@ -263,7 +263,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**Vec<::models::InlineResponse20017>**](inline_response_200_17.md)
+[**Vec<::models::InlineResponse2003>**](inline_response_200_3.md)
 
 ### Authorization
 
@@ -285,7 +285,7 @@ enable/disable certain subscription
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
   **typecode** | **String**| fyi code | 
-  **body** | [**Body5**](Body5.md)|  | 
+  **body** | [**Body1**](Body1.md)|  | 
 
 ### Return type
 
@@ -303,7 +303,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **fyi_unreadnumber_get**
-> ::models::InlineResponse20016 fyi_unreadnumber_get()
+> ::models::InlineResponse2004 fyi_unreadnumber_get()
 Get unread number of fyis
 
 ### Required Parameters
@@ -311,7 +311,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**::models::InlineResponse20016**](inline_response_200_16.md)
+[**::models::InlineResponse2004**](inline_response_200_4.md)
 
 ### Authorization
 

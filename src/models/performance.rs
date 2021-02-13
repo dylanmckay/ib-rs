@@ -14,53 +14,36 @@ use serde_json::Value;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Performance {
-  #[serde(rename = "id")]
-  id: Option<String>,
   #[serde(rename = "cps")]
   cps: Option<::models::PerformanceCps>,
-  #[serde(rename = "tpps")]
-  tpps: Option<::models::PerformanceTpps>,
+  #[serde(rename = "currencyType")]
+  currency_type: Option<String>,
+  #[serde(rename = "id")]
+  id: Option<String>,
+  #[serde(rename = "included")]
+  included: Option<Vec<String>>,
   #[serde(rename = "nav")]
   nav: Option<::models::PerformanceNav>,
   #[serde(rename = "pm")]
   pm: Option<String>,
-  #[serde(rename = "included")]
-  included: Option<Vec<String>>,
-  #[serde(rename = "currencyType")]
-  currency_type: Option<String>,
   #[serde(rename = "rc")]
-  rc: Option<i32>
+  rc: Option<i32>,
+  #[serde(rename = "tpps")]
+  tpps: Option<::models::PerformanceTpps>
 }
 
 impl Performance {
   pub fn new() -> Performance {
     Performance {
-      id: None,
       cps: None,
-      tpps: None,
+      currency_type: None,
+      id: None,
+      included: None,
       nav: None,
       pm: None,
-      included: None,
-      currency_type: None,
-      rc: None
+      rc: None,
+      tpps: None
     }
-  }
-
-  pub fn set_id(&mut self, id: String) {
-    self.id = Some(id);
-  }
-
-  pub fn with_id(mut self, id: String) -> Performance {
-    self.id = Some(id);
-    self
-  }
-
-  pub fn id(&self) -> Option<&String> {
-    self.id.as_ref()
-  }
-
-  pub fn reset_id(&mut self) {
-    self.id = None;
   }
 
   pub fn set_cps(&mut self, cps: ::models::PerformanceCps) {
@@ -80,21 +63,55 @@ impl Performance {
     self.cps = None;
   }
 
-  pub fn set_tpps(&mut self, tpps: ::models::PerformanceTpps) {
-    self.tpps = Some(tpps);
+  pub fn set_currency_type(&mut self, currency_type: String) {
+    self.currency_type = Some(currency_type);
   }
 
-  pub fn with_tpps(mut self, tpps: ::models::PerformanceTpps) -> Performance {
-    self.tpps = Some(tpps);
+  pub fn with_currency_type(mut self, currency_type: String) -> Performance {
+    self.currency_type = Some(currency_type);
     self
   }
 
-  pub fn tpps(&self) -> Option<&::models::PerformanceTpps> {
-    self.tpps.as_ref()
+  pub fn currency_type(&self) -> Option<&String> {
+    self.currency_type.as_ref()
   }
 
-  pub fn reset_tpps(&mut self) {
-    self.tpps = None;
+  pub fn reset_currency_type(&mut self) {
+    self.currency_type = None;
+  }
+
+  pub fn set_id(&mut self, id: String) {
+    self.id = Some(id);
+  }
+
+  pub fn with_id(mut self, id: String) -> Performance {
+    self.id = Some(id);
+    self
+  }
+
+  pub fn id(&self) -> Option<&String> {
+    self.id.as_ref()
+  }
+
+  pub fn reset_id(&mut self) {
+    self.id = None;
+  }
+
+  pub fn set_included(&mut self, included: Vec<String>) {
+    self.included = Some(included);
+  }
+
+  pub fn with_included(mut self, included: Vec<String>) -> Performance {
+    self.included = Some(included);
+    self
+  }
+
+  pub fn included(&self) -> Option<&Vec<String>> {
+    self.included.as_ref()
+  }
+
+  pub fn reset_included(&mut self) {
+    self.included = None;
   }
 
   pub fn set_nav(&mut self, nav: ::models::PerformanceNav) {
@@ -131,40 +148,6 @@ impl Performance {
     self.pm = None;
   }
 
-  pub fn set_included(&mut self, included: Vec<String>) {
-    self.included = Some(included);
-  }
-
-  pub fn with_included(mut self, included: Vec<String>) -> Performance {
-    self.included = Some(included);
-    self
-  }
-
-  pub fn included(&self) -> Option<&Vec<String>> {
-    self.included.as_ref()
-  }
-
-  pub fn reset_included(&mut self) {
-    self.included = None;
-  }
-
-  pub fn set_currency_type(&mut self, currency_type: String) {
-    self.currency_type = Some(currency_type);
-  }
-
-  pub fn with_currency_type(mut self, currency_type: String) -> Performance {
-    self.currency_type = Some(currency_type);
-    self
-  }
-
-  pub fn currency_type(&self) -> Option<&String> {
-    self.currency_type.as_ref()
-  }
-
-  pub fn reset_currency_type(&mut self) {
-    self.currency_type = None;
-  }
-
   pub fn set_rc(&mut self, rc: i32) {
     self.rc = Some(rc);
   }
@@ -180,6 +163,23 @@ impl Performance {
 
   pub fn reset_rc(&mut self) {
     self.rc = None;
+  }
+
+  pub fn set_tpps(&mut self, tpps: ::models::PerformanceTpps) {
+    self.tpps = Some(tpps);
+  }
+
+  pub fn with_tpps(mut self, tpps: ::models::PerformanceTpps) -> Performance {
+    self.tpps = Some(tpps);
+    self
+  }
+
+  pub fn tpps(&self) -> Option<&::models::PerformanceTpps> {
+    self.tpps.as_ref()
+  }
+
+  pub fn reset_tpps(&mut self) {
+    self.tpps = None;
   }
 
 }

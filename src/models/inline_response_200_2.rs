@@ -14,52 +14,54 @@ use serde_json::Value;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct InlineResponse2002 {
-  #[serde(rename = "orders")]
-  orders: Option<Vec<::models::Order>>,
-  #[serde(rename = "notifications")]
-  notifications: Option<Vec<Value>>
+  /// disclaimer message
+  #[serde(rename = "DT")]
+  DT: Option<String>,
+  /// fyi code
+  #[serde(rename = "FC")]
+  FC: Option<String>
 }
 
 impl InlineResponse2002 {
   pub fn new() -> InlineResponse2002 {
     InlineResponse2002 {
-      orders: None,
-      notifications: None
+      DT: None,
+      FC: None
     }
   }
 
-  pub fn set_orders(&mut self, orders: Vec<::models::Order>) {
-    self.orders = Some(orders);
+  pub fn set_DT(&mut self, DT: String) {
+    self.DT = Some(DT);
   }
 
-  pub fn with_orders(mut self, orders: Vec<::models::Order>) -> InlineResponse2002 {
-    self.orders = Some(orders);
+  pub fn with_DT(mut self, DT: String) -> InlineResponse2002 {
+    self.DT = Some(DT);
     self
   }
 
-  pub fn orders(&self) -> Option<&Vec<::models::Order>> {
-    self.orders.as_ref()
+  pub fn DT(&self) -> Option<&String> {
+    self.DT.as_ref()
   }
 
-  pub fn reset_orders(&mut self) {
-    self.orders = None;
+  pub fn reset_DT(&mut self) {
+    self.DT = None;
   }
 
-  pub fn set_notifications(&mut self, notifications: Vec<Value>) {
-    self.notifications = Some(notifications);
+  pub fn set_FC(&mut self, FC: String) {
+    self.FC = Some(FC);
   }
 
-  pub fn with_notifications(mut self, notifications: Vec<Value>) -> InlineResponse2002 {
-    self.notifications = Some(notifications);
+  pub fn with_FC(mut self, FC: String) -> InlineResponse2002 {
+    self.FC = Some(FC);
     self
   }
 
-  pub fn notifications(&self) -> Option<&Vec<Value>> {
-    self.notifications.as_ref()
+  pub fn FC(&self) -> Option<&String> {
+    self.FC.as_ref()
   }
 
-  pub fn reset_notifications(&mut self) {
-    self.notifications = None;
+  pub fn reset_FC(&mut self) {
+    self.FC = None;
   }
 
 }

@@ -14,35 +14,18 @@ use serde_json::Value;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct AccountMaster {
-  #[serde(rename = "title")]
-  title: Option<String>,
   #[serde(rename = "officialTitle")]
-  official_title: Option<String>
+  official_title: Option<String>,
+  #[serde(rename = "title")]
+  title: Option<String>
 }
 
 impl AccountMaster {
   pub fn new() -> AccountMaster {
     AccountMaster {
-      title: None,
-      official_title: None
+      official_title: None,
+      title: None
     }
-  }
-
-  pub fn set_title(&mut self, title: String) {
-    self.title = Some(title);
-  }
-
-  pub fn with_title(mut self, title: String) -> AccountMaster {
-    self.title = Some(title);
-    self
-  }
-
-  pub fn title(&self) -> Option<&String> {
-    self.title.as_ref()
-  }
-
-  pub fn reset_title(&mut self) {
-    self.title = None;
   }
 
   pub fn set_official_title(&mut self, official_title: String) {
@@ -60,6 +43,23 @@ impl AccountMaster {
 
   pub fn reset_official_title(&mut self) {
     self.official_title = None;
+  }
+
+  pub fn set_title(&mut self, title: String) {
+    self.title = Some(title);
+  }
+
+  pub fn with_title(mut self, title: String) -> AccountMaster {
+    self.title = Some(title);
+    self
+  }
+
+  pub fn title(&self) -> Option<&String> {
+    self.title.as_ref()
+  }
+
+  pub fn reset_title(&mut self) {
+    self.title = None;
   }
 
 }

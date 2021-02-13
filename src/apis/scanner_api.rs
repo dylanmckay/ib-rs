@@ -10,11 +10,15 @@
 
 use std::rc::Rc;
 use std::borrow::Borrow;
+use std::borrow::Cow;
+use std::collections::HashMap;
 
 use hyper;
-use serde_json;
+use serde_json::{self, Value};
 use futures;
 use futures::{Future, Stream};
+
+use hyper::header::UserAgent;
 
 use super::{Error, configuration};
 
@@ -31,52 +35,85 @@ impl<C: hyper::client::Connect> ScannerApiClient<C> {
 }
 
 pub trait ScannerApi {
-    fn iserver_scanner_params_get(&self, ) -> Box<Future<Item = ::models::InlineResponse2009, Error = Error>>;
-    fn iserver_scanner_run_post(&self, body: ::models::ScannerParams) -> Box<Future<Item = Vec<::models::InlineResponse20010>, Error = Error>>;
+    fn iserver_scanner_params_get(&self, ) -> Box<Future<Item = ::models::InlineResponse20014, Error = Error<serde_json::Value>>>;
+    fn iserver_scanner_run_post(&self, body: ::models::ScannerParams) -> Box<Future<Item = Vec<::models::InlineResponse20015>, Error = Error<serde_json::Value>>>;
 }
 
 
 impl<C: hyper::client::Connect>ScannerApi for ScannerApiClient<C> {
-    fn iserver_scanner_params_get(&self, ) -> Box<Future<Item = ::models::InlineResponse2009, Error = Error>> {
+    fn iserver_scanner_params_get(&self, ) -> Box<Future<Item = ::models::InlineResponse20014, Error = Error<serde_json::Value>>> {
         let configuration: &configuration::Configuration<C> = self.configuration.borrow();
 
         let method = hyper::Method::Get;
 
-        let uri_str = format!("{}/iserver/scanner/params", configuration.base_path);
+        let query_string = {
+            let mut query = ::url::form_urlencoded::Serializer::new(String::new());
+            query.finish()
+        };
+        let uri_str = format!("{}/iserver/scanner/params?{}", configuration.base_path, query_string);
 
-        let uri = uri_str.parse();
         // TODO(farcaller): handle error
         // if let Err(e) = uri {
         //     return Box::new(futures::future::err(e));
         // }
-        let mut req = hyper::Request::new(method, uri.unwrap());
+        let mut uri: hyper::Uri = uri_str.parse().unwrap();
+
+        let mut req = hyper::Request::new(method, uri);
+
+        if let Some(ref user_agent) = configuration.user_agent {
+            req.headers_mut().set(UserAgent::new(Cow::Owned(user_agent.clone())));
+        }
+
 
 
 
         // send request
         Box::new(
-            configuration.client.request(req).and_then(|res| { res.body().concat2() })
+        configuration.client.request(req)
             .map_err(|e| Error::from(e))
+            .and_then(|resp| {
+                let status = resp.status();
+                resp.body().concat2()
+                    .and_then(move |body| Ok((status, body)))
+                    .map_err(|e| Error::from(e))
+            })
+            .and_then(|(status, body)| {
+                if status.is_success() {
+                    Ok(body)
+                } else {
+                    Err(Error::from((status, &*body)))
+                }
+            })
             .and_then(|body| {
-                let parsed: Result<::models::InlineResponse2009, _> = serde_json::from_slice(&body);
+                let parsed: Result<::models::InlineResponse20014, _> = serde_json::from_slice(&body);
                 parsed.map_err(|e| Error::from(e))
-            }).map_err(|e| Error::from(e))
+            })
         )
     }
 
-    fn iserver_scanner_run_post(&self, body: ::models::ScannerParams) -> Box<Future<Item = Vec<::models::InlineResponse20010>, Error = Error>> {
+    fn iserver_scanner_run_post(&self, body: ::models::ScannerParams) -> Box<Future<Item = Vec<::models::InlineResponse20015>, Error = Error<serde_json::Value>>> {
         let configuration: &configuration::Configuration<C> = self.configuration.borrow();
 
         let method = hyper::Method::Post;
 
-        let uri_str = format!("{}/iserver/scanner/run", configuration.base_path);
+        let query_string = {
+            let mut query = ::url::form_urlencoded::Serializer::new(String::new());
+            query.finish()
+        };
+        let uri_str = format!("{}/iserver/scanner/run?{}", configuration.base_path, query_string);
 
-        let uri = uri_str.parse();
         // TODO(farcaller): handle error
         // if let Err(e) = uri {
         //     return Box::new(futures::future::err(e));
         // }
-        let mut req = hyper::Request::new(method, uri.unwrap());
+        let mut uri: hyper::Uri = uri_str.parse().unwrap();
+
+        let mut req = hyper::Request::new(method, uri);
+
+        if let Some(ref user_agent) = configuration.user_agent {
+            req.headers_mut().set(UserAgent::new(Cow::Owned(user_agent.clone())));
+        }
+
 
 
         let serialized = serde_json::to_string(&body).unwrap();
@@ -86,12 +123,25 @@ impl<C: hyper::client::Connect>ScannerApi for ScannerApiClient<C> {
 
         // send request
         Box::new(
-            configuration.client.request(req).and_then(|res| { res.body().concat2() })
+        configuration.client.request(req)
             .map_err(|e| Error::from(e))
+            .and_then(|resp| {
+                let status = resp.status();
+                resp.body().concat2()
+                    .and_then(move |body| Ok((status, body)))
+                    .map_err(|e| Error::from(e))
+            })
+            .and_then(|(status, body)| {
+                if status.is_success() {
+                    Ok(body)
+                } else {
+                    Err(Error::from((status, &*body)))
+                }
+            })
             .and_then(|body| {
-                let parsed: Result<Vec<::models::InlineResponse20010>, _> = serde_json::from_slice(&body);
+                let parsed: Result<Vec<::models::InlineResponse20015>, _> = serde_json::from_slice(&body);
                 parsed.map_err(|e| Error::from(e))
-            }).map_err(|e| Error::from(e))
+            })
         )
     }
 

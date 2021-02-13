@@ -15,47 +15,30 @@ use serde_json::Value;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct FuturesInner {
-  #[serde(rename = "symbol")]
-  symbol: Option<String>,
   /// conid of the future contract
   #[serde(rename = "conid")]
   conid: Option<i32>,
-  #[serde(rename = "underlyingConid")]
-  underlying_conid: Option<i32>,
   #[serde(rename = "expirationDate")]
   expiration_date: Option<String>,
   /// last trading day
   #[serde(rename = "ltd")]
-  ltd: Option<String>
+  ltd: Option<String>,
+  #[serde(rename = "symbol")]
+  symbol: Option<String>,
+  #[serde(rename = "underlyingConid")]
+  underlying_conid: Option<i32>
 }
 
 impl FuturesInner {
   /// future contract information
   pub fn new() -> FuturesInner {
     FuturesInner {
-      symbol: None,
       conid: None,
-      underlying_conid: None,
       expiration_date: None,
-      ltd: None
+      ltd: None,
+      symbol: None,
+      underlying_conid: None
     }
-  }
-
-  pub fn set_symbol(&mut self, symbol: String) {
-    self.symbol = Some(symbol);
-  }
-
-  pub fn with_symbol(mut self, symbol: String) -> FuturesInner {
-    self.symbol = Some(symbol);
-    self
-  }
-
-  pub fn symbol(&self) -> Option<&String> {
-    self.symbol.as_ref()
-  }
-
-  pub fn reset_symbol(&mut self) {
-    self.symbol = None;
   }
 
   pub fn set_conid(&mut self, conid: i32) {
@@ -73,23 +56,6 @@ impl FuturesInner {
 
   pub fn reset_conid(&mut self) {
     self.conid = None;
-  }
-
-  pub fn set_underlying_conid(&mut self, underlying_conid: i32) {
-    self.underlying_conid = Some(underlying_conid);
-  }
-
-  pub fn with_underlying_conid(mut self, underlying_conid: i32) -> FuturesInner {
-    self.underlying_conid = Some(underlying_conid);
-    self
-  }
-
-  pub fn underlying_conid(&self) -> Option<&i32> {
-    self.underlying_conid.as_ref()
-  }
-
-  pub fn reset_underlying_conid(&mut self) {
-    self.underlying_conid = None;
   }
 
   pub fn set_expiration_date(&mut self, expiration_date: String) {
@@ -124,6 +90,40 @@ impl FuturesInner {
 
   pub fn reset_ltd(&mut self) {
     self.ltd = None;
+  }
+
+  pub fn set_symbol(&mut self, symbol: String) {
+    self.symbol = Some(symbol);
+  }
+
+  pub fn with_symbol(mut self, symbol: String) -> FuturesInner {
+    self.symbol = Some(symbol);
+    self
+  }
+
+  pub fn symbol(&self) -> Option<&String> {
+    self.symbol.as_ref()
+  }
+
+  pub fn reset_symbol(&mut self) {
+    self.symbol = None;
+  }
+
+  pub fn set_underlying_conid(&mut self, underlying_conid: i32) {
+    self.underlying_conid = Some(underlying_conid);
+  }
+
+  pub fn with_underlying_conid(mut self, underlying_conid: i32) -> FuturesInner {
+    self.underlying_conid = Some(underlying_conid);
+    self
+  }
+
+  pub fn underlying_conid(&self) -> Option<&i32> {
+    self.underlying_conid.as_ref()
+  }
+
+  pub fn reset_underlying_conid(&mut self) {
+    self.underlying_conid = None;
   }
 
 }

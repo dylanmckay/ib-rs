@@ -14,53 +14,2592 @@ use serde_json::Value;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct InlineResponse20020 {
-  /// Email option is enabled or not 0-off, 1-on.
-  #[serde(rename = "M")]
-  M: Option<i32>,
-  #[serde(rename = "E")]
-  E: Option<Vec<::models::InlineResponse20020E>>
+  #[serde(rename = "accountready")]
+  accountready: Option<::models::Summary>,
+  #[serde(rename = "accounttype")]
+  accounttype: Option<::models::Summary>,
+  #[serde(rename = "accruedcash")]
+  accruedcash: Option<::models::Summary>,
+  #[serde(rename = "accruedcash-c")]
+  accruedcash_c: Option<::models::Summary>,
+  #[serde(rename = "accruedcash-f")]
+  accruedcash_f: Option<::models::Summary>,
+  #[serde(rename = "accruedcash-s")]
+  accruedcash_s: Option<::models::Summary>,
+  #[serde(rename = "accrueddividend")]
+  accrueddividend: Option<::models::Summary>,
+  #[serde(rename = "accrueddividend-c")]
+  accrueddividend_c: Option<::models::Summary>,
+  #[serde(rename = "accrueddividend-f")]
+  accrueddividend_f: Option<::models::Summary>,
+  #[serde(rename = "accrueddividend-s")]
+  accrueddividend_s: Option<::models::Summary>,
+  #[serde(rename = "availablefunds")]
+  availablefunds: Option<::models::Summary>,
+  #[serde(rename = "availablefunds-c")]
+  availablefunds_c: Option<::models::Summary>,
+  #[serde(rename = "availablefunds-f")]
+  availablefunds_f: Option<::models::Summary>,
+  #[serde(rename = "availablefunds-s")]
+  availablefunds_s: Option<::models::Summary>,
+  #[serde(rename = "billable")]
+  billable: Option<::models::Summary>,
+  #[serde(rename = "billable-c")]
+  billable_c: Option<::models::Summary>,
+  #[serde(rename = "billable-f")]
+  billable_f: Option<::models::Summary>,
+  #[serde(rename = "billable-s")]
+  billable_s: Option<::models::Summary>,
+  #[serde(rename = "buyingpower")]
+  buyingpower: Option<::models::Summary>,
+  #[serde(rename = "cushion")]
+  cushion: Option<::models::Summary>,
+  #[serde(rename = "daytradesremaining")]
+  daytradesremaining: Option<::models::Summary>,
+  #[serde(rename = "daytradesremainingt+1")]
+  daytradesremainingt1: Option<::models::Summary>,
+  #[serde(rename = "daytradesremainingt+2")]
+  daytradesremainingt2: Option<::models::Summary>,
+  #[serde(rename = "daytradesremainingt+3")]
+  daytradesremainingt3: Option<::models::Summary>,
+  #[serde(rename = "daytradesremainingt+4")]
+  daytradesremainingt4: Option<::models::Summary>,
+  #[serde(rename = "equitywithloanvalue")]
+  equitywithloanvalue: Option<::models::Summary>,
+  #[serde(rename = "equitywithloanvalue-c")]
+  equitywithloanvalue_c: Option<::models::Summary>,
+  #[serde(rename = "equitywithloanvalue-f")]
+  equitywithloanvalue_f: Option<::models::Summary>,
+  #[serde(rename = "equitywithloanvalue-s")]
+  equitywithloanvalue_s: Option<::models::Summary>,
+  #[serde(rename = "excessliquidity")]
+  excessliquidity: Option<::models::Summary>,
+  #[serde(rename = "excessliquidity-c")]
+  excessliquidity_c: Option<::models::Summary>,
+  #[serde(rename = "excessliquidity-f")]
+  excessliquidity_f: Option<::models::Summary>,
+  #[serde(rename = "excessliquidity-s")]
+  excessliquidity_s: Option<::models::Summary>,
+  #[serde(rename = "fullavailablefunds")]
+  fullavailablefunds: Option<::models::Summary>,
+  #[serde(rename = "fullavailablefunds-c")]
+  fullavailablefunds_c: Option<::models::Summary>,
+  #[serde(rename = "fullavailablefunds-f")]
+  fullavailablefunds_f: Option<::models::Summary>,
+  #[serde(rename = "fullavailablefunds-s")]
+  fullavailablefunds_s: Option<::models::Summary>,
+  #[serde(rename = "fullexcessliquidity")]
+  fullexcessliquidity: Option<::models::Summary>,
+  #[serde(rename = "fullexcessliquidity-c")]
+  fullexcessliquidity_c: Option<::models::Summary>,
+  #[serde(rename = "fullexcessliquidity-f")]
+  fullexcessliquidity_f: Option<::models::Summary>,
+  #[serde(rename = "fullexcessliquidity-s")]
+  fullexcessliquidity_s: Option<::models::Summary>,
+  #[serde(rename = "fullinitmarginreq")]
+  fullinitmarginreq: Option<::models::Summary>,
+  #[serde(rename = "fullinitmarginreq-c")]
+  fullinitmarginreq_c: Option<::models::Summary>,
+  #[serde(rename = "fullinitmarginreq-f")]
+  fullinitmarginreq_f: Option<::models::Summary>,
+  #[serde(rename = "fullinitmarginreq-s")]
+  fullinitmarginreq_s: Option<::models::Summary>,
+  #[serde(rename = "fullmaintmarginreq")]
+  fullmaintmarginreq: Option<::models::Summary>,
+  #[serde(rename = "fullmaintmarginreq-c")]
+  fullmaintmarginreq_c: Option<::models::Summary>,
+  #[serde(rename = "fullmaintmarginreq-f")]
+  fullmaintmarginreq_f: Option<::models::Summary>,
+  #[serde(rename = "fullmaintmarginreq-s")]
+  fullmaintmarginreq_s: Option<::models::Summary>,
+  #[serde(rename = "grosspositionvalue")]
+  grosspositionvalue: Option<::models::Summary>,
+  #[serde(rename = "grosspositionvalue-c")]
+  grosspositionvalue_c: Option<::models::Summary>,
+  #[serde(rename = "grosspositionvalue-f")]
+  grosspositionvalue_f: Option<::models::Summary>,
+  #[serde(rename = "grosspositionvalue-s")]
+  grosspositionvalue_s: Option<::models::Summary>,
+  #[serde(rename = "guarantee")]
+  guarantee: Option<::models::Summary>,
+  #[serde(rename = "guarantee-c")]
+  guarantee_c: Option<::models::Summary>,
+  #[serde(rename = "guarantee-f")]
+  guarantee_f: Option<::models::Summary>,
+  #[serde(rename = "guarantee-s")]
+  guarantee_s: Option<::models::Summary>,
+  #[serde(rename = "highestseverity")]
+  highestseverity: Option<::models::Summary>,
+  #[serde(rename = "highestseverity-c")]
+  highestseverity_c: Option<::models::Summary>,
+  #[serde(rename = "highestseverity-f")]
+  highestseverity_f: Option<::models::Summary>,
+  #[serde(rename = "highestseverity-s")]
+  highestseverity_s: Option<::models::Summary>,
+  #[serde(rename = "indianstockhaircut")]
+  indianstockhaircut: Option<::models::Summary>,
+  #[serde(rename = "indianstockhaircut-c")]
+  indianstockhaircut_c: Option<::models::Summary>,
+  #[serde(rename = "indianstockhaircut-f")]
+  indianstockhaircut_f: Option<::models::Summary>,
+  #[serde(rename = "indianstockhaircut-s")]
+  indianstockhaircut_s: Option<::models::Summary>,
+  #[serde(rename = "initmarginreq")]
+  initmarginreq: Option<::models::Summary>,
+  #[serde(rename = "initmarginreq-c")]
+  initmarginreq_c: Option<::models::Summary>,
+  #[serde(rename = "initmarginreq-f")]
+  initmarginreq_f: Option<::models::Summary>,
+  #[serde(rename = "initmarginreq-s")]
+  initmarginreq_s: Option<::models::Summary>,
+  #[serde(rename = "leverage")]
+  leverage: Option<::models::Summary>,
+  #[serde(rename = "leverage-c")]
+  leverage_c: Option<::models::Summary>,
+  #[serde(rename = "leverage-f")]
+  leverage_f: Option<::models::Summary>,
+  #[serde(rename = "leverage-s")]
+  leverage_s: Option<::models::Summary>,
+  #[serde(rename = "lookaheadavailablefunds")]
+  lookaheadavailablefunds: Option<::models::Summary>,
+  #[serde(rename = "lookaheadavailablefunds-c")]
+  lookaheadavailablefunds_c: Option<::models::Summary>,
+  #[serde(rename = "lookaheadavailablefunds-f")]
+  lookaheadavailablefunds_f: Option<::models::Summary>,
+  #[serde(rename = "lookaheadavailablefunds-s")]
+  lookaheadavailablefunds_s: Option<::models::Summary>,
+  #[serde(rename = "lookaheadexcessliquidity")]
+  lookaheadexcessliquidity: Option<::models::Summary>,
+  #[serde(rename = "lookaheadexcessliquidity-c")]
+  lookaheadexcessliquidity_c: Option<::models::Summary>,
+  #[serde(rename = "lookaheadexcessliquidity-f")]
+  lookaheadexcessliquidity_f: Option<::models::Summary>,
+  #[serde(rename = "lookaheadexcessliquidity-s")]
+  lookaheadexcessliquidity_s: Option<::models::Summary>,
+  #[serde(rename = "lookaheadinitmarginreq")]
+  lookaheadinitmarginreq: Option<::models::Summary>,
+  #[serde(rename = "lookaheadinitmarginreq-c")]
+  lookaheadinitmarginreq_c: Option<::models::Summary>,
+  #[serde(rename = "lookaheadinitmarginreq-f")]
+  lookaheadinitmarginreq_f: Option<::models::Summary>,
+  #[serde(rename = "lookaheadinitmarginreq-s")]
+  lookaheadinitmarginreq_s: Option<::models::Summary>,
+  #[serde(rename = "lookaheadmaintmarginreq")]
+  lookaheadmaintmarginreq: Option<::models::Summary>,
+  #[serde(rename = "lookaheadmaintmarginreq-c")]
+  lookaheadmaintmarginreq_c: Option<::models::Summary>,
+  #[serde(rename = "lookaheadmaintmarginreq-f")]
+  lookaheadmaintmarginreq_f: Option<::models::Summary>,
+  #[serde(rename = "lookaheadmaintmarginreq-s")]
+  lookaheadmaintmarginreq_s: Option<::models::Summary>,
+  #[serde(rename = "lookaheadnextchange")]
+  lookaheadnextchange: Option<::models::Summary>,
+  #[serde(rename = "maintmarginreq")]
+  maintmarginreq: Option<::models::Summary>,
+  #[serde(rename = "maintmarginreq-c")]
+  maintmarginreq_c: Option<::models::Summary>,
+  #[serde(rename = "maintmarginreq-f")]
+  maintmarginreq_f: Option<::models::Summary>,
+  #[serde(rename = "maintmarginreq-s")]
+  maintmarginreq_s: Option<::models::Summary>,
+  #[serde(rename = "netliquidation")]
+  netliquidation: Option<::models::Summary>,
+  #[serde(rename = "netliquidation-c")]
+  netliquidation_c: Option<::models::Summary>,
+  #[serde(rename = "netliquidation-f")]
+  netliquidation_f: Option<::models::Summary>,
+  #[serde(rename = "netliquidation-s")]
+  netliquidation_s: Option<::models::Summary>,
+  #[serde(rename = "netliquidationuncertainty")]
+  netliquidationuncertainty: Option<::models::Summary>,
+  #[serde(rename = "nlvandmargininreview")]
+  nlvandmargininreview: Option<::models::Summary>,
+  #[serde(rename = "pasharesvalue")]
+  pasharesvalue: Option<::models::Summary>,
+  #[serde(rename = "pasharesvalue-c")]
+  pasharesvalue_c: Option<::models::Summary>,
+  #[serde(rename = "pasharesvalue-f")]
+  pasharesvalue_f: Option<::models::Summary>,
+  #[serde(rename = "pasharesvalue-s")]
+  pasharesvalue_s: Option<::models::Summary>,
+  #[serde(rename = "postexpirationexcess")]
+  postexpirationexcess: Option<::models::Summary>,
+  #[serde(rename = "postexpirationexcess-c")]
+  postexpirationexcess_c: Option<::models::Summary>,
+  #[serde(rename = "postexpirationexcess-f")]
+  postexpirationexcess_f: Option<::models::Summary>,
+  #[serde(rename = "postexpirationexcess-s")]
+  postexpirationexcess_s: Option<::models::Summary>,
+  #[serde(rename = "postexpirationmargin")]
+  postexpirationmargin: Option<::models::Summary>,
+  #[serde(rename = "postexpirationmargin-c")]
+  postexpirationmargin_c: Option<::models::Summary>,
+  #[serde(rename = "postexpirationmargin-f")]
+  postexpirationmargin_f: Option<::models::Summary>,
+  #[serde(rename = "postexpirationmargin-s")]
+  postexpirationmargin_s: Option<::models::Summary>,
+  #[serde(rename = "previousdayequitywithloanvalue")]
+  previousdayequitywithloanvalue: Option<::models::Summary>,
+  #[serde(rename = "previousdayequitywithloanvalue-c")]
+  previousdayequitywithloanvalue_c: Option<::models::Summary>,
+  #[serde(rename = "previousdayequitywithloanvalue-f")]
+  previousdayequitywithloanvalue_f: Option<::models::Summary>,
+  #[serde(rename = "previousdayequitywithloanvalue-s")]
+  previousdayequitywithloanvalue_s: Option<::models::Summary>,
+  #[serde(rename = "segmenttitle-c")]
+  segmenttitle_c: Option<::models::Summary>,
+  #[serde(rename = "segmenttitle-f")]
+  segmenttitle_f: Option<::models::Summary>,
+  #[serde(rename = "segmenttitle-s")]
+  segmenttitle_s: Option<::models::Summary>,
+  #[serde(rename = "totalcashvalue")]
+  totalcashvalue: Option<::models::Summary>,
+  #[serde(rename = "totalcashvalue-c")]
+  totalcashvalue_c: Option<::models::Summary>,
+  #[serde(rename = "totalcashvalue-f")]
+  totalcashvalue_f: Option<::models::Summary>,
+  #[serde(rename = "totalcashvalue-s")]
+  totalcashvalue_s: Option<::models::Summary>,
+  #[serde(rename = "totaldebitcardpendingcharges")]
+  totaldebitcardpendingcharges: Option<::models::Summary>,
+  #[serde(rename = "totaldebitcardpendingcharges-c")]
+  totaldebitcardpendingcharges_c: Option<::models::Summary>,
+  #[serde(rename = "totaldebitcardpendingcharges-f")]
+  totaldebitcardpendingcharges_f: Option<::models::Summary>,
+  #[serde(rename = "totaldebitcardpendingcharges-s")]
+  totaldebitcardpendingcharges_s: Option<::models::Summary>,
+  #[serde(rename = "tradingtype-f")]
+  tradingtype_f: Option<::models::Summary>,
+  #[serde(rename = "tradingtype-s")]
+  tradingtype_s: Option<::models::Summary>
 }
 
 impl InlineResponse20020 {
   pub fn new() -> InlineResponse20020 {
     InlineResponse20020 {
-      M: None,
-      E: None
+      accountready: None,
+      accounttype: None,
+      accruedcash: None,
+      accruedcash_c: None,
+      accruedcash_f: None,
+      accruedcash_s: None,
+      accrueddividend: None,
+      accrueddividend_c: None,
+      accrueddividend_f: None,
+      accrueddividend_s: None,
+      availablefunds: None,
+      availablefunds_c: None,
+      availablefunds_f: None,
+      availablefunds_s: None,
+      billable: None,
+      billable_c: None,
+      billable_f: None,
+      billable_s: None,
+      buyingpower: None,
+      cushion: None,
+      daytradesremaining: None,
+      daytradesremainingt1: None,
+      daytradesremainingt2: None,
+      daytradesremainingt3: None,
+      daytradesremainingt4: None,
+      equitywithloanvalue: None,
+      equitywithloanvalue_c: None,
+      equitywithloanvalue_f: None,
+      equitywithloanvalue_s: None,
+      excessliquidity: None,
+      excessliquidity_c: None,
+      excessliquidity_f: None,
+      excessliquidity_s: None,
+      fullavailablefunds: None,
+      fullavailablefunds_c: None,
+      fullavailablefunds_f: None,
+      fullavailablefunds_s: None,
+      fullexcessliquidity: None,
+      fullexcessliquidity_c: None,
+      fullexcessliquidity_f: None,
+      fullexcessliquidity_s: None,
+      fullinitmarginreq: None,
+      fullinitmarginreq_c: None,
+      fullinitmarginreq_f: None,
+      fullinitmarginreq_s: None,
+      fullmaintmarginreq: None,
+      fullmaintmarginreq_c: None,
+      fullmaintmarginreq_f: None,
+      fullmaintmarginreq_s: None,
+      grosspositionvalue: None,
+      grosspositionvalue_c: None,
+      grosspositionvalue_f: None,
+      grosspositionvalue_s: None,
+      guarantee: None,
+      guarantee_c: None,
+      guarantee_f: None,
+      guarantee_s: None,
+      highestseverity: None,
+      highestseverity_c: None,
+      highestseverity_f: None,
+      highestseverity_s: None,
+      indianstockhaircut: None,
+      indianstockhaircut_c: None,
+      indianstockhaircut_f: None,
+      indianstockhaircut_s: None,
+      initmarginreq: None,
+      initmarginreq_c: None,
+      initmarginreq_f: None,
+      initmarginreq_s: None,
+      leverage: None,
+      leverage_c: None,
+      leverage_f: None,
+      leverage_s: None,
+      lookaheadavailablefunds: None,
+      lookaheadavailablefunds_c: None,
+      lookaheadavailablefunds_f: None,
+      lookaheadavailablefunds_s: None,
+      lookaheadexcessliquidity: None,
+      lookaheadexcessliquidity_c: None,
+      lookaheadexcessliquidity_f: None,
+      lookaheadexcessliquidity_s: None,
+      lookaheadinitmarginreq: None,
+      lookaheadinitmarginreq_c: None,
+      lookaheadinitmarginreq_f: None,
+      lookaheadinitmarginreq_s: None,
+      lookaheadmaintmarginreq: None,
+      lookaheadmaintmarginreq_c: None,
+      lookaheadmaintmarginreq_f: None,
+      lookaheadmaintmarginreq_s: None,
+      lookaheadnextchange: None,
+      maintmarginreq: None,
+      maintmarginreq_c: None,
+      maintmarginreq_f: None,
+      maintmarginreq_s: None,
+      netliquidation: None,
+      netliquidation_c: None,
+      netliquidation_f: None,
+      netliquidation_s: None,
+      netliquidationuncertainty: None,
+      nlvandmargininreview: None,
+      pasharesvalue: None,
+      pasharesvalue_c: None,
+      pasharesvalue_f: None,
+      pasharesvalue_s: None,
+      postexpirationexcess: None,
+      postexpirationexcess_c: None,
+      postexpirationexcess_f: None,
+      postexpirationexcess_s: None,
+      postexpirationmargin: None,
+      postexpirationmargin_c: None,
+      postexpirationmargin_f: None,
+      postexpirationmargin_s: None,
+      previousdayequitywithloanvalue: None,
+      previousdayequitywithloanvalue_c: None,
+      previousdayequitywithloanvalue_f: None,
+      previousdayequitywithloanvalue_s: None,
+      segmenttitle_c: None,
+      segmenttitle_f: None,
+      segmenttitle_s: None,
+      totalcashvalue: None,
+      totalcashvalue_c: None,
+      totalcashvalue_f: None,
+      totalcashvalue_s: None,
+      totaldebitcardpendingcharges: None,
+      totaldebitcardpendingcharges_c: None,
+      totaldebitcardpendingcharges_f: None,
+      totaldebitcardpendingcharges_s: None,
+      tradingtype_f: None,
+      tradingtype_s: None
     }
   }
 
-  pub fn set_M(&mut self, M: i32) {
-    self.M = Some(M);
+  pub fn set_accountready(&mut self, accountready: ::models::Summary) {
+    self.accountready = Some(accountready);
   }
 
-  pub fn with_M(mut self, M: i32) -> InlineResponse20020 {
-    self.M = Some(M);
+  pub fn with_accountready(mut self, accountready: ::models::Summary) -> InlineResponse20020 {
+    self.accountready = Some(accountready);
     self
   }
 
-  pub fn M(&self) -> Option<&i32> {
-    self.M.as_ref()
+  pub fn accountready(&self) -> Option<&::models::Summary> {
+    self.accountready.as_ref()
   }
 
-  pub fn reset_M(&mut self) {
-    self.M = None;
+  pub fn reset_accountready(&mut self) {
+    self.accountready = None;
   }
 
-  pub fn set_E(&mut self, E: Vec<::models::InlineResponse20020E>) {
-    self.E = Some(E);
+  pub fn set_accounttype(&mut self, accounttype: ::models::Summary) {
+    self.accounttype = Some(accounttype);
   }
 
-  pub fn with_E(mut self, E: Vec<::models::InlineResponse20020E>) -> InlineResponse20020 {
-    self.E = Some(E);
+  pub fn with_accounttype(mut self, accounttype: ::models::Summary) -> InlineResponse20020 {
+    self.accounttype = Some(accounttype);
     self
   }
 
-  pub fn E(&self) -> Option<&Vec<::models::InlineResponse20020E>> {
-    self.E.as_ref()
+  pub fn accounttype(&self) -> Option<&::models::Summary> {
+    self.accounttype.as_ref()
   }
 
-  pub fn reset_E(&mut self) {
-    self.E = None;
+  pub fn reset_accounttype(&mut self) {
+    self.accounttype = None;
+  }
+
+  pub fn set_accruedcash(&mut self, accruedcash: ::models::Summary) {
+    self.accruedcash = Some(accruedcash);
+  }
+
+  pub fn with_accruedcash(mut self, accruedcash: ::models::Summary) -> InlineResponse20020 {
+    self.accruedcash = Some(accruedcash);
+    self
+  }
+
+  pub fn accruedcash(&self) -> Option<&::models::Summary> {
+    self.accruedcash.as_ref()
+  }
+
+  pub fn reset_accruedcash(&mut self) {
+    self.accruedcash = None;
+  }
+
+  pub fn set_accruedcash_c(&mut self, accruedcash_c: ::models::Summary) {
+    self.accruedcash_c = Some(accruedcash_c);
+  }
+
+  pub fn with_accruedcash_c(mut self, accruedcash_c: ::models::Summary) -> InlineResponse20020 {
+    self.accruedcash_c = Some(accruedcash_c);
+    self
+  }
+
+  pub fn accruedcash_c(&self) -> Option<&::models::Summary> {
+    self.accruedcash_c.as_ref()
+  }
+
+  pub fn reset_accruedcash_c(&mut self) {
+    self.accruedcash_c = None;
+  }
+
+  pub fn set_accruedcash_f(&mut self, accruedcash_f: ::models::Summary) {
+    self.accruedcash_f = Some(accruedcash_f);
+  }
+
+  pub fn with_accruedcash_f(mut self, accruedcash_f: ::models::Summary) -> InlineResponse20020 {
+    self.accruedcash_f = Some(accruedcash_f);
+    self
+  }
+
+  pub fn accruedcash_f(&self) -> Option<&::models::Summary> {
+    self.accruedcash_f.as_ref()
+  }
+
+  pub fn reset_accruedcash_f(&mut self) {
+    self.accruedcash_f = None;
+  }
+
+  pub fn set_accruedcash_s(&mut self, accruedcash_s: ::models::Summary) {
+    self.accruedcash_s = Some(accruedcash_s);
+  }
+
+  pub fn with_accruedcash_s(mut self, accruedcash_s: ::models::Summary) -> InlineResponse20020 {
+    self.accruedcash_s = Some(accruedcash_s);
+    self
+  }
+
+  pub fn accruedcash_s(&self) -> Option<&::models::Summary> {
+    self.accruedcash_s.as_ref()
+  }
+
+  pub fn reset_accruedcash_s(&mut self) {
+    self.accruedcash_s = None;
+  }
+
+  pub fn set_accrueddividend(&mut self, accrueddividend: ::models::Summary) {
+    self.accrueddividend = Some(accrueddividend);
+  }
+
+  pub fn with_accrueddividend(mut self, accrueddividend: ::models::Summary) -> InlineResponse20020 {
+    self.accrueddividend = Some(accrueddividend);
+    self
+  }
+
+  pub fn accrueddividend(&self) -> Option<&::models::Summary> {
+    self.accrueddividend.as_ref()
+  }
+
+  pub fn reset_accrueddividend(&mut self) {
+    self.accrueddividend = None;
+  }
+
+  pub fn set_accrueddividend_c(&mut self, accrueddividend_c: ::models::Summary) {
+    self.accrueddividend_c = Some(accrueddividend_c);
+  }
+
+  pub fn with_accrueddividend_c(mut self, accrueddividend_c: ::models::Summary) -> InlineResponse20020 {
+    self.accrueddividend_c = Some(accrueddividend_c);
+    self
+  }
+
+  pub fn accrueddividend_c(&self) -> Option<&::models::Summary> {
+    self.accrueddividend_c.as_ref()
+  }
+
+  pub fn reset_accrueddividend_c(&mut self) {
+    self.accrueddividend_c = None;
+  }
+
+  pub fn set_accrueddividend_f(&mut self, accrueddividend_f: ::models::Summary) {
+    self.accrueddividend_f = Some(accrueddividend_f);
+  }
+
+  pub fn with_accrueddividend_f(mut self, accrueddividend_f: ::models::Summary) -> InlineResponse20020 {
+    self.accrueddividend_f = Some(accrueddividend_f);
+    self
+  }
+
+  pub fn accrueddividend_f(&self) -> Option<&::models::Summary> {
+    self.accrueddividend_f.as_ref()
+  }
+
+  pub fn reset_accrueddividend_f(&mut self) {
+    self.accrueddividend_f = None;
+  }
+
+  pub fn set_accrueddividend_s(&mut self, accrueddividend_s: ::models::Summary) {
+    self.accrueddividend_s = Some(accrueddividend_s);
+  }
+
+  pub fn with_accrueddividend_s(mut self, accrueddividend_s: ::models::Summary) -> InlineResponse20020 {
+    self.accrueddividend_s = Some(accrueddividend_s);
+    self
+  }
+
+  pub fn accrueddividend_s(&self) -> Option<&::models::Summary> {
+    self.accrueddividend_s.as_ref()
+  }
+
+  pub fn reset_accrueddividend_s(&mut self) {
+    self.accrueddividend_s = None;
+  }
+
+  pub fn set_availablefunds(&mut self, availablefunds: ::models::Summary) {
+    self.availablefunds = Some(availablefunds);
+  }
+
+  pub fn with_availablefunds(mut self, availablefunds: ::models::Summary) -> InlineResponse20020 {
+    self.availablefunds = Some(availablefunds);
+    self
+  }
+
+  pub fn availablefunds(&self) -> Option<&::models::Summary> {
+    self.availablefunds.as_ref()
+  }
+
+  pub fn reset_availablefunds(&mut self) {
+    self.availablefunds = None;
+  }
+
+  pub fn set_availablefunds_c(&mut self, availablefunds_c: ::models::Summary) {
+    self.availablefunds_c = Some(availablefunds_c);
+  }
+
+  pub fn with_availablefunds_c(mut self, availablefunds_c: ::models::Summary) -> InlineResponse20020 {
+    self.availablefunds_c = Some(availablefunds_c);
+    self
+  }
+
+  pub fn availablefunds_c(&self) -> Option<&::models::Summary> {
+    self.availablefunds_c.as_ref()
+  }
+
+  pub fn reset_availablefunds_c(&mut self) {
+    self.availablefunds_c = None;
+  }
+
+  pub fn set_availablefunds_f(&mut self, availablefunds_f: ::models::Summary) {
+    self.availablefunds_f = Some(availablefunds_f);
+  }
+
+  pub fn with_availablefunds_f(mut self, availablefunds_f: ::models::Summary) -> InlineResponse20020 {
+    self.availablefunds_f = Some(availablefunds_f);
+    self
+  }
+
+  pub fn availablefunds_f(&self) -> Option<&::models::Summary> {
+    self.availablefunds_f.as_ref()
+  }
+
+  pub fn reset_availablefunds_f(&mut self) {
+    self.availablefunds_f = None;
+  }
+
+  pub fn set_availablefunds_s(&mut self, availablefunds_s: ::models::Summary) {
+    self.availablefunds_s = Some(availablefunds_s);
+  }
+
+  pub fn with_availablefunds_s(mut self, availablefunds_s: ::models::Summary) -> InlineResponse20020 {
+    self.availablefunds_s = Some(availablefunds_s);
+    self
+  }
+
+  pub fn availablefunds_s(&self) -> Option<&::models::Summary> {
+    self.availablefunds_s.as_ref()
+  }
+
+  pub fn reset_availablefunds_s(&mut self) {
+    self.availablefunds_s = None;
+  }
+
+  pub fn set_billable(&mut self, billable: ::models::Summary) {
+    self.billable = Some(billable);
+  }
+
+  pub fn with_billable(mut self, billable: ::models::Summary) -> InlineResponse20020 {
+    self.billable = Some(billable);
+    self
+  }
+
+  pub fn billable(&self) -> Option<&::models::Summary> {
+    self.billable.as_ref()
+  }
+
+  pub fn reset_billable(&mut self) {
+    self.billable = None;
+  }
+
+  pub fn set_billable_c(&mut self, billable_c: ::models::Summary) {
+    self.billable_c = Some(billable_c);
+  }
+
+  pub fn with_billable_c(mut self, billable_c: ::models::Summary) -> InlineResponse20020 {
+    self.billable_c = Some(billable_c);
+    self
+  }
+
+  pub fn billable_c(&self) -> Option<&::models::Summary> {
+    self.billable_c.as_ref()
+  }
+
+  pub fn reset_billable_c(&mut self) {
+    self.billable_c = None;
+  }
+
+  pub fn set_billable_f(&mut self, billable_f: ::models::Summary) {
+    self.billable_f = Some(billable_f);
+  }
+
+  pub fn with_billable_f(mut self, billable_f: ::models::Summary) -> InlineResponse20020 {
+    self.billable_f = Some(billable_f);
+    self
+  }
+
+  pub fn billable_f(&self) -> Option<&::models::Summary> {
+    self.billable_f.as_ref()
+  }
+
+  pub fn reset_billable_f(&mut self) {
+    self.billable_f = None;
+  }
+
+  pub fn set_billable_s(&mut self, billable_s: ::models::Summary) {
+    self.billable_s = Some(billable_s);
+  }
+
+  pub fn with_billable_s(mut self, billable_s: ::models::Summary) -> InlineResponse20020 {
+    self.billable_s = Some(billable_s);
+    self
+  }
+
+  pub fn billable_s(&self) -> Option<&::models::Summary> {
+    self.billable_s.as_ref()
+  }
+
+  pub fn reset_billable_s(&mut self) {
+    self.billable_s = None;
+  }
+
+  pub fn set_buyingpower(&mut self, buyingpower: ::models::Summary) {
+    self.buyingpower = Some(buyingpower);
+  }
+
+  pub fn with_buyingpower(mut self, buyingpower: ::models::Summary) -> InlineResponse20020 {
+    self.buyingpower = Some(buyingpower);
+    self
+  }
+
+  pub fn buyingpower(&self) -> Option<&::models::Summary> {
+    self.buyingpower.as_ref()
+  }
+
+  pub fn reset_buyingpower(&mut self) {
+    self.buyingpower = None;
+  }
+
+  pub fn set_cushion(&mut self, cushion: ::models::Summary) {
+    self.cushion = Some(cushion);
+  }
+
+  pub fn with_cushion(mut self, cushion: ::models::Summary) -> InlineResponse20020 {
+    self.cushion = Some(cushion);
+    self
+  }
+
+  pub fn cushion(&self) -> Option<&::models::Summary> {
+    self.cushion.as_ref()
+  }
+
+  pub fn reset_cushion(&mut self) {
+    self.cushion = None;
+  }
+
+  pub fn set_daytradesremaining(&mut self, daytradesremaining: ::models::Summary) {
+    self.daytradesremaining = Some(daytradesremaining);
+  }
+
+  pub fn with_daytradesremaining(mut self, daytradesremaining: ::models::Summary) -> InlineResponse20020 {
+    self.daytradesremaining = Some(daytradesremaining);
+    self
+  }
+
+  pub fn daytradesremaining(&self) -> Option<&::models::Summary> {
+    self.daytradesremaining.as_ref()
+  }
+
+  pub fn reset_daytradesremaining(&mut self) {
+    self.daytradesremaining = None;
+  }
+
+  pub fn set_daytradesremainingt1(&mut self, daytradesremainingt1: ::models::Summary) {
+    self.daytradesremainingt1 = Some(daytradesremainingt1);
+  }
+
+  pub fn with_daytradesremainingt1(mut self, daytradesremainingt1: ::models::Summary) -> InlineResponse20020 {
+    self.daytradesremainingt1 = Some(daytradesremainingt1);
+    self
+  }
+
+  pub fn daytradesremainingt1(&self) -> Option<&::models::Summary> {
+    self.daytradesremainingt1.as_ref()
+  }
+
+  pub fn reset_daytradesremainingt1(&mut self) {
+    self.daytradesremainingt1 = None;
+  }
+
+  pub fn set_daytradesremainingt2(&mut self, daytradesremainingt2: ::models::Summary) {
+    self.daytradesremainingt2 = Some(daytradesremainingt2);
+  }
+
+  pub fn with_daytradesremainingt2(mut self, daytradesremainingt2: ::models::Summary) -> InlineResponse20020 {
+    self.daytradesremainingt2 = Some(daytradesremainingt2);
+    self
+  }
+
+  pub fn daytradesremainingt2(&self) -> Option<&::models::Summary> {
+    self.daytradesremainingt2.as_ref()
+  }
+
+  pub fn reset_daytradesremainingt2(&mut self) {
+    self.daytradesremainingt2 = None;
+  }
+
+  pub fn set_daytradesremainingt3(&mut self, daytradesremainingt3: ::models::Summary) {
+    self.daytradesremainingt3 = Some(daytradesremainingt3);
+  }
+
+  pub fn with_daytradesremainingt3(mut self, daytradesremainingt3: ::models::Summary) -> InlineResponse20020 {
+    self.daytradesremainingt3 = Some(daytradesremainingt3);
+    self
+  }
+
+  pub fn daytradesremainingt3(&self) -> Option<&::models::Summary> {
+    self.daytradesremainingt3.as_ref()
+  }
+
+  pub fn reset_daytradesremainingt3(&mut self) {
+    self.daytradesremainingt3 = None;
+  }
+
+  pub fn set_daytradesremainingt4(&mut self, daytradesremainingt4: ::models::Summary) {
+    self.daytradesremainingt4 = Some(daytradesremainingt4);
+  }
+
+  pub fn with_daytradesremainingt4(mut self, daytradesremainingt4: ::models::Summary) -> InlineResponse20020 {
+    self.daytradesremainingt4 = Some(daytradesremainingt4);
+    self
+  }
+
+  pub fn daytradesremainingt4(&self) -> Option<&::models::Summary> {
+    self.daytradesremainingt4.as_ref()
+  }
+
+  pub fn reset_daytradesremainingt4(&mut self) {
+    self.daytradesremainingt4 = None;
+  }
+
+  pub fn set_equitywithloanvalue(&mut self, equitywithloanvalue: ::models::Summary) {
+    self.equitywithloanvalue = Some(equitywithloanvalue);
+  }
+
+  pub fn with_equitywithloanvalue(mut self, equitywithloanvalue: ::models::Summary) -> InlineResponse20020 {
+    self.equitywithloanvalue = Some(equitywithloanvalue);
+    self
+  }
+
+  pub fn equitywithloanvalue(&self) -> Option<&::models::Summary> {
+    self.equitywithloanvalue.as_ref()
+  }
+
+  pub fn reset_equitywithloanvalue(&mut self) {
+    self.equitywithloanvalue = None;
+  }
+
+  pub fn set_equitywithloanvalue_c(&mut self, equitywithloanvalue_c: ::models::Summary) {
+    self.equitywithloanvalue_c = Some(equitywithloanvalue_c);
+  }
+
+  pub fn with_equitywithloanvalue_c(mut self, equitywithloanvalue_c: ::models::Summary) -> InlineResponse20020 {
+    self.equitywithloanvalue_c = Some(equitywithloanvalue_c);
+    self
+  }
+
+  pub fn equitywithloanvalue_c(&self) -> Option<&::models::Summary> {
+    self.equitywithloanvalue_c.as_ref()
+  }
+
+  pub fn reset_equitywithloanvalue_c(&mut self) {
+    self.equitywithloanvalue_c = None;
+  }
+
+  pub fn set_equitywithloanvalue_f(&mut self, equitywithloanvalue_f: ::models::Summary) {
+    self.equitywithloanvalue_f = Some(equitywithloanvalue_f);
+  }
+
+  pub fn with_equitywithloanvalue_f(mut self, equitywithloanvalue_f: ::models::Summary) -> InlineResponse20020 {
+    self.equitywithloanvalue_f = Some(equitywithloanvalue_f);
+    self
+  }
+
+  pub fn equitywithloanvalue_f(&self) -> Option<&::models::Summary> {
+    self.equitywithloanvalue_f.as_ref()
+  }
+
+  pub fn reset_equitywithloanvalue_f(&mut self) {
+    self.equitywithloanvalue_f = None;
+  }
+
+  pub fn set_equitywithloanvalue_s(&mut self, equitywithloanvalue_s: ::models::Summary) {
+    self.equitywithloanvalue_s = Some(equitywithloanvalue_s);
+  }
+
+  pub fn with_equitywithloanvalue_s(mut self, equitywithloanvalue_s: ::models::Summary) -> InlineResponse20020 {
+    self.equitywithloanvalue_s = Some(equitywithloanvalue_s);
+    self
+  }
+
+  pub fn equitywithloanvalue_s(&self) -> Option<&::models::Summary> {
+    self.equitywithloanvalue_s.as_ref()
+  }
+
+  pub fn reset_equitywithloanvalue_s(&mut self) {
+    self.equitywithloanvalue_s = None;
+  }
+
+  pub fn set_excessliquidity(&mut self, excessliquidity: ::models::Summary) {
+    self.excessliquidity = Some(excessliquidity);
+  }
+
+  pub fn with_excessliquidity(mut self, excessliquidity: ::models::Summary) -> InlineResponse20020 {
+    self.excessliquidity = Some(excessliquidity);
+    self
+  }
+
+  pub fn excessliquidity(&self) -> Option<&::models::Summary> {
+    self.excessliquidity.as_ref()
+  }
+
+  pub fn reset_excessliquidity(&mut self) {
+    self.excessliquidity = None;
+  }
+
+  pub fn set_excessliquidity_c(&mut self, excessliquidity_c: ::models::Summary) {
+    self.excessliquidity_c = Some(excessliquidity_c);
+  }
+
+  pub fn with_excessliquidity_c(mut self, excessliquidity_c: ::models::Summary) -> InlineResponse20020 {
+    self.excessliquidity_c = Some(excessliquidity_c);
+    self
+  }
+
+  pub fn excessliquidity_c(&self) -> Option<&::models::Summary> {
+    self.excessliquidity_c.as_ref()
+  }
+
+  pub fn reset_excessliquidity_c(&mut self) {
+    self.excessliquidity_c = None;
+  }
+
+  pub fn set_excessliquidity_f(&mut self, excessliquidity_f: ::models::Summary) {
+    self.excessliquidity_f = Some(excessliquidity_f);
+  }
+
+  pub fn with_excessliquidity_f(mut self, excessliquidity_f: ::models::Summary) -> InlineResponse20020 {
+    self.excessliquidity_f = Some(excessliquidity_f);
+    self
+  }
+
+  pub fn excessliquidity_f(&self) -> Option<&::models::Summary> {
+    self.excessliquidity_f.as_ref()
+  }
+
+  pub fn reset_excessliquidity_f(&mut self) {
+    self.excessliquidity_f = None;
+  }
+
+  pub fn set_excessliquidity_s(&mut self, excessliquidity_s: ::models::Summary) {
+    self.excessliquidity_s = Some(excessliquidity_s);
+  }
+
+  pub fn with_excessliquidity_s(mut self, excessliquidity_s: ::models::Summary) -> InlineResponse20020 {
+    self.excessliquidity_s = Some(excessliquidity_s);
+    self
+  }
+
+  pub fn excessliquidity_s(&self) -> Option<&::models::Summary> {
+    self.excessliquidity_s.as_ref()
+  }
+
+  pub fn reset_excessliquidity_s(&mut self) {
+    self.excessliquidity_s = None;
+  }
+
+  pub fn set_fullavailablefunds(&mut self, fullavailablefunds: ::models::Summary) {
+    self.fullavailablefunds = Some(fullavailablefunds);
+  }
+
+  pub fn with_fullavailablefunds(mut self, fullavailablefunds: ::models::Summary) -> InlineResponse20020 {
+    self.fullavailablefunds = Some(fullavailablefunds);
+    self
+  }
+
+  pub fn fullavailablefunds(&self) -> Option<&::models::Summary> {
+    self.fullavailablefunds.as_ref()
+  }
+
+  pub fn reset_fullavailablefunds(&mut self) {
+    self.fullavailablefunds = None;
+  }
+
+  pub fn set_fullavailablefunds_c(&mut self, fullavailablefunds_c: ::models::Summary) {
+    self.fullavailablefunds_c = Some(fullavailablefunds_c);
+  }
+
+  pub fn with_fullavailablefunds_c(mut self, fullavailablefunds_c: ::models::Summary) -> InlineResponse20020 {
+    self.fullavailablefunds_c = Some(fullavailablefunds_c);
+    self
+  }
+
+  pub fn fullavailablefunds_c(&self) -> Option<&::models::Summary> {
+    self.fullavailablefunds_c.as_ref()
+  }
+
+  pub fn reset_fullavailablefunds_c(&mut self) {
+    self.fullavailablefunds_c = None;
+  }
+
+  pub fn set_fullavailablefunds_f(&mut self, fullavailablefunds_f: ::models::Summary) {
+    self.fullavailablefunds_f = Some(fullavailablefunds_f);
+  }
+
+  pub fn with_fullavailablefunds_f(mut self, fullavailablefunds_f: ::models::Summary) -> InlineResponse20020 {
+    self.fullavailablefunds_f = Some(fullavailablefunds_f);
+    self
+  }
+
+  pub fn fullavailablefunds_f(&self) -> Option<&::models::Summary> {
+    self.fullavailablefunds_f.as_ref()
+  }
+
+  pub fn reset_fullavailablefunds_f(&mut self) {
+    self.fullavailablefunds_f = None;
+  }
+
+  pub fn set_fullavailablefunds_s(&mut self, fullavailablefunds_s: ::models::Summary) {
+    self.fullavailablefunds_s = Some(fullavailablefunds_s);
+  }
+
+  pub fn with_fullavailablefunds_s(mut self, fullavailablefunds_s: ::models::Summary) -> InlineResponse20020 {
+    self.fullavailablefunds_s = Some(fullavailablefunds_s);
+    self
+  }
+
+  pub fn fullavailablefunds_s(&self) -> Option<&::models::Summary> {
+    self.fullavailablefunds_s.as_ref()
+  }
+
+  pub fn reset_fullavailablefunds_s(&mut self) {
+    self.fullavailablefunds_s = None;
+  }
+
+  pub fn set_fullexcessliquidity(&mut self, fullexcessliquidity: ::models::Summary) {
+    self.fullexcessliquidity = Some(fullexcessliquidity);
+  }
+
+  pub fn with_fullexcessliquidity(mut self, fullexcessliquidity: ::models::Summary) -> InlineResponse20020 {
+    self.fullexcessliquidity = Some(fullexcessliquidity);
+    self
+  }
+
+  pub fn fullexcessliquidity(&self) -> Option<&::models::Summary> {
+    self.fullexcessliquidity.as_ref()
+  }
+
+  pub fn reset_fullexcessliquidity(&mut self) {
+    self.fullexcessliquidity = None;
+  }
+
+  pub fn set_fullexcessliquidity_c(&mut self, fullexcessliquidity_c: ::models::Summary) {
+    self.fullexcessliquidity_c = Some(fullexcessliquidity_c);
+  }
+
+  pub fn with_fullexcessliquidity_c(mut self, fullexcessliquidity_c: ::models::Summary) -> InlineResponse20020 {
+    self.fullexcessliquidity_c = Some(fullexcessliquidity_c);
+    self
+  }
+
+  pub fn fullexcessliquidity_c(&self) -> Option<&::models::Summary> {
+    self.fullexcessliquidity_c.as_ref()
+  }
+
+  pub fn reset_fullexcessliquidity_c(&mut self) {
+    self.fullexcessliquidity_c = None;
+  }
+
+  pub fn set_fullexcessliquidity_f(&mut self, fullexcessliquidity_f: ::models::Summary) {
+    self.fullexcessliquidity_f = Some(fullexcessliquidity_f);
+  }
+
+  pub fn with_fullexcessliquidity_f(mut self, fullexcessliquidity_f: ::models::Summary) -> InlineResponse20020 {
+    self.fullexcessliquidity_f = Some(fullexcessliquidity_f);
+    self
+  }
+
+  pub fn fullexcessliquidity_f(&self) -> Option<&::models::Summary> {
+    self.fullexcessliquidity_f.as_ref()
+  }
+
+  pub fn reset_fullexcessliquidity_f(&mut self) {
+    self.fullexcessliquidity_f = None;
+  }
+
+  pub fn set_fullexcessliquidity_s(&mut self, fullexcessliquidity_s: ::models::Summary) {
+    self.fullexcessliquidity_s = Some(fullexcessliquidity_s);
+  }
+
+  pub fn with_fullexcessliquidity_s(mut self, fullexcessliquidity_s: ::models::Summary) -> InlineResponse20020 {
+    self.fullexcessliquidity_s = Some(fullexcessliquidity_s);
+    self
+  }
+
+  pub fn fullexcessliquidity_s(&self) -> Option<&::models::Summary> {
+    self.fullexcessliquidity_s.as_ref()
+  }
+
+  pub fn reset_fullexcessliquidity_s(&mut self) {
+    self.fullexcessliquidity_s = None;
+  }
+
+  pub fn set_fullinitmarginreq(&mut self, fullinitmarginreq: ::models::Summary) {
+    self.fullinitmarginreq = Some(fullinitmarginreq);
+  }
+
+  pub fn with_fullinitmarginreq(mut self, fullinitmarginreq: ::models::Summary) -> InlineResponse20020 {
+    self.fullinitmarginreq = Some(fullinitmarginreq);
+    self
+  }
+
+  pub fn fullinitmarginreq(&self) -> Option<&::models::Summary> {
+    self.fullinitmarginreq.as_ref()
+  }
+
+  pub fn reset_fullinitmarginreq(&mut self) {
+    self.fullinitmarginreq = None;
+  }
+
+  pub fn set_fullinitmarginreq_c(&mut self, fullinitmarginreq_c: ::models::Summary) {
+    self.fullinitmarginreq_c = Some(fullinitmarginreq_c);
+  }
+
+  pub fn with_fullinitmarginreq_c(mut self, fullinitmarginreq_c: ::models::Summary) -> InlineResponse20020 {
+    self.fullinitmarginreq_c = Some(fullinitmarginreq_c);
+    self
+  }
+
+  pub fn fullinitmarginreq_c(&self) -> Option<&::models::Summary> {
+    self.fullinitmarginreq_c.as_ref()
+  }
+
+  pub fn reset_fullinitmarginreq_c(&mut self) {
+    self.fullinitmarginreq_c = None;
+  }
+
+  pub fn set_fullinitmarginreq_f(&mut self, fullinitmarginreq_f: ::models::Summary) {
+    self.fullinitmarginreq_f = Some(fullinitmarginreq_f);
+  }
+
+  pub fn with_fullinitmarginreq_f(mut self, fullinitmarginreq_f: ::models::Summary) -> InlineResponse20020 {
+    self.fullinitmarginreq_f = Some(fullinitmarginreq_f);
+    self
+  }
+
+  pub fn fullinitmarginreq_f(&self) -> Option<&::models::Summary> {
+    self.fullinitmarginreq_f.as_ref()
+  }
+
+  pub fn reset_fullinitmarginreq_f(&mut self) {
+    self.fullinitmarginreq_f = None;
+  }
+
+  pub fn set_fullinitmarginreq_s(&mut self, fullinitmarginreq_s: ::models::Summary) {
+    self.fullinitmarginreq_s = Some(fullinitmarginreq_s);
+  }
+
+  pub fn with_fullinitmarginreq_s(mut self, fullinitmarginreq_s: ::models::Summary) -> InlineResponse20020 {
+    self.fullinitmarginreq_s = Some(fullinitmarginreq_s);
+    self
+  }
+
+  pub fn fullinitmarginreq_s(&self) -> Option<&::models::Summary> {
+    self.fullinitmarginreq_s.as_ref()
+  }
+
+  pub fn reset_fullinitmarginreq_s(&mut self) {
+    self.fullinitmarginreq_s = None;
+  }
+
+  pub fn set_fullmaintmarginreq(&mut self, fullmaintmarginreq: ::models::Summary) {
+    self.fullmaintmarginreq = Some(fullmaintmarginreq);
+  }
+
+  pub fn with_fullmaintmarginreq(mut self, fullmaintmarginreq: ::models::Summary) -> InlineResponse20020 {
+    self.fullmaintmarginreq = Some(fullmaintmarginreq);
+    self
+  }
+
+  pub fn fullmaintmarginreq(&self) -> Option<&::models::Summary> {
+    self.fullmaintmarginreq.as_ref()
+  }
+
+  pub fn reset_fullmaintmarginreq(&mut self) {
+    self.fullmaintmarginreq = None;
+  }
+
+  pub fn set_fullmaintmarginreq_c(&mut self, fullmaintmarginreq_c: ::models::Summary) {
+    self.fullmaintmarginreq_c = Some(fullmaintmarginreq_c);
+  }
+
+  pub fn with_fullmaintmarginreq_c(mut self, fullmaintmarginreq_c: ::models::Summary) -> InlineResponse20020 {
+    self.fullmaintmarginreq_c = Some(fullmaintmarginreq_c);
+    self
+  }
+
+  pub fn fullmaintmarginreq_c(&self) -> Option<&::models::Summary> {
+    self.fullmaintmarginreq_c.as_ref()
+  }
+
+  pub fn reset_fullmaintmarginreq_c(&mut self) {
+    self.fullmaintmarginreq_c = None;
+  }
+
+  pub fn set_fullmaintmarginreq_f(&mut self, fullmaintmarginreq_f: ::models::Summary) {
+    self.fullmaintmarginreq_f = Some(fullmaintmarginreq_f);
+  }
+
+  pub fn with_fullmaintmarginreq_f(mut self, fullmaintmarginreq_f: ::models::Summary) -> InlineResponse20020 {
+    self.fullmaintmarginreq_f = Some(fullmaintmarginreq_f);
+    self
+  }
+
+  pub fn fullmaintmarginreq_f(&self) -> Option<&::models::Summary> {
+    self.fullmaintmarginreq_f.as_ref()
+  }
+
+  pub fn reset_fullmaintmarginreq_f(&mut self) {
+    self.fullmaintmarginreq_f = None;
+  }
+
+  pub fn set_fullmaintmarginreq_s(&mut self, fullmaintmarginreq_s: ::models::Summary) {
+    self.fullmaintmarginreq_s = Some(fullmaintmarginreq_s);
+  }
+
+  pub fn with_fullmaintmarginreq_s(mut self, fullmaintmarginreq_s: ::models::Summary) -> InlineResponse20020 {
+    self.fullmaintmarginreq_s = Some(fullmaintmarginreq_s);
+    self
+  }
+
+  pub fn fullmaintmarginreq_s(&self) -> Option<&::models::Summary> {
+    self.fullmaintmarginreq_s.as_ref()
+  }
+
+  pub fn reset_fullmaintmarginreq_s(&mut self) {
+    self.fullmaintmarginreq_s = None;
+  }
+
+  pub fn set_grosspositionvalue(&mut self, grosspositionvalue: ::models::Summary) {
+    self.grosspositionvalue = Some(grosspositionvalue);
+  }
+
+  pub fn with_grosspositionvalue(mut self, grosspositionvalue: ::models::Summary) -> InlineResponse20020 {
+    self.grosspositionvalue = Some(grosspositionvalue);
+    self
+  }
+
+  pub fn grosspositionvalue(&self) -> Option<&::models::Summary> {
+    self.grosspositionvalue.as_ref()
+  }
+
+  pub fn reset_grosspositionvalue(&mut self) {
+    self.grosspositionvalue = None;
+  }
+
+  pub fn set_grosspositionvalue_c(&mut self, grosspositionvalue_c: ::models::Summary) {
+    self.grosspositionvalue_c = Some(grosspositionvalue_c);
+  }
+
+  pub fn with_grosspositionvalue_c(mut self, grosspositionvalue_c: ::models::Summary) -> InlineResponse20020 {
+    self.grosspositionvalue_c = Some(grosspositionvalue_c);
+    self
+  }
+
+  pub fn grosspositionvalue_c(&self) -> Option<&::models::Summary> {
+    self.grosspositionvalue_c.as_ref()
+  }
+
+  pub fn reset_grosspositionvalue_c(&mut self) {
+    self.grosspositionvalue_c = None;
+  }
+
+  pub fn set_grosspositionvalue_f(&mut self, grosspositionvalue_f: ::models::Summary) {
+    self.grosspositionvalue_f = Some(grosspositionvalue_f);
+  }
+
+  pub fn with_grosspositionvalue_f(mut self, grosspositionvalue_f: ::models::Summary) -> InlineResponse20020 {
+    self.grosspositionvalue_f = Some(grosspositionvalue_f);
+    self
+  }
+
+  pub fn grosspositionvalue_f(&self) -> Option<&::models::Summary> {
+    self.grosspositionvalue_f.as_ref()
+  }
+
+  pub fn reset_grosspositionvalue_f(&mut self) {
+    self.grosspositionvalue_f = None;
+  }
+
+  pub fn set_grosspositionvalue_s(&mut self, grosspositionvalue_s: ::models::Summary) {
+    self.grosspositionvalue_s = Some(grosspositionvalue_s);
+  }
+
+  pub fn with_grosspositionvalue_s(mut self, grosspositionvalue_s: ::models::Summary) -> InlineResponse20020 {
+    self.grosspositionvalue_s = Some(grosspositionvalue_s);
+    self
+  }
+
+  pub fn grosspositionvalue_s(&self) -> Option<&::models::Summary> {
+    self.grosspositionvalue_s.as_ref()
+  }
+
+  pub fn reset_grosspositionvalue_s(&mut self) {
+    self.grosspositionvalue_s = None;
+  }
+
+  pub fn set_guarantee(&mut self, guarantee: ::models::Summary) {
+    self.guarantee = Some(guarantee);
+  }
+
+  pub fn with_guarantee(mut self, guarantee: ::models::Summary) -> InlineResponse20020 {
+    self.guarantee = Some(guarantee);
+    self
+  }
+
+  pub fn guarantee(&self) -> Option<&::models::Summary> {
+    self.guarantee.as_ref()
+  }
+
+  pub fn reset_guarantee(&mut self) {
+    self.guarantee = None;
+  }
+
+  pub fn set_guarantee_c(&mut self, guarantee_c: ::models::Summary) {
+    self.guarantee_c = Some(guarantee_c);
+  }
+
+  pub fn with_guarantee_c(mut self, guarantee_c: ::models::Summary) -> InlineResponse20020 {
+    self.guarantee_c = Some(guarantee_c);
+    self
+  }
+
+  pub fn guarantee_c(&self) -> Option<&::models::Summary> {
+    self.guarantee_c.as_ref()
+  }
+
+  pub fn reset_guarantee_c(&mut self) {
+    self.guarantee_c = None;
+  }
+
+  pub fn set_guarantee_f(&mut self, guarantee_f: ::models::Summary) {
+    self.guarantee_f = Some(guarantee_f);
+  }
+
+  pub fn with_guarantee_f(mut self, guarantee_f: ::models::Summary) -> InlineResponse20020 {
+    self.guarantee_f = Some(guarantee_f);
+    self
+  }
+
+  pub fn guarantee_f(&self) -> Option<&::models::Summary> {
+    self.guarantee_f.as_ref()
+  }
+
+  pub fn reset_guarantee_f(&mut self) {
+    self.guarantee_f = None;
+  }
+
+  pub fn set_guarantee_s(&mut self, guarantee_s: ::models::Summary) {
+    self.guarantee_s = Some(guarantee_s);
+  }
+
+  pub fn with_guarantee_s(mut self, guarantee_s: ::models::Summary) -> InlineResponse20020 {
+    self.guarantee_s = Some(guarantee_s);
+    self
+  }
+
+  pub fn guarantee_s(&self) -> Option<&::models::Summary> {
+    self.guarantee_s.as_ref()
+  }
+
+  pub fn reset_guarantee_s(&mut self) {
+    self.guarantee_s = None;
+  }
+
+  pub fn set_highestseverity(&mut self, highestseverity: ::models::Summary) {
+    self.highestseverity = Some(highestseverity);
+  }
+
+  pub fn with_highestseverity(mut self, highestseverity: ::models::Summary) -> InlineResponse20020 {
+    self.highestseverity = Some(highestseverity);
+    self
+  }
+
+  pub fn highestseverity(&self) -> Option<&::models::Summary> {
+    self.highestseverity.as_ref()
+  }
+
+  pub fn reset_highestseverity(&mut self) {
+    self.highestseverity = None;
+  }
+
+  pub fn set_highestseverity_c(&mut self, highestseverity_c: ::models::Summary) {
+    self.highestseverity_c = Some(highestseverity_c);
+  }
+
+  pub fn with_highestseverity_c(mut self, highestseverity_c: ::models::Summary) -> InlineResponse20020 {
+    self.highestseverity_c = Some(highestseverity_c);
+    self
+  }
+
+  pub fn highestseverity_c(&self) -> Option<&::models::Summary> {
+    self.highestseverity_c.as_ref()
+  }
+
+  pub fn reset_highestseverity_c(&mut self) {
+    self.highestseverity_c = None;
+  }
+
+  pub fn set_highestseverity_f(&mut self, highestseverity_f: ::models::Summary) {
+    self.highestseverity_f = Some(highestseverity_f);
+  }
+
+  pub fn with_highestseverity_f(mut self, highestseverity_f: ::models::Summary) -> InlineResponse20020 {
+    self.highestseverity_f = Some(highestseverity_f);
+    self
+  }
+
+  pub fn highestseverity_f(&self) -> Option<&::models::Summary> {
+    self.highestseverity_f.as_ref()
+  }
+
+  pub fn reset_highestseverity_f(&mut self) {
+    self.highestseverity_f = None;
+  }
+
+  pub fn set_highestseverity_s(&mut self, highestseverity_s: ::models::Summary) {
+    self.highestseverity_s = Some(highestseverity_s);
+  }
+
+  pub fn with_highestseverity_s(mut self, highestseverity_s: ::models::Summary) -> InlineResponse20020 {
+    self.highestseverity_s = Some(highestseverity_s);
+    self
+  }
+
+  pub fn highestseverity_s(&self) -> Option<&::models::Summary> {
+    self.highestseverity_s.as_ref()
+  }
+
+  pub fn reset_highestseverity_s(&mut self) {
+    self.highestseverity_s = None;
+  }
+
+  pub fn set_indianstockhaircut(&mut self, indianstockhaircut: ::models::Summary) {
+    self.indianstockhaircut = Some(indianstockhaircut);
+  }
+
+  pub fn with_indianstockhaircut(mut self, indianstockhaircut: ::models::Summary) -> InlineResponse20020 {
+    self.indianstockhaircut = Some(indianstockhaircut);
+    self
+  }
+
+  pub fn indianstockhaircut(&self) -> Option<&::models::Summary> {
+    self.indianstockhaircut.as_ref()
+  }
+
+  pub fn reset_indianstockhaircut(&mut self) {
+    self.indianstockhaircut = None;
+  }
+
+  pub fn set_indianstockhaircut_c(&mut self, indianstockhaircut_c: ::models::Summary) {
+    self.indianstockhaircut_c = Some(indianstockhaircut_c);
+  }
+
+  pub fn with_indianstockhaircut_c(mut self, indianstockhaircut_c: ::models::Summary) -> InlineResponse20020 {
+    self.indianstockhaircut_c = Some(indianstockhaircut_c);
+    self
+  }
+
+  pub fn indianstockhaircut_c(&self) -> Option<&::models::Summary> {
+    self.indianstockhaircut_c.as_ref()
+  }
+
+  pub fn reset_indianstockhaircut_c(&mut self) {
+    self.indianstockhaircut_c = None;
+  }
+
+  pub fn set_indianstockhaircut_f(&mut self, indianstockhaircut_f: ::models::Summary) {
+    self.indianstockhaircut_f = Some(indianstockhaircut_f);
+  }
+
+  pub fn with_indianstockhaircut_f(mut self, indianstockhaircut_f: ::models::Summary) -> InlineResponse20020 {
+    self.indianstockhaircut_f = Some(indianstockhaircut_f);
+    self
+  }
+
+  pub fn indianstockhaircut_f(&self) -> Option<&::models::Summary> {
+    self.indianstockhaircut_f.as_ref()
+  }
+
+  pub fn reset_indianstockhaircut_f(&mut self) {
+    self.indianstockhaircut_f = None;
+  }
+
+  pub fn set_indianstockhaircut_s(&mut self, indianstockhaircut_s: ::models::Summary) {
+    self.indianstockhaircut_s = Some(indianstockhaircut_s);
+  }
+
+  pub fn with_indianstockhaircut_s(mut self, indianstockhaircut_s: ::models::Summary) -> InlineResponse20020 {
+    self.indianstockhaircut_s = Some(indianstockhaircut_s);
+    self
+  }
+
+  pub fn indianstockhaircut_s(&self) -> Option<&::models::Summary> {
+    self.indianstockhaircut_s.as_ref()
+  }
+
+  pub fn reset_indianstockhaircut_s(&mut self) {
+    self.indianstockhaircut_s = None;
+  }
+
+  pub fn set_initmarginreq(&mut self, initmarginreq: ::models::Summary) {
+    self.initmarginreq = Some(initmarginreq);
+  }
+
+  pub fn with_initmarginreq(mut self, initmarginreq: ::models::Summary) -> InlineResponse20020 {
+    self.initmarginreq = Some(initmarginreq);
+    self
+  }
+
+  pub fn initmarginreq(&self) -> Option<&::models::Summary> {
+    self.initmarginreq.as_ref()
+  }
+
+  pub fn reset_initmarginreq(&mut self) {
+    self.initmarginreq = None;
+  }
+
+  pub fn set_initmarginreq_c(&mut self, initmarginreq_c: ::models::Summary) {
+    self.initmarginreq_c = Some(initmarginreq_c);
+  }
+
+  pub fn with_initmarginreq_c(mut self, initmarginreq_c: ::models::Summary) -> InlineResponse20020 {
+    self.initmarginreq_c = Some(initmarginreq_c);
+    self
+  }
+
+  pub fn initmarginreq_c(&self) -> Option<&::models::Summary> {
+    self.initmarginreq_c.as_ref()
+  }
+
+  pub fn reset_initmarginreq_c(&mut self) {
+    self.initmarginreq_c = None;
+  }
+
+  pub fn set_initmarginreq_f(&mut self, initmarginreq_f: ::models::Summary) {
+    self.initmarginreq_f = Some(initmarginreq_f);
+  }
+
+  pub fn with_initmarginreq_f(mut self, initmarginreq_f: ::models::Summary) -> InlineResponse20020 {
+    self.initmarginreq_f = Some(initmarginreq_f);
+    self
+  }
+
+  pub fn initmarginreq_f(&self) -> Option<&::models::Summary> {
+    self.initmarginreq_f.as_ref()
+  }
+
+  pub fn reset_initmarginreq_f(&mut self) {
+    self.initmarginreq_f = None;
+  }
+
+  pub fn set_initmarginreq_s(&mut self, initmarginreq_s: ::models::Summary) {
+    self.initmarginreq_s = Some(initmarginreq_s);
+  }
+
+  pub fn with_initmarginreq_s(mut self, initmarginreq_s: ::models::Summary) -> InlineResponse20020 {
+    self.initmarginreq_s = Some(initmarginreq_s);
+    self
+  }
+
+  pub fn initmarginreq_s(&self) -> Option<&::models::Summary> {
+    self.initmarginreq_s.as_ref()
+  }
+
+  pub fn reset_initmarginreq_s(&mut self) {
+    self.initmarginreq_s = None;
+  }
+
+  pub fn set_leverage(&mut self, leverage: ::models::Summary) {
+    self.leverage = Some(leverage);
+  }
+
+  pub fn with_leverage(mut self, leverage: ::models::Summary) -> InlineResponse20020 {
+    self.leverage = Some(leverage);
+    self
+  }
+
+  pub fn leverage(&self) -> Option<&::models::Summary> {
+    self.leverage.as_ref()
+  }
+
+  pub fn reset_leverage(&mut self) {
+    self.leverage = None;
+  }
+
+  pub fn set_leverage_c(&mut self, leverage_c: ::models::Summary) {
+    self.leverage_c = Some(leverage_c);
+  }
+
+  pub fn with_leverage_c(mut self, leverage_c: ::models::Summary) -> InlineResponse20020 {
+    self.leverage_c = Some(leverage_c);
+    self
+  }
+
+  pub fn leverage_c(&self) -> Option<&::models::Summary> {
+    self.leverage_c.as_ref()
+  }
+
+  pub fn reset_leverage_c(&mut self) {
+    self.leverage_c = None;
+  }
+
+  pub fn set_leverage_f(&mut self, leverage_f: ::models::Summary) {
+    self.leverage_f = Some(leverage_f);
+  }
+
+  pub fn with_leverage_f(mut self, leverage_f: ::models::Summary) -> InlineResponse20020 {
+    self.leverage_f = Some(leverage_f);
+    self
+  }
+
+  pub fn leverage_f(&self) -> Option<&::models::Summary> {
+    self.leverage_f.as_ref()
+  }
+
+  pub fn reset_leverage_f(&mut self) {
+    self.leverage_f = None;
+  }
+
+  pub fn set_leverage_s(&mut self, leverage_s: ::models::Summary) {
+    self.leverage_s = Some(leverage_s);
+  }
+
+  pub fn with_leverage_s(mut self, leverage_s: ::models::Summary) -> InlineResponse20020 {
+    self.leverage_s = Some(leverage_s);
+    self
+  }
+
+  pub fn leverage_s(&self) -> Option<&::models::Summary> {
+    self.leverage_s.as_ref()
+  }
+
+  pub fn reset_leverage_s(&mut self) {
+    self.leverage_s = None;
+  }
+
+  pub fn set_lookaheadavailablefunds(&mut self, lookaheadavailablefunds: ::models::Summary) {
+    self.lookaheadavailablefunds = Some(lookaheadavailablefunds);
+  }
+
+  pub fn with_lookaheadavailablefunds(mut self, lookaheadavailablefunds: ::models::Summary) -> InlineResponse20020 {
+    self.lookaheadavailablefunds = Some(lookaheadavailablefunds);
+    self
+  }
+
+  pub fn lookaheadavailablefunds(&self) -> Option<&::models::Summary> {
+    self.lookaheadavailablefunds.as_ref()
+  }
+
+  pub fn reset_lookaheadavailablefunds(&mut self) {
+    self.lookaheadavailablefunds = None;
+  }
+
+  pub fn set_lookaheadavailablefunds_c(&mut self, lookaheadavailablefunds_c: ::models::Summary) {
+    self.lookaheadavailablefunds_c = Some(lookaheadavailablefunds_c);
+  }
+
+  pub fn with_lookaheadavailablefunds_c(mut self, lookaheadavailablefunds_c: ::models::Summary) -> InlineResponse20020 {
+    self.lookaheadavailablefunds_c = Some(lookaheadavailablefunds_c);
+    self
+  }
+
+  pub fn lookaheadavailablefunds_c(&self) -> Option<&::models::Summary> {
+    self.lookaheadavailablefunds_c.as_ref()
+  }
+
+  pub fn reset_lookaheadavailablefunds_c(&mut self) {
+    self.lookaheadavailablefunds_c = None;
+  }
+
+  pub fn set_lookaheadavailablefunds_f(&mut self, lookaheadavailablefunds_f: ::models::Summary) {
+    self.lookaheadavailablefunds_f = Some(lookaheadavailablefunds_f);
+  }
+
+  pub fn with_lookaheadavailablefunds_f(mut self, lookaheadavailablefunds_f: ::models::Summary) -> InlineResponse20020 {
+    self.lookaheadavailablefunds_f = Some(lookaheadavailablefunds_f);
+    self
+  }
+
+  pub fn lookaheadavailablefunds_f(&self) -> Option<&::models::Summary> {
+    self.lookaheadavailablefunds_f.as_ref()
+  }
+
+  pub fn reset_lookaheadavailablefunds_f(&mut self) {
+    self.lookaheadavailablefunds_f = None;
+  }
+
+  pub fn set_lookaheadavailablefunds_s(&mut self, lookaheadavailablefunds_s: ::models::Summary) {
+    self.lookaheadavailablefunds_s = Some(lookaheadavailablefunds_s);
+  }
+
+  pub fn with_lookaheadavailablefunds_s(mut self, lookaheadavailablefunds_s: ::models::Summary) -> InlineResponse20020 {
+    self.lookaheadavailablefunds_s = Some(lookaheadavailablefunds_s);
+    self
+  }
+
+  pub fn lookaheadavailablefunds_s(&self) -> Option<&::models::Summary> {
+    self.lookaheadavailablefunds_s.as_ref()
+  }
+
+  pub fn reset_lookaheadavailablefunds_s(&mut self) {
+    self.lookaheadavailablefunds_s = None;
+  }
+
+  pub fn set_lookaheadexcessliquidity(&mut self, lookaheadexcessliquidity: ::models::Summary) {
+    self.lookaheadexcessliquidity = Some(lookaheadexcessliquidity);
+  }
+
+  pub fn with_lookaheadexcessliquidity(mut self, lookaheadexcessliquidity: ::models::Summary) -> InlineResponse20020 {
+    self.lookaheadexcessliquidity = Some(lookaheadexcessliquidity);
+    self
+  }
+
+  pub fn lookaheadexcessliquidity(&self) -> Option<&::models::Summary> {
+    self.lookaheadexcessliquidity.as_ref()
+  }
+
+  pub fn reset_lookaheadexcessliquidity(&mut self) {
+    self.lookaheadexcessliquidity = None;
+  }
+
+  pub fn set_lookaheadexcessliquidity_c(&mut self, lookaheadexcessliquidity_c: ::models::Summary) {
+    self.lookaheadexcessliquidity_c = Some(lookaheadexcessliquidity_c);
+  }
+
+  pub fn with_lookaheadexcessliquidity_c(mut self, lookaheadexcessliquidity_c: ::models::Summary) -> InlineResponse20020 {
+    self.lookaheadexcessliquidity_c = Some(lookaheadexcessliquidity_c);
+    self
+  }
+
+  pub fn lookaheadexcessliquidity_c(&self) -> Option<&::models::Summary> {
+    self.lookaheadexcessliquidity_c.as_ref()
+  }
+
+  pub fn reset_lookaheadexcessliquidity_c(&mut self) {
+    self.lookaheadexcessliquidity_c = None;
+  }
+
+  pub fn set_lookaheadexcessliquidity_f(&mut self, lookaheadexcessliquidity_f: ::models::Summary) {
+    self.lookaheadexcessliquidity_f = Some(lookaheadexcessliquidity_f);
+  }
+
+  pub fn with_lookaheadexcessliquidity_f(mut self, lookaheadexcessliquidity_f: ::models::Summary) -> InlineResponse20020 {
+    self.lookaheadexcessliquidity_f = Some(lookaheadexcessliquidity_f);
+    self
+  }
+
+  pub fn lookaheadexcessliquidity_f(&self) -> Option<&::models::Summary> {
+    self.lookaheadexcessliquidity_f.as_ref()
+  }
+
+  pub fn reset_lookaheadexcessliquidity_f(&mut self) {
+    self.lookaheadexcessliquidity_f = None;
+  }
+
+  pub fn set_lookaheadexcessliquidity_s(&mut self, lookaheadexcessliquidity_s: ::models::Summary) {
+    self.lookaheadexcessliquidity_s = Some(lookaheadexcessliquidity_s);
+  }
+
+  pub fn with_lookaheadexcessliquidity_s(mut self, lookaheadexcessliquidity_s: ::models::Summary) -> InlineResponse20020 {
+    self.lookaheadexcessliquidity_s = Some(lookaheadexcessliquidity_s);
+    self
+  }
+
+  pub fn lookaheadexcessliquidity_s(&self) -> Option<&::models::Summary> {
+    self.lookaheadexcessliquidity_s.as_ref()
+  }
+
+  pub fn reset_lookaheadexcessliquidity_s(&mut self) {
+    self.lookaheadexcessliquidity_s = None;
+  }
+
+  pub fn set_lookaheadinitmarginreq(&mut self, lookaheadinitmarginreq: ::models::Summary) {
+    self.lookaheadinitmarginreq = Some(lookaheadinitmarginreq);
+  }
+
+  pub fn with_lookaheadinitmarginreq(mut self, lookaheadinitmarginreq: ::models::Summary) -> InlineResponse20020 {
+    self.lookaheadinitmarginreq = Some(lookaheadinitmarginreq);
+    self
+  }
+
+  pub fn lookaheadinitmarginreq(&self) -> Option<&::models::Summary> {
+    self.lookaheadinitmarginreq.as_ref()
+  }
+
+  pub fn reset_lookaheadinitmarginreq(&mut self) {
+    self.lookaheadinitmarginreq = None;
+  }
+
+  pub fn set_lookaheadinitmarginreq_c(&mut self, lookaheadinitmarginreq_c: ::models::Summary) {
+    self.lookaheadinitmarginreq_c = Some(lookaheadinitmarginreq_c);
+  }
+
+  pub fn with_lookaheadinitmarginreq_c(mut self, lookaheadinitmarginreq_c: ::models::Summary) -> InlineResponse20020 {
+    self.lookaheadinitmarginreq_c = Some(lookaheadinitmarginreq_c);
+    self
+  }
+
+  pub fn lookaheadinitmarginreq_c(&self) -> Option<&::models::Summary> {
+    self.lookaheadinitmarginreq_c.as_ref()
+  }
+
+  pub fn reset_lookaheadinitmarginreq_c(&mut self) {
+    self.lookaheadinitmarginreq_c = None;
+  }
+
+  pub fn set_lookaheadinitmarginreq_f(&mut self, lookaheadinitmarginreq_f: ::models::Summary) {
+    self.lookaheadinitmarginreq_f = Some(lookaheadinitmarginreq_f);
+  }
+
+  pub fn with_lookaheadinitmarginreq_f(mut self, lookaheadinitmarginreq_f: ::models::Summary) -> InlineResponse20020 {
+    self.lookaheadinitmarginreq_f = Some(lookaheadinitmarginreq_f);
+    self
+  }
+
+  pub fn lookaheadinitmarginreq_f(&self) -> Option<&::models::Summary> {
+    self.lookaheadinitmarginreq_f.as_ref()
+  }
+
+  pub fn reset_lookaheadinitmarginreq_f(&mut self) {
+    self.lookaheadinitmarginreq_f = None;
+  }
+
+  pub fn set_lookaheadinitmarginreq_s(&mut self, lookaheadinitmarginreq_s: ::models::Summary) {
+    self.lookaheadinitmarginreq_s = Some(lookaheadinitmarginreq_s);
+  }
+
+  pub fn with_lookaheadinitmarginreq_s(mut self, lookaheadinitmarginreq_s: ::models::Summary) -> InlineResponse20020 {
+    self.lookaheadinitmarginreq_s = Some(lookaheadinitmarginreq_s);
+    self
+  }
+
+  pub fn lookaheadinitmarginreq_s(&self) -> Option<&::models::Summary> {
+    self.lookaheadinitmarginreq_s.as_ref()
+  }
+
+  pub fn reset_lookaheadinitmarginreq_s(&mut self) {
+    self.lookaheadinitmarginreq_s = None;
+  }
+
+  pub fn set_lookaheadmaintmarginreq(&mut self, lookaheadmaintmarginreq: ::models::Summary) {
+    self.lookaheadmaintmarginreq = Some(lookaheadmaintmarginreq);
+  }
+
+  pub fn with_lookaheadmaintmarginreq(mut self, lookaheadmaintmarginreq: ::models::Summary) -> InlineResponse20020 {
+    self.lookaheadmaintmarginreq = Some(lookaheadmaintmarginreq);
+    self
+  }
+
+  pub fn lookaheadmaintmarginreq(&self) -> Option<&::models::Summary> {
+    self.lookaheadmaintmarginreq.as_ref()
+  }
+
+  pub fn reset_lookaheadmaintmarginreq(&mut self) {
+    self.lookaheadmaintmarginreq = None;
+  }
+
+  pub fn set_lookaheadmaintmarginreq_c(&mut self, lookaheadmaintmarginreq_c: ::models::Summary) {
+    self.lookaheadmaintmarginreq_c = Some(lookaheadmaintmarginreq_c);
+  }
+
+  pub fn with_lookaheadmaintmarginreq_c(mut self, lookaheadmaintmarginreq_c: ::models::Summary) -> InlineResponse20020 {
+    self.lookaheadmaintmarginreq_c = Some(lookaheadmaintmarginreq_c);
+    self
+  }
+
+  pub fn lookaheadmaintmarginreq_c(&self) -> Option<&::models::Summary> {
+    self.lookaheadmaintmarginreq_c.as_ref()
+  }
+
+  pub fn reset_lookaheadmaintmarginreq_c(&mut self) {
+    self.lookaheadmaintmarginreq_c = None;
+  }
+
+  pub fn set_lookaheadmaintmarginreq_f(&mut self, lookaheadmaintmarginreq_f: ::models::Summary) {
+    self.lookaheadmaintmarginreq_f = Some(lookaheadmaintmarginreq_f);
+  }
+
+  pub fn with_lookaheadmaintmarginreq_f(mut self, lookaheadmaintmarginreq_f: ::models::Summary) -> InlineResponse20020 {
+    self.lookaheadmaintmarginreq_f = Some(lookaheadmaintmarginreq_f);
+    self
+  }
+
+  pub fn lookaheadmaintmarginreq_f(&self) -> Option<&::models::Summary> {
+    self.lookaheadmaintmarginreq_f.as_ref()
+  }
+
+  pub fn reset_lookaheadmaintmarginreq_f(&mut self) {
+    self.lookaheadmaintmarginreq_f = None;
+  }
+
+  pub fn set_lookaheadmaintmarginreq_s(&mut self, lookaheadmaintmarginreq_s: ::models::Summary) {
+    self.lookaheadmaintmarginreq_s = Some(lookaheadmaintmarginreq_s);
+  }
+
+  pub fn with_lookaheadmaintmarginreq_s(mut self, lookaheadmaintmarginreq_s: ::models::Summary) -> InlineResponse20020 {
+    self.lookaheadmaintmarginreq_s = Some(lookaheadmaintmarginreq_s);
+    self
+  }
+
+  pub fn lookaheadmaintmarginreq_s(&self) -> Option<&::models::Summary> {
+    self.lookaheadmaintmarginreq_s.as_ref()
+  }
+
+  pub fn reset_lookaheadmaintmarginreq_s(&mut self) {
+    self.lookaheadmaintmarginreq_s = None;
+  }
+
+  pub fn set_lookaheadnextchange(&mut self, lookaheadnextchange: ::models::Summary) {
+    self.lookaheadnextchange = Some(lookaheadnextchange);
+  }
+
+  pub fn with_lookaheadnextchange(mut self, lookaheadnextchange: ::models::Summary) -> InlineResponse20020 {
+    self.lookaheadnextchange = Some(lookaheadnextchange);
+    self
+  }
+
+  pub fn lookaheadnextchange(&self) -> Option<&::models::Summary> {
+    self.lookaheadnextchange.as_ref()
+  }
+
+  pub fn reset_lookaheadnextchange(&mut self) {
+    self.lookaheadnextchange = None;
+  }
+
+  pub fn set_maintmarginreq(&mut self, maintmarginreq: ::models::Summary) {
+    self.maintmarginreq = Some(maintmarginreq);
+  }
+
+  pub fn with_maintmarginreq(mut self, maintmarginreq: ::models::Summary) -> InlineResponse20020 {
+    self.maintmarginreq = Some(maintmarginreq);
+    self
+  }
+
+  pub fn maintmarginreq(&self) -> Option<&::models::Summary> {
+    self.maintmarginreq.as_ref()
+  }
+
+  pub fn reset_maintmarginreq(&mut self) {
+    self.maintmarginreq = None;
+  }
+
+  pub fn set_maintmarginreq_c(&mut self, maintmarginreq_c: ::models::Summary) {
+    self.maintmarginreq_c = Some(maintmarginreq_c);
+  }
+
+  pub fn with_maintmarginreq_c(mut self, maintmarginreq_c: ::models::Summary) -> InlineResponse20020 {
+    self.maintmarginreq_c = Some(maintmarginreq_c);
+    self
+  }
+
+  pub fn maintmarginreq_c(&self) -> Option<&::models::Summary> {
+    self.maintmarginreq_c.as_ref()
+  }
+
+  pub fn reset_maintmarginreq_c(&mut self) {
+    self.maintmarginreq_c = None;
+  }
+
+  pub fn set_maintmarginreq_f(&mut self, maintmarginreq_f: ::models::Summary) {
+    self.maintmarginreq_f = Some(maintmarginreq_f);
+  }
+
+  pub fn with_maintmarginreq_f(mut self, maintmarginreq_f: ::models::Summary) -> InlineResponse20020 {
+    self.maintmarginreq_f = Some(maintmarginreq_f);
+    self
+  }
+
+  pub fn maintmarginreq_f(&self) -> Option<&::models::Summary> {
+    self.maintmarginreq_f.as_ref()
+  }
+
+  pub fn reset_maintmarginreq_f(&mut self) {
+    self.maintmarginreq_f = None;
+  }
+
+  pub fn set_maintmarginreq_s(&mut self, maintmarginreq_s: ::models::Summary) {
+    self.maintmarginreq_s = Some(maintmarginreq_s);
+  }
+
+  pub fn with_maintmarginreq_s(mut self, maintmarginreq_s: ::models::Summary) -> InlineResponse20020 {
+    self.maintmarginreq_s = Some(maintmarginreq_s);
+    self
+  }
+
+  pub fn maintmarginreq_s(&self) -> Option<&::models::Summary> {
+    self.maintmarginreq_s.as_ref()
+  }
+
+  pub fn reset_maintmarginreq_s(&mut self) {
+    self.maintmarginreq_s = None;
+  }
+
+  pub fn set_netliquidation(&mut self, netliquidation: ::models::Summary) {
+    self.netliquidation = Some(netliquidation);
+  }
+
+  pub fn with_netliquidation(mut self, netliquidation: ::models::Summary) -> InlineResponse20020 {
+    self.netliquidation = Some(netliquidation);
+    self
+  }
+
+  pub fn netliquidation(&self) -> Option<&::models::Summary> {
+    self.netliquidation.as_ref()
+  }
+
+  pub fn reset_netliquidation(&mut self) {
+    self.netliquidation = None;
+  }
+
+  pub fn set_netliquidation_c(&mut self, netliquidation_c: ::models::Summary) {
+    self.netliquidation_c = Some(netliquidation_c);
+  }
+
+  pub fn with_netliquidation_c(mut self, netliquidation_c: ::models::Summary) -> InlineResponse20020 {
+    self.netliquidation_c = Some(netliquidation_c);
+    self
+  }
+
+  pub fn netliquidation_c(&self) -> Option<&::models::Summary> {
+    self.netliquidation_c.as_ref()
+  }
+
+  pub fn reset_netliquidation_c(&mut self) {
+    self.netliquidation_c = None;
+  }
+
+  pub fn set_netliquidation_f(&mut self, netliquidation_f: ::models::Summary) {
+    self.netliquidation_f = Some(netliquidation_f);
+  }
+
+  pub fn with_netliquidation_f(mut self, netliquidation_f: ::models::Summary) -> InlineResponse20020 {
+    self.netliquidation_f = Some(netliquidation_f);
+    self
+  }
+
+  pub fn netliquidation_f(&self) -> Option<&::models::Summary> {
+    self.netliquidation_f.as_ref()
+  }
+
+  pub fn reset_netliquidation_f(&mut self) {
+    self.netliquidation_f = None;
+  }
+
+  pub fn set_netliquidation_s(&mut self, netliquidation_s: ::models::Summary) {
+    self.netliquidation_s = Some(netliquidation_s);
+  }
+
+  pub fn with_netliquidation_s(mut self, netliquidation_s: ::models::Summary) -> InlineResponse20020 {
+    self.netliquidation_s = Some(netliquidation_s);
+    self
+  }
+
+  pub fn netliquidation_s(&self) -> Option<&::models::Summary> {
+    self.netliquidation_s.as_ref()
+  }
+
+  pub fn reset_netliquidation_s(&mut self) {
+    self.netliquidation_s = None;
+  }
+
+  pub fn set_netliquidationuncertainty(&mut self, netliquidationuncertainty: ::models::Summary) {
+    self.netliquidationuncertainty = Some(netliquidationuncertainty);
+  }
+
+  pub fn with_netliquidationuncertainty(mut self, netliquidationuncertainty: ::models::Summary) -> InlineResponse20020 {
+    self.netliquidationuncertainty = Some(netliquidationuncertainty);
+    self
+  }
+
+  pub fn netliquidationuncertainty(&self) -> Option<&::models::Summary> {
+    self.netliquidationuncertainty.as_ref()
+  }
+
+  pub fn reset_netliquidationuncertainty(&mut self) {
+    self.netliquidationuncertainty = None;
+  }
+
+  pub fn set_nlvandmargininreview(&mut self, nlvandmargininreview: ::models::Summary) {
+    self.nlvandmargininreview = Some(nlvandmargininreview);
+  }
+
+  pub fn with_nlvandmargininreview(mut self, nlvandmargininreview: ::models::Summary) -> InlineResponse20020 {
+    self.nlvandmargininreview = Some(nlvandmargininreview);
+    self
+  }
+
+  pub fn nlvandmargininreview(&self) -> Option<&::models::Summary> {
+    self.nlvandmargininreview.as_ref()
+  }
+
+  pub fn reset_nlvandmargininreview(&mut self) {
+    self.nlvandmargininreview = None;
+  }
+
+  pub fn set_pasharesvalue(&mut self, pasharesvalue: ::models::Summary) {
+    self.pasharesvalue = Some(pasharesvalue);
+  }
+
+  pub fn with_pasharesvalue(mut self, pasharesvalue: ::models::Summary) -> InlineResponse20020 {
+    self.pasharesvalue = Some(pasharesvalue);
+    self
+  }
+
+  pub fn pasharesvalue(&self) -> Option<&::models::Summary> {
+    self.pasharesvalue.as_ref()
+  }
+
+  pub fn reset_pasharesvalue(&mut self) {
+    self.pasharesvalue = None;
+  }
+
+  pub fn set_pasharesvalue_c(&mut self, pasharesvalue_c: ::models::Summary) {
+    self.pasharesvalue_c = Some(pasharesvalue_c);
+  }
+
+  pub fn with_pasharesvalue_c(mut self, pasharesvalue_c: ::models::Summary) -> InlineResponse20020 {
+    self.pasharesvalue_c = Some(pasharesvalue_c);
+    self
+  }
+
+  pub fn pasharesvalue_c(&self) -> Option<&::models::Summary> {
+    self.pasharesvalue_c.as_ref()
+  }
+
+  pub fn reset_pasharesvalue_c(&mut self) {
+    self.pasharesvalue_c = None;
+  }
+
+  pub fn set_pasharesvalue_f(&mut self, pasharesvalue_f: ::models::Summary) {
+    self.pasharesvalue_f = Some(pasharesvalue_f);
+  }
+
+  pub fn with_pasharesvalue_f(mut self, pasharesvalue_f: ::models::Summary) -> InlineResponse20020 {
+    self.pasharesvalue_f = Some(pasharesvalue_f);
+    self
+  }
+
+  pub fn pasharesvalue_f(&self) -> Option<&::models::Summary> {
+    self.pasharesvalue_f.as_ref()
+  }
+
+  pub fn reset_pasharesvalue_f(&mut self) {
+    self.pasharesvalue_f = None;
+  }
+
+  pub fn set_pasharesvalue_s(&mut self, pasharesvalue_s: ::models::Summary) {
+    self.pasharesvalue_s = Some(pasharesvalue_s);
+  }
+
+  pub fn with_pasharesvalue_s(mut self, pasharesvalue_s: ::models::Summary) -> InlineResponse20020 {
+    self.pasharesvalue_s = Some(pasharesvalue_s);
+    self
+  }
+
+  pub fn pasharesvalue_s(&self) -> Option<&::models::Summary> {
+    self.pasharesvalue_s.as_ref()
+  }
+
+  pub fn reset_pasharesvalue_s(&mut self) {
+    self.pasharesvalue_s = None;
+  }
+
+  pub fn set_postexpirationexcess(&mut self, postexpirationexcess: ::models::Summary) {
+    self.postexpirationexcess = Some(postexpirationexcess);
+  }
+
+  pub fn with_postexpirationexcess(mut self, postexpirationexcess: ::models::Summary) -> InlineResponse20020 {
+    self.postexpirationexcess = Some(postexpirationexcess);
+    self
+  }
+
+  pub fn postexpirationexcess(&self) -> Option<&::models::Summary> {
+    self.postexpirationexcess.as_ref()
+  }
+
+  pub fn reset_postexpirationexcess(&mut self) {
+    self.postexpirationexcess = None;
+  }
+
+  pub fn set_postexpirationexcess_c(&mut self, postexpirationexcess_c: ::models::Summary) {
+    self.postexpirationexcess_c = Some(postexpirationexcess_c);
+  }
+
+  pub fn with_postexpirationexcess_c(mut self, postexpirationexcess_c: ::models::Summary) -> InlineResponse20020 {
+    self.postexpirationexcess_c = Some(postexpirationexcess_c);
+    self
+  }
+
+  pub fn postexpirationexcess_c(&self) -> Option<&::models::Summary> {
+    self.postexpirationexcess_c.as_ref()
+  }
+
+  pub fn reset_postexpirationexcess_c(&mut self) {
+    self.postexpirationexcess_c = None;
+  }
+
+  pub fn set_postexpirationexcess_f(&mut self, postexpirationexcess_f: ::models::Summary) {
+    self.postexpirationexcess_f = Some(postexpirationexcess_f);
+  }
+
+  pub fn with_postexpirationexcess_f(mut self, postexpirationexcess_f: ::models::Summary) -> InlineResponse20020 {
+    self.postexpirationexcess_f = Some(postexpirationexcess_f);
+    self
+  }
+
+  pub fn postexpirationexcess_f(&self) -> Option<&::models::Summary> {
+    self.postexpirationexcess_f.as_ref()
+  }
+
+  pub fn reset_postexpirationexcess_f(&mut self) {
+    self.postexpirationexcess_f = None;
+  }
+
+  pub fn set_postexpirationexcess_s(&mut self, postexpirationexcess_s: ::models::Summary) {
+    self.postexpirationexcess_s = Some(postexpirationexcess_s);
+  }
+
+  pub fn with_postexpirationexcess_s(mut self, postexpirationexcess_s: ::models::Summary) -> InlineResponse20020 {
+    self.postexpirationexcess_s = Some(postexpirationexcess_s);
+    self
+  }
+
+  pub fn postexpirationexcess_s(&self) -> Option<&::models::Summary> {
+    self.postexpirationexcess_s.as_ref()
+  }
+
+  pub fn reset_postexpirationexcess_s(&mut self) {
+    self.postexpirationexcess_s = None;
+  }
+
+  pub fn set_postexpirationmargin(&mut self, postexpirationmargin: ::models::Summary) {
+    self.postexpirationmargin = Some(postexpirationmargin);
+  }
+
+  pub fn with_postexpirationmargin(mut self, postexpirationmargin: ::models::Summary) -> InlineResponse20020 {
+    self.postexpirationmargin = Some(postexpirationmargin);
+    self
+  }
+
+  pub fn postexpirationmargin(&self) -> Option<&::models::Summary> {
+    self.postexpirationmargin.as_ref()
+  }
+
+  pub fn reset_postexpirationmargin(&mut self) {
+    self.postexpirationmargin = None;
+  }
+
+  pub fn set_postexpirationmargin_c(&mut self, postexpirationmargin_c: ::models::Summary) {
+    self.postexpirationmargin_c = Some(postexpirationmargin_c);
+  }
+
+  pub fn with_postexpirationmargin_c(mut self, postexpirationmargin_c: ::models::Summary) -> InlineResponse20020 {
+    self.postexpirationmargin_c = Some(postexpirationmargin_c);
+    self
+  }
+
+  pub fn postexpirationmargin_c(&self) -> Option<&::models::Summary> {
+    self.postexpirationmargin_c.as_ref()
+  }
+
+  pub fn reset_postexpirationmargin_c(&mut self) {
+    self.postexpirationmargin_c = None;
+  }
+
+  pub fn set_postexpirationmargin_f(&mut self, postexpirationmargin_f: ::models::Summary) {
+    self.postexpirationmargin_f = Some(postexpirationmargin_f);
+  }
+
+  pub fn with_postexpirationmargin_f(mut self, postexpirationmargin_f: ::models::Summary) -> InlineResponse20020 {
+    self.postexpirationmargin_f = Some(postexpirationmargin_f);
+    self
+  }
+
+  pub fn postexpirationmargin_f(&self) -> Option<&::models::Summary> {
+    self.postexpirationmargin_f.as_ref()
+  }
+
+  pub fn reset_postexpirationmargin_f(&mut self) {
+    self.postexpirationmargin_f = None;
+  }
+
+  pub fn set_postexpirationmargin_s(&mut self, postexpirationmargin_s: ::models::Summary) {
+    self.postexpirationmargin_s = Some(postexpirationmargin_s);
+  }
+
+  pub fn with_postexpirationmargin_s(mut self, postexpirationmargin_s: ::models::Summary) -> InlineResponse20020 {
+    self.postexpirationmargin_s = Some(postexpirationmargin_s);
+    self
+  }
+
+  pub fn postexpirationmargin_s(&self) -> Option<&::models::Summary> {
+    self.postexpirationmargin_s.as_ref()
+  }
+
+  pub fn reset_postexpirationmargin_s(&mut self) {
+    self.postexpirationmargin_s = None;
+  }
+
+  pub fn set_previousdayequitywithloanvalue(&mut self, previousdayequitywithloanvalue: ::models::Summary) {
+    self.previousdayequitywithloanvalue = Some(previousdayequitywithloanvalue);
+  }
+
+  pub fn with_previousdayequitywithloanvalue(mut self, previousdayequitywithloanvalue: ::models::Summary) -> InlineResponse20020 {
+    self.previousdayequitywithloanvalue = Some(previousdayequitywithloanvalue);
+    self
+  }
+
+  pub fn previousdayequitywithloanvalue(&self) -> Option<&::models::Summary> {
+    self.previousdayequitywithloanvalue.as_ref()
+  }
+
+  pub fn reset_previousdayequitywithloanvalue(&mut self) {
+    self.previousdayequitywithloanvalue = None;
+  }
+
+  pub fn set_previousdayequitywithloanvalue_c(&mut self, previousdayequitywithloanvalue_c: ::models::Summary) {
+    self.previousdayequitywithloanvalue_c = Some(previousdayequitywithloanvalue_c);
+  }
+
+  pub fn with_previousdayequitywithloanvalue_c(mut self, previousdayequitywithloanvalue_c: ::models::Summary) -> InlineResponse20020 {
+    self.previousdayequitywithloanvalue_c = Some(previousdayequitywithloanvalue_c);
+    self
+  }
+
+  pub fn previousdayequitywithloanvalue_c(&self) -> Option<&::models::Summary> {
+    self.previousdayequitywithloanvalue_c.as_ref()
+  }
+
+  pub fn reset_previousdayequitywithloanvalue_c(&mut self) {
+    self.previousdayequitywithloanvalue_c = None;
+  }
+
+  pub fn set_previousdayequitywithloanvalue_f(&mut self, previousdayequitywithloanvalue_f: ::models::Summary) {
+    self.previousdayequitywithloanvalue_f = Some(previousdayequitywithloanvalue_f);
+  }
+
+  pub fn with_previousdayequitywithloanvalue_f(mut self, previousdayequitywithloanvalue_f: ::models::Summary) -> InlineResponse20020 {
+    self.previousdayequitywithloanvalue_f = Some(previousdayequitywithloanvalue_f);
+    self
+  }
+
+  pub fn previousdayequitywithloanvalue_f(&self) -> Option<&::models::Summary> {
+    self.previousdayequitywithloanvalue_f.as_ref()
+  }
+
+  pub fn reset_previousdayequitywithloanvalue_f(&mut self) {
+    self.previousdayequitywithloanvalue_f = None;
+  }
+
+  pub fn set_previousdayequitywithloanvalue_s(&mut self, previousdayequitywithloanvalue_s: ::models::Summary) {
+    self.previousdayequitywithloanvalue_s = Some(previousdayequitywithloanvalue_s);
+  }
+
+  pub fn with_previousdayequitywithloanvalue_s(mut self, previousdayequitywithloanvalue_s: ::models::Summary) -> InlineResponse20020 {
+    self.previousdayequitywithloanvalue_s = Some(previousdayequitywithloanvalue_s);
+    self
+  }
+
+  pub fn previousdayequitywithloanvalue_s(&self) -> Option<&::models::Summary> {
+    self.previousdayequitywithloanvalue_s.as_ref()
+  }
+
+  pub fn reset_previousdayequitywithloanvalue_s(&mut self) {
+    self.previousdayequitywithloanvalue_s = None;
+  }
+
+  pub fn set_segmenttitle_c(&mut self, segmenttitle_c: ::models::Summary) {
+    self.segmenttitle_c = Some(segmenttitle_c);
+  }
+
+  pub fn with_segmenttitle_c(mut self, segmenttitle_c: ::models::Summary) -> InlineResponse20020 {
+    self.segmenttitle_c = Some(segmenttitle_c);
+    self
+  }
+
+  pub fn segmenttitle_c(&self) -> Option<&::models::Summary> {
+    self.segmenttitle_c.as_ref()
+  }
+
+  pub fn reset_segmenttitle_c(&mut self) {
+    self.segmenttitle_c = None;
+  }
+
+  pub fn set_segmenttitle_f(&mut self, segmenttitle_f: ::models::Summary) {
+    self.segmenttitle_f = Some(segmenttitle_f);
+  }
+
+  pub fn with_segmenttitle_f(mut self, segmenttitle_f: ::models::Summary) -> InlineResponse20020 {
+    self.segmenttitle_f = Some(segmenttitle_f);
+    self
+  }
+
+  pub fn segmenttitle_f(&self) -> Option<&::models::Summary> {
+    self.segmenttitle_f.as_ref()
+  }
+
+  pub fn reset_segmenttitle_f(&mut self) {
+    self.segmenttitle_f = None;
+  }
+
+  pub fn set_segmenttitle_s(&mut self, segmenttitle_s: ::models::Summary) {
+    self.segmenttitle_s = Some(segmenttitle_s);
+  }
+
+  pub fn with_segmenttitle_s(mut self, segmenttitle_s: ::models::Summary) -> InlineResponse20020 {
+    self.segmenttitle_s = Some(segmenttitle_s);
+    self
+  }
+
+  pub fn segmenttitle_s(&self) -> Option<&::models::Summary> {
+    self.segmenttitle_s.as_ref()
+  }
+
+  pub fn reset_segmenttitle_s(&mut self) {
+    self.segmenttitle_s = None;
+  }
+
+  pub fn set_totalcashvalue(&mut self, totalcashvalue: ::models::Summary) {
+    self.totalcashvalue = Some(totalcashvalue);
+  }
+
+  pub fn with_totalcashvalue(mut self, totalcashvalue: ::models::Summary) -> InlineResponse20020 {
+    self.totalcashvalue = Some(totalcashvalue);
+    self
+  }
+
+  pub fn totalcashvalue(&self) -> Option<&::models::Summary> {
+    self.totalcashvalue.as_ref()
+  }
+
+  pub fn reset_totalcashvalue(&mut self) {
+    self.totalcashvalue = None;
+  }
+
+  pub fn set_totalcashvalue_c(&mut self, totalcashvalue_c: ::models::Summary) {
+    self.totalcashvalue_c = Some(totalcashvalue_c);
+  }
+
+  pub fn with_totalcashvalue_c(mut self, totalcashvalue_c: ::models::Summary) -> InlineResponse20020 {
+    self.totalcashvalue_c = Some(totalcashvalue_c);
+    self
+  }
+
+  pub fn totalcashvalue_c(&self) -> Option<&::models::Summary> {
+    self.totalcashvalue_c.as_ref()
+  }
+
+  pub fn reset_totalcashvalue_c(&mut self) {
+    self.totalcashvalue_c = None;
+  }
+
+  pub fn set_totalcashvalue_f(&mut self, totalcashvalue_f: ::models::Summary) {
+    self.totalcashvalue_f = Some(totalcashvalue_f);
+  }
+
+  pub fn with_totalcashvalue_f(mut self, totalcashvalue_f: ::models::Summary) -> InlineResponse20020 {
+    self.totalcashvalue_f = Some(totalcashvalue_f);
+    self
+  }
+
+  pub fn totalcashvalue_f(&self) -> Option<&::models::Summary> {
+    self.totalcashvalue_f.as_ref()
+  }
+
+  pub fn reset_totalcashvalue_f(&mut self) {
+    self.totalcashvalue_f = None;
+  }
+
+  pub fn set_totalcashvalue_s(&mut self, totalcashvalue_s: ::models::Summary) {
+    self.totalcashvalue_s = Some(totalcashvalue_s);
+  }
+
+  pub fn with_totalcashvalue_s(mut self, totalcashvalue_s: ::models::Summary) -> InlineResponse20020 {
+    self.totalcashvalue_s = Some(totalcashvalue_s);
+    self
+  }
+
+  pub fn totalcashvalue_s(&self) -> Option<&::models::Summary> {
+    self.totalcashvalue_s.as_ref()
+  }
+
+  pub fn reset_totalcashvalue_s(&mut self) {
+    self.totalcashvalue_s = None;
+  }
+
+  pub fn set_totaldebitcardpendingcharges(&mut self, totaldebitcardpendingcharges: ::models::Summary) {
+    self.totaldebitcardpendingcharges = Some(totaldebitcardpendingcharges);
+  }
+
+  pub fn with_totaldebitcardpendingcharges(mut self, totaldebitcardpendingcharges: ::models::Summary) -> InlineResponse20020 {
+    self.totaldebitcardpendingcharges = Some(totaldebitcardpendingcharges);
+    self
+  }
+
+  pub fn totaldebitcardpendingcharges(&self) -> Option<&::models::Summary> {
+    self.totaldebitcardpendingcharges.as_ref()
+  }
+
+  pub fn reset_totaldebitcardpendingcharges(&mut self) {
+    self.totaldebitcardpendingcharges = None;
+  }
+
+  pub fn set_totaldebitcardpendingcharges_c(&mut self, totaldebitcardpendingcharges_c: ::models::Summary) {
+    self.totaldebitcardpendingcharges_c = Some(totaldebitcardpendingcharges_c);
+  }
+
+  pub fn with_totaldebitcardpendingcharges_c(mut self, totaldebitcardpendingcharges_c: ::models::Summary) -> InlineResponse20020 {
+    self.totaldebitcardpendingcharges_c = Some(totaldebitcardpendingcharges_c);
+    self
+  }
+
+  pub fn totaldebitcardpendingcharges_c(&self) -> Option<&::models::Summary> {
+    self.totaldebitcardpendingcharges_c.as_ref()
+  }
+
+  pub fn reset_totaldebitcardpendingcharges_c(&mut self) {
+    self.totaldebitcardpendingcharges_c = None;
+  }
+
+  pub fn set_totaldebitcardpendingcharges_f(&mut self, totaldebitcardpendingcharges_f: ::models::Summary) {
+    self.totaldebitcardpendingcharges_f = Some(totaldebitcardpendingcharges_f);
+  }
+
+  pub fn with_totaldebitcardpendingcharges_f(mut self, totaldebitcardpendingcharges_f: ::models::Summary) -> InlineResponse20020 {
+    self.totaldebitcardpendingcharges_f = Some(totaldebitcardpendingcharges_f);
+    self
+  }
+
+  pub fn totaldebitcardpendingcharges_f(&self) -> Option<&::models::Summary> {
+    self.totaldebitcardpendingcharges_f.as_ref()
+  }
+
+  pub fn reset_totaldebitcardpendingcharges_f(&mut self) {
+    self.totaldebitcardpendingcharges_f = None;
+  }
+
+  pub fn set_totaldebitcardpendingcharges_s(&mut self, totaldebitcardpendingcharges_s: ::models::Summary) {
+    self.totaldebitcardpendingcharges_s = Some(totaldebitcardpendingcharges_s);
+  }
+
+  pub fn with_totaldebitcardpendingcharges_s(mut self, totaldebitcardpendingcharges_s: ::models::Summary) -> InlineResponse20020 {
+    self.totaldebitcardpendingcharges_s = Some(totaldebitcardpendingcharges_s);
+    self
+  }
+
+  pub fn totaldebitcardpendingcharges_s(&self) -> Option<&::models::Summary> {
+    self.totaldebitcardpendingcharges_s.as_ref()
+  }
+
+  pub fn reset_totaldebitcardpendingcharges_s(&mut self) {
+    self.totaldebitcardpendingcharges_s = None;
+  }
+
+  pub fn set_tradingtype_f(&mut self, tradingtype_f: ::models::Summary) {
+    self.tradingtype_f = Some(tradingtype_f);
+  }
+
+  pub fn with_tradingtype_f(mut self, tradingtype_f: ::models::Summary) -> InlineResponse20020 {
+    self.tradingtype_f = Some(tradingtype_f);
+    self
+  }
+
+  pub fn tradingtype_f(&self) -> Option<&::models::Summary> {
+    self.tradingtype_f.as_ref()
+  }
+
+  pub fn reset_tradingtype_f(&mut self) {
+    self.tradingtype_f = None;
+  }
+
+  pub fn set_tradingtype_s(&mut self, tradingtype_s: ::models::Summary) {
+    self.tradingtype_s = Some(tradingtype_s);
+  }
+
+  pub fn with_tradingtype_s(mut self, tradingtype_s: ::models::Summary) -> InlineResponse20020 {
+    self.tradingtype_s = Some(tradingtype_s);
+    self
+  }
+
+  pub fn tradingtype_s(&self) -> Option<&::models::Summary> {
+    self.tradingtype_s.as_ref()
+  }
+
+  pub fn reset_tradingtype_s(&mut self) {
+    self.tradingtype_s = None;
   }
 
 }

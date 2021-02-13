@@ -14,18 +14,18 @@ use serde_json::Value;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct SummaryAccountSummaries {
-  #[serde(rename = "chg")]
-  chg: Option<String>,
-  #[serde(rename = "hasAccounts")]
-  has_accounts: Option<String>,
-  #[serde(rename = "accountTypeName")]
-  account_type_name: Option<String>,
-  #[serde(rename = "rtn")]
-  rtn: Option<String>,
-  #[serde(rename = "endVal")]
-  end_val: Option<String>,
   #[serde(rename = "accountTypeCode")]
   account_type_code: Option<String>,
+  #[serde(rename = "accountTypeName")]
+  account_type_name: Option<String>,
+  #[serde(rename = "chg")]
+  chg: Option<String>,
+  #[serde(rename = "endVal")]
+  end_val: Option<String>,
+  #[serde(rename = "hasAccounts")]
+  has_accounts: Option<String>,
+  #[serde(rename = "rtn")]
+  rtn: Option<String>,
   #[serde(rename = "startVal")]
   start_val: Option<String>
 }
@@ -33,48 +33,31 @@ pub struct SummaryAccountSummaries {
 impl SummaryAccountSummaries {
   pub fn new() -> SummaryAccountSummaries {
     SummaryAccountSummaries {
-      chg: None,
-      has_accounts: None,
-      account_type_name: None,
-      rtn: None,
-      end_val: None,
       account_type_code: None,
+      account_type_name: None,
+      chg: None,
+      end_val: None,
+      has_accounts: None,
+      rtn: None,
       start_val: None
     }
   }
 
-  pub fn set_chg(&mut self, chg: String) {
-    self.chg = Some(chg);
+  pub fn set_account_type_code(&mut self, account_type_code: String) {
+    self.account_type_code = Some(account_type_code);
   }
 
-  pub fn with_chg(mut self, chg: String) -> SummaryAccountSummaries {
-    self.chg = Some(chg);
+  pub fn with_account_type_code(mut self, account_type_code: String) -> SummaryAccountSummaries {
+    self.account_type_code = Some(account_type_code);
     self
   }
 
-  pub fn chg(&self) -> Option<&String> {
-    self.chg.as_ref()
+  pub fn account_type_code(&self) -> Option<&String> {
+    self.account_type_code.as_ref()
   }
 
-  pub fn reset_chg(&mut self) {
-    self.chg = None;
-  }
-
-  pub fn set_has_accounts(&mut self, has_accounts: String) {
-    self.has_accounts = Some(has_accounts);
-  }
-
-  pub fn with_has_accounts(mut self, has_accounts: String) -> SummaryAccountSummaries {
-    self.has_accounts = Some(has_accounts);
-    self
-  }
-
-  pub fn has_accounts(&self) -> Option<&String> {
-    self.has_accounts.as_ref()
-  }
-
-  pub fn reset_has_accounts(&mut self) {
-    self.has_accounts = None;
+  pub fn reset_account_type_code(&mut self) {
+    self.account_type_code = None;
   }
 
   pub fn set_account_type_name(&mut self, account_type_name: String) {
@@ -94,21 +77,21 @@ impl SummaryAccountSummaries {
     self.account_type_name = None;
   }
 
-  pub fn set_rtn(&mut self, rtn: String) {
-    self.rtn = Some(rtn);
+  pub fn set_chg(&mut self, chg: String) {
+    self.chg = Some(chg);
   }
 
-  pub fn with_rtn(mut self, rtn: String) -> SummaryAccountSummaries {
-    self.rtn = Some(rtn);
+  pub fn with_chg(mut self, chg: String) -> SummaryAccountSummaries {
+    self.chg = Some(chg);
     self
   }
 
-  pub fn rtn(&self) -> Option<&String> {
-    self.rtn.as_ref()
+  pub fn chg(&self) -> Option<&String> {
+    self.chg.as_ref()
   }
 
-  pub fn reset_rtn(&mut self) {
-    self.rtn = None;
+  pub fn reset_chg(&mut self) {
+    self.chg = None;
   }
 
   pub fn set_end_val(&mut self, end_val: String) {
@@ -128,21 +111,38 @@ impl SummaryAccountSummaries {
     self.end_val = None;
   }
 
-  pub fn set_account_type_code(&mut self, account_type_code: String) {
-    self.account_type_code = Some(account_type_code);
+  pub fn set_has_accounts(&mut self, has_accounts: String) {
+    self.has_accounts = Some(has_accounts);
   }
 
-  pub fn with_account_type_code(mut self, account_type_code: String) -> SummaryAccountSummaries {
-    self.account_type_code = Some(account_type_code);
+  pub fn with_has_accounts(mut self, has_accounts: String) -> SummaryAccountSummaries {
+    self.has_accounts = Some(has_accounts);
     self
   }
 
-  pub fn account_type_code(&self) -> Option<&String> {
-    self.account_type_code.as_ref()
+  pub fn has_accounts(&self) -> Option<&String> {
+    self.has_accounts.as_ref()
   }
 
-  pub fn reset_account_type_code(&mut self) {
-    self.account_type_code = None;
+  pub fn reset_has_accounts(&mut self) {
+    self.has_accounts = None;
+  }
+
+  pub fn set_rtn(&mut self, rtn: String) {
+    self.rtn = Some(rtn);
+  }
+
+  pub fn with_rtn(mut self, rtn: String) -> SummaryAccountSummaries {
+    self.rtn = Some(rtn);
+    self
+  }
+
+  pub fn rtn(&self) -> Option<&String> {
+    self.rtn.as_ref()
+  }
+
+  pub fn reset_rtn(&mut self) {
+    self.rtn = None;
   }
 
   pub fn set_start_val(&mut self, start_val: String) {

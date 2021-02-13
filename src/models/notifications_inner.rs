@@ -18,12 +18,12 @@ pub struct NotificationsInner {
   /// notification date
   #[serde(rename = "D")]
   D: Option<String>,
-  /// unique way to reference this notification
-  #[serde(rename = "ID")]
-  ID: Option<String>,
   /// FYI code, we can use it to find whether the disclaimer is accepted or not in settings
   #[serde(rename = "FC")]
   FC: Option<String>,
+  /// unique way to reference this notification
+  #[serde(rename = "ID")]
+  ID: Option<String>,
   /// content of notification
   #[serde(rename = "MD")]
   MD: Option<String>,
@@ -40,8 +40,8 @@ impl NotificationsInner {
   pub fn new() -> NotificationsInner {
     NotificationsInner {
       D: None,
-      ID: None,
       FC: None,
+      ID: None,
       MD: None,
       MS: None,
       R: None
@@ -65,23 +65,6 @@ impl NotificationsInner {
     self.D = None;
   }
 
-  pub fn set_ID(&mut self, ID: String) {
-    self.ID = Some(ID);
-  }
-
-  pub fn with_ID(mut self, ID: String) -> NotificationsInner {
-    self.ID = Some(ID);
-    self
-  }
-
-  pub fn ID(&self) -> Option<&String> {
-    self.ID.as_ref()
-  }
-
-  pub fn reset_ID(&mut self) {
-    self.ID = None;
-  }
-
   pub fn set_FC(&mut self, FC: String) {
     self.FC = Some(FC);
   }
@@ -97,6 +80,23 @@ impl NotificationsInner {
 
   pub fn reset_FC(&mut self) {
     self.FC = None;
+  }
+
+  pub fn set_ID(&mut self, ID: String) {
+    self.ID = Some(ID);
+  }
+
+  pub fn with_ID(mut self, ID: String) -> NotificationsInner {
+    self.ID = Some(ID);
+    self
+  }
+
+  pub fn ID(&self) -> Option<&String> {
+    self.ID.as_ref()
+  }
+
+  pub fn reset_ID(&mut self) {
+    self.ID = None;
   }
 
   pub fn set_MD(&mut self, MD: String) {

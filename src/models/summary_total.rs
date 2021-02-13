@@ -17,14 +17,14 @@ pub struct SummaryTotal {
   /// total change amount
   #[serde(rename = "chg")]
   chg: Option<String>,
-  /// change percent
-  #[serde(rename = "rtn")]
-  rtn: Option<String>,
+  #[serde(rename = "endVal")]
+  end_val: Option<String>,
   /// set to true if any external account data is not available for starting or ending date, resulting in potentially unusual total values.
   #[serde(rename = "incompleteData")]
   incomplete_data: Option<bool>,
-  #[serde(rename = "endVal")]
-  end_val: Option<String>,
+  /// change percent
+  #[serde(rename = "rtn")]
+  rtn: Option<String>,
   #[serde(rename = "startVal")]
   start_val: Option<String>
 }
@@ -33,9 +33,9 @@ impl SummaryTotal {
   pub fn new() -> SummaryTotal {
     SummaryTotal {
       chg: None,
-      rtn: None,
-      incomplete_data: None,
       end_val: None,
+      incomplete_data: None,
+      rtn: None,
       start_val: None
     }
   }
@@ -57,21 +57,21 @@ impl SummaryTotal {
     self.chg = None;
   }
 
-  pub fn set_rtn(&mut self, rtn: String) {
-    self.rtn = Some(rtn);
+  pub fn set_end_val(&mut self, end_val: String) {
+    self.end_val = Some(end_val);
   }
 
-  pub fn with_rtn(mut self, rtn: String) -> SummaryTotal {
-    self.rtn = Some(rtn);
+  pub fn with_end_val(mut self, end_val: String) -> SummaryTotal {
+    self.end_val = Some(end_val);
     self
   }
 
-  pub fn rtn(&self) -> Option<&String> {
-    self.rtn.as_ref()
+  pub fn end_val(&self) -> Option<&String> {
+    self.end_val.as_ref()
   }
 
-  pub fn reset_rtn(&mut self) {
-    self.rtn = None;
+  pub fn reset_end_val(&mut self) {
+    self.end_val = None;
   }
 
   pub fn set_incomplete_data(&mut self, incomplete_data: bool) {
@@ -91,21 +91,21 @@ impl SummaryTotal {
     self.incomplete_data = None;
   }
 
-  pub fn set_end_val(&mut self, end_val: String) {
-    self.end_val = Some(end_val);
+  pub fn set_rtn(&mut self, rtn: String) {
+    self.rtn = Some(rtn);
   }
 
-  pub fn with_end_val(mut self, end_val: String) -> SummaryTotal {
-    self.end_val = Some(end_val);
+  pub fn with_rtn(mut self, rtn: String) -> SummaryTotal {
+    self.rtn = Some(rtn);
     self
   }
 
-  pub fn end_val(&self) -> Option<&String> {
-    self.end_val.as_ref()
+  pub fn rtn(&self) -> Option<&String> {
+    self.rtn.as_ref()
   }
 
-  pub fn reset_end_val(&mut self) {
-    self.end_val = None;
+  pub fn reset_rtn(&mut self) {
+    self.rtn = None;
   }
 
   pub fn set_start_val(&mut self, start_val: String) {

@@ -18,45 +18,48 @@ pub struct Order {
   /// account id
   #[serde(rename = "acct")]
   acct: Option<String>,
-  #[serde(rename = "conid")]
-  conid: Option<i32>,
-  #[serde(rename = "orderDesc")]
-  order_desc: Option<String>,
-  #[serde(rename = "description1")]
-  description1: Option<String>,
-  /// for exmple FB
-  #[serde(rename = "ticker")]
-  ticker: Option<String>,
-  /// for example STK
-  #[serde(rename = "secType")]
-  sec_type: Option<String>,
-  /// for example NASDAQ.NMS
-  #[serde(rename = "listingExchange")]
-  listing_exchange: Option<String>,
-  #[serde(rename = "remainingQuantity")]
-  remaining_quantity: Option<String>,
-  #[serde(rename = "filledQuantity")]
-  filled_quantity: Option<String>,
-  #[serde(rename = "companyName")]
-  company_name: Option<String>,
-  /// for example Submitted
-  #[serde(rename = "status")]
-  status: Option<String>,
-  /// for example Limit
-  #[serde(rename = "origOrderType")]
-  orig_order_type: Option<String>,
-  /// BUY or SELL
-  #[serde(rename = "side")]
-  side: Option<String>,
-  #[serde(rename = "price")]
-  price: Option<f32>,
   /// back-ground color
   #[serde(rename = "bgColor")]
   bg_color: Option<String>,
+  #[serde(rename = "companyName")]
+  company_name: Option<String>,
+  #[serde(rename = "conid")]
+  conid: Option<i32>,
+  #[serde(rename = "description1")]
+  description1: Option<String>,
   #[serde(rename = "fgColor")]
   fg_color: Option<String>,
+  #[serde(rename = "filledQuantity")]
+  filled_quantity: Option<String>,
+  /// for example NASDAQ.NMS
+  #[serde(rename = "listingExchange")]
+  listing_exchange: Option<String>,
+  #[serde(rename = "orderDesc")]
+  order_desc: Option<String>,
   #[serde(rename = "orderId")]
-  order_id: Option<i32>
+  order_id: Option<i32>,
+  /// for example Limit
+  #[serde(rename = "origOrderType")]
+  orig_order_type: Option<String>,
+  /// Only exists in child order of bracket
+  #[serde(rename = "parentId")]
+  parent_id: Option<i32>,
+  #[serde(rename = "price")]
+  price: Option<f32>,
+  #[serde(rename = "remainingQuantity")]
+  remaining_quantity: Option<String>,
+  /// for example STK
+  #[serde(rename = "secType")]
+  sec_type: Option<String>,
+  /// BUY or SELL
+  #[serde(rename = "side")]
+  side: Option<String>,
+  /// PendingSubmit - Indicates the order was sent, but confirmation has not been received that it has been received by the destination.                  Occurs most commonly if an exchange is closed. PendingCancel - Indicates that a request has been sent to cancel an order but confirmation has not been received of its cancellation. PreSubmitted - Indicates that a simulated order type has been accepted by the IBKR system and that this order has yet to be elected.                 The order is held in the IBKR system until the election criteria are met. At that time the order is transmitted to the order destination as specified.  Submitted - Indicates that the order has been accepted at the order destination and is working. Cancelled - Indicates that the balance of the order has been confirmed cancelled by the IB system.              This could occur unexpectedly when IB or the destination has rejected the order.   Filled - Indicates that the order has been completely filled.  Inactive - Indicates the order is not working, for instance if the order was invalid and triggered an error message,            or if the order was to short a security and shares have not yet been located.  
+  #[serde(rename = "status")]
+  status: Option<String>,
+  /// for exmple FB
+  #[serde(rename = "ticker")]
+  ticker: Option<String>
 }
 
 impl Order {
@@ -64,22 +67,23 @@ impl Order {
   pub fn new() -> Order {
     Order {
       acct: None,
-      conid: None,
-      order_desc: None,
-      description1: None,
-      ticker: None,
-      sec_type: None,
-      listing_exchange: None,
-      remaining_quantity: None,
-      filled_quantity: None,
-      company_name: None,
-      status: None,
-      orig_order_type: None,
-      side: None,
-      price: None,
       bg_color: None,
+      company_name: None,
+      conid: None,
+      description1: None,
       fg_color: None,
-      order_id: None
+      filled_quantity: None,
+      listing_exchange: None,
+      order_desc: None,
+      order_id: None,
+      orig_order_type: None,
+      parent_id: None,
+      price: None,
+      remaining_quantity: None,
+      sec_type: None,
+      side: None,
+      status: None,
+      ticker: None
     }
   }
 
@@ -100,140 +104,21 @@ impl Order {
     self.acct = None;
   }
 
-  pub fn set_conid(&mut self, conid: i32) {
-    self.conid = Some(conid);
+  pub fn set_bg_color(&mut self, bg_color: String) {
+    self.bg_color = Some(bg_color);
   }
 
-  pub fn with_conid(mut self, conid: i32) -> Order {
-    self.conid = Some(conid);
+  pub fn with_bg_color(mut self, bg_color: String) -> Order {
+    self.bg_color = Some(bg_color);
     self
   }
 
-  pub fn conid(&self) -> Option<&i32> {
-    self.conid.as_ref()
+  pub fn bg_color(&self) -> Option<&String> {
+    self.bg_color.as_ref()
   }
 
-  pub fn reset_conid(&mut self) {
-    self.conid = None;
-  }
-
-  pub fn set_order_desc(&mut self, order_desc: String) {
-    self.order_desc = Some(order_desc);
-  }
-
-  pub fn with_order_desc(mut self, order_desc: String) -> Order {
-    self.order_desc = Some(order_desc);
-    self
-  }
-
-  pub fn order_desc(&self) -> Option<&String> {
-    self.order_desc.as_ref()
-  }
-
-  pub fn reset_order_desc(&mut self) {
-    self.order_desc = None;
-  }
-
-  pub fn set_description1(&mut self, description1: String) {
-    self.description1 = Some(description1);
-  }
-
-  pub fn with_description1(mut self, description1: String) -> Order {
-    self.description1 = Some(description1);
-    self
-  }
-
-  pub fn description1(&self) -> Option<&String> {
-    self.description1.as_ref()
-  }
-
-  pub fn reset_description1(&mut self) {
-    self.description1 = None;
-  }
-
-  pub fn set_ticker(&mut self, ticker: String) {
-    self.ticker = Some(ticker);
-  }
-
-  pub fn with_ticker(mut self, ticker: String) -> Order {
-    self.ticker = Some(ticker);
-    self
-  }
-
-  pub fn ticker(&self) -> Option<&String> {
-    self.ticker.as_ref()
-  }
-
-  pub fn reset_ticker(&mut self) {
-    self.ticker = None;
-  }
-
-  pub fn set_sec_type(&mut self, sec_type: String) {
-    self.sec_type = Some(sec_type);
-  }
-
-  pub fn with_sec_type(mut self, sec_type: String) -> Order {
-    self.sec_type = Some(sec_type);
-    self
-  }
-
-  pub fn sec_type(&self) -> Option<&String> {
-    self.sec_type.as_ref()
-  }
-
-  pub fn reset_sec_type(&mut self) {
-    self.sec_type = None;
-  }
-
-  pub fn set_listing_exchange(&mut self, listing_exchange: String) {
-    self.listing_exchange = Some(listing_exchange);
-  }
-
-  pub fn with_listing_exchange(mut self, listing_exchange: String) -> Order {
-    self.listing_exchange = Some(listing_exchange);
-    self
-  }
-
-  pub fn listing_exchange(&self) -> Option<&String> {
-    self.listing_exchange.as_ref()
-  }
-
-  pub fn reset_listing_exchange(&mut self) {
-    self.listing_exchange = None;
-  }
-
-  pub fn set_remaining_quantity(&mut self, remaining_quantity: String) {
-    self.remaining_quantity = Some(remaining_quantity);
-  }
-
-  pub fn with_remaining_quantity(mut self, remaining_quantity: String) -> Order {
-    self.remaining_quantity = Some(remaining_quantity);
-    self
-  }
-
-  pub fn remaining_quantity(&self) -> Option<&String> {
-    self.remaining_quantity.as_ref()
-  }
-
-  pub fn reset_remaining_quantity(&mut self) {
-    self.remaining_quantity = None;
-  }
-
-  pub fn set_filled_quantity(&mut self, filled_quantity: String) {
-    self.filled_quantity = Some(filled_quantity);
-  }
-
-  pub fn with_filled_quantity(mut self, filled_quantity: String) -> Order {
-    self.filled_quantity = Some(filled_quantity);
-    self
-  }
-
-  pub fn filled_quantity(&self) -> Option<&String> {
-    self.filled_quantity.as_ref()
-  }
-
-  pub fn reset_filled_quantity(&mut self) {
-    self.filled_quantity = None;
+  pub fn reset_bg_color(&mut self) {
+    self.bg_color = None;
   }
 
   pub fn set_company_name(&mut self, company_name: String) {
@@ -253,89 +138,38 @@ impl Order {
     self.company_name = None;
   }
 
-  pub fn set_status(&mut self, status: String) {
-    self.status = Some(status);
+  pub fn set_conid(&mut self, conid: i32) {
+    self.conid = Some(conid);
   }
 
-  pub fn with_status(mut self, status: String) -> Order {
-    self.status = Some(status);
+  pub fn with_conid(mut self, conid: i32) -> Order {
+    self.conid = Some(conid);
     self
   }
 
-  pub fn status(&self) -> Option<&String> {
-    self.status.as_ref()
+  pub fn conid(&self) -> Option<&i32> {
+    self.conid.as_ref()
   }
 
-  pub fn reset_status(&mut self) {
-    self.status = None;
+  pub fn reset_conid(&mut self) {
+    self.conid = None;
   }
 
-  pub fn set_orig_order_type(&mut self, orig_order_type: String) {
-    self.orig_order_type = Some(orig_order_type);
+  pub fn set_description1(&mut self, description1: String) {
+    self.description1 = Some(description1);
   }
 
-  pub fn with_orig_order_type(mut self, orig_order_type: String) -> Order {
-    self.orig_order_type = Some(orig_order_type);
+  pub fn with_description1(mut self, description1: String) -> Order {
+    self.description1 = Some(description1);
     self
   }
 
-  pub fn orig_order_type(&self) -> Option<&String> {
-    self.orig_order_type.as_ref()
+  pub fn description1(&self) -> Option<&String> {
+    self.description1.as_ref()
   }
 
-  pub fn reset_orig_order_type(&mut self) {
-    self.orig_order_type = None;
-  }
-
-  pub fn set_side(&mut self, side: String) {
-    self.side = Some(side);
-  }
-
-  pub fn with_side(mut self, side: String) -> Order {
-    self.side = Some(side);
-    self
-  }
-
-  pub fn side(&self) -> Option<&String> {
-    self.side.as_ref()
-  }
-
-  pub fn reset_side(&mut self) {
-    self.side = None;
-  }
-
-  pub fn set_price(&mut self, price: f32) {
-    self.price = Some(price);
-  }
-
-  pub fn with_price(mut self, price: f32) -> Order {
-    self.price = Some(price);
-    self
-  }
-
-  pub fn price(&self) -> Option<&f32> {
-    self.price.as_ref()
-  }
-
-  pub fn reset_price(&mut self) {
-    self.price = None;
-  }
-
-  pub fn set_bg_color(&mut self, bg_color: String) {
-    self.bg_color = Some(bg_color);
-  }
-
-  pub fn with_bg_color(mut self, bg_color: String) -> Order {
-    self.bg_color = Some(bg_color);
-    self
-  }
-
-  pub fn bg_color(&self) -> Option<&String> {
-    self.bg_color.as_ref()
-  }
-
-  pub fn reset_bg_color(&mut self) {
-    self.bg_color = None;
+  pub fn reset_description1(&mut self) {
+    self.description1 = None;
   }
 
   pub fn set_fg_color(&mut self, fg_color: String) {
@@ -355,6 +189,57 @@ impl Order {
     self.fg_color = None;
   }
 
+  pub fn set_filled_quantity(&mut self, filled_quantity: String) {
+    self.filled_quantity = Some(filled_quantity);
+  }
+
+  pub fn with_filled_quantity(mut self, filled_quantity: String) -> Order {
+    self.filled_quantity = Some(filled_quantity);
+    self
+  }
+
+  pub fn filled_quantity(&self) -> Option<&String> {
+    self.filled_quantity.as_ref()
+  }
+
+  pub fn reset_filled_quantity(&mut self) {
+    self.filled_quantity = None;
+  }
+
+  pub fn set_listing_exchange(&mut self, listing_exchange: String) {
+    self.listing_exchange = Some(listing_exchange);
+  }
+
+  pub fn with_listing_exchange(mut self, listing_exchange: String) -> Order {
+    self.listing_exchange = Some(listing_exchange);
+    self
+  }
+
+  pub fn listing_exchange(&self) -> Option<&String> {
+    self.listing_exchange.as_ref()
+  }
+
+  pub fn reset_listing_exchange(&mut self) {
+    self.listing_exchange = None;
+  }
+
+  pub fn set_order_desc(&mut self, order_desc: String) {
+    self.order_desc = Some(order_desc);
+  }
+
+  pub fn with_order_desc(mut self, order_desc: String) -> Order {
+    self.order_desc = Some(order_desc);
+    self
+  }
+
+  pub fn order_desc(&self) -> Option<&String> {
+    self.order_desc.as_ref()
+  }
+
+  pub fn reset_order_desc(&mut self) {
+    self.order_desc = None;
+  }
+
   pub fn set_order_id(&mut self, order_id: i32) {
     self.order_id = Some(order_id);
   }
@@ -370,6 +255,142 @@ impl Order {
 
   pub fn reset_order_id(&mut self) {
     self.order_id = None;
+  }
+
+  pub fn set_orig_order_type(&mut self, orig_order_type: String) {
+    self.orig_order_type = Some(orig_order_type);
+  }
+
+  pub fn with_orig_order_type(mut self, orig_order_type: String) -> Order {
+    self.orig_order_type = Some(orig_order_type);
+    self
+  }
+
+  pub fn orig_order_type(&self) -> Option<&String> {
+    self.orig_order_type.as_ref()
+  }
+
+  pub fn reset_orig_order_type(&mut self) {
+    self.orig_order_type = None;
+  }
+
+  pub fn set_parent_id(&mut self, parent_id: i32) {
+    self.parent_id = Some(parent_id);
+  }
+
+  pub fn with_parent_id(mut self, parent_id: i32) -> Order {
+    self.parent_id = Some(parent_id);
+    self
+  }
+
+  pub fn parent_id(&self) -> Option<&i32> {
+    self.parent_id.as_ref()
+  }
+
+  pub fn reset_parent_id(&mut self) {
+    self.parent_id = None;
+  }
+
+  pub fn set_price(&mut self, price: f32) {
+    self.price = Some(price);
+  }
+
+  pub fn with_price(mut self, price: f32) -> Order {
+    self.price = Some(price);
+    self
+  }
+
+  pub fn price(&self) -> Option<&f32> {
+    self.price.as_ref()
+  }
+
+  pub fn reset_price(&mut self) {
+    self.price = None;
+  }
+
+  pub fn set_remaining_quantity(&mut self, remaining_quantity: String) {
+    self.remaining_quantity = Some(remaining_quantity);
+  }
+
+  pub fn with_remaining_quantity(mut self, remaining_quantity: String) -> Order {
+    self.remaining_quantity = Some(remaining_quantity);
+    self
+  }
+
+  pub fn remaining_quantity(&self) -> Option<&String> {
+    self.remaining_quantity.as_ref()
+  }
+
+  pub fn reset_remaining_quantity(&mut self) {
+    self.remaining_quantity = None;
+  }
+
+  pub fn set_sec_type(&mut self, sec_type: String) {
+    self.sec_type = Some(sec_type);
+  }
+
+  pub fn with_sec_type(mut self, sec_type: String) -> Order {
+    self.sec_type = Some(sec_type);
+    self
+  }
+
+  pub fn sec_type(&self) -> Option<&String> {
+    self.sec_type.as_ref()
+  }
+
+  pub fn reset_sec_type(&mut self) {
+    self.sec_type = None;
+  }
+
+  pub fn set_side(&mut self, side: String) {
+    self.side = Some(side);
+  }
+
+  pub fn with_side(mut self, side: String) -> Order {
+    self.side = Some(side);
+    self
+  }
+
+  pub fn side(&self) -> Option<&String> {
+    self.side.as_ref()
+  }
+
+  pub fn reset_side(&mut self) {
+    self.side = None;
+  }
+
+  pub fn set_status(&mut self, status: String) {
+    self.status = Some(status);
+  }
+
+  pub fn with_status(mut self, status: String) -> Order {
+    self.status = Some(status);
+    self
+  }
+
+  pub fn status(&self) -> Option<&String> {
+    self.status.as_ref()
+  }
+
+  pub fn reset_status(&mut self) {
+    self.status = None;
+  }
+
+  pub fn set_ticker(&mut self, ticker: String) {
+    self.ticker = Some(ticker);
+  }
+
+  pub fn with_ticker(mut self, ticker: String) -> Order {
+    self.ticker = Some(ticker);
+    self
+  }
+
+  pub fn ticker(&self) -> Option<&String> {
+    self.ticker.as_ref()
+  }
+
+  pub fn reset_ticker(&mut self) {
+    self.ticker = None;
   }
 
 }

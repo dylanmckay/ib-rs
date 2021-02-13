@@ -14,54 +14,32 @@ use serde_json::Value;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct InlineResponse20018 {
-  /// disclaimer message
-  #[serde(rename = "DT")]
-  DT: Option<String>,
-  /// fyi code
-  #[serde(rename = "FC")]
-  FC: Option<String>
+  #[serde(rename = "ACCTID")]
+  ACCTID: Option<::models::Position>
 }
 
 impl InlineResponse20018 {
   pub fn new() -> InlineResponse20018 {
     InlineResponse20018 {
-      DT: None,
-      FC: None
+      ACCTID: None
     }
   }
 
-  pub fn set_DT(&mut self, DT: String) {
-    self.DT = Some(DT);
+  pub fn set_ACCTID(&mut self, ACCTID: ::models::Position) {
+    self.ACCTID = Some(ACCTID);
   }
 
-  pub fn with_DT(mut self, DT: String) -> InlineResponse20018 {
-    self.DT = Some(DT);
+  pub fn with_ACCTID(mut self, ACCTID: ::models::Position) -> InlineResponse20018 {
+    self.ACCTID = Some(ACCTID);
     self
   }
 
-  pub fn DT(&self) -> Option<&String> {
-    self.DT.as_ref()
+  pub fn ACCTID(&self) -> Option<&::models::Position> {
+    self.ACCTID.as_ref()
   }
 
-  pub fn reset_DT(&mut self) {
-    self.DT = None;
-  }
-
-  pub fn set_FC(&mut self, FC: String) {
-    self.FC = Some(FC);
-  }
-
-  pub fn with_FC(mut self, FC: String) -> InlineResponse20018 {
-    self.FC = Some(FC);
-    self
-  }
-
-  pub fn FC(&self) -> Option<&String> {
-    self.FC.as_ref()
-  }
-
-  pub fn reset_FC(&mut self) {
-    self.FC = None;
+  pub fn reset_ACCTID(&mut self) {
+    self.ACCTID = None;
   }
 
 }

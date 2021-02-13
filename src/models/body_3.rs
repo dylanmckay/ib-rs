@@ -14,32 +14,33 @@ use serde_json::Value;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Body3 {
-  #[serde(rename = "acctIds")]
-  acct_ids: Option<Vec<String>>
+  /// answer to question, true means yes, false means no
+  #[serde(rename = "confirmed")]
+  confirmed: Option<bool>
 }
 
 impl Body3 {
   pub fn new() -> Body3 {
     Body3 {
-      acct_ids: None
+      confirmed: None
     }
   }
 
-  pub fn set_acct_ids(&mut self, acct_ids: Vec<String>) {
-    self.acct_ids = Some(acct_ids);
+  pub fn set_confirmed(&mut self, confirmed: bool) {
+    self.confirmed = Some(confirmed);
   }
 
-  pub fn with_acct_ids(mut self, acct_ids: Vec<String>) -> Body3 {
-    self.acct_ids = Some(acct_ids);
+  pub fn with_confirmed(mut self, confirmed: bool) -> Body3 {
+    self.confirmed = Some(confirmed);
     self
   }
 
-  pub fn acct_ids(&self) -> Option<&Vec<String>> {
-    self.acct_ids.as_ref()
+  pub fn confirmed(&self) -> Option<&bool> {
+    self.confirmed.as_ref()
   }
 
-  pub fn reset_acct_ids(&mut self) {
-    self.acct_ids = None;
+  pub fn reset_confirmed(&mut self) {
+    self.confirmed = None;
   }
 
 }

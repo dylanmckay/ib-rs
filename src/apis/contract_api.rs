@@ -10,11 +10,15 @@
 
 use std::rc::Rc;
 use std::borrow::Borrow;
+use std::borrow::Cow;
+use std::collections::HashMap;
 
 use hyper;
-use serde_json;
+use serde_json::{self, Value};
 use futures;
 use futures::{Future, Stream};
+
+use hyper::header::UserAgent;
 
 use super::{Error, configuration};
 
@@ -31,88 +35,192 @@ impl<C: hyper::client::Connect> ContractApiClient<C> {
 }
 
 pub trait ContractApi {
-    fn iserver_contract_conid_info_get(&self, conid: &str) -> Box<Future<Item = ::models::Contract, Error = Error>>;
-    fn iserver_secdef_search_post(&self, symbol: ::models::Symbol) -> Box<Future<Item = Vec<::models::InlineResponse2008>, Error = Error>>;
-    fn trsrv_futures_get(&self, symbols: &str) -> Box<Future<Item = ::models::InlineResponse20015, Error = Error>>;
-    fn trsrv_secdef_post(&self, body: ::models::Body4) -> Box<Future<Item = ::models::Secdef, Error = Error>>;
+    fn iserver_contract_conid_info_get(&self, conid: &str) -> Box<Future<Item = ::models::Contract, Error = Error<serde_json::Value>>>;
+    fn iserver_secdef_search_post(&self, symbol: ::models::Symbol) -> Box<Future<Item = Vec<::models::InlineResponse20016>, Error = Error<serde_json::Value>>>;
+    fn trsrv_futures_get(&self, symbols: &str) -> Box<Future<Item = ::models::InlineResponse20021, Error = Error<serde_json::Value>>>;
+    fn trsrv_secdef_post(&self, body: ::models::Body7) -> Box<Future<Item = ::models::Secdef, Error = Error<serde_json::Value>>>;
 }
 
 
 impl<C: hyper::client::Connect>ContractApi for ContractApiClient<C> {
-    fn iserver_contract_conid_info_get(&self, conid: &str) -> Box<Future<Item = ::models::Contract, Error = Error>> {
+    fn iserver_contract_conid_info_get(&self, conid: &str) -> Box<Future<Item = ::models::Contract, Error = Error<serde_json::Value>>> {
         let configuration: &configuration::Configuration<C> = self.configuration.borrow();
 
         let method = hyper::Method::Get;
 
-        let uri_str = format!("{}/iserver/contract/{conid}/info", configuration.base_path, conid=conid);
+        let query_string = {
+            let mut query = ::url::form_urlencoded::Serializer::new(String::new());
+            query.finish()
+        };
+        let uri_str = format!("{}/iserver/contract/{conid}/info?{}", configuration.base_path, query_string, conid=conid);
 
-        let uri = uri_str.parse();
         // TODO(farcaller): handle error
         // if let Err(e) = uri {
         //     return Box::new(futures::future::err(e));
         // }
-        let mut req = hyper::Request::new(method, uri.unwrap());
+        let mut uri: hyper::Uri = uri_str.parse().unwrap();
+
+        let mut req = hyper::Request::new(method, uri);
+
+        if let Some(ref user_agent) = configuration.user_agent {
+            req.headers_mut().set(UserAgent::new(Cow::Owned(user_agent.clone())));
+        }
+
 
 
 
         // send request
         Box::new(
-            configuration.client.request(req).and_then(|res| { res.body().concat2() })
+        configuration.client.request(req)
             .map_err(|e| Error::from(e))
+            .and_then(|resp| {
+                let status = resp.status();
+                resp.body().concat2()
+                    .and_then(move |body| Ok((status, body)))
+                    .map_err(|e| Error::from(e))
+            })
+            .and_then(|(status, body)| {
+                if status.is_success() {
+                    Ok(body)
+                } else {
+                    Err(Error::from((status, &*body)))
+                }
+            })
             .and_then(|body| {
                 let parsed: Result<::models::Contract, _> = serde_json::from_slice(&body);
                 parsed.map_err(|e| Error::from(e))
-            }).map_err(|e| Error::from(e))
+            })
         )
     }
 
-    fn iserver_secdef_search_post(&self, symbol: ::models::Symbol) -> Box<Future<Item = Vec<::models::InlineResponse2008>, Error = Error>> {
-        unimplemented!("swagger-codegen bug workaround");
-    }
-
-    fn trsrv_futures_get(&self, symbols: &str) -> Box<Future<Item = ::models::InlineResponse20015, Error = Error>> {
-        let configuration: &configuration::Configuration<C> = self.configuration.borrow();
-
-        let method = hyper::Method::Get;
-
-        let query = ::url::form_urlencoded::Serializer::new(String::new())
-            .append_pair("symbols", &symbols.to_string())
-            .finish();
-        let uri_str = format!("{}/trsrv/futures{}", configuration.base_path, query);
-
-        let uri = uri_str.parse();
-        // TODO(farcaller): handle error
-        // if let Err(e) = uri {
-        //     return Box::new(futures::future::err(e));
-        // }
-        let mut req = hyper::Request::new(method, uri.unwrap());
-
-
-
-        // send request
-        Box::new(
-            configuration.client.request(req).and_then(|res| { res.body().concat2() })
-            .map_err(|e| Error::from(e))
-            .and_then(|body| {
-                let parsed: Result<::models::InlineResponse20015, _> = serde_json::from_slice(&body);
-                parsed.map_err(|e| Error::from(e))
-            }).map_err(|e| Error::from(e))
-        )
-    }
-
-    fn trsrv_secdef_post(&self, body: ::models::Body4) -> Box<Future<Item = ::models::Secdef, Error = Error>> {
+    fn iserver_secdef_search_post(&self, symbol: ::models::Symbol) -> Box<Future<Item = Vec<::models::InlineResponse20016>, Error = Error<serde_json::Value>>> {
         let configuration: &configuration::Configuration<C> = self.configuration.borrow();
 
         let method = hyper::Method::Post;
 
-        let uri_str = format!("{}/trsrv/secdef", configuration.base_path);
+        let query_string = {
+            let mut query = ::url::form_urlencoded::Serializer::new(String::new());
+            query.finish()
+        };
+        let uri_str = format!("{}/iserver/secdef/search?{}", configuration.base_path, query_string);
 
-        let uri = uri_str.parse();
         // TODO(farcaller): handle error
         // if let Err(e) = uri {
         //     return Box::new(futures::future::err(e));
         // }
-        let mut req = hyper::Request::new(method, uri.unwrap());
+        let mut uri: hyper::Uri = uri_str.parse().unwrap();
+
+        let mut req = hyper::Request::new(method, uri);
+
+        if let Some(ref user_agent) = configuration.user_agent {
+            req.headers_mut().set(UserAgent::new(Cow::Owned(user_agent.clone())));
+        }
+
+
+
+        let serialized = serde_json::to_string(&symbol).unwrap();
+        req.headers_mut().set(hyper::header::ContentType::json());
+        req.headers_mut().set(hyper::header::ContentLength(serialized.len() as u64));
+        req.set_body(serialized);
+
+        // send request
+        Box::new(
+        configuration.client.request(req)
+            .map_err(|e| Error::from(e))
+            .and_then(|resp| {
+                let status = resp.status();
+                resp.body().concat2()
+                    .and_then(move |body| Ok((status, body)))
+                    .map_err(|e| Error::from(e))
+            })
+            .and_then(|(status, body)| {
+                if status.is_success() {
+                    Ok(body)
+                } else {
+                    Err(Error::from((status, &*body)))
+                }
+            })
+            .and_then(|body| {
+                let parsed: Result<Vec<::models::InlineResponse20016>, _> = serde_json::from_slice(&body);
+                parsed.map_err(|e| Error::from(e))
+            })
+        )
+    }
+
+    fn trsrv_futures_get(&self, symbols: &str) -> Box<Future<Item = ::models::InlineResponse20021, Error = Error<serde_json::Value>>> {
+        let configuration: &configuration::Configuration<C> = self.configuration.borrow();
+
+        let method = hyper::Method::Get;
+
+        let query_string = {
+            let mut query = ::url::form_urlencoded::Serializer::new(String::new());
+            query.append_pair("symbols", &symbols.to_string());
+            query.finish()
+        };
+        let uri_str = format!("{}/trsrv/futures?{}", configuration.base_path, query_string);
+
+        // TODO(farcaller): handle error
+        // if let Err(e) = uri {
+        //     return Box::new(futures::future::err(e));
+        // }
+        let mut uri: hyper::Uri = uri_str.parse().unwrap();
+
+        let mut req = hyper::Request::new(method, uri);
+
+        if let Some(ref user_agent) = configuration.user_agent {
+            req.headers_mut().set(UserAgent::new(Cow::Owned(user_agent.clone())));
+        }
+
+
+
+
+        // send request
+        Box::new(
+        configuration.client.request(req)
+            .map_err(|e| Error::from(e))
+            .and_then(|resp| {
+                let status = resp.status();
+                resp.body().concat2()
+                    .and_then(move |body| Ok((status, body)))
+                    .map_err(|e| Error::from(e))
+            })
+            .and_then(|(status, body)| {
+                if status.is_success() {
+                    Ok(body)
+                } else {
+                    Err(Error::from((status, &*body)))
+                }
+            })
+            .and_then(|body| {
+                let parsed: Result<::models::InlineResponse20021, _> = serde_json::from_slice(&body);
+                parsed.map_err(|e| Error::from(e))
+            })
+        )
+    }
+
+    fn trsrv_secdef_post(&self, body: ::models::Body7) -> Box<Future<Item = ::models::Secdef, Error = Error<serde_json::Value>>> {
+        let configuration: &configuration::Configuration<C> = self.configuration.borrow();
+
+        let method = hyper::Method::Post;
+
+        let query_string = {
+            let mut query = ::url::form_urlencoded::Serializer::new(String::new());
+            query.finish()
+        };
+        let uri_str = format!("{}/trsrv/secdef?{}", configuration.base_path, query_string);
+
+        // TODO(farcaller): handle error
+        // if let Err(e) = uri {
+        //     return Box::new(futures::future::err(e));
+        // }
+        let mut uri: hyper::Uri = uri_str.parse().unwrap();
+
+        let mut req = hyper::Request::new(method, uri);
+
+        if let Some(ref user_agent) = configuration.user_agent {
+            req.headers_mut().set(UserAgent::new(Cow::Owned(user_agent.clone())));
+        }
+
 
 
         let serialized = serde_json::to_string(&body).unwrap();
@@ -122,12 +230,25 @@ impl<C: hyper::client::Connect>ContractApi for ContractApiClient<C> {
 
         // send request
         Box::new(
-            configuration.client.request(req).and_then(|res| { res.body().concat2() })
+        configuration.client.request(req)
             .map_err(|e| Error::from(e))
+            .and_then(|resp| {
+                let status = resp.status();
+                resp.body().concat2()
+                    .and_then(move |body| Ok((status, body)))
+                    .map_err(|e| Error::from(e))
+            })
+            .and_then(|(status, body)| {
+                if status.is_success() {
+                    Ok(body)
+                } else {
+                    Err(Error::from((status, &*body)))
+                }
+            })
             .and_then(|body| {
                 let parsed: Result<::models::Secdef, _> = serde_json::from_slice(&body);
                 parsed.map_err(|e| Error::from(e))
-            }).map_err(|e| Error::from(e))
+            })
         )
     }
 

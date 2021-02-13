@@ -16,8 +16,13 @@ use serde_json::Value;
 pub struct ModifyOrder {
   #[serde(rename = "acctId")]
   acct_id: Option<String>,
+  #[serde(rename = "auxPrice")]
+  aux_price: Option<f32>,
   #[serde(rename = "conid")]
   conid: Option<i32>,
+  /// optional, not required
+  #[serde(rename = "listingExchange")]
+  listing_exchange: Option<String>,
   /// customer orderid
   #[serde(rename = "orderId")]
   order_id: Option<i32>,
@@ -28,39 +33,34 @@ pub struct ModifyOrder {
   outside_rth: Option<bool>,
   #[serde(rename = "price")]
   price: Option<f32>,
-  #[serde(rename = "auxPrice")]
-  aux_price: Option<f32>,
+  /// usually integer, for some special cases can be float numbers
+  #[serde(rename = "quantity")]
+  quantity: Option<f32>,
   /// SELL or BUY
   #[serde(rename = "side")]
   side: Option<String>,
-  /// optional, not required
-  #[serde(rename = "listingExchange")]
-  listing_exchange: Option<String>,
   #[serde(rename = "ticker")]
   ticker: Option<String>,
   /// for example DAY
   #[serde(rename = "tif")]
-  tif: Option<String>,
-  /// usually integer, for some special cases can be float numbers
-  #[serde(rename = "quantity")]
-  quantity: Option<f32>
+  tif: Option<String>
 }
 
 impl ModifyOrder {
   pub fn new() -> ModifyOrder {
     ModifyOrder {
       acct_id: None,
+      aux_price: None,
       conid: None,
+      listing_exchange: None,
       order_id: None,
       order_type: None,
       outside_rth: None,
       price: None,
-      aux_price: None,
+      quantity: None,
       side: None,
-      listing_exchange: None,
       ticker: None,
-      tif: None,
-      quantity: None
+      tif: None
     }
   }
 
@@ -81,6 +81,23 @@ impl ModifyOrder {
     self.acct_id = None;
   }
 
+  pub fn set_aux_price(&mut self, aux_price: f32) {
+    self.aux_price = Some(aux_price);
+  }
+
+  pub fn with_aux_price(mut self, aux_price: f32) -> ModifyOrder {
+    self.aux_price = Some(aux_price);
+    self
+  }
+
+  pub fn aux_price(&self) -> Option<&f32> {
+    self.aux_price.as_ref()
+  }
+
+  pub fn reset_aux_price(&mut self) {
+    self.aux_price = None;
+  }
+
   pub fn set_conid(&mut self, conid: i32) {
     self.conid = Some(conid);
   }
@@ -96,6 +113,23 @@ impl ModifyOrder {
 
   pub fn reset_conid(&mut self) {
     self.conid = None;
+  }
+
+  pub fn set_listing_exchange(&mut self, listing_exchange: String) {
+    self.listing_exchange = Some(listing_exchange);
+  }
+
+  pub fn with_listing_exchange(mut self, listing_exchange: String) -> ModifyOrder {
+    self.listing_exchange = Some(listing_exchange);
+    self
+  }
+
+  pub fn listing_exchange(&self) -> Option<&String> {
+    self.listing_exchange.as_ref()
+  }
+
+  pub fn reset_listing_exchange(&mut self) {
+    self.listing_exchange = None;
   }
 
   pub fn set_order_id(&mut self, order_id: i32) {
@@ -166,21 +200,21 @@ impl ModifyOrder {
     self.price = None;
   }
 
-  pub fn set_aux_price(&mut self, aux_price: f32) {
-    self.aux_price = Some(aux_price);
+  pub fn set_quantity(&mut self, quantity: f32) {
+    self.quantity = Some(quantity);
   }
 
-  pub fn with_aux_price(mut self, aux_price: f32) -> ModifyOrder {
-    self.aux_price = Some(aux_price);
+  pub fn with_quantity(mut self, quantity: f32) -> ModifyOrder {
+    self.quantity = Some(quantity);
     self
   }
 
-  pub fn aux_price(&self) -> Option<&f32> {
-    self.aux_price.as_ref()
+  pub fn quantity(&self) -> Option<&f32> {
+    self.quantity.as_ref()
   }
 
-  pub fn reset_aux_price(&mut self) {
-    self.aux_price = None;
+  pub fn reset_quantity(&mut self) {
+    self.quantity = None;
   }
 
   pub fn set_side(&mut self, side: String) {
@@ -198,23 +232,6 @@ impl ModifyOrder {
 
   pub fn reset_side(&mut self) {
     self.side = None;
-  }
-
-  pub fn set_listing_exchange(&mut self, listing_exchange: String) {
-    self.listing_exchange = Some(listing_exchange);
-  }
-
-  pub fn with_listing_exchange(mut self, listing_exchange: String) -> ModifyOrder {
-    self.listing_exchange = Some(listing_exchange);
-    self
-  }
-
-  pub fn listing_exchange(&self) -> Option<&String> {
-    self.listing_exchange.as_ref()
-  }
-
-  pub fn reset_listing_exchange(&mut self) {
-    self.listing_exchange = None;
   }
 
   pub fn set_ticker(&mut self, ticker: String) {
@@ -249,23 +266,6 @@ impl ModifyOrder {
 
   pub fn reset_tif(&mut self) {
     self.tif = None;
-  }
-
-  pub fn set_quantity(&mut self, quantity: f32) {
-    self.quantity = Some(quantity);
-  }
-
-  pub fn with_quantity(mut self, quantity: f32) -> ModifyOrder {
-    self.quantity = Some(quantity);
-    self
-  }
-
-  pub fn quantity(&self) -> Option<&f32> {
-    self.quantity.as_ref()
-  }
-
-  pub fn reset_quantity(&mut self) {
-    self.quantity = None;
   }
 
 }

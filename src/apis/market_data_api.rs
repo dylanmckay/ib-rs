@@ -10,11 +10,15 @@
 
 use std::rc::Rc;
 use std::borrow::Borrow;
+use std::borrow::Cow;
+use std::collections::HashMap;
 
 use hyper;
-use serde_json;
+use serde_json::{self, Value};
 use futures;
 use futures::{Future, Stream};
+
+use hyper::header::UserAgent;
 
 use super::{Error, configuration};
 
@@ -31,73 +35,115 @@ impl<C: hyper::client::Connect> MarketDataApiClient<C> {
 }
 
 pub trait MarketDataApi {
-    fn iserver_marketdata_history_get(&self, conid: &str, period: &str, bar: &str) -> Box<Future<Item = ::models::HistoryData, Error = Error>>;
-    fn iserver_marketdata_snapshot_get(&self, conids: &str, since: i32, fields: &str) -> Box<Future<Item = Vec<::models::InlineResponse2007>, Error = Error>>;
+    fn iserver_marketdata_history_get(&self, conid: &str, period: &str, bar: &str) -> Box<Future<Item = ::models::HistoryData, Error = Error<serde_json::Value>>>;
+    fn iserver_marketdata_snapshot_get(&self, conids: &str, since: i32, fields: &str) -> Box<Future<Item = Vec<::models::InlineResponse20013>, Error = Error<serde_json::Value>>>;
 }
 
 
 impl<C: hyper::client::Connect>MarketDataApi for MarketDataApiClient<C> {
-    fn iserver_marketdata_history_get(&self, conid: &str, period: &str, bar: &str) -> Box<Future<Item = ::models::HistoryData, Error = Error>> {
+    fn iserver_marketdata_history_get(&self, conid: &str, period: &str, bar: &str) -> Box<Future<Item = ::models::HistoryData, Error = Error<serde_json::Value>>> {
         let configuration: &configuration::Configuration<C> = self.configuration.borrow();
 
         let method = hyper::Method::Get;
 
-        let query = ::url::form_urlencoded::Serializer::new(String::new())
-            .append_pair("conid", &conid.to_string())
-            .append_pair("period", &period.to_string())
-            .append_pair("bar", &bar.to_string())
-            .finish();
-        let uri_str = format!("{}/iserver/marketdata/history{}", configuration.base_path, query);
+        let query_string = {
+            let mut query = ::url::form_urlencoded::Serializer::new(String::new());
+            query.append_pair("conid", &conid.to_string());
+            query.append_pair("period", &period.to_string());
+            query.append_pair("bar", &bar.to_string());
+            query.finish()
+        };
+        let uri_str = format!("{}/iserver/marketdata/history?{}", configuration.base_path, query_string);
 
-        let uri = uri_str.parse();
         // TODO(farcaller): handle error
         // if let Err(e) = uri {
         //     return Box::new(futures::future::err(e));
         // }
-        let mut req = hyper::Request::new(method, uri.unwrap());
+        let mut uri: hyper::Uri = uri_str.parse().unwrap();
+
+        let mut req = hyper::Request::new(method, uri);
+
+        if let Some(ref user_agent) = configuration.user_agent {
+            req.headers_mut().set(UserAgent::new(Cow::Owned(user_agent.clone())));
+        }
+
 
 
 
         // send request
         Box::new(
-            configuration.client.request(req).and_then(|res| { res.body().concat2() })
+        configuration.client.request(req)
             .map_err(|e| Error::from(e))
+            .and_then(|resp| {
+                let status = resp.status();
+                resp.body().concat2()
+                    .and_then(move |body| Ok((status, body)))
+                    .map_err(|e| Error::from(e))
+            })
+            .and_then(|(status, body)| {
+                if status.is_success() {
+                    Ok(body)
+                } else {
+                    Err(Error::from((status, &*body)))
+                }
+            })
             .and_then(|body| {
                 let parsed: Result<::models::HistoryData, _> = serde_json::from_slice(&body);
                 parsed.map_err(|e| Error::from(e))
-            }).map_err(|e| Error::from(e))
+            })
         )
     }
 
-    fn iserver_marketdata_snapshot_get(&self, conids: &str, since: i32, fields: &str) -> Box<Future<Item = Vec<::models::InlineResponse2007>, Error = Error>> {
+    fn iserver_marketdata_snapshot_get(&self, conids: &str, since: i32, fields: &str) -> Box<Future<Item = Vec<::models::InlineResponse20013>, Error = Error<serde_json::Value>>> {
         let configuration: &configuration::Configuration<C> = self.configuration.borrow();
 
         let method = hyper::Method::Get;
 
-        let query = ::url::form_urlencoded::Serializer::new(String::new())
-            .append_pair("conids", &conids.to_string())
-            .append_pair("since", &since.to_string())
-            .append_pair("fields", &fields.to_string())
-            .finish();
-        let uri_str = format!("{}/iserver/marketdata/snapshot{}", configuration.base_path, query);
+        let query_string = {
+            let mut query = ::url::form_urlencoded::Serializer::new(String::new());
+            query.append_pair("conids", &conids.to_string());
+            query.append_pair("since", &since.to_string());
+            query.append_pair("fields", &fields.to_string());
+            query.finish()
+        };
+        let uri_str = format!("{}/iserver/marketdata/snapshot?{}", configuration.base_path, query_string);
 
-        let uri = uri_str.parse();
         // TODO(farcaller): handle error
         // if let Err(e) = uri {
         //     return Box::new(futures::future::err(e));
         // }
-        let mut req = hyper::Request::new(method, uri.unwrap());
+        let mut uri: hyper::Uri = uri_str.parse().unwrap();
+
+        let mut req = hyper::Request::new(method, uri);
+
+        if let Some(ref user_agent) = configuration.user_agent {
+            req.headers_mut().set(UserAgent::new(Cow::Owned(user_agent.clone())));
+        }
+
 
 
 
         // send request
         Box::new(
-            configuration.client.request(req).and_then(|res| { res.body().concat2() })
+        configuration.client.request(req)
             .map_err(|e| Error::from(e))
+            .and_then(|resp| {
+                let status = resp.status();
+                resp.body().concat2()
+                    .and_then(move |body| Ok((status, body)))
+                    .map_err(|e| Error::from(e))
+            })
+            .and_then(|(status, body)| {
+                if status.is_success() {
+                    Ok(body)
+                } else {
+                    Err(Error::from((status, &*body)))
+                }
+            })
             .and_then(|body| {
-                let parsed: Result<Vec<::models::InlineResponse2007>, _> = serde_json::from_slice(&body);
+                let parsed: Result<Vec<::models::InlineResponse20013>, _> = serde_json::from_slice(&body);
                 parsed.map_err(|e| Error::from(e))
-            }).map_err(|e| Error::from(e))
+            })
         )
     }
 

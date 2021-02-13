@@ -17,27 +17,36 @@ pub struct OrderRequest {
   /// acctId is optional. It should be one of the accounts returned by /iserver/accounts. If not passed, the first one in the list is selected. 
   #[serde(rename = "acctId")]
   acct_id: Option<String>,
+  /// Customer Order ID. An arbitraty string that can be used to identify the order, e.g \"my-fb-order\". The value must be unique for a 24h span. Please do not set this value for child orders when placing a bracket order. 
+  #[serde(rename = "cOID")]
+  c_oid: Option<String>,
   /// conid is the identifier of the security you want to trade, you can find the conid with /iserver/secdef/search. 
   #[serde(rename = "conid")]
   conid: Option<i32>,
-  /// conid:type for example 265598:STK
-  #[serde(rename = "secType")]
-  sec_type: Option<String>,
-  /// cOID: Is the customer identifier. Can be some arbitrary string. e.g \"my-fb-order\". 
-  #[serde(rename = "cOID")]
-  c_oid: Option<String>,
-  /// orderType can be one of MKT (Market), LMT (Limit), STP (Stop) or STP_LIMIT (stop limit) 
-  #[serde(rename = "orderType")]
-  order_type: Option<String>,
   /// listingExchange is optional. By default we use \"SMART\" routing. Possible values are available via this end point: /v1/portal/iserver/contract/{{conid}}/info, see valid_exchange: e.g: SMART,AMEX,NYSE, CBOE,ISE,CHX,ARCA,ISLAND,DRCTEDGE,BEX,BATS,EDGEA,CSFBALGO,JE FFALGO,BYX,IEX,FOXRIVER,TPLUS1,NYSENAT,PSX 
   #[serde(rename = "listingExchange")]
   listing_exchange: Option<String>,
+  /// orderType can be one of MKT (Market), LMT (Limit), STP (Stop) or STP_LIMIT (stop limit) 
+  #[serde(rename = "orderType")]
+  order_type: Option<String>,
   /// set to true if the order can be executed outside regular trading hours. 
   #[serde(rename = "outsideRTH")]
   outside_rth: Option<bool>,
+  /// When placing bracket orders, the child parentId must be equal to the cOId (customer order id) of the parent. 
+  #[serde(rename = "parentId")]
+  parent_id: Option<String>,
   /// optional if order is MKT, for LMT, this is the limit price. For STP this is the stop price. 
   #[serde(rename = "price")]
   price: Option<f32>,
+  /// usually integer, for some special cases can be float numbers
+  #[serde(rename = "quantity")]
+  quantity: Option<f32>,
+  /// for example QuickTrade
+  #[serde(rename = "referrer")]
+  referrer: Option<String>,
+  /// conid:type for example 265598:STK
+  #[serde(rename = "secType")]
+  sec_type: Option<String>,
   /// SELL or BUY
   #[serde(rename = "side")]
   side: Option<String>,
@@ -47,30 +56,29 @@ pub struct OrderRequest {
   /// GTC (Good Till Cancel) or DAY. DAY orders are automatically cancelled at the end of the Day or Trading hours. 
   #[serde(rename = "tif")]
   tif: Option<String>,
-  /// for example QuickTrade
-  #[serde(rename = "referrer")]
-  referrer: Option<String>,
-  /// usually integer, for some special cases can be float numbers
-  #[serde(rename = "quantity")]
-  quantity: Option<f32>
+  /// If true, the system will use the Adaptive Algo to submit the order https://www.interactivebrokers.com/en/index.php?f=19091 
+  #[serde(rename = "useAdaptive")]
+  use_adaptive: Option<bool>
 }
 
 impl OrderRequest {
   pub fn new() -> OrderRequest {
     OrderRequest {
       acct_id: None,
-      conid: None,
-      sec_type: None,
       c_oid: None,
-      order_type: None,
+      conid: None,
       listing_exchange: None,
+      order_type: None,
       outside_rth: None,
+      parent_id: None,
       price: None,
+      quantity: None,
+      referrer: None,
+      sec_type: None,
       side: None,
       ticker: None,
       tif: None,
-      referrer: None,
-      quantity: None
+      use_adaptive: None
     }
   }
 
@@ -91,40 +99,6 @@ impl OrderRequest {
     self.acct_id = None;
   }
 
-  pub fn set_conid(&mut self, conid: i32) {
-    self.conid = Some(conid);
-  }
-
-  pub fn with_conid(mut self, conid: i32) -> OrderRequest {
-    self.conid = Some(conid);
-    self
-  }
-
-  pub fn conid(&self) -> Option<&i32> {
-    self.conid.as_ref()
-  }
-
-  pub fn reset_conid(&mut self) {
-    self.conid = None;
-  }
-
-  pub fn set_sec_type(&mut self, sec_type: String) {
-    self.sec_type = Some(sec_type);
-  }
-
-  pub fn with_sec_type(mut self, sec_type: String) -> OrderRequest {
-    self.sec_type = Some(sec_type);
-    self
-  }
-
-  pub fn sec_type(&self) -> Option<&String> {
-    self.sec_type.as_ref()
-  }
-
-  pub fn reset_sec_type(&mut self) {
-    self.sec_type = None;
-  }
-
   pub fn set_c_oid(&mut self, c_oid: String) {
     self.c_oid = Some(c_oid);
   }
@@ -142,21 +116,21 @@ impl OrderRequest {
     self.c_oid = None;
   }
 
-  pub fn set_order_type(&mut self, order_type: String) {
-    self.order_type = Some(order_type);
+  pub fn set_conid(&mut self, conid: i32) {
+    self.conid = Some(conid);
   }
 
-  pub fn with_order_type(mut self, order_type: String) -> OrderRequest {
-    self.order_type = Some(order_type);
+  pub fn with_conid(mut self, conid: i32) -> OrderRequest {
+    self.conid = Some(conid);
     self
   }
 
-  pub fn order_type(&self) -> Option<&String> {
-    self.order_type.as_ref()
+  pub fn conid(&self) -> Option<&i32> {
+    self.conid.as_ref()
   }
 
-  pub fn reset_order_type(&mut self) {
-    self.order_type = None;
+  pub fn reset_conid(&mut self) {
+    self.conid = None;
   }
 
   pub fn set_listing_exchange(&mut self, listing_exchange: String) {
@@ -176,6 +150,23 @@ impl OrderRequest {
     self.listing_exchange = None;
   }
 
+  pub fn set_order_type(&mut self, order_type: String) {
+    self.order_type = Some(order_type);
+  }
+
+  pub fn with_order_type(mut self, order_type: String) -> OrderRequest {
+    self.order_type = Some(order_type);
+    self
+  }
+
+  pub fn order_type(&self) -> Option<&String> {
+    self.order_type.as_ref()
+  }
+
+  pub fn reset_order_type(&mut self) {
+    self.order_type = None;
+  }
+
   pub fn set_outside_rth(&mut self, outside_rth: bool) {
     self.outside_rth = Some(outside_rth);
   }
@@ -193,6 +184,23 @@ impl OrderRequest {
     self.outside_rth = None;
   }
 
+  pub fn set_parent_id(&mut self, parent_id: String) {
+    self.parent_id = Some(parent_id);
+  }
+
+  pub fn with_parent_id(mut self, parent_id: String) -> OrderRequest {
+    self.parent_id = Some(parent_id);
+    self
+  }
+
+  pub fn parent_id(&self) -> Option<&String> {
+    self.parent_id.as_ref()
+  }
+
+  pub fn reset_parent_id(&mut self) {
+    self.parent_id = None;
+  }
+
   pub fn set_price(&mut self, price: f32) {
     self.price = Some(price);
   }
@@ -208,6 +216,57 @@ impl OrderRequest {
 
   pub fn reset_price(&mut self) {
     self.price = None;
+  }
+
+  pub fn set_quantity(&mut self, quantity: f32) {
+    self.quantity = Some(quantity);
+  }
+
+  pub fn with_quantity(mut self, quantity: f32) -> OrderRequest {
+    self.quantity = Some(quantity);
+    self
+  }
+
+  pub fn quantity(&self) -> Option<&f32> {
+    self.quantity.as_ref()
+  }
+
+  pub fn reset_quantity(&mut self) {
+    self.quantity = None;
+  }
+
+  pub fn set_referrer(&mut self, referrer: String) {
+    self.referrer = Some(referrer);
+  }
+
+  pub fn with_referrer(mut self, referrer: String) -> OrderRequest {
+    self.referrer = Some(referrer);
+    self
+  }
+
+  pub fn referrer(&self) -> Option<&String> {
+    self.referrer.as_ref()
+  }
+
+  pub fn reset_referrer(&mut self) {
+    self.referrer = None;
+  }
+
+  pub fn set_sec_type(&mut self, sec_type: String) {
+    self.sec_type = Some(sec_type);
+  }
+
+  pub fn with_sec_type(mut self, sec_type: String) -> OrderRequest {
+    self.sec_type = Some(sec_type);
+    self
+  }
+
+  pub fn sec_type(&self) -> Option<&String> {
+    self.sec_type.as_ref()
+  }
+
+  pub fn reset_sec_type(&mut self) {
+    self.sec_type = None;
   }
 
   pub fn set_side(&mut self, side: String) {
@@ -261,38 +320,21 @@ impl OrderRequest {
     self.tif = None;
   }
 
-  pub fn set_referrer(&mut self, referrer: String) {
-    self.referrer = Some(referrer);
+  pub fn set_use_adaptive(&mut self, use_adaptive: bool) {
+    self.use_adaptive = Some(use_adaptive);
   }
 
-  pub fn with_referrer(mut self, referrer: String) -> OrderRequest {
-    self.referrer = Some(referrer);
+  pub fn with_use_adaptive(mut self, use_adaptive: bool) -> OrderRequest {
+    self.use_adaptive = Some(use_adaptive);
     self
   }
 
-  pub fn referrer(&self) -> Option<&String> {
-    self.referrer.as_ref()
+  pub fn use_adaptive(&self) -> Option<&bool> {
+    self.use_adaptive.as_ref()
   }
 
-  pub fn reset_referrer(&mut self) {
-    self.referrer = None;
-  }
-
-  pub fn set_quantity(&mut self, quantity: f32) {
-    self.quantity = Some(quantity);
-  }
-
-  pub fn with_quantity(mut self, quantity: f32) -> OrderRequest {
-    self.quantity = Some(quantity);
-    self
-  }
-
-  pub fn quantity(&self) -> Option<&f32> {
-    self.quantity.as_ref()
-  }
-
-  pub fn reset_quantity(&mut self) {
-    self.quantity = None;
+  pub fn reset_use_adaptive(&mut self) {
+    self.use_adaptive = None;
   }
 
 }
