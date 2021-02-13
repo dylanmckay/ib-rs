@@ -14,32 +14,72 @@ use serde_json::Value;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct InlineResponse20011 {
-  #[serde(rename = "acctId")]
-  acct_id: Option<Value>
+  #[serde(rename = "local_order_id")]
+  local_order_id: Option<String>,
+  #[serde(rename = "order_id")]
+  order_id: Option<String>,
+  #[serde(rename = "order_status")]
+  order_status: Option<String>
 }
 
 impl InlineResponse20011 {
   pub fn new() -> InlineResponse20011 {
     InlineResponse20011 {
-      acct_id: None
+      local_order_id: None,
+      order_id: None,
+      order_status: None
     }
   }
 
-  pub fn set_acct_id(&mut self, acct_id: Value) {
-    self.acct_id = Some(acct_id);
+  pub fn set_local_order_id(&mut self, local_order_id: String) {
+    self.local_order_id = Some(local_order_id);
   }
 
-  pub fn with_acct_id(mut self, acct_id: Value) -> InlineResponse20011 {
-    self.acct_id = Some(acct_id);
+  pub fn with_local_order_id(mut self, local_order_id: String) -> InlineResponse20011 {
+    self.local_order_id = Some(local_order_id);
     self
   }
 
-  pub fn acct_id(&self) -> Option<&Value> {
-    self.acct_id.as_ref()
+  pub fn local_order_id(&self) -> Option<&String> {
+    self.local_order_id.as_ref()
   }
 
-  pub fn reset_acct_id(&mut self) {
-    self.acct_id = None;
+  pub fn reset_local_order_id(&mut self) {
+    self.local_order_id = None;
+  }
+
+  pub fn set_order_id(&mut self, order_id: String) {
+    self.order_id = Some(order_id);
+  }
+
+  pub fn with_order_id(mut self, order_id: String) -> InlineResponse20011 {
+    self.order_id = Some(order_id);
+    self
+  }
+
+  pub fn order_id(&self) -> Option<&String> {
+    self.order_id.as_ref()
+  }
+
+  pub fn reset_order_id(&mut self) {
+    self.order_id = None;
+  }
+
+  pub fn set_order_status(&mut self, order_status: String) {
+    self.order_status = Some(order_status);
+  }
+
+  pub fn with_order_status(mut self, order_status: String) -> InlineResponse20011 {
+    self.order_status = Some(order_status);
+    self
+  }
+
+  pub fn order_status(&self) -> Option<&String> {
+    self.order_status.as_ref()
+  }
+
+  pub fn reset_order_status(&mut self) {
+    self.order_status = None;
   }
 
 }

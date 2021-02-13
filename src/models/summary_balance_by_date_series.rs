@@ -14,41 +14,41 @@ use serde_json::Value;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct SummaryBalanceByDateSeries {
-  #[serde(rename = "id")]
-  id: Option<String>,
+  #[serde(rename = "date")]
+  date: Option<Vec<Vec<f32>>>,
   #[serde(rename = "groupId")]
   group_id: Option<String>,
+  #[serde(rename = "id")]
+  id: Option<String>,
   #[serde(rename = "name")]
-  name: Option<String>,
-  #[serde(rename = "date")]
-  date: Option<Vec<Vec<f32>>>
+  name: Option<String>
 }
 
 impl SummaryBalanceByDateSeries {
   pub fn new() -> SummaryBalanceByDateSeries {
     SummaryBalanceByDateSeries {
-      id: None,
+      date: None,
       group_id: None,
-      name: None,
-      date: None
+      id: None,
+      name: None
     }
   }
 
-  pub fn set_id(&mut self, id: String) {
-    self.id = Some(id);
+  pub fn set_date(&mut self, date: Vec<Vec<f32>>) {
+    self.date = Some(date);
   }
 
-  pub fn with_id(mut self, id: String) -> SummaryBalanceByDateSeries {
-    self.id = Some(id);
+  pub fn with_date(mut self, date: Vec<Vec<f32>>) -> SummaryBalanceByDateSeries {
+    self.date = Some(date);
     self
   }
 
-  pub fn id(&self) -> Option<&String> {
-    self.id.as_ref()
+  pub fn date(&self) -> Option<&Vec<Vec<f32>>> {
+    self.date.as_ref()
   }
 
-  pub fn reset_id(&mut self) {
-    self.id = None;
+  pub fn reset_date(&mut self) {
+    self.date = None;
   }
 
   pub fn set_group_id(&mut self, group_id: String) {
@@ -68,6 +68,23 @@ impl SummaryBalanceByDateSeries {
     self.group_id = None;
   }
 
+  pub fn set_id(&mut self, id: String) {
+    self.id = Some(id);
+  }
+
+  pub fn with_id(mut self, id: String) -> SummaryBalanceByDateSeries {
+    self.id = Some(id);
+    self
+  }
+
+  pub fn id(&self) -> Option<&String> {
+    self.id.as_ref()
+  }
+
+  pub fn reset_id(&mut self) {
+    self.id = None;
+  }
+
   pub fn set_name(&mut self, name: String) {
     self.name = Some(name);
   }
@@ -83,23 +100,6 @@ impl SummaryBalanceByDateSeries {
 
   pub fn reset_name(&mut self) {
     self.name = None;
-  }
-
-  pub fn set_date(&mut self, date: Vec<Vec<f32>>) {
-    self.date = Some(date);
-  }
-
-  pub fn with_date(mut self, date: Vec<Vec<f32>>) -> SummaryBalanceByDateSeries {
-    self.date = Some(date);
-    self
-  }
-
-  pub fn date(&self) -> Option<&Vec<Vec<f32>>> {
-    self.date.as_ref()
-  }
-
-  pub fn reset_date(&mut self) {
-    self.date = None;
   }
 
 }

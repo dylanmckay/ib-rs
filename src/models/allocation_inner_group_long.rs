@@ -15,99 +15,31 @@ use serde_json::Value;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct AllocationInnerGroupLong {
-  #[serde(rename = "Computers")]
-  computers: Option<f32>,
-  #[serde(rename = "Semiconductors")]
-  semiconductors: Option<f32>,
-  #[serde(rename = "Others")]
-  others: Option<f32>,
-  #[serde(rename = "Chemicals")]
-  chemicals: Option<f32>,
   #[serde(rename = "Apparel")]
   apparel: Option<f32>,
+  #[serde(rename = "Chemicals")]
+  chemicals: Option<f32>,
   #[serde(rename = "Communications")]
-  communications: Option<f32>
+  communications: Option<f32>,
+  #[serde(rename = "Computers")]
+  computers: Option<f32>,
+  #[serde(rename = "Others")]
+  others: Option<f32>,
+  #[serde(rename = "Semiconductors")]
+  semiconductors: Option<f32>
 }
 
 impl AllocationInnerGroupLong {
   /// long positions allocation
   pub fn new() -> AllocationInnerGroupLong {
     AllocationInnerGroupLong {
-      computers: None,
-      semiconductors: None,
-      others: None,
-      chemicals: None,
       apparel: None,
-      communications: None
+      chemicals: None,
+      communications: None,
+      computers: None,
+      others: None,
+      semiconductors: None
     }
-  }
-
-  pub fn set_computers(&mut self, computers: f32) {
-    self.computers = Some(computers);
-  }
-
-  pub fn with_computers(mut self, computers: f32) -> AllocationInnerGroupLong {
-    self.computers = Some(computers);
-    self
-  }
-
-  pub fn computers(&self) -> Option<&f32> {
-    self.computers.as_ref()
-  }
-
-  pub fn reset_computers(&mut self) {
-    self.computers = None;
-  }
-
-  pub fn set_semiconductors(&mut self, semiconductors: f32) {
-    self.semiconductors = Some(semiconductors);
-  }
-
-  pub fn with_semiconductors(mut self, semiconductors: f32) -> AllocationInnerGroupLong {
-    self.semiconductors = Some(semiconductors);
-    self
-  }
-
-  pub fn semiconductors(&self) -> Option<&f32> {
-    self.semiconductors.as_ref()
-  }
-
-  pub fn reset_semiconductors(&mut self) {
-    self.semiconductors = None;
-  }
-
-  pub fn set_others(&mut self, others: f32) {
-    self.others = Some(others);
-  }
-
-  pub fn with_others(mut self, others: f32) -> AllocationInnerGroupLong {
-    self.others = Some(others);
-    self
-  }
-
-  pub fn others(&self) -> Option<&f32> {
-    self.others.as_ref()
-  }
-
-  pub fn reset_others(&mut self) {
-    self.others = None;
-  }
-
-  pub fn set_chemicals(&mut self, chemicals: f32) {
-    self.chemicals = Some(chemicals);
-  }
-
-  pub fn with_chemicals(mut self, chemicals: f32) -> AllocationInnerGroupLong {
-    self.chemicals = Some(chemicals);
-    self
-  }
-
-  pub fn chemicals(&self) -> Option<&f32> {
-    self.chemicals.as_ref()
-  }
-
-  pub fn reset_chemicals(&mut self) {
-    self.chemicals = None;
   }
 
   pub fn set_apparel(&mut self, apparel: f32) {
@@ -127,6 +59,23 @@ impl AllocationInnerGroupLong {
     self.apparel = None;
   }
 
+  pub fn set_chemicals(&mut self, chemicals: f32) {
+    self.chemicals = Some(chemicals);
+  }
+
+  pub fn with_chemicals(mut self, chemicals: f32) -> AllocationInnerGroupLong {
+    self.chemicals = Some(chemicals);
+    self
+  }
+
+  pub fn chemicals(&self) -> Option<&f32> {
+    self.chemicals.as_ref()
+  }
+
+  pub fn reset_chemicals(&mut self) {
+    self.chemicals = None;
+  }
+
   pub fn set_communications(&mut self, communications: f32) {
     self.communications = Some(communications);
   }
@@ -142,6 +91,57 @@ impl AllocationInnerGroupLong {
 
   pub fn reset_communications(&mut self) {
     self.communications = None;
+  }
+
+  pub fn set_computers(&mut self, computers: f32) {
+    self.computers = Some(computers);
+  }
+
+  pub fn with_computers(mut self, computers: f32) -> AllocationInnerGroupLong {
+    self.computers = Some(computers);
+    self
+  }
+
+  pub fn computers(&self) -> Option<&f32> {
+    self.computers.as_ref()
+  }
+
+  pub fn reset_computers(&mut self) {
+    self.computers = None;
+  }
+
+  pub fn set_others(&mut self, others: f32) {
+    self.others = Some(others);
+  }
+
+  pub fn with_others(mut self, others: f32) -> AllocationInnerGroupLong {
+    self.others = Some(others);
+    self
+  }
+
+  pub fn others(&self) -> Option<&f32> {
+    self.others.as_ref()
+  }
+
+  pub fn reset_others(&mut self) {
+    self.others = None;
+  }
+
+  pub fn set_semiconductors(&mut self, semiconductors: f32) {
+    self.semiconductors = Some(semiconductors);
+  }
+
+  pub fn with_semiconductors(mut self, semiconductors: f32) -> AllocationInnerGroupLong {
+    self.semiconductors = Some(semiconductors);
+    self
+  }
+
+  pub fn semiconductors(&self) -> Option<&f32> {
+    self.semiconductors.as_ref()
+  }
+
+  pub fn reset_semiconductors(&mut self) {
+    self.semiconductors = None;
   }
 
 }

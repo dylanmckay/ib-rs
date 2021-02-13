@@ -14,20 +14,20 @@ use serde_json::Value;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct SummaryExcludedAccounts {
-  #[serde(rename = "lastUpdateAttempt")]
-  last_update_attempt: Option<String>,
-  #[serde(rename = "fiName")]
-  fi_name: Option<String>,
-  #[serde(rename = "acctTitle")]
-  acct_title: Option<String>,
-  #[serde(rename = "acctNumAtFI")]
-  acct_num_at_fi: Option<String>,
   #[serde(rename = "acctId")]
   acct_id: Option<String>,
-  #[serde(rename = "lastUpdate")]
-  last_update: Option<String>,
+  #[serde(rename = "acctNumAtFI")]
+  acct_num_at_fi: Option<String>,
+  #[serde(rename = "acctTitle")]
+  acct_title: Option<String>,
+  #[serde(rename = "fiName")]
+  fi_name: Option<String>,
   #[serde(rename = "harvestCode")]
   harvest_code: Option<i32>,
+  #[serde(rename = "lastUpdate")]
+  last_update: Option<String>,
+  #[serde(rename = "lastUpdateAttempt")]
+  last_update_attempt: Option<String>,
   #[serde(rename = "lastUpdateStatusCode")]
   last_update_status_code: Option<String>,
   #[serde(rename = "rc")]
@@ -37,84 +37,16 @@ pub struct SummaryExcludedAccounts {
 impl SummaryExcludedAccounts {
   pub fn new() -> SummaryExcludedAccounts {
     SummaryExcludedAccounts {
-      last_update_attempt: None,
-      fi_name: None,
-      acct_title: None,
-      acct_num_at_fi: None,
       acct_id: None,
-      last_update: None,
+      acct_num_at_fi: None,
+      acct_title: None,
+      fi_name: None,
       harvest_code: None,
+      last_update: None,
+      last_update_attempt: None,
       last_update_status_code: None,
       rc: None
     }
-  }
-
-  pub fn set_last_update_attempt(&mut self, last_update_attempt: String) {
-    self.last_update_attempt = Some(last_update_attempt);
-  }
-
-  pub fn with_last_update_attempt(mut self, last_update_attempt: String) -> SummaryExcludedAccounts {
-    self.last_update_attempt = Some(last_update_attempt);
-    self
-  }
-
-  pub fn last_update_attempt(&self) -> Option<&String> {
-    self.last_update_attempt.as_ref()
-  }
-
-  pub fn reset_last_update_attempt(&mut self) {
-    self.last_update_attempt = None;
-  }
-
-  pub fn set_fi_name(&mut self, fi_name: String) {
-    self.fi_name = Some(fi_name);
-  }
-
-  pub fn with_fi_name(mut self, fi_name: String) -> SummaryExcludedAccounts {
-    self.fi_name = Some(fi_name);
-    self
-  }
-
-  pub fn fi_name(&self) -> Option<&String> {
-    self.fi_name.as_ref()
-  }
-
-  pub fn reset_fi_name(&mut self) {
-    self.fi_name = None;
-  }
-
-  pub fn set_acct_title(&mut self, acct_title: String) {
-    self.acct_title = Some(acct_title);
-  }
-
-  pub fn with_acct_title(mut self, acct_title: String) -> SummaryExcludedAccounts {
-    self.acct_title = Some(acct_title);
-    self
-  }
-
-  pub fn acct_title(&self) -> Option<&String> {
-    self.acct_title.as_ref()
-  }
-
-  pub fn reset_acct_title(&mut self) {
-    self.acct_title = None;
-  }
-
-  pub fn set_acct_num_at_fi(&mut self, acct_num_at_fi: String) {
-    self.acct_num_at_fi = Some(acct_num_at_fi);
-  }
-
-  pub fn with_acct_num_at_fi(mut self, acct_num_at_fi: String) -> SummaryExcludedAccounts {
-    self.acct_num_at_fi = Some(acct_num_at_fi);
-    self
-  }
-
-  pub fn acct_num_at_fi(&self) -> Option<&String> {
-    self.acct_num_at_fi.as_ref()
-  }
-
-  pub fn reset_acct_num_at_fi(&mut self) {
-    self.acct_num_at_fi = None;
   }
 
   pub fn set_acct_id(&mut self, acct_id: String) {
@@ -134,21 +66,55 @@ impl SummaryExcludedAccounts {
     self.acct_id = None;
   }
 
-  pub fn set_last_update(&mut self, last_update: String) {
-    self.last_update = Some(last_update);
+  pub fn set_acct_num_at_fi(&mut self, acct_num_at_fi: String) {
+    self.acct_num_at_fi = Some(acct_num_at_fi);
   }
 
-  pub fn with_last_update(mut self, last_update: String) -> SummaryExcludedAccounts {
-    self.last_update = Some(last_update);
+  pub fn with_acct_num_at_fi(mut self, acct_num_at_fi: String) -> SummaryExcludedAccounts {
+    self.acct_num_at_fi = Some(acct_num_at_fi);
     self
   }
 
-  pub fn last_update(&self) -> Option<&String> {
-    self.last_update.as_ref()
+  pub fn acct_num_at_fi(&self) -> Option<&String> {
+    self.acct_num_at_fi.as_ref()
   }
 
-  pub fn reset_last_update(&mut self) {
-    self.last_update = None;
+  pub fn reset_acct_num_at_fi(&mut self) {
+    self.acct_num_at_fi = None;
+  }
+
+  pub fn set_acct_title(&mut self, acct_title: String) {
+    self.acct_title = Some(acct_title);
+  }
+
+  pub fn with_acct_title(mut self, acct_title: String) -> SummaryExcludedAccounts {
+    self.acct_title = Some(acct_title);
+    self
+  }
+
+  pub fn acct_title(&self) -> Option<&String> {
+    self.acct_title.as_ref()
+  }
+
+  pub fn reset_acct_title(&mut self) {
+    self.acct_title = None;
+  }
+
+  pub fn set_fi_name(&mut self, fi_name: String) {
+    self.fi_name = Some(fi_name);
+  }
+
+  pub fn with_fi_name(mut self, fi_name: String) -> SummaryExcludedAccounts {
+    self.fi_name = Some(fi_name);
+    self
+  }
+
+  pub fn fi_name(&self) -> Option<&String> {
+    self.fi_name.as_ref()
+  }
+
+  pub fn reset_fi_name(&mut self) {
+    self.fi_name = None;
   }
 
   pub fn set_harvest_code(&mut self, harvest_code: i32) {
@@ -166,6 +132,40 @@ impl SummaryExcludedAccounts {
 
   pub fn reset_harvest_code(&mut self) {
     self.harvest_code = None;
+  }
+
+  pub fn set_last_update(&mut self, last_update: String) {
+    self.last_update = Some(last_update);
+  }
+
+  pub fn with_last_update(mut self, last_update: String) -> SummaryExcludedAccounts {
+    self.last_update = Some(last_update);
+    self
+  }
+
+  pub fn last_update(&self) -> Option<&String> {
+    self.last_update.as_ref()
+  }
+
+  pub fn reset_last_update(&mut self) {
+    self.last_update = None;
+  }
+
+  pub fn set_last_update_attempt(&mut self, last_update_attempt: String) {
+    self.last_update_attempt = Some(last_update_attempt);
+  }
+
+  pub fn with_last_update_attempt(mut self, last_update_attempt: String) -> SummaryExcludedAccounts {
+    self.last_update_attempt = Some(last_update_attempt);
+    self
+  }
+
+  pub fn last_update_attempt(&self) -> Option<&String> {
+    self.last_update_attempt.as_ref()
+  }
+
+  pub fn reset_last_update_attempt(&mut self) {
+    self.last_update_attempt = None;
   }
 
   pub fn set_last_update_status_code(&mut self, last_update_status_code: String) {

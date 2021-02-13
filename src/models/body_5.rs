@@ -14,32 +14,32 @@ use serde_json::Value;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Body5 {
-  #[serde(rename = "enabled")]
-  enabled: Option<bool>
+  #[serde(rename = "acctIds")]
+  acct_ids: Option<Vec<String>>
 }
 
 impl Body5 {
   pub fn new() -> Body5 {
     Body5 {
-      enabled: None
+      acct_ids: None
     }
   }
 
-  pub fn set_enabled(&mut self, enabled: bool) {
-    self.enabled = Some(enabled);
+  pub fn set_acct_ids(&mut self, acct_ids: Vec<String>) {
+    self.acct_ids = Some(acct_ids);
   }
 
-  pub fn with_enabled(mut self, enabled: bool) -> Body5 {
-    self.enabled = Some(enabled);
+  pub fn with_acct_ids(mut self, acct_ids: Vec<String>) -> Body5 {
+    self.acct_ids = Some(acct_ids);
     self
   }
 
-  pub fn enabled(&self) -> Option<&bool> {
-    self.enabled.as_ref()
+  pub fn acct_ids(&self) -> Option<&Vec<String>> {
+    self.acct_ids.as_ref()
   }
 
-  pub fn reset_enabled(&mut self) {
-    self.enabled = None;
+  pub fn reset_acct_ids(&mut self) {
+    self.acct_ids = None;
   }
 
 }

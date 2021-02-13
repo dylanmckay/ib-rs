@@ -17,78 +17,78 @@ use serde_json::Value;
 pub struct PositionInner {
   #[serde(rename = "acctId")]
   acct_id: Option<String>,
-  #[serde(rename = "conid")]
-  conid: Option<i32>,
-  #[serde(rename = "contractDesc")]
-  contract_desc: Option<String>,
   #[serde(rename = "assetClass")]
   asset_class: Option<String>,
-  #[serde(rename = "position")]
-  position: Option<f32>,
-  #[serde(rename = "mktPrice")]
-  mkt_price: Option<f32>,
-  #[serde(rename = "mktValue")]
-  mkt_value: Option<f32>,
-  #[serde(rename = "currency")]
-  currency: Option<String>,
   #[serde(rename = "avgCost")]
   avg_cost: Option<f32>,
   #[serde(rename = "avgPrice")]
   avg_price: Option<f32>,
-  #[serde(rename = "realizedPnl")]
-  realized_pnl: Option<f32>,
-  #[serde(rename = "unrealizedPnl")]
-  unrealized_pnl: Option<f32>,
-  #[serde(rename = "exchs")]
-  exchs: Option<String>,
-  #[serde(rename = "expiry")]
-  expiry: Option<String>,
-  #[serde(rename = "putOrCall")]
-  put_or_call: Option<String>,
-  #[serde(rename = "multiplier")]
-  multiplier: Option<f32>,
-  #[serde(rename = "strike")]
-  strike: Option<f32>,
-  #[serde(rename = "exerciseStyle")]
-  exercise_style: Option<String>,
-  #[serde(rename = "undConid")]
-  und_conid: Option<i32>,
-  #[serde(rename = "conExchMap")]
-  con_exch_map: Option<Vec<String>>,
-  #[serde(rename = "baseMktValue")]
-  base_mkt_value: Option<f32>,
-  #[serde(rename = "baseMktPrice")]
-  base_mkt_price: Option<f32>,
   #[serde(rename = "baseAvgCost")]
   base_avg_cost: Option<f32>,
   #[serde(rename = "baseAvgPrice")]
   base_avg_price: Option<f32>,
+  #[serde(rename = "baseMktPrice")]
+  base_mkt_price: Option<f32>,
+  #[serde(rename = "baseMktValue")]
+  base_mkt_value: Option<f32>,
   #[serde(rename = "baseRealizedPnl")]
   base_realized_pnl: Option<f32>,
   #[serde(rename = "baseUnrealizedPnl")]
   base_unrealized_pnl: Option<f32>,
-  #[serde(rename = "name")]
-  name: Option<String>,
-  #[serde(rename = "lastTradingDay")]
-  last_trading_day: Option<String>,
+  #[serde(rename = "conExchMap")]
+  con_exch_map: Option<Vec<String>>,
+  #[serde(rename = "conid")]
+  conid: Option<i32>,
+  #[serde(rename = "contractDesc")]
+  contract_desc: Option<String>,
+  #[serde(rename = "currency")]
+  currency: Option<String>,
+  #[serde(rename = "exchs")]
+  exchs: Option<String>,
+  #[serde(rename = "exerciseStyle")]
+  exercise_style: Option<String>,
+  #[serde(rename = "expiry")]
+  expiry: Option<String>,
+  #[serde(rename = "fullName")]
+  full_name: Option<String>,
   #[serde(rename = "group")]
   group: Option<String>,
+  #[serde(rename = "lastTradingDay")]
+  last_trading_day: Option<String>,
+  #[serde(rename = "mktPrice")]
+  mkt_price: Option<f32>,
+  #[serde(rename = "mktValue")]
+  mkt_value: Option<f32>,
+  #[serde(rename = "model")]
+  model: Option<String>,
+  #[serde(rename = "multiplier")]
+  multiplier: Option<f32>,
+  #[serde(rename = "name")]
+  name: Option<String>,
+  #[serde(rename = "pageSize")]
+  page_size: Option<i32>,
+  #[serde(rename = "position")]
+  position: Option<f32>,
+  #[serde(rename = "putOrCall")]
+  put_or_call: Option<String>,
+  #[serde(rename = "realizedPnl")]
+  realized_pnl: Option<f32>,
   #[serde(rename = "sector")]
   sector: Option<String>,
   #[serde(rename = "sectorGroup")]
   sector_group: Option<String>,
+  #[serde(rename = "strike")]
+  strike: Option<f32>,
   #[serde(rename = "ticker")]
   ticker: Option<String>,
   #[serde(rename = "undComp")]
   und_comp: Option<String>,
+  #[serde(rename = "undConid")]
+  und_conid: Option<i32>,
   #[serde(rename = "undSym")]
   und_sym: Option<String>,
-  #[serde(rename = "fullName")]
-  full_name: Option<String>,
-  #[serde(rename = "pageSize")]
-  page_size: Option<i32>,
-  #[serde(rename = "model")]
-  model: Option<String>
+  #[serde(rename = "unrealizedPnl")]
+  unrealized_pnl: Option<f32>
 }
 
 impl PositionInner {
@@ -96,42 +96,42 @@ impl PositionInner {
   pub fn new() -> PositionInner {
     PositionInner {
       acct_id: None,
-      conid: None,
-      contract_desc: None,
       asset_class: None,
-      position: None,
-      mkt_price: None,
-      mkt_value: None,
-      currency: None,
       avg_cost: None,
       avg_price: None,
-      realized_pnl: None,
-      unrealized_pnl: None,
-      exchs: None,
-      expiry: None,
-      put_or_call: None,
-      multiplier: None,
-      strike: None,
-      exercise_style: None,
-      und_conid: None,
-      con_exch_map: None,
-      base_mkt_value: None,
-      base_mkt_price: None,
       base_avg_cost: None,
       base_avg_price: None,
+      base_mkt_price: None,
+      base_mkt_value: None,
       base_realized_pnl: None,
       base_unrealized_pnl: None,
-      name: None,
-      last_trading_day: None,
+      con_exch_map: None,
+      conid: None,
+      contract_desc: None,
+      currency: None,
+      exchs: None,
+      exercise_style: None,
+      expiry: None,
+      full_name: None,
       group: None,
+      last_trading_day: None,
+      mkt_price: None,
+      mkt_value: None,
+      model: None,
+      multiplier: None,
+      name: None,
+      page_size: None,
+      position: None,
+      put_or_call: None,
+      realized_pnl: None,
       sector: None,
       sector_group: None,
+      strike: None,
       ticker: None,
       und_comp: None,
+      und_conid: None,
       und_sym: None,
-      full_name: None,
-      page_size: None,
-      model: None
+      unrealized_pnl: None
     }
   }
 
@@ -152,40 +152,6 @@ impl PositionInner {
     self.acct_id = None;
   }
 
-  pub fn set_conid(&mut self, conid: i32) {
-    self.conid = Some(conid);
-  }
-
-  pub fn with_conid(mut self, conid: i32) -> PositionInner {
-    self.conid = Some(conid);
-    self
-  }
-
-  pub fn conid(&self) -> Option<&i32> {
-    self.conid.as_ref()
-  }
-
-  pub fn reset_conid(&mut self) {
-    self.conid = None;
-  }
-
-  pub fn set_contract_desc(&mut self, contract_desc: String) {
-    self.contract_desc = Some(contract_desc);
-  }
-
-  pub fn with_contract_desc(mut self, contract_desc: String) -> PositionInner {
-    self.contract_desc = Some(contract_desc);
-    self
-  }
-
-  pub fn contract_desc(&self) -> Option<&String> {
-    self.contract_desc.as_ref()
-  }
-
-  pub fn reset_contract_desc(&mut self) {
-    self.contract_desc = None;
-  }
-
   pub fn set_asset_class(&mut self, asset_class: String) {
     self.asset_class = Some(asset_class);
   }
@@ -201,74 +167,6 @@ impl PositionInner {
 
   pub fn reset_asset_class(&mut self) {
     self.asset_class = None;
-  }
-
-  pub fn set_position(&mut self, position: f32) {
-    self.position = Some(position);
-  }
-
-  pub fn with_position(mut self, position: f32) -> PositionInner {
-    self.position = Some(position);
-    self
-  }
-
-  pub fn position(&self) -> Option<&f32> {
-    self.position.as_ref()
-  }
-
-  pub fn reset_position(&mut self) {
-    self.position = None;
-  }
-
-  pub fn set_mkt_price(&mut self, mkt_price: f32) {
-    self.mkt_price = Some(mkt_price);
-  }
-
-  pub fn with_mkt_price(mut self, mkt_price: f32) -> PositionInner {
-    self.mkt_price = Some(mkt_price);
-    self
-  }
-
-  pub fn mkt_price(&self) -> Option<&f32> {
-    self.mkt_price.as_ref()
-  }
-
-  pub fn reset_mkt_price(&mut self) {
-    self.mkt_price = None;
-  }
-
-  pub fn set_mkt_value(&mut self, mkt_value: f32) {
-    self.mkt_value = Some(mkt_value);
-  }
-
-  pub fn with_mkt_value(mut self, mkt_value: f32) -> PositionInner {
-    self.mkt_value = Some(mkt_value);
-    self
-  }
-
-  pub fn mkt_value(&self) -> Option<&f32> {
-    self.mkt_value.as_ref()
-  }
-
-  pub fn reset_mkt_value(&mut self) {
-    self.mkt_value = None;
-  }
-
-  pub fn set_currency(&mut self, currency: String) {
-    self.currency = Some(currency);
-  }
-
-  pub fn with_currency(mut self, currency: String) -> PositionInner {
-    self.currency = Some(currency);
-    self
-  }
-
-  pub fn currency(&self) -> Option<&String> {
-    self.currency.as_ref()
-  }
-
-  pub fn reset_currency(&mut self) {
-    self.currency = None;
   }
 
   pub fn set_avg_cost(&mut self, avg_cost: f32) {
@@ -305,210 +203,6 @@ impl PositionInner {
     self.avg_price = None;
   }
 
-  pub fn set_realized_pnl(&mut self, realized_pnl: f32) {
-    self.realized_pnl = Some(realized_pnl);
-  }
-
-  pub fn with_realized_pnl(mut self, realized_pnl: f32) -> PositionInner {
-    self.realized_pnl = Some(realized_pnl);
-    self
-  }
-
-  pub fn realized_pnl(&self) -> Option<&f32> {
-    self.realized_pnl.as_ref()
-  }
-
-  pub fn reset_realized_pnl(&mut self) {
-    self.realized_pnl = None;
-  }
-
-  pub fn set_unrealized_pnl(&mut self, unrealized_pnl: f32) {
-    self.unrealized_pnl = Some(unrealized_pnl);
-  }
-
-  pub fn with_unrealized_pnl(mut self, unrealized_pnl: f32) -> PositionInner {
-    self.unrealized_pnl = Some(unrealized_pnl);
-    self
-  }
-
-  pub fn unrealized_pnl(&self) -> Option<&f32> {
-    self.unrealized_pnl.as_ref()
-  }
-
-  pub fn reset_unrealized_pnl(&mut self) {
-    self.unrealized_pnl = None;
-  }
-
-  pub fn set_exchs(&mut self, exchs: String) {
-    self.exchs = Some(exchs);
-  }
-
-  pub fn with_exchs(mut self, exchs: String) -> PositionInner {
-    self.exchs = Some(exchs);
-    self
-  }
-
-  pub fn exchs(&self) -> Option<&String> {
-    self.exchs.as_ref()
-  }
-
-  pub fn reset_exchs(&mut self) {
-    self.exchs = None;
-  }
-
-  pub fn set_expiry(&mut self, expiry: String) {
-    self.expiry = Some(expiry);
-  }
-
-  pub fn with_expiry(mut self, expiry: String) -> PositionInner {
-    self.expiry = Some(expiry);
-    self
-  }
-
-  pub fn expiry(&self) -> Option<&String> {
-    self.expiry.as_ref()
-  }
-
-  pub fn reset_expiry(&mut self) {
-    self.expiry = None;
-  }
-
-  pub fn set_put_or_call(&mut self, put_or_call: String) {
-    self.put_or_call = Some(put_or_call);
-  }
-
-  pub fn with_put_or_call(mut self, put_or_call: String) -> PositionInner {
-    self.put_or_call = Some(put_or_call);
-    self
-  }
-
-  pub fn put_or_call(&self) -> Option<&String> {
-    self.put_or_call.as_ref()
-  }
-
-  pub fn reset_put_or_call(&mut self) {
-    self.put_or_call = None;
-  }
-
-  pub fn set_multiplier(&mut self, multiplier: f32) {
-    self.multiplier = Some(multiplier);
-  }
-
-  pub fn with_multiplier(mut self, multiplier: f32) -> PositionInner {
-    self.multiplier = Some(multiplier);
-    self
-  }
-
-  pub fn multiplier(&self) -> Option<&f32> {
-    self.multiplier.as_ref()
-  }
-
-  pub fn reset_multiplier(&mut self) {
-    self.multiplier = None;
-  }
-
-  pub fn set_strike(&mut self, strike: f32) {
-    self.strike = Some(strike);
-  }
-
-  pub fn with_strike(mut self, strike: f32) -> PositionInner {
-    self.strike = Some(strike);
-    self
-  }
-
-  pub fn strike(&self) -> Option<&f32> {
-    self.strike.as_ref()
-  }
-
-  pub fn reset_strike(&mut self) {
-    self.strike = None;
-  }
-
-  pub fn set_exercise_style(&mut self, exercise_style: String) {
-    self.exercise_style = Some(exercise_style);
-  }
-
-  pub fn with_exercise_style(mut self, exercise_style: String) -> PositionInner {
-    self.exercise_style = Some(exercise_style);
-    self
-  }
-
-  pub fn exercise_style(&self) -> Option<&String> {
-    self.exercise_style.as_ref()
-  }
-
-  pub fn reset_exercise_style(&mut self) {
-    self.exercise_style = None;
-  }
-
-  pub fn set_und_conid(&mut self, und_conid: i32) {
-    self.und_conid = Some(und_conid);
-  }
-
-  pub fn with_und_conid(mut self, und_conid: i32) -> PositionInner {
-    self.und_conid = Some(und_conid);
-    self
-  }
-
-  pub fn und_conid(&self) -> Option<&i32> {
-    self.und_conid.as_ref()
-  }
-
-  pub fn reset_und_conid(&mut self) {
-    self.und_conid = None;
-  }
-
-  pub fn set_con_exch_map(&mut self, con_exch_map: Vec<String>) {
-    self.con_exch_map = Some(con_exch_map);
-  }
-
-  pub fn with_con_exch_map(mut self, con_exch_map: Vec<String>) -> PositionInner {
-    self.con_exch_map = Some(con_exch_map);
-    self
-  }
-
-  pub fn con_exch_map(&self) -> Option<&Vec<String>> {
-    self.con_exch_map.as_ref()
-  }
-
-  pub fn reset_con_exch_map(&mut self) {
-    self.con_exch_map = None;
-  }
-
-  pub fn set_base_mkt_value(&mut self, base_mkt_value: f32) {
-    self.base_mkt_value = Some(base_mkt_value);
-  }
-
-  pub fn with_base_mkt_value(mut self, base_mkt_value: f32) -> PositionInner {
-    self.base_mkt_value = Some(base_mkt_value);
-    self
-  }
-
-  pub fn base_mkt_value(&self) -> Option<&f32> {
-    self.base_mkt_value.as_ref()
-  }
-
-  pub fn reset_base_mkt_value(&mut self) {
-    self.base_mkt_value = None;
-  }
-
-  pub fn set_base_mkt_price(&mut self, base_mkt_price: f32) {
-    self.base_mkt_price = Some(base_mkt_price);
-  }
-
-  pub fn with_base_mkt_price(mut self, base_mkt_price: f32) -> PositionInner {
-    self.base_mkt_price = Some(base_mkt_price);
-    self
-  }
-
-  pub fn base_mkt_price(&self) -> Option<&f32> {
-    self.base_mkt_price.as_ref()
-  }
-
-  pub fn reset_base_mkt_price(&mut self) {
-    self.base_mkt_price = None;
-  }
-
   pub fn set_base_avg_cost(&mut self, base_avg_cost: f32) {
     self.base_avg_cost = Some(base_avg_cost);
   }
@@ -541,6 +235,40 @@ impl PositionInner {
 
   pub fn reset_base_avg_price(&mut self) {
     self.base_avg_price = None;
+  }
+
+  pub fn set_base_mkt_price(&mut self, base_mkt_price: f32) {
+    self.base_mkt_price = Some(base_mkt_price);
+  }
+
+  pub fn with_base_mkt_price(mut self, base_mkt_price: f32) -> PositionInner {
+    self.base_mkt_price = Some(base_mkt_price);
+    self
+  }
+
+  pub fn base_mkt_price(&self) -> Option<&f32> {
+    self.base_mkt_price.as_ref()
+  }
+
+  pub fn reset_base_mkt_price(&mut self) {
+    self.base_mkt_price = None;
+  }
+
+  pub fn set_base_mkt_value(&mut self, base_mkt_value: f32) {
+    self.base_mkt_value = Some(base_mkt_value);
+  }
+
+  pub fn with_base_mkt_value(mut self, base_mkt_value: f32) -> PositionInner {
+    self.base_mkt_value = Some(base_mkt_value);
+    self
+  }
+
+  pub fn base_mkt_value(&self) -> Option<&f32> {
+    self.base_mkt_value.as_ref()
+  }
+
+  pub fn reset_base_mkt_value(&mut self) {
+    self.base_mkt_value = None;
   }
 
   pub fn set_base_realized_pnl(&mut self, base_realized_pnl: f32) {
@@ -577,21 +305,157 @@ impl PositionInner {
     self.base_unrealized_pnl = None;
   }
 
-  pub fn set_name(&mut self, name: String) {
-    self.name = Some(name);
+  pub fn set_con_exch_map(&mut self, con_exch_map: Vec<String>) {
+    self.con_exch_map = Some(con_exch_map);
   }
 
-  pub fn with_name(mut self, name: String) -> PositionInner {
-    self.name = Some(name);
+  pub fn with_con_exch_map(mut self, con_exch_map: Vec<String>) -> PositionInner {
+    self.con_exch_map = Some(con_exch_map);
     self
   }
 
-  pub fn name(&self) -> Option<&String> {
-    self.name.as_ref()
+  pub fn con_exch_map(&self) -> Option<&Vec<String>> {
+    self.con_exch_map.as_ref()
   }
 
-  pub fn reset_name(&mut self) {
-    self.name = None;
+  pub fn reset_con_exch_map(&mut self) {
+    self.con_exch_map = None;
+  }
+
+  pub fn set_conid(&mut self, conid: i32) {
+    self.conid = Some(conid);
+  }
+
+  pub fn with_conid(mut self, conid: i32) -> PositionInner {
+    self.conid = Some(conid);
+    self
+  }
+
+  pub fn conid(&self) -> Option<&i32> {
+    self.conid.as_ref()
+  }
+
+  pub fn reset_conid(&mut self) {
+    self.conid = None;
+  }
+
+  pub fn set_contract_desc(&mut self, contract_desc: String) {
+    self.contract_desc = Some(contract_desc);
+  }
+
+  pub fn with_contract_desc(mut self, contract_desc: String) -> PositionInner {
+    self.contract_desc = Some(contract_desc);
+    self
+  }
+
+  pub fn contract_desc(&self) -> Option<&String> {
+    self.contract_desc.as_ref()
+  }
+
+  pub fn reset_contract_desc(&mut self) {
+    self.contract_desc = None;
+  }
+
+  pub fn set_currency(&mut self, currency: String) {
+    self.currency = Some(currency);
+  }
+
+  pub fn with_currency(mut self, currency: String) -> PositionInner {
+    self.currency = Some(currency);
+    self
+  }
+
+  pub fn currency(&self) -> Option<&String> {
+    self.currency.as_ref()
+  }
+
+  pub fn reset_currency(&mut self) {
+    self.currency = None;
+  }
+
+  pub fn set_exchs(&mut self, exchs: String) {
+    self.exchs = Some(exchs);
+  }
+
+  pub fn with_exchs(mut self, exchs: String) -> PositionInner {
+    self.exchs = Some(exchs);
+    self
+  }
+
+  pub fn exchs(&self) -> Option<&String> {
+    self.exchs.as_ref()
+  }
+
+  pub fn reset_exchs(&mut self) {
+    self.exchs = None;
+  }
+
+  pub fn set_exercise_style(&mut self, exercise_style: String) {
+    self.exercise_style = Some(exercise_style);
+  }
+
+  pub fn with_exercise_style(mut self, exercise_style: String) -> PositionInner {
+    self.exercise_style = Some(exercise_style);
+    self
+  }
+
+  pub fn exercise_style(&self) -> Option<&String> {
+    self.exercise_style.as_ref()
+  }
+
+  pub fn reset_exercise_style(&mut self) {
+    self.exercise_style = None;
+  }
+
+  pub fn set_expiry(&mut self, expiry: String) {
+    self.expiry = Some(expiry);
+  }
+
+  pub fn with_expiry(mut self, expiry: String) -> PositionInner {
+    self.expiry = Some(expiry);
+    self
+  }
+
+  pub fn expiry(&self) -> Option<&String> {
+    self.expiry.as_ref()
+  }
+
+  pub fn reset_expiry(&mut self) {
+    self.expiry = None;
+  }
+
+  pub fn set_full_name(&mut self, full_name: String) {
+    self.full_name = Some(full_name);
+  }
+
+  pub fn with_full_name(mut self, full_name: String) -> PositionInner {
+    self.full_name = Some(full_name);
+    self
+  }
+
+  pub fn full_name(&self) -> Option<&String> {
+    self.full_name.as_ref()
+  }
+
+  pub fn reset_full_name(&mut self) {
+    self.full_name = None;
+  }
+
+  pub fn set_group(&mut self, group: String) {
+    self.group = Some(group);
+  }
+
+  pub fn with_group(mut self, group: String) -> PositionInner {
+    self.group = Some(group);
+    self
+  }
+
+  pub fn group(&self) -> Option<&String> {
+    self.group.as_ref()
+  }
+
+  pub fn reset_group(&mut self) {
+    self.group = None;
   }
 
   pub fn set_last_trading_day(&mut self, last_trading_day: String) {
@@ -611,21 +475,157 @@ impl PositionInner {
     self.last_trading_day = None;
   }
 
-  pub fn set_group(&mut self, group: String) {
-    self.group = Some(group);
+  pub fn set_mkt_price(&mut self, mkt_price: f32) {
+    self.mkt_price = Some(mkt_price);
   }
 
-  pub fn with_group(mut self, group: String) -> PositionInner {
-    self.group = Some(group);
+  pub fn with_mkt_price(mut self, mkt_price: f32) -> PositionInner {
+    self.mkt_price = Some(mkt_price);
     self
   }
 
-  pub fn group(&self) -> Option<&String> {
-    self.group.as_ref()
+  pub fn mkt_price(&self) -> Option<&f32> {
+    self.mkt_price.as_ref()
   }
 
-  pub fn reset_group(&mut self) {
-    self.group = None;
+  pub fn reset_mkt_price(&mut self) {
+    self.mkt_price = None;
+  }
+
+  pub fn set_mkt_value(&mut self, mkt_value: f32) {
+    self.mkt_value = Some(mkt_value);
+  }
+
+  pub fn with_mkt_value(mut self, mkt_value: f32) -> PositionInner {
+    self.mkt_value = Some(mkt_value);
+    self
+  }
+
+  pub fn mkt_value(&self) -> Option<&f32> {
+    self.mkt_value.as_ref()
+  }
+
+  pub fn reset_mkt_value(&mut self) {
+    self.mkt_value = None;
+  }
+
+  pub fn set_model(&mut self, model: String) {
+    self.model = Some(model);
+  }
+
+  pub fn with_model(mut self, model: String) -> PositionInner {
+    self.model = Some(model);
+    self
+  }
+
+  pub fn model(&self) -> Option<&String> {
+    self.model.as_ref()
+  }
+
+  pub fn reset_model(&mut self) {
+    self.model = None;
+  }
+
+  pub fn set_multiplier(&mut self, multiplier: f32) {
+    self.multiplier = Some(multiplier);
+  }
+
+  pub fn with_multiplier(mut self, multiplier: f32) -> PositionInner {
+    self.multiplier = Some(multiplier);
+    self
+  }
+
+  pub fn multiplier(&self) -> Option<&f32> {
+    self.multiplier.as_ref()
+  }
+
+  pub fn reset_multiplier(&mut self) {
+    self.multiplier = None;
+  }
+
+  pub fn set_name(&mut self, name: String) {
+    self.name = Some(name);
+  }
+
+  pub fn with_name(mut self, name: String) -> PositionInner {
+    self.name = Some(name);
+    self
+  }
+
+  pub fn name(&self) -> Option<&String> {
+    self.name.as_ref()
+  }
+
+  pub fn reset_name(&mut self) {
+    self.name = None;
+  }
+
+  pub fn set_page_size(&mut self, page_size: i32) {
+    self.page_size = Some(page_size);
+  }
+
+  pub fn with_page_size(mut self, page_size: i32) -> PositionInner {
+    self.page_size = Some(page_size);
+    self
+  }
+
+  pub fn page_size(&self) -> Option<&i32> {
+    self.page_size.as_ref()
+  }
+
+  pub fn reset_page_size(&mut self) {
+    self.page_size = None;
+  }
+
+  pub fn set_position(&mut self, position: f32) {
+    self.position = Some(position);
+  }
+
+  pub fn with_position(mut self, position: f32) -> PositionInner {
+    self.position = Some(position);
+    self
+  }
+
+  pub fn position(&self) -> Option<&f32> {
+    self.position.as_ref()
+  }
+
+  pub fn reset_position(&mut self) {
+    self.position = None;
+  }
+
+  pub fn set_put_or_call(&mut self, put_or_call: String) {
+    self.put_or_call = Some(put_or_call);
+  }
+
+  pub fn with_put_or_call(mut self, put_or_call: String) -> PositionInner {
+    self.put_or_call = Some(put_or_call);
+    self
+  }
+
+  pub fn put_or_call(&self) -> Option<&String> {
+    self.put_or_call.as_ref()
+  }
+
+  pub fn reset_put_or_call(&mut self) {
+    self.put_or_call = None;
+  }
+
+  pub fn set_realized_pnl(&mut self, realized_pnl: f32) {
+    self.realized_pnl = Some(realized_pnl);
+  }
+
+  pub fn with_realized_pnl(mut self, realized_pnl: f32) -> PositionInner {
+    self.realized_pnl = Some(realized_pnl);
+    self
+  }
+
+  pub fn realized_pnl(&self) -> Option<&f32> {
+    self.realized_pnl.as_ref()
+  }
+
+  pub fn reset_realized_pnl(&mut self) {
+    self.realized_pnl = None;
   }
 
   pub fn set_sector(&mut self, sector: String) {
@@ -662,6 +662,23 @@ impl PositionInner {
     self.sector_group = None;
   }
 
+  pub fn set_strike(&mut self, strike: f32) {
+    self.strike = Some(strike);
+  }
+
+  pub fn with_strike(mut self, strike: f32) -> PositionInner {
+    self.strike = Some(strike);
+    self
+  }
+
+  pub fn strike(&self) -> Option<&f32> {
+    self.strike.as_ref()
+  }
+
+  pub fn reset_strike(&mut self) {
+    self.strike = None;
+  }
+
   pub fn set_ticker(&mut self, ticker: String) {
     self.ticker = Some(ticker);
   }
@@ -696,6 +713,23 @@ impl PositionInner {
     self.und_comp = None;
   }
 
+  pub fn set_und_conid(&mut self, und_conid: i32) {
+    self.und_conid = Some(und_conid);
+  }
+
+  pub fn with_und_conid(mut self, und_conid: i32) -> PositionInner {
+    self.und_conid = Some(und_conid);
+    self
+  }
+
+  pub fn und_conid(&self) -> Option<&i32> {
+    self.und_conid.as_ref()
+  }
+
+  pub fn reset_und_conid(&mut self) {
+    self.und_conid = None;
+  }
+
   pub fn set_und_sym(&mut self, und_sym: String) {
     self.und_sym = Some(und_sym);
   }
@@ -713,55 +747,21 @@ impl PositionInner {
     self.und_sym = None;
   }
 
-  pub fn set_full_name(&mut self, full_name: String) {
-    self.full_name = Some(full_name);
+  pub fn set_unrealized_pnl(&mut self, unrealized_pnl: f32) {
+    self.unrealized_pnl = Some(unrealized_pnl);
   }
 
-  pub fn with_full_name(mut self, full_name: String) -> PositionInner {
-    self.full_name = Some(full_name);
+  pub fn with_unrealized_pnl(mut self, unrealized_pnl: f32) -> PositionInner {
+    self.unrealized_pnl = Some(unrealized_pnl);
     self
   }
 
-  pub fn full_name(&self) -> Option<&String> {
-    self.full_name.as_ref()
+  pub fn unrealized_pnl(&self) -> Option<&f32> {
+    self.unrealized_pnl.as_ref()
   }
 
-  pub fn reset_full_name(&mut self) {
-    self.full_name = None;
-  }
-
-  pub fn set_page_size(&mut self, page_size: i32) {
-    self.page_size = Some(page_size);
-  }
-
-  pub fn with_page_size(mut self, page_size: i32) -> PositionInner {
-    self.page_size = Some(page_size);
-    self
-  }
-
-  pub fn page_size(&self) -> Option<&i32> {
-    self.page_size.as_ref()
-  }
-
-  pub fn reset_page_size(&mut self) {
-    self.page_size = None;
-  }
-
-  pub fn set_model(&mut self, model: String) {
-    self.model = Some(model);
-  }
-
-  pub fn with_model(mut self, model: String) -> PositionInner {
-    self.model = Some(model);
-    self
-  }
-
-  pub fn model(&self) -> Option<&String> {
-    self.model.as_ref()
-  }
-
-  pub fn reset_model(&mut self) {
-    self.model = None;
+  pub fn reset_unrealized_pnl(&mut self) {
+    self.unrealized_pnl = None;
   }
 
 }

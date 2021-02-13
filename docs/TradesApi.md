@@ -11,7 +11,7 @@ Method | HTTP request | Description
 > Vec<::models::Trade> iserver_account_trades_get()
 List of Trades for the selected account
 
-Returns a list of trades for the currently selected account for the current day.
+Returns a list of trades for the currently selected account for current day and six previous days.
 
 ### Required Parameters
 This endpoint does not need any parameter.

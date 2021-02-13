@@ -14,32 +14,32 @@ use serde_json::Value;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Body4 {
-  #[serde(rename = "conids")]
-  conids: Option<Vec<i32>>
+  #[serde(rename = "acctIds")]
+  acct_ids: Option<Vec<String>>
 }
 
 impl Body4 {
   pub fn new() -> Body4 {
     Body4 {
-      conids: None
+      acct_ids: None
     }
   }
 
-  pub fn set_conids(&mut self, conids: Vec<i32>) {
-    self.conids = Some(conids);
+  pub fn set_acct_ids(&mut self, acct_ids: Vec<String>) {
+    self.acct_ids = Some(acct_ids);
   }
 
-  pub fn with_conids(mut self, conids: Vec<i32>) -> Body4 {
-    self.conids = Some(conids);
+  pub fn with_acct_ids(mut self, acct_ids: Vec<String>) -> Body4 {
+    self.acct_ids = Some(acct_ids);
     self
   }
 
-  pub fn conids(&self) -> Option<&Vec<i32>> {
-    self.conids.as_ref()
+  pub fn acct_ids(&self) -> Option<&Vec<String>> {
+    self.acct_ids.as_ref()
   }
 
-  pub fn reset_conids(&mut self) {
-    self.conids = None;
+  pub fn reset_acct_ids(&mut self) {
+    self.acct_ids = None;
   }
 
 }

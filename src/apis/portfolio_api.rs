@@ -10,11 +10,15 @@
 
 use std::rc::Rc;
 use std::borrow::Borrow;
+use std::borrow::Cow;
+use std::collections::HashMap;
 
 use hyper;
-use serde_json;
+use serde_json::{self, Value};
 use futures;
 use futures::{Future, Stream};
+
+use hyper::header::UserAgent;
 
 use super::{Error, configuration};
 
@@ -31,228 +35,448 @@ impl<C: hyper::client::Connect> PortfolioApiClient<C> {
 }
 
 pub trait PortfolioApi {
-    fn portfolio_account_id_allocation_get(&self, account_id: &str) -> Box<Future<Item = ::models::Allocation, Error = Error>>;
-    fn portfolio_account_id_ledger_get(&self, account_id: &str) -> Box<Future<Item = ::models::InlineResponse20013, Error = Error>>;
-    fn portfolio_account_id_meta_get(&self, account_id: &str) -> Box<Future<Item = ::models::Accounts, Error = Error>>;
-    fn portfolio_account_id_position_conid_get(&self, account_id: &str, conid: i32) -> Box<Future<Item = ::models::Position, Error = Error>>;
-    fn portfolio_account_id_positions_page_id_get(&self, account_id: &str, page_id: &str, model: &str, sort: &str, direction: &str, period: &str) -> Box<Future<Item = ::models::Position, Error = Error>>;
-    fn portfolio_account_id_summary_get(&self, account_id: &str) -> Box<Future<Item = ::models::InlineResponse20012, Error = Error>>;
-    fn portfolio_accounts_get(&self, ) -> Box<Future<Item = ::models::Accounts, Error = Error>>;
-    fn portfolio_allocation_post(&self, body: ::models::Body1) -> Box<Future<Item = ::models::Allocation, Error = Error>>;
-    fn portfolio_positions_conid_get(&self, conid: i32) -> Box<Future<Item = ::models::InlineResponse20014, Error = Error>>;
-    fn portfolio_subaccounts_get(&self, ) -> Box<Future<Item = ::models::Account, Error = Error>>;
+    fn portfolio_account_id_allocation_get(&self, account_id: &str) -> Box<Future<Item = ::models::Allocation, Error = Error<serde_json::Value>>>;
+    fn portfolio_account_id_ledger_get(&self, account_id: &str) -> Box<Future<Item = ::models::InlineResponse20019, Error = Error<serde_json::Value>>>;
+    fn portfolio_account_id_meta_get(&self, account_id: &str) -> Box<Future<Item = ::models::Accounts, Error = Error<serde_json::Value>>>;
+    fn portfolio_account_id_position_conid_get(&self, account_id: &str, conid: i32) -> Box<Future<Item = ::models::Position, Error = Error<serde_json::Value>>>;
+    fn portfolio_account_id_positions_invalidate_post(&self, account_id: &str) -> Box<Future<Item = Value, Error = Error<serde_json::Value>>>;
+    fn portfolio_account_id_positions_page_id_get(&self, account_id: &str, page_id: &str, model: &str, sort: &str, direction: &str, period: &str) -> Box<Future<Item = ::models::Position, Error = Error<serde_json::Value>>>;
+    fn portfolio_account_id_summary_get(&self, account_id: &str) -> Box<Future<Item = ::models::InlineResponse20020, Error = Error<serde_json::Value>>>;
+    fn portfolio_accounts_get(&self, ) -> Box<Future<Item = ::models::Accounts, Error = Error<serde_json::Value>>>;
+    fn portfolio_allocation_post(&self, body: ::models::Body6) -> Box<Future<Item = ::models::Allocation, Error = Error<serde_json::Value>>>;
+    fn portfolio_positions_conid_get(&self, conid: i32) -> Box<Future<Item = ::models::InlineResponse20018, Error = Error<serde_json::Value>>>;
+    fn portfolio_subaccounts_get(&self, ) -> Box<Future<Item = ::models::Account, Error = Error<serde_json::Value>>>;
 }
 
 
 impl<C: hyper::client::Connect>PortfolioApi for PortfolioApiClient<C> {
-    fn portfolio_account_id_allocation_get(&self, account_id: &str) -> Box<Future<Item = ::models::Allocation, Error = Error>> {
+    fn portfolio_account_id_allocation_get(&self, account_id: &str) -> Box<Future<Item = ::models::Allocation, Error = Error<serde_json::Value>>> {
         let configuration: &configuration::Configuration<C> = self.configuration.borrow();
 
         let method = hyper::Method::Get;
 
-        let uri_str = format!("{}/portfolio/{accountId}/allocation", configuration.base_path, accountId=account_id);
+        let query_string = {
+            let mut query = ::url::form_urlencoded::Serializer::new(String::new());
+            query.finish()
+        };
+        let uri_str = format!("{}/portfolio/{accountId}/allocation?{}", configuration.base_path, query_string, accountId=account_id);
 
-        let uri = uri_str.parse();
         // TODO(farcaller): handle error
         // if let Err(e) = uri {
         //     return Box::new(futures::future::err(e));
         // }
-        let mut req = hyper::Request::new(method, uri.unwrap());
+        let mut uri: hyper::Uri = uri_str.parse().unwrap();
+
+        let mut req = hyper::Request::new(method, uri);
+
+        if let Some(ref user_agent) = configuration.user_agent {
+            req.headers_mut().set(UserAgent::new(Cow::Owned(user_agent.clone())));
+        }
+
 
 
 
         // send request
         Box::new(
-            configuration.client.request(req).and_then(|res| { res.body().concat2() })
+        configuration.client.request(req)
             .map_err(|e| Error::from(e))
+            .and_then(|resp| {
+                let status = resp.status();
+                resp.body().concat2()
+                    .and_then(move |body| Ok((status, body)))
+                    .map_err(|e| Error::from(e))
+            })
+            .and_then(|(status, body)| {
+                if status.is_success() {
+                    Ok(body)
+                } else {
+                    Err(Error::from((status, &*body)))
+                }
+            })
             .and_then(|body| {
                 let parsed: Result<::models::Allocation, _> = serde_json::from_slice(&body);
                 parsed.map_err(|e| Error::from(e))
-            }).map_err(|e| Error::from(e))
+            })
         )
     }
 
-    fn portfolio_account_id_ledger_get(&self, account_id: &str) -> Box<Future<Item = ::models::InlineResponse20013, Error = Error>> {
+    fn portfolio_account_id_ledger_get(&self, account_id: &str) -> Box<Future<Item = ::models::InlineResponse20019, Error = Error<serde_json::Value>>> {
         let configuration: &configuration::Configuration<C> = self.configuration.borrow();
 
         let method = hyper::Method::Get;
 
-        let uri_str = format!("{}/portfolio/{accountId}/ledger", configuration.base_path, accountId=account_id);
+        let query_string = {
+            let mut query = ::url::form_urlencoded::Serializer::new(String::new());
+            query.finish()
+        };
+        let uri_str = format!("{}/portfolio/{accountId}/ledger?{}", configuration.base_path, query_string, accountId=account_id);
 
-        let uri = uri_str.parse();
         // TODO(farcaller): handle error
         // if let Err(e) = uri {
         //     return Box::new(futures::future::err(e));
         // }
-        let mut req = hyper::Request::new(method, uri.unwrap());
+        let mut uri: hyper::Uri = uri_str.parse().unwrap();
+
+        let mut req = hyper::Request::new(method, uri);
+
+        if let Some(ref user_agent) = configuration.user_agent {
+            req.headers_mut().set(UserAgent::new(Cow::Owned(user_agent.clone())));
+        }
+
 
 
 
         // send request
         Box::new(
-            configuration.client.request(req).and_then(|res| { res.body().concat2() })
+        configuration.client.request(req)
             .map_err(|e| Error::from(e))
+            .and_then(|resp| {
+                let status = resp.status();
+                resp.body().concat2()
+                    .and_then(move |body| Ok((status, body)))
+                    .map_err(|e| Error::from(e))
+            })
+            .and_then(|(status, body)| {
+                if status.is_success() {
+                    Ok(body)
+                } else {
+                    Err(Error::from((status, &*body)))
+                }
+            })
             .and_then(|body| {
-                let parsed: Result<::models::InlineResponse20013, _> = serde_json::from_slice(&body);
+                let parsed: Result<::models::InlineResponse20019, _> = serde_json::from_slice(&body);
                 parsed.map_err(|e| Error::from(e))
-            }).map_err(|e| Error::from(e))
+            })
         )
     }
 
-    fn portfolio_account_id_meta_get(&self, account_id: &str) -> Box<Future<Item = ::models::Accounts, Error = Error>> {
+    fn portfolio_account_id_meta_get(&self, account_id: &str) -> Box<Future<Item = ::models::Accounts, Error = Error<serde_json::Value>>> {
         let configuration: &configuration::Configuration<C> = self.configuration.borrow();
 
         let method = hyper::Method::Get;
 
-        let uri_str = format!("{}/portfolio/{accountId}/meta", configuration.base_path, accountId=account_id);
+        let query_string = {
+            let mut query = ::url::form_urlencoded::Serializer::new(String::new());
+            query.finish()
+        };
+        let uri_str = format!("{}/portfolio/{accountId}/meta?{}", configuration.base_path, query_string, accountId=account_id);
 
-        let uri = uri_str.parse();
         // TODO(farcaller): handle error
         // if let Err(e) = uri {
         //     return Box::new(futures::future::err(e));
         // }
-        let mut req = hyper::Request::new(method, uri.unwrap());
+        let mut uri: hyper::Uri = uri_str.parse().unwrap();
+
+        let mut req = hyper::Request::new(method, uri);
+
+        if let Some(ref user_agent) = configuration.user_agent {
+            req.headers_mut().set(UserAgent::new(Cow::Owned(user_agent.clone())));
+        }
+
 
 
 
         // send request
         Box::new(
-            configuration.client.request(req).and_then(|res| { res.body().concat2() })
+        configuration.client.request(req)
             .map_err(|e| Error::from(e))
-            .and_then(|body| {
-                let parsed: Result<::models::Accounts, _> = serde_json::from_slice(&body);
-                parsed.map_err(|e| Error::from(e))
-            }).map_err(|e| Error::from(e))
-        )
-    }
-
-    fn portfolio_account_id_position_conid_get(&self, account_id: &str, conid: i32) -> Box<Future<Item = ::models::Position, Error = Error>> {
-        let configuration: &configuration::Configuration<C> = self.configuration.borrow();
-
-        let method = hyper::Method::Get;
-
-        let uri_str = format!("{}/portfolio/{accountId}/position/{conid}", configuration.base_path, accountId=account_id, conid=conid);
-
-        let uri = uri_str.parse();
-        // TODO(farcaller): handle error
-        // if let Err(e) = uri {
-        //     return Box::new(futures::future::err(e));
-        // }
-        let mut req = hyper::Request::new(method, uri.unwrap());
-
-
-
-        // send request
-        Box::new(
-            configuration.client.request(req).and_then(|res| { res.body().concat2() })
-            .map_err(|e| Error::from(e))
-            .and_then(|body| {
-                let parsed: Result<::models::Position, _> = serde_json::from_slice(&body);
-                parsed.map_err(|e| Error::from(e))
-            }).map_err(|e| Error::from(e))
-        )
-    }
-
-    fn portfolio_account_id_positions_page_id_get(&self, account_id: &str, page_id: &str, model: &str, sort: &str, direction: &str, period: &str) -> Box<Future<Item = ::models::Position, Error = Error>> {
-        let configuration: &configuration::Configuration<C> = self.configuration.borrow();
-
-        let method = hyper::Method::Get;
-
-        let query = ::url::form_urlencoded::Serializer::new(String::new())
-            .append_pair("model", &model.to_string())
-            .append_pair("sort", &sort.to_string())
-            .append_pair("direction", &direction.to_string())
-            .append_pair("period", &period.to_string())
-            .finish();
-        let uri_str = format!("{}/portfolio/{accountId}/positions/{pageId}{}", configuration.base_path, query, accountId=account_id, pageId=page_id);
-
-        let uri = uri_str.parse();
-        // TODO(farcaller): handle error
-        // if let Err(e) = uri {
-        //     return Box::new(futures::future::err(e));
-        // }
-        let mut req = hyper::Request::new(method, uri.unwrap());
-
-
-
-        // send request
-        Box::new(
-            configuration.client.request(req).and_then(|res| { res.body().concat2() })
-            .map_err(|e| Error::from(e))
-            .and_then(|body| {
-                let parsed: Result<::models::Position, _> = serde_json::from_slice(&body);
-                parsed.map_err(|e| Error::from(e))
-            }).map_err(|e| Error::from(e))
-        )
-    }
-
-    fn portfolio_account_id_summary_get(&self, account_id: &str) -> Box<Future<Item = ::models::InlineResponse20012, Error = Error>> {
-        let configuration: &configuration::Configuration<C> = self.configuration.borrow();
-
-        let method = hyper::Method::Get;
-
-        let uri_str = format!("{}/portfolio/{accountId}/summary", configuration.base_path, accountId=account_id);
-
-        let uri = uri_str.parse();
-        // TODO(farcaller): handle error
-        // if let Err(e) = uri {
-        //     return Box::new(futures::future::err(e));
-        // }
-        let mut req = hyper::Request::new(method, uri.unwrap());
-
-
-
-        // send request
-        Box::new(
-            configuration.client.request(req).and_then(|res| { res.body().concat2() })
-            .map_err(|e| Error::from(e))
-            .and_then(|body| {
-                let parsed: Result<::models::InlineResponse20012, _> = serde_json::from_slice(&body);
-                parsed.map_err(|e| Error::from(e))
-            }).map_err(|e| Error::from(e))
-        )
-    }
-
-    fn portfolio_accounts_get(&self, ) -> Box<Future<Item = ::models::Accounts, Error = Error>> {
-        let configuration: &configuration::Configuration<C> = self.configuration.borrow();
-
-        let method = hyper::Method::Get;
-
-        let uri_str = format!("{}/portfolio/accounts", configuration.base_path);
-
-        let uri = uri_str.parse();
-        // TODO(farcaller): handle error
-        // if let Err(e) = uri {
-        //     return Box::new(futures::future::err(e));
-        // }
-        let mut req = hyper::Request::new(method, uri.unwrap());
-
-
-
-        // send request
-        Box::new(
-            configuration.client.request(req).and_then(|res| { res.body().concat2() })
-            .map_err(|e| Error::from(e))
+            .and_then(|resp| {
+                let status = resp.status();
+                resp.body().concat2()
+                    .and_then(move |body| Ok((status, body)))
+                    .map_err(|e| Error::from(e))
+            })
+            .and_then(|(status, body)| {
+                if status.is_success() {
+                    Ok(body)
+                } else {
+                    Err(Error::from((status, &*body)))
+                }
+            })
             .and_then(|body| {
                 let parsed: Result<::models::Accounts, _> = serde_json::from_slice(&body);
                 parsed.map_err(|e| Error::from(e))
-            }).map_err(|e| Error::from(e))
+            })
         )
     }
 
-    fn portfolio_allocation_post(&self, body: ::models::Body1) -> Box<Future<Item = ::models::Allocation, Error = Error>> {
+    fn portfolio_account_id_position_conid_get(&self, account_id: &str, conid: i32) -> Box<Future<Item = ::models::Position, Error = Error<serde_json::Value>>> {
+        let configuration: &configuration::Configuration<C> = self.configuration.borrow();
+
+        let method = hyper::Method::Get;
+
+        let query_string = {
+            let mut query = ::url::form_urlencoded::Serializer::new(String::new());
+            query.finish()
+        };
+        let uri_str = format!("{}/portfolio/{accountId}/position/{conid}?{}", configuration.base_path, query_string, accountId=account_id, conid=conid);
+
+        // TODO(farcaller): handle error
+        // if let Err(e) = uri {
+        //     return Box::new(futures::future::err(e));
+        // }
+        let mut uri: hyper::Uri = uri_str.parse().unwrap();
+
+        let mut req = hyper::Request::new(method, uri);
+
+        if let Some(ref user_agent) = configuration.user_agent {
+            req.headers_mut().set(UserAgent::new(Cow::Owned(user_agent.clone())));
+        }
+
+
+
+
+        // send request
+        Box::new(
+        configuration.client.request(req)
+            .map_err(|e| Error::from(e))
+            .and_then(|resp| {
+                let status = resp.status();
+                resp.body().concat2()
+                    .and_then(move |body| Ok((status, body)))
+                    .map_err(|e| Error::from(e))
+            })
+            .and_then(|(status, body)| {
+                if status.is_success() {
+                    Ok(body)
+                } else {
+                    Err(Error::from((status, &*body)))
+                }
+            })
+            .and_then(|body| {
+                let parsed: Result<::models::Position, _> = serde_json::from_slice(&body);
+                parsed.map_err(|e| Error::from(e))
+            })
+        )
+    }
+
+    fn portfolio_account_id_positions_invalidate_post(&self, account_id: &str) -> Box<Future<Item = Value, Error = Error<serde_json::Value>>> {
         let configuration: &configuration::Configuration<C> = self.configuration.borrow();
 
         let method = hyper::Method::Post;
 
-        let uri_str = format!("{}/portfolio/allocation", configuration.base_path);
+        let query_string = {
+            let mut query = ::url::form_urlencoded::Serializer::new(String::new());
+            query.finish()
+        };
+        let uri_str = format!("{}/portfolio/{accountId}/positions/invalidate?{}", configuration.base_path, query_string, accountId=account_id);
 
-        let uri = uri_str.parse();
         // TODO(farcaller): handle error
         // if let Err(e) = uri {
         //     return Box::new(futures::future::err(e));
         // }
-        let mut req = hyper::Request::new(method, uri.unwrap());
+        let mut uri: hyper::Uri = uri_str.parse().unwrap();
+
+        let mut req = hyper::Request::new(method, uri);
+
+        if let Some(ref user_agent) = configuration.user_agent {
+            req.headers_mut().set(UserAgent::new(Cow::Owned(user_agent.clone())));
+        }
+
+
+
+
+        // send request
+        Box::new(
+        configuration.client.request(req)
+            .map_err(|e| Error::from(e))
+            .and_then(|resp| {
+                let status = resp.status();
+                resp.body().concat2()
+                    .and_then(move |body| Ok((status, body)))
+                    .map_err(|e| Error::from(e))
+            })
+            .and_then(|(status, body)| {
+                if status.is_success() {
+                    Ok(body)
+                } else {
+                    Err(Error::from((status, &*body)))
+                }
+            })
+            .and_then(|body| {
+                let parsed: Result<Value, _> = serde_json::from_slice(&body);
+                parsed.map_err(|e| Error::from(e))
+            })
+        )
+    }
+
+    fn portfolio_account_id_positions_page_id_get(&self, account_id: &str, page_id: &str, model: &str, sort: &str, direction: &str, period: &str) -> Box<Future<Item = ::models::Position, Error = Error<serde_json::Value>>> {
+        let configuration: &configuration::Configuration<C> = self.configuration.borrow();
+
+        let method = hyper::Method::Get;
+
+        let query_string = {
+            let mut query = ::url::form_urlencoded::Serializer::new(String::new());
+            query.append_pair("model", &model.to_string());
+            query.append_pair("sort", &sort.to_string());
+            query.append_pair("direction", &direction.to_string());
+            query.append_pair("period", &period.to_string());
+            query.finish()
+        };
+        let uri_str = format!("{}/portfolio/{accountId}/positions/{pageId}?{}", configuration.base_path, query_string, accountId=account_id, pageId=page_id);
+
+        // TODO(farcaller): handle error
+        // if let Err(e) = uri {
+        //     return Box::new(futures::future::err(e));
+        // }
+        let mut uri: hyper::Uri = uri_str.parse().unwrap();
+
+        let mut req = hyper::Request::new(method, uri);
+
+        if let Some(ref user_agent) = configuration.user_agent {
+            req.headers_mut().set(UserAgent::new(Cow::Owned(user_agent.clone())));
+        }
+
+
+
+
+        // send request
+        Box::new(
+        configuration.client.request(req)
+            .map_err(|e| Error::from(e))
+            .and_then(|resp| {
+                let status = resp.status();
+                resp.body().concat2()
+                    .and_then(move |body| Ok((status, body)))
+                    .map_err(|e| Error::from(e))
+            })
+            .and_then(|(status, body)| {
+                if status.is_success() {
+                    Ok(body)
+                } else {
+                    Err(Error::from((status, &*body)))
+                }
+            })
+            .and_then(|body| {
+                let parsed: Result<::models::Position, _> = serde_json::from_slice(&body);
+                parsed.map_err(|e| Error::from(e))
+            })
+        )
+    }
+
+    fn portfolio_account_id_summary_get(&self, account_id: &str) -> Box<Future<Item = ::models::InlineResponse20020, Error = Error<serde_json::Value>>> {
+        let configuration: &configuration::Configuration<C> = self.configuration.borrow();
+
+        let method = hyper::Method::Get;
+
+        let query_string = {
+            let mut query = ::url::form_urlencoded::Serializer::new(String::new());
+            query.finish()
+        };
+        let uri_str = format!("{}/portfolio/{accountId}/summary?{}", configuration.base_path, query_string, accountId=account_id);
+
+        // TODO(farcaller): handle error
+        // if let Err(e) = uri {
+        //     return Box::new(futures::future::err(e));
+        // }
+        let mut uri: hyper::Uri = uri_str.parse().unwrap();
+
+        let mut req = hyper::Request::new(method, uri);
+
+        if let Some(ref user_agent) = configuration.user_agent {
+            req.headers_mut().set(UserAgent::new(Cow::Owned(user_agent.clone())));
+        }
+
+
+
+
+        // send request
+        Box::new(
+        configuration.client.request(req)
+            .map_err(|e| Error::from(e))
+            .and_then(|resp| {
+                let status = resp.status();
+                resp.body().concat2()
+                    .and_then(move |body| Ok((status, body)))
+                    .map_err(|e| Error::from(e))
+            })
+            .and_then(|(status, body)| {
+                if status.is_success() {
+                    Ok(body)
+                } else {
+                    Err(Error::from((status, &*body)))
+                }
+            })
+            .and_then(|body| {
+                let parsed: Result<::models::InlineResponse20020, _> = serde_json::from_slice(&body);
+                parsed.map_err(|e| Error::from(e))
+            })
+        )
+    }
+
+    fn portfolio_accounts_get(&self, ) -> Box<Future<Item = ::models::Accounts, Error = Error<serde_json::Value>>> {
+        let configuration: &configuration::Configuration<C> = self.configuration.borrow();
+
+        let method = hyper::Method::Get;
+
+        let query_string = {
+            let mut query = ::url::form_urlencoded::Serializer::new(String::new());
+            query.finish()
+        };
+        let uri_str = format!("{}/portfolio/accounts?{}", configuration.base_path, query_string);
+
+        // TODO(farcaller): handle error
+        // if let Err(e) = uri {
+        //     return Box::new(futures::future::err(e));
+        // }
+        let mut uri: hyper::Uri = uri_str.parse().unwrap();
+
+        let mut req = hyper::Request::new(method, uri);
+
+        if let Some(ref user_agent) = configuration.user_agent {
+            req.headers_mut().set(UserAgent::new(Cow::Owned(user_agent.clone())));
+        }
+
+
+
+
+        // send request
+        Box::new(
+        configuration.client.request(req)
+            .map_err(|e| Error::from(e))
+            .and_then(|resp| {
+                let status = resp.status();
+                resp.body().concat2()
+                    .and_then(move |body| Ok((status, body)))
+                    .map_err(|e| Error::from(e))
+            })
+            .and_then(|(status, body)| {
+                if status.is_success() {
+                    Ok(body)
+                } else {
+                    Err(Error::from((status, &*body)))
+                }
+            })
+            .and_then(|body| {
+                let parsed: Result<::models::Accounts, _> = serde_json::from_slice(&body);
+                parsed.map_err(|e| Error::from(e))
+            })
+        )
+    }
+
+    fn portfolio_allocation_post(&self, body: ::models::Body6) -> Box<Future<Item = ::models::Allocation, Error = Error<serde_json::Value>>> {
+        let configuration: &configuration::Configuration<C> = self.configuration.borrow();
+
+        let method = hyper::Method::Post;
+
+        let query_string = {
+            let mut query = ::url::form_urlencoded::Serializer::new(String::new());
+            query.finish()
+        };
+        let uri_str = format!("{}/portfolio/allocation?{}", configuration.base_path, query_string);
+
+        // TODO(farcaller): handle error
+        // if let Err(e) = uri {
+        //     return Box::new(futures::future::err(e));
+        // }
+        let mut uri: hyper::Uri = uri_str.parse().unwrap();
+
+        let mut req = hyper::Request::new(method, uri);
+
+        if let Some(ref user_agent) = configuration.user_agent {
+            req.headers_mut().set(UserAgent::new(Cow::Owned(user_agent.clone())));
+        }
+
 
 
         let serialized = serde_json::to_string(&body).unwrap();
@@ -262,66 +486,125 @@ impl<C: hyper::client::Connect>PortfolioApi for PortfolioApiClient<C> {
 
         // send request
         Box::new(
-            configuration.client.request(req).and_then(|res| { res.body().concat2() })
+        configuration.client.request(req)
             .map_err(|e| Error::from(e))
+            .and_then(|resp| {
+                let status = resp.status();
+                resp.body().concat2()
+                    .and_then(move |body| Ok((status, body)))
+                    .map_err(|e| Error::from(e))
+            })
+            .and_then(|(status, body)| {
+                if status.is_success() {
+                    Ok(body)
+                } else {
+                    Err(Error::from((status, &*body)))
+                }
+            })
             .and_then(|body| {
                 let parsed: Result<::models::Allocation, _> = serde_json::from_slice(&body);
                 parsed.map_err(|e| Error::from(e))
-            }).map_err(|e| Error::from(e))
+            })
         )
     }
 
-    fn portfolio_positions_conid_get(&self, conid: i32) -> Box<Future<Item = ::models::InlineResponse20014, Error = Error>> {
+    fn portfolio_positions_conid_get(&self, conid: i32) -> Box<Future<Item = ::models::InlineResponse20018, Error = Error<serde_json::Value>>> {
         let configuration: &configuration::Configuration<C> = self.configuration.borrow();
 
         let method = hyper::Method::Get;
 
-        let uri_str = format!("{}/portfolio/positions/{conid}", configuration.base_path, conid=conid);
+        let query_string = {
+            let mut query = ::url::form_urlencoded::Serializer::new(String::new());
+            query.finish()
+        };
+        let uri_str = format!("{}/portfolio/positions/{conid}?{}", configuration.base_path, query_string, conid=conid);
 
-        let uri = uri_str.parse();
         // TODO(farcaller): handle error
         // if let Err(e) = uri {
         //     return Box::new(futures::future::err(e));
         // }
-        let mut req = hyper::Request::new(method, uri.unwrap());
+        let mut uri: hyper::Uri = uri_str.parse().unwrap();
+
+        let mut req = hyper::Request::new(method, uri);
+
+        if let Some(ref user_agent) = configuration.user_agent {
+            req.headers_mut().set(UserAgent::new(Cow::Owned(user_agent.clone())));
+        }
+
 
 
 
         // send request
         Box::new(
-            configuration.client.request(req).and_then(|res| { res.body().concat2() })
+        configuration.client.request(req)
             .map_err(|e| Error::from(e))
+            .and_then(|resp| {
+                let status = resp.status();
+                resp.body().concat2()
+                    .and_then(move |body| Ok((status, body)))
+                    .map_err(|e| Error::from(e))
+            })
+            .and_then(|(status, body)| {
+                if status.is_success() {
+                    Ok(body)
+                } else {
+                    Err(Error::from((status, &*body)))
+                }
+            })
             .and_then(|body| {
-                let parsed: Result<::models::InlineResponse20014, _> = serde_json::from_slice(&body);
+                let parsed: Result<::models::InlineResponse20018, _> = serde_json::from_slice(&body);
                 parsed.map_err(|e| Error::from(e))
-            }).map_err(|e| Error::from(e))
+            })
         )
     }
 
-    fn portfolio_subaccounts_get(&self, ) -> Box<Future<Item = ::models::Account, Error = Error>> {
+    fn portfolio_subaccounts_get(&self, ) -> Box<Future<Item = ::models::Account, Error = Error<serde_json::Value>>> {
         let configuration: &configuration::Configuration<C> = self.configuration.borrow();
 
         let method = hyper::Method::Get;
 
-        let uri_str = format!("{}/portfolio/subaccounts", configuration.base_path);
+        let query_string = {
+            let mut query = ::url::form_urlencoded::Serializer::new(String::new());
+            query.finish()
+        };
+        let uri_str = format!("{}/portfolio/subaccounts?{}", configuration.base_path, query_string);
 
-        let uri = uri_str.parse();
         // TODO(farcaller): handle error
         // if let Err(e) = uri {
         //     return Box::new(futures::future::err(e));
         // }
-        let mut req = hyper::Request::new(method, uri.unwrap());
+        let mut uri: hyper::Uri = uri_str.parse().unwrap();
+
+        let mut req = hyper::Request::new(method, uri);
+
+        if let Some(ref user_agent) = configuration.user_agent {
+            req.headers_mut().set(UserAgent::new(Cow::Owned(user_agent.clone())));
+        }
+
 
 
 
         // send request
         Box::new(
-            configuration.client.request(req).and_then(|res| { res.body().concat2() })
+        configuration.client.request(req)
             .map_err(|e| Error::from(e))
+            .and_then(|resp| {
+                let status = resp.status();
+                resp.body().concat2()
+                    .and_then(move |body| Ok((status, body)))
+                    .map_err(|e| Error::from(e))
+            })
+            .and_then(|(status, body)| {
+                if status.is_success() {
+                    Ok(body)
+                } else {
+                    Err(Error::from((status, &*body)))
+                }
+            })
             .and_then(|body| {
                 let parsed: Result<::models::Account, _> = serde_json::from_slice(&body);
                 parsed.map_err(|e| Error::from(e))
-            }).map_err(|e| Error::from(e))
+            })
         )
     }
 

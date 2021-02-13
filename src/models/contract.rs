@@ -15,28 +15,28 @@ use serde_json::Value;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Contract {
-  /// true means you can trade outside RTH(regular trading hours)
-  #[serde(rename = "r_t_h")]
-  r_t_h: Option<bool>,
+  #[serde(rename = "category")]
+  category: Option<String>,
+  #[serde(rename = "company_name")]
+  company_name: Option<String>,
   /// same as that in request
   #[serde(rename = "con_id")]
   con_id: Option<String>,
-  #[serde(rename = "company_name")]
-  company_name: Option<String>,
+  #[serde(rename = "currency")]
+  currency: Option<String>,
   #[serde(rename = "exchange")]
   exchange: Option<String>,
-  /// for exmple FB
-  #[serde(rename = "local_symbol")]
-  local_symbol: Option<String>,
+  #[serde(rename = "industry")]
+  industry: Option<String>,
   /// for example STK
   #[serde(rename = "instrument_type")]
   instrument_type: Option<String>,
-  #[serde(rename = "currency")]
-  currency: Option<String>,
-  #[serde(rename = "category")]
-  category: Option<String>,
-  #[serde(rename = "industry")]
-  industry: Option<String>,
+  /// for exmple FB
+  #[serde(rename = "local_symbol")]
+  local_symbol: Option<String>,
+  /// true means you can trade outside RTH(regular trading hours)
+  #[serde(rename = "r_t_h")]
+  r_t_h: Option<bool>,
   #[serde(rename = "rules")]
   rules: Option<::models::ContractRules>
 }
@@ -45,136 +45,17 @@ impl Contract {
   /// Contains all details of the contract, including rules you can use when placing orders
   pub fn new() -> Contract {
     Contract {
-      r_t_h: None,
-      con_id: None,
-      company_name: None,
-      exchange: None,
-      local_symbol: None,
-      instrument_type: None,
-      currency: None,
       category: None,
+      company_name: None,
+      con_id: None,
+      currency: None,
+      exchange: None,
       industry: None,
+      instrument_type: None,
+      local_symbol: None,
+      r_t_h: None,
       rules: None
     }
-  }
-
-  pub fn set_r_t_h(&mut self, r_t_h: bool) {
-    self.r_t_h = Some(r_t_h);
-  }
-
-  pub fn with_r_t_h(mut self, r_t_h: bool) -> Contract {
-    self.r_t_h = Some(r_t_h);
-    self
-  }
-
-  pub fn r_t_h(&self) -> Option<&bool> {
-    self.r_t_h.as_ref()
-  }
-
-  pub fn reset_r_t_h(&mut self) {
-    self.r_t_h = None;
-  }
-
-  pub fn set_con_id(&mut self, con_id: String) {
-    self.con_id = Some(con_id);
-  }
-
-  pub fn with_con_id(mut self, con_id: String) -> Contract {
-    self.con_id = Some(con_id);
-    self
-  }
-
-  pub fn con_id(&self) -> Option<&String> {
-    self.con_id.as_ref()
-  }
-
-  pub fn reset_con_id(&mut self) {
-    self.con_id = None;
-  }
-
-  pub fn set_company_name(&mut self, company_name: String) {
-    self.company_name = Some(company_name);
-  }
-
-  pub fn with_company_name(mut self, company_name: String) -> Contract {
-    self.company_name = Some(company_name);
-    self
-  }
-
-  pub fn company_name(&self) -> Option<&String> {
-    self.company_name.as_ref()
-  }
-
-  pub fn reset_company_name(&mut self) {
-    self.company_name = None;
-  }
-
-  pub fn set_exchange(&mut self, exchange: String) {
-    self.exchange = Some(exchange);
-  }
-
-  pub fn with_exchange(mut self, exchange: String) -> Contract {
-    self.exchange = Some(exchange);
-    self
-  }
-
-  pub fn exchange(&self) -> Option<&String> {
-    self.exchange.as_ref()
-  }
-
-  pub fn reset_exchange(&mut self) {
-    self.exchange = None;
-  }
-
-  pub fn set_local_symbol(&mut self, local_symbol: String) {
-    self.local_symbol = Some(local_symbol);
-  }
-
-  pub fn with_local_symbol(mut self, local_symbol: String) -> Contract {
-    self.local_symbol = Some(local_symbol);
-    self
-  }
-
-  pub fn local_symbol(&self) -> Option<&String> {
-    self.local_symbol.as_ref()
-  }
-
-  pub fn reset_local_symbol(&mut self) {
-    self.local_symbol = None;
-  }
-
-  pub fn set_instrument_type(&mut self, instrument_type: String) {
-    self.instrument_type = Some(instrument_type);
-  }
-
-  pub fn with_instrument_type(mut self, instrument_type: String) -> Contract {
-    self.instrument_type = Some(instrument_type);
-    self
-  }
-
-  pub fn instrument_type(&self) -> Option<&String> {
-    self.instrument_type.as_ref()
-  }
-
-  pub fn reset_instrument_type(&mut self) {
-    self.instrument_type = None;
-  }
-
-  pub fn set_currency(&mut self, currency: String) {
-    self.currency = Some(currency);
-  }
-
-  pub fn with_currency(mut self, currency: String) -> Contract {
-    self.currency = Some(currency);
-    self
-  }
-
-  pub fn currency(&self) -> Option<&String> {
-    self.currency.as_ref()
-  }
-
-  pub fn reset_currency(&mut self) {
-    self.currency = None;
   }
 
   pub fn set_category(&mut self, category: String) {
@@ -194,6 +75,74 @@ impl Contract {
     self.category = None;
   }
 
+  pub fn set_company_name(&mut self, company_name: String) {
+    self.company_name = Some(company_name);
+  }
+
+  pub fn with_company_name(mut self, company_name: String) -> Contract {
+    self.company_name = Some(company_name);
+    self
+  }
+
+  pub fn company_name(&self) -> Option<&String> {
+    self.company_name.as_ref()
+  }
+
+  pub fn reset_company_name(&mut self) {
+    self.company_name = None;
+  }
+
+  pub fn set_con_id(&mut self, con_id: String) {
+    self.con_id = Some(con_id);
+  }
+
+  pub fn with_con_id(mut self, con_id: String) -> Contract {
+    self.con_id = Some(con_id);
+    self
+  }
+
+  pub fn con_id(&self) -> Option<&String> {
+    self.con_id.as_ref()
+  }
+
+  pub fn reset_con_id(&mut self) {
+    self.con_id = None;
+  }
+
+  pub fn set_currency(&mut self, currency: String) {
+    self.currency = Some(currency);
+  }
+
+  pub fn with_currency(mut self, currency: String) -> Contract {
+    self.currency = Some(currency);
+    self
+  }
+
+  pub fn currency(&self) -> Option<&String> {
+    self.currency.as_ref()
+  }
+
+  pub fn reset_currency(&mut self) {
+    self.currency = None;
+  }
+
+  pub fn set_exchange(&mut self, exchange: String) {
+    self.exchange = Some(exchange);
+  }
+
+  pub fn with_exchange(mut self, exchange: String) -> Contract {
+    self.exchange = Some(exchange);
+    self
+  }
+
+  pub fn exchange(&self) -> Option<&String> {
+    self.exchange.as_ref()
+  }
+
+  pub fn reset_exchange(&mut self) {
+    self.exchange = None;
+  }
+
   pub fn set_industry(&mut self, industry: String) {
     self.industry = Some(industry);
   }
@@ -209,6 +158,57 @@ impl Contract {
 
   pub fn reset_industry(&mut self) {
     self.industry = None;
+  }
+
+  pub fn set_instrument_type(&mut self, instrument_type: String) {
+    self.instrument_type = Some(instrument_type);
+  }
+
+  pub fn with_instrument_type(mut self, instrument_type: String) -> Contract {
+    self.instrument_type = Some(instrument_type);
+    self
+  }
+
+  pub fn instrument_type(&self) -> Option<&String> {
+    self.instrument_type.as_ref()
+  }
+
+  pub fn reset_instrument_type(&mut self) {
+    self.instrument_type = None;
+  }
+
+  pub fn set_local_symbol(&mut self, local_symbol: String) {
+    self.local_symbol = Some(local_symbol);
+  }
+
+  pub fn with_local_symbol(mut self, local_symbol: String) -> Contract {
+    self.local_symbol = Some(local_symbol);
+    self
+  }
+
+  pub fn local_symbol(&self) -> Option<&String> {
+    self.local_symbol.as_ref()
+  }
+
+  pub fn reset_local_symbol(&mut self) {
+    self.local_symbol = None;
+  }
+
+  pub fn set_r_t_h(&mut self, r_t_h: bool) {
+    self.r_t_h = Some(r_t_h);
+  }
+
+  pub fn with_r_t_h(mut self, r_t_h: bool) -> Contract {
+    self.r_t_h = Some(r_t_h);
+    self
+  }
+
+  pub fn r_t_h(&self) -> Option<&bool> {
+    self.r_t_h.as_ref()
+  }
+
+  pub fn reset_r_t_h(&mut self) {
+    self.r_t_h = None;
   }
 
   pub fn set_rules(&mut self, rules: ::models::ContractRules) {

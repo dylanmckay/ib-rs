@@ -14,74 +14,53 @@ use serde_json::Value;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct InlineResponse200 {
-  /// Unique account id
-  #[serde(rename = "accounts")]
-  accounts: Option<Vec<String>>,
-  /// Account Id and its alias
-  #[serde(rename = "aliases")]
-  aliases: Option<Value>,
-  #[serde(rename = "selectedAccount")]
-  selected_account: Option<String>
+  #[serde(rename = "E")]
+  E: Option<Vec<::models::InlineResponse200E>>,
+  /// Email option is enabled or not 0-off, 1-on.
+  #[serde(rename = "M")]
+  M: Option<i32>
 }
 
 impl InlineResponse200 {
   pub fn new() -> InlineResponse200 {
     InlineResponse200 {
-      accounts: None,
-      aliases: None,
-      selected_account: None
+      E: None,
+      M: None
     }
   }
 
-  pub fn set_accounts(&mut self, accounts: Vec<String>) {
-    self.accounts = Some(accounts);
+  pub fn set_E(&mut self, E: Vec<::models::InlineResponse200E>) {
+    self.E = Some(E);
   }
 
-  pub fn with_accounts(mut self, accounts: Vec<String>) -> InlineResponse200 {
-    self.accounts = Some(accounts);
+  pub fn with_E(mut self, E: Vec<::models::InlineResponse200E>) -> InlineResponse200 {
+    self.E = Some(E);
     self
   }
 
-  pub fn accounts(&self) -> Option<&Vec<String>> {
-    self.accounts.as_ref()
+  pub fn E(&self) -> Option<&Vec<::models::InlineResponse200E>> {
+    self.E.as_ref()
   }
 
-  pub fn reset_accounts(&mut self) {
-    self.accounts = None;
+  pub fn reset_E(&mut self) {
+    self.E = None;
   }
 
-  pub fn set_aliases(&mut self, aliases: Value) {
-    self.aliases = Some(aliases);
+  pub fn set_M(&mut self, M: i32) {
+    self.M = Some(M);
   }
 
-  pub fn with_aliases(mut self, aliases: Value) -> InlineResponse200 {
-    self.aliases = Some(aliases);
+  pub fn with_M(mut self, M: i32) -> InlineResponse200 {
+    self.M = Some(M);
     self
   }
 
-  pub fn aliases(&self) -> Option<&Value> {
-    self.aliases.as_ref()
+  pub fn M(&self) -> Option<&i32> {
+    self.M.as_ref()
   }
 
-  pub fn reset_aliases(&mut self) {
-    self.aliases = None;
-  }
-
-  pub fn set_selected_account(&mut self, selected_account: String) {
-    self.selected_account = Some(selected_account);
-  }
-
-  pub fn with_selected_account(mut self, selected_account: String) -> InlineResponse200 {
-    self.selected_account = Some(selected_account);
-    self
-  }
-
-  pub fn selected_account(&self) -> Option<&String> {
-    self.selected_account.as_ref()
-  }
-
-  pub fn reset_selected_account(&mut self) {
-    self.selected_account = None;
+  pub fn reset_M(&mut self) {
+    self.M = None;
   }
 
 }

@@ -18,7 +18,7 @@ Returns the performance (MTM) for the given accounts, if more than one account i
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-  **body** | [**Body2**](Body2.md)| an array of account ids | 
+  **body** | [**Body4**](Body4.md)| an array of account ids | 
 
 ### Return type
 
@@ -45,7 +45,7 @@ Returns a summary of all account balances for the given accounts, if more than o
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-  **body** | [**Body3**](Body3.md)| an array of account ids | 
+  **body** | [**Body5**](Body5.md)| an array of account ids | 
 
 ### Return type
 

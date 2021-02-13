@@ -15,39 +15,22 @@ use serde_json::Value;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct AllocationInnerSectorShort {
-  #[serde(rename = "Industrial")]
-  industrial: Option<f32>,
   #[serde(rename = "Consumer")]
   consumer: Option<f32>,
   #[serde(rename = "Diversified")]
-  diversified: Option<f32>
+  diversified: Option<f32>,
+  #[serde(rename = "Industrial")]
+  industrial: Option<f32>
 }
 
 impl AllocationInnerSectorShort {
   /// short positions allocation
   pub fn new() -> AllocationInnerSectorShort {
     AllocationInnerSectorShort {
-      industrial: None,
       consumer: None,
-      diversified: None
+      diversified: None,
+      industrial: None
     }
-  }
-
-  pub fn set_industrial(&mut self, industrial: f32) {
-    self.industrial = Some(industrial);
-  }
-
-  pub fn with_industrial(mut self, industrial: f32) -> AllocationInnerSectorShort {
-    self.industrial = Some(industrial);
-    self
-  }
-
-  pub fn industrial(&self) -> Option<&f32> {
-    self.industrial.as_ref()
-  }
-
-  pub fn reset_industrial(&mut self) {
-    self.industrial = None;
   }
 
   pub fn set_consumer(&mut self, consumer: f32) {
@@ -82,6 +65,23 @@ impl AllocationInnerSectorShort {
 
   pub fn reset_diversified(&mut self) {
     self.diversified = None;
+  }
+
+  pub fn set_industrial(&mut self, industrial: f32) {
+    self.industrial = Some(industrial);
+  }
+
+  pub fn with_industrial(mut self, industrial: f32) -> AllocationInnerSectorShort {
+    self.industrial = Some(industrial);
+    self
+  }
+
+  pub fn industrial(&self) -> Option<&f32> {
+    self.industrial.as_ref()
+  }
+
+  pub fn reset_industrial(&mut self) {
+    self.industrial = None;
   }
 
 }

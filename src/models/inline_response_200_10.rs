@@ -14,212 +14,132 @@ use serde_json::Value;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct InlineResponse20010 {
-  #[serde(rename = "server_id")]
-  server_id: Option<String>,
-  #[serde(rename = "column_name")]
-  column_name: Option<String>,
-  #[serde(rename = "symbol")]
-  symbol: Option<String>,
-  #[serde(rename = "conidex")]
-  conidex: Option<String>,
-  #[serde(rename = "con_id")]
-  con_id: Option<f32>,
-  #[serde(rename = "available_chart_periods")]
-  available_chart_periods: Option<String>,
-  #[serde(rename = "company_name")]
-  company_name: Option<String>,
-  #[serde(rename = "contract_description_1")]
-  contract_description_1: Option<String>,
-  #[serde(rename = "listing_exchange")]
-  listing_exchange: Option<String>,
-  #[serde(rename = "sec_type")]
-  sec_type: Option<String>
+  #[serde(rename = "amount")]
+  amount: Option<::models::InlineResponse20010Amount>,
+  #[serde(rename = "equity")]
+  equity: Option<::models::InlineResponse20010Equity>,
+  #[serde(rename = "error")]
+  error: Option<String>,
+  #[serde(rename = "initial")]
+  initial: Option<::models::InlineResponse20010Equity>,
+  #[serde(rename = "maintenance")]
+  maintenance: Option<::models::InlineResponse20010Equity>,
+  #[serde(rename = "warn")]
+  warn: Option<String>
 }
 
 impl InlineResponse20010 {
   pub fn new() -> InlineResponse20010 {
     InlineResponse20010 {
-      server_id: None,
-      column_name: None,
-      symbol: None,
-      conidex: None,
-      con_id: None,
-      available_chart_periods: None,
-      company_name: None,
-      contract_description_1: None,
-      listing_exchange: None,
-      sec_type: None
+      amount: None,
+      equity: None,
+      error: None,
+      initial: None,
+      maintenance: None,
+      warn: None
     }
   }
 
-  pub fn set_server_id(&mut self, server_id: String) {
-    self.server_id = Some(server_id);
+  pub fn set_amount(&mut self, amount: ::models::InlineResponse20010Amount) {
+    self.amount = Some(amount);
   }
 
-  pub fn with_server_id(mut self, server_id: String) -> InlineResponse20010 {
-    self.server_id = Some(server_id);
+  pub fn with_amount(mut self, amount: ::models::InlineResponse20010Amount) -> InlineResponse20010 {
+    self.amount = Some(amount);
     self
   }
 
-  pub fn server_id(&self) -> Option<&String> {
-    self.server_id.as_ref()
+  pub fn amount(&self) -> Option<&::models::InlineResponse20010Amount> {
+    self.amount.as_ref()
   }
 
-  pub fn reset_server_id(&mut self) {
-    self.server_id = None;
+  pub fn reset_amount(&mut self) {
+    self.amount = None;
   }
 
-  pub fn set_column_name(&mut self, column_name: String) {
-    self.column_name = Some(column_name);
+  pub fn set_equity(&mut self, equity: ::models::InlineResponse20010Equity) {
+    self.equity = Some(equity);
   }
 
-  pub fn with_column_name(mut self, column_name: String) -> InlineResponse20010 {
-    self.column_name = Some(column_name);
+  pub fn with_equity(mut self, equity: ::models::InlineResponse20010Equity) -> InlineResponse20010 {
+    self.equity = Some(equity);
     self
   }
 
-  pub fn column_name(&self) -> Option<&String> {
-    self.column_name.as_ref()
+  pub fn equity(&self) -> Option<&::models::InlineResponse20010Equity> {
+    self.equity.as_ref()
   }
 
-  pub fn reset_column_name(&mut self) {
-    self.column_name = None;
+  pub fn reset_equity(&mut self) {
+    self.equity = None;
   }
 
-  pub fn set_symbol(&mut self, symbol: String) {
-    self.symbol = Some(symbol);
+  pub fn set_error(&mut self, error: String) {
+    self.error = Some(error);
   }
 
-  pub fn with_symbol(mut self, symbol: String) -> InlineResponse20010 {
-    self.symbol = Some(symbol);
+  pub fn with_error(mut self, error: String) -> InlineResponse20010 {
+    self.error = Some(error);
     self
   }
 
-  pub fn symbol(&self) -> Option<&String> {
-    self.symbol.as_ref()
+  pub fn error(&self) -> Option<&String> {
+    self.error.as_ref()
   }
 
-  pub fn reset_symbol(&mut self) {
-    self.symbol = None;
+  pub fn reset_error(&mut self) {
+    self.error = None;
   }
 
-  pub fn set_conidex(&mut self, conidex: String) {
-    self.conidex = Some(conidex);
+  pub fn set_initial(&mut self, initial: ::models::InlineResponse20010Equity) {
+    self.initial = Some(initial);
   }
 
-  pub fn with_conidex(mut self, conidex: String) -> InlineResponse20010 {
-    self.conidex = Some(conidex);
+  pub fn with_initial(mut self, initial: ::models::InlineResponse20010Equity) -> InlineResponse20010 {
+    self.initial = Some(initial);
     self
   }
 
-  pub fn conidex(&self) -> Option<&String> {
-    self.conidex.as_ref()
+  pub fn initial(&self) -> Option<&::models::InlineResponse20010Equity> {
+    self.initial.as_ref()
   }
 
-  pub fn reset_conidex(&mut self) {
-    self.conidex = None;
+  pub fn reset_initial(&mut self) {
+    self.initial = None;
   }
 
-  pub fn set_con_id(&mut self, con_id: f32) {
-    self.con_id = Some(con_id);
+  pub fn set_maintenance(&mut self, maintenance: ::models::InlineResponse20010Equity) {
+    self.maintenance = Some(maintenance);
   }
 
-  pub fn with_con_id(mut self, con_id: f32) -> InlineResponse20010 {
-    self.con_id = Some(con_id);
+  pub fn with_maintenance(mut self, maintenance: ::models::InlineResponse20010Equity) -> InlineResponse20010 {
+    self.maintenance = Some(maintenance);
     self
   }
 
-  pub fn con_id(&self) -> Option<&f32> {
-    self.con_id.as_ref()
+  pub fn maintenance(&self) -> Option<&::models::InlineResponse20010Equity> {
+    self.maintenance.as_ref()
   }
 
-  pub fn reset_con_id(&mut self) {
-    self.con_id = None;
+  pub fn reset_maintenance(&mut self) {
+    self.maintenance = None;
   }
 
-  pub fn set_available_chart_periods(&mut self, available_chart_periods: String) {
-    self.available_chart_periods = Some(available_chart_periods);
+  pub fn set_warn(&mut self, warn: String) {
+    self.warn = Some(warn);
   }
 
-  pub fn with_available_chart_periods(mut self, available_chart_periods: String) -> InlineResponse20010 {
-    self.available_chart_periods = Some(available_chart_periods);
+  pub fn with_warn(mut self, warn: String) -> InlineResponse20010 {
+    self.warn = Some(warn);
     self
   }
 
-  pub fn available_chart_periods(&self) -> Option<&String> {
-    self.available_chart_periods.as_ref()
+  pub fn warn(&self) -> Option<&String> {
+    self.warn.as_ref()
   }
 
-  pub fn reset_available_chart_periods(&mut self) {
-    self.available_chart_periods = None;
-  }
-
-  pub fn set_company_name(&mut self, company_name: String) {
-    self.company_name = Some(company_name);
-  }
-
-  pub fn with_company_name(mut self, company_name: String) -> InlineResponse20010 {
-    self.company_name = Some(company_name);
-    self
-  }
-
-  pub fn company_name(&self) -> Option<&String> {
-    self.company_name.as_ref()
-  }
-
-  pub fn reset_company_name(&mut self) {
-    self.company_name = None;
-  }
-
-  pub fn set_contract_description_1(&mut self, contract_description_1: String) {
-    self.contract_description_1 = Some(contract_description_1);
-  }
-
-  pub fn with_contract_description_1(mut self, contract_description_1: String) -> InlineResponse20010 {
-    self.contract_description_1 = Some(contract_description_1);
-    self
-  }
-
-  pub fn contract_description_1(&self) -> Option<&String> {
-    self.contract_description_1.as_ref()
-  }
-
-  pub fn reset_contract_description_1(&mut self) {
-    self.contract_description_1 = None;
-  }
-
-  pub fn set_listing_exchange(&mut self, listing_exchange: String) {
-    self.listing_exchange = Some(listing_exchange);
-  }
-
-  pub fn with_listing_exchange(mut self, listing_exchange: String) -> InlineResponse20010 {
-    self.listing_exchange = Some(listing_exchange);
-    self
-  }
-
-  pub fn listing_exchange(&self) -> Option<&String> {
-    self.listing_exchange.as_ref()
-  }
-
-  pub fn reset_listing_exchange(&mut self) {
-    self.listing_exchange = None;
-  }
-
-  pub fn set_sec_type(&mut self, sec_type: String) {
-    self.sec_type = Some(sec_type);
-  }
-
-  pub fn with_sec_type(mut self, sec_type: String) -> InlineResponse20010 {
-    self.sec_type = Some(sec_type);
-    self
-  }
-
-  pub fn sec_type(&self) -> Option<&String> {
-    self.sec_type.as_ref()
-  }
-
-  pub fn reset_sec_type(&mut self) {
-    self.sec_type = None;
+  pub fn reset_warn(&mut self) {
+    self.warn = None;
   }
 
 }

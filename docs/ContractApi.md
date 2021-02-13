@@ -38,7 +38,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **iserver_secdef_search_post**
-> Vec<::models::InlineResponse2008> iserver_secdef_search_post(symbol)
+> Vec<::models::InlineResponse20016> iserver_secdef_search_post(symbol)
 Search by symbol or name
 
 ### Required Parameters
@@ -49,7 +49,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Vec<::models::InlineResponse2008>**](inline_response_200_8.md)
+[**Vec<::models::InlineResponse20016>**](inline_response_200_16.md)
 
 ### Authorization
 
@@ -63,7 +63,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **trsrv_futures_get**
-> ::models::InlineResponse20015 trsrv_futures_get(symbols)
+> ::models::InlineResponse20021 trsrv_futures_get(symbols)
 Security Futures by Symbol
 
 Returns a list of non-expired future contracts for given symbol(s)
@@ -76,7 +76,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**::models::InlineResponse20015**](inline_response_200_15.md)
+[**::models::InlineResponse20021**](inline_response_200_21.md)
 
 ### Authorization
 
@@ -99,7 +99,7 @@ Returns a list of security definitions for the given conids
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-  **body** | [**Body4**](Body4.md)| request body | 
+  **body** | [**Body7**](Body7.md)| request body | 
 
 ### Return type
 

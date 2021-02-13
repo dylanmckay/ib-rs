@@ -14,160 +14,92 @@ use serde_json::Value;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Ledger {
-  #[serde(rename = "commoditymarketvalue")]
-  commoditymarketvalue: Option<f32>,
-  #[serde(rename = "futuremarketvalue")]
-  futuremarketvalue: Option<f32>,
-  #[serde(rename = "settledcash")]
-  settledcash: Option<f32>,
-  #[serde(rename = "exchangerate")]
-  exchangerate: Option<f32>,
-  #[serde(rename = "sessionid")]
-  sessionid: Option<i32>,
-  #[serde(rename = "cashbalance")]
-  cashbalance: Option<f32>,
-  #[serde(rename = "corporatebondsmarketvalue")]
-  corporatebondsmarketvalue: Option<f32>,
-  #[serde(rename = "warrantsmarketvalue")]
-  warrantsmarketvalue: Option<f32>,
-  #[serde(rename = "netliquidationvalue")]
-  netliquidationvalue: Option<f32>,
-  #[serde(rename = "interest")]
-  interest: Option<f32>,
-  #[serde(rename = "unrealizedpnl")]
-  unrealizedpnl: Option<f32>,
-  #[serde(rename = "stockmarketvalue")]
-  stockmarketvalue: Option<f32>,
-  #[serde(rename = "moneyfunds")]
-  moneyfunds: Option<f32>,
-  #[serde(rename = "currency")]
-  currency: Option<String>,
-  #[serde(rename = "realizedpnl")]
-  realizedpnl: Option<f32>,
-  #[serde(rename = "funds")]
-  funds: Option<f32>,
   #[serde(rename = "acctcode")]
   acctcode: Option<String>,
+  #[serde(rename = "cashbalance")]
+  cashbalance: Option<f32>,
+  #[serde(rename = "commoditymarketvalue")]
+  commoditymarketvalue: Option<f32>,
+  #[serde(rename = "corporatebondsmarketvalue")]
+  corporatebondsmarketvalue: Option<f32>,
+  #[serde(rename = "currency")]
+  currency: Option<String>,
+  #[serde(rename = "exchangerate")]
+  exchangerate: Option<f32>,
+  #[serde(rename = "funds")]
+  funds: Option<f32>,
+  #[serde(rename = "futuremarketvalue")]
+  futuremarketvalue: Option<f32>,
+  #[serde(rename = "interest")]
+  interest: Option<f32>,
   #[serde(rename = "issueroptionsmarketvalue")]
   issueroptionsmarketvalue: Option<f32>,
   #[serde(rename = "key")]
   key: Option<String>,
+  #[serde(rename = "moneyfunds")]
+  moneyfunds: Option<f32>,
+  #[serde(rename = "netliquidationvalue")]
+  netliquidationvalue: Option<f32>,
+  #[serde(rename = "realizedpnl")]
+  realizedpnl: Option<f32>,
+  #[serde(rename = "sessionid")]
+  sessionid: Option<i32>,
+  #[serde(rename = "settledcash")]
+  settledcash: Option<f32>,
+  #[serde(rename = "severity")]
+  severity: Option<i32>,
+  #[serde(rename = "stockmarketvalue")]
+  stockmarketvalue: Option<f32>,
   #[serde(rename = "timestamp")]
   timestamp: Option<i32>,
-  #[serde(rename = "severity")]
-  severity: Option<i32>
+  #[serde(rename = "unrealizedpnl")]
+  unrealizedpnl: Option<f32>,
+  #[serde(rename = "warrantsmarketvalue")]
+  warrantsmarketvalue: Option<f32>
 }
 
 impl Ledger {
   pub fn new() -> Ledger {
     Ledger {
-      commoditymarketvalue: None,
-      futuremarketvalue: None,
-      settledcash: None,
-      exchangerate: None,
-      sessionid: None,
-      cashbalance: None,
-      corporatebondsmarketvalue: None,
-      warrantsmarketvalue: None,
-      netliquidationvalue: None,
-      interest: None,
-      unrealizedpnl: None,
-      stockmarketvalue: None,
-      moneyfunds: None,
-      currency: None,
-      realizedpnl: None,
-      funds: None,
       acctcode: None,
+      cashbalance: None,
+      commoditymarketvalue: None,
+      corporatebondsmarketvalue: None,
+      currency: None,
+      exchangerate: None,
+      funds: None,
+      futuremarketvalue: None,
+      interest: None,
       issueroptionsmarketvalue: None,
       key: None,
+      moneyfunds: None,
+      netliquidationvalue: None,
+      realizedpnl: None,
+      sessionid: None,
+      settledcash: None,
+      severity: None,
+      stockmarketvalue: None,
       timestamp: None,
-      severity: None
+      unrealizedpnl: None,
+      warrantsmarketvalue: None
     }
   }
 
-  pub fn set_commoditymarketvalue(&mut self, commoditymarketvalue: f32) {
-    self.commoditymarketvalue = Some(commoditymarketvalue);
+  pub fn set_acctcode(&mut self, acctcode: String) {
+    self.acctcode = Some(acctcode);
   }
 
-  pub fn with_commoditymarketvalue(mut self, commoditymarketvalue: f32) -> Ledger {
-    self.commoditymarketvalue = Some(commoditymarketvalue);
+  pub fn with_acctcode(mut self, acctcode: String) -> Ledger {
+    self.acctcode = Some(acctcode);
     self
   }
 
-  pub fn commoditymarketvalue(&self) -> Option<&f32> {
-    self.commoditymarketvalue.as_ref()
+  pub fn acctcode(&self) -> Option<&String> {
+    self.acctcode.as_ref()
   }
 
-  pub fn reset_commoditymarketvalue(&mut self) {
-    self.commoditymarketvalue = None;
-  }
-
-  pub fn set_futuremarketvalue(&mut self, futuremarketvalue: f32) {
-    self.futuremarketvalue = Some(futuremarketvalue);
-  }
-
-  pub fn with_futuremarketvalue(mut self, futuremarketvalue: f32) -> Ledger {
-    self.futuremarketvalue = Some(futuremarketvalue);
-    self
-  }
-
-  pub fn futuremarketvalue(&self) -> Option<&f32> {
-    self.futuremarketvalue.as_ref()
-  }
-
-  pub fn reset_futuremarketvalue(&mut self) {
-    self.futuremarketvalue = None;
-  }
-
-  pub fn set_settledcash(&mut self, settledcash: f32) {
-    self.settledcash = Some(settledcash);
-  }
-
-  pub fn with_settledcash(mut self, settledcash: f32) -> Ledger {
-    self.settledcash = Some(settledcash);
-    self
-  }
-
-  pub fn settledcash(&self) -> Option<&f32> {
-    self.settledcash.as_ref()
-  }
-
-  pub fn reset_settledcash(&mut self) {
-    self.settledcash = None;
-  }
-
-  pub fn set_exchangerate(&mut self, exchangerate: f32) {
-    self.exchangerate = Some(exchangerate);
-  }
-
-  pub fn with_exchangerate(mut self, exchangerate: f32) -> Ledger {
-    self.exchangerate = Some(exchangerate);
-    self
-  }
-
-  pub fn exchangerate(&self) -> Option<&f32> {
-    self.exchangerate.as_ref()
-  }
-
-  pub fn reset_exchangerate(&mut self) {
-    self.exchangerate = None;
-  }
-
-  pub fn set_sessionid(&mut self, sessionid: i32) {
-    self.sessionid = Some(sessionid);
-  }
-
-  pub fn with_sessionid(mut self, sessionid: i32) -> Ledger {
-    self.sessionid = Some(sessionid);
-    self
-  }
-
-  pub fn sessionid(&self) -> Option<&i32> {
-    self.sessionid.as_ref()
-  }
-
-  pub fn reset_sessionid(&mut self) {
-    self.sessionid = None;
+  pub fn reset_acctcode(&mut self) {
+    self.acctcode = None;
   }
 
   pub fn set_cashbalance(&mut self, cashbalance: f32) {
@@ -187,6 +119,23 @@ impl Ledger {
     self.cashbalance = None;
   }
 
+  pub fn set_commoditymarketvalue(&mut self, commoditymarketvalue: f32) {
+    self.commoditymarketvalue = Some(commoditymarketvalue);
+  }
+
+  pub fn with_commoditymarketvalue(mut self, commoditymarketvalue: f32) -> Ledger {
+    self.commoditymarketvalue = Some(commoditymarketvalue);
+    self
+  }
+
+  pub fn commoditymarketvalue(&self) -> Option<&f32> {
+    self.commoditymarketvalue.as_ref()
+  }
+
+  pub fn reset_commoditymarketvalue(&mut self) {
+    self.commoditymarketvalue = None;
+  }
+
   pub fn set_corporatebondsmarketvalue(&mut self, corporatebondsmarketvalue: f32) {
     self.corporatebondsmarketvalue = Some(corporatebondsmarketvalue);
   }
@@ -202,108 +151,6 @@ impl Ledger {
 
   pub fn reset_corporatebondsmarketvalue(&mut self) {
     self.corporatebondsmarketvalue = None;
-  }
-
-  pub fn set_warrantsmarketvalue(&mut self, warrantsmarketvalue: f32) {
-    self.warrantsmarketvalue = Some(warrantsmarketvalue);
-  }
-
-  pub fn with_warrantsmarketvalue(mut self, warrantsmarketvalue: f32) -> Ledger {
-    self.warrantsmarketvalue = Some(warrantsmarketvalue);
-    self
-  }
-
-  pub fn warrantsmarketvalue(&self) -> Option<&f32> {
-    self.warrantsmarketvalue.as_ref()
-  }
-
-  pub fn reset_warrantsmarketvalue(&mut self) {
-    self.warrantsmarketvalue = None;
-  }
-
-  pub fn set_netliquidationvalue(&mut self, netliquidationvalue: f32) {
-    self.netliquidationvalue = Some(netliquidationvalue);
-  }
-
-  pub fn with_netliquidationvalue(mut self, netliquidationvalue: f32) -> Ledger {
-    self.netliquidationvalue = Some(netliquidationvalue);
-    self
-  }
-
-  pub fn netliquidationvalue(&self) -> Option<&f32> {
-    self.netliquidationvalue.as_ref()
-  }
-
-  pub fn reset_netliquidationvalue(&mut self) {
-    self.netliquidationvalue = None;
-  }
-
-  pub fn set_interest(&mut self, interest: f32) {
-    self.interest = Some(interest);
-  }
-
-  pub fn with_interest(mut self, interest: f32) -> Ledger {
-    self.interest = Some(interest);
-    self
-  }
-
-  pub fn interest(&self) -> Option<&f32> {
-    self.interest.as_ref()
-  }
-
-  pub fn reset_interest(&mut self) {
-    self.interest = None;
-  }
-
-  pub fn set_unrealizedpnl(&mut self, unrealizedpnl: f32) {
-    self.unrealizedpnl = Some(unrealizedpnl);
-  }
-
-  pub fn with_unrealizedpnl(mut self, unrealizedpnl: f32) -> Ledger {
-    self.unrealizedpnl = Some(unrealizedpnl);
-    self
-  }
-
-  pub fn unrealizedpnl(&self) -> Option<&f32> {
-    self.unrealizedpnl.as_ref()
-  }
-
-  pub fn reset_unrealizedpnl(&mut self) {
-    self.unrealizedpnl = None;
-  }
-
-  pub fn set_stockmarketvalue(&mut self, stockmarketvalue: f32) {
-    self.stockmarketvalue = Some(stockmarketvalue);
-  }
-
-  pub fn with_stockmarketvalue(mut self, stockmarketvalue: f32) -> Ledger {
-    self.stockmarketvalue = Some(stockmarketvalue);
-    self
-  }
-
-  pub fn stockmarketvalue(&self) -> Option<&f32> {
-    self.stockmarketvalue.as_ref()
-  }
-
-  pub fn reset_stockmarketvalue(&mut self) {
-    self.stockmarketvalue = None;
-  }
-
-  pub fn set_moneyfunds(&mut self, moneyfunds: f32) {
-    self.moneyfunds = Some(moneyfunds);
-  }
-
-  pub fn with_moneyfunds(mut self, moneyfunds: f32) -> Ledger {
-    self.moneyfunds = Some(moneyfunds);
-    self
-  }
-
-  pub fn moneyfunds(&self) -> Option<&f32> {
-    self.moneyfunds.as_ref()
-  }
-
-  pub fn reset_moneyfunds(&mut self) {
-    self.moneyfunds = None;
   }
 
   pub fn set_currency(&mut self, currency: String) {
@@ -323,21 +170,21 @@ impl Ledger {
     self.currency = None;
   }
 
-  pub fn set_realizedpnl(&mut self, realizedpnl: f32) {
-    self.realizedpnl = Some(realizedpnl);
+  pub fn set_exchangerate(&mut self, exchangerate: f32) {
+    self.exchangerate = Some(exchangerate);
   }
 
-  pub fn with_realizedpnl(mut self, realizedpnl: f32) -> Ledger {
-    self.realizedpnl = Some(realizedpnl);
+  pub fn with_exchangerate(mut self, exchangerate: f32) -> Ledger {
+    self.exchangerate = Some(exchangerate);
     self
   }
 
-  pub fn realizedpnl(&self) -> Option<&f32> {
-    self.realizedpnl.as_ref()
+  pub fn exchangerate(&self) -> Option<&f32> {
+    self.exchangerate.as_ref()
   }
 
-  pub fn reset_realizedpnl(&mut self) {
-    self.realizedpnl = None;
+  pub fn reset_exchangerate(&mut self) {
+    self.exchangerate = None;
   }
 
   pub fn set_funds(&mut self, funds: f32) {
@@ -357,21 +204,38 @@ impl Ledger {
     self.funds = None;
   }
 
-  pub fn set_acctcode(&mut self, acctcode: String) {
-    self.acctcode = Some(acctcode);
+  pub fn set_futuremarketvalue(&mut self, futuremarketvalue: f32) {
+    self.futuremarketvalue = Some(futuremarketvalue);
   }
 
-  pub fn with_acctcode(mut self, acctcode: String) -> Ledger {
-    self.acctcode = Some(acctcode);
+  pub fn with_futuremarketvalue(mut self, futuremarketvalue: f32) -> Ledger {
+    self.futuremarketvalue = Some(futuremarketvalue);
     self
   }
 
-  pub fn acctcode(&self) -> Option<&String> {
-    self.acctcode.as_ref()
+  pub fn futuremarketvalue(&self) -> Option<&f32> {
+    self.futuremarketvalue.as_ref()
   }
 
-  pub fn reset_acctcode(&mut self) {
-    self.acctcode = None;
+  pub fn reset_futuremarketvalue(&mut self) {
+    self.futuremarketvalue = None;
+  }
+
+  pub fn set_interest(&mut self, interest: f32) {
+    self.interest = Some(interest);
+  }
+
+  pub fn with_interest(mut self, interest: f32) -> Ledger {
+    self.interest = Some(interest);
+    self
+  }
+
+  pub fn interest(&self) -> Option<&f32> {
+    self.interest.as_ref()
+  }
+
+  pub fn reset_interest(&mut self) {
+    self.interest = None;
   }
 
   pub fn set_issueroptionsmarketvalue(&mut self, issueroptionsmarketvalue: f32) {
@@ -408,21 +272,89 @@ impl Ledger {
     self.key = None;
   }
 
-  pub fn set_timestamp(&mut self, timestamp: i32) {
-    self.timestamp = Some(timestamp);
+  pub fn set_moneyfunds(&mut self, moneyfunds: f32) {
+    self.moneyfunds = Some(moneyfunds);
   }
 
-  pub fn with_timestamp(mut self, timestamp: i32) -> Ledger {
-    self.timestamp = Some(timestamp);
+  pub fn with_moneyfunds(mut self, moneyfunds: f32) -> Ledger {
+    self.moneyfunds = Some(moneyfunds);
     self
   }
 
-  pub fn timestamp(&self) -> Option<&i32> {
-    self.timestamp.as_ref()
+  pub fn moneyfunds(&self) -> Option<&f32> {
+    self.moneyfunds.as_ref()
   }
 
-  pub fn reset_timestamp(&mut self) {
-    self.timestamp = None;
+  pub fn reset_moneyfunds(&mut self) {
+    self.moneyfunds = None;
+  }
+
+  pub fn set_netliquidationvalue(&mut self, netliquidationvalue: f32) {
+    self.netliquidationvalue = Some(netliquidationvalue);
+  }
+
+  pub fn with_netliquidationvalue(mut self, netliquidationvalue: f32) -> Ledger {
+    self.netliquidationvalue = Some(netliquidationvalue);
+    self
+  }
+
+  pub fn netliquidationvalue(&self) -> Option<&f32> {
+    self.netliquidationvalue.as_ref()
+  }
+
+  pub fn reset_netliquidationvalue(&mut self) {
+    self.netliquidationvalue = None;
+  }
+
+  pub fn set_realizedpnl(&mut self, realizedpnl: f32) {
+    self.realizedpnl = Some(realizedpnl);
+  }
+
+  pub fn with_realizedpnl(mut self, realizedpnl: f32) -> Ledger {
+    self.realizedpnl = Some(realizedpnl);
+    self
+  }
+
+  pub fn realizedpnl(&self) -> Option<&f32> {
+    self.realizedpnl.as_ref()
+  }
+
+  pub fn reset_realizedpnl(&mut self) {
+    self.realizedpnl = None;
+  }
+
+  pub fn set_sessionid(&mut self, sessionid: i32) {
+    self.sessionid = Some(sessionid);
+  }
+
+  pub fn with_sessionid(mut self, sessionid: i32) -> Ledger {
+    self.sessionid = Some(sessionid);
+    self
+  }
+
+  pub fn sessionid(&self) -> Option<&i32> {
+    self.sessionid.as_ref()
+  }
+
+  pub fn reset_sessionid(&mut self) {
+    self.sessionid = None;
+  }
+
+  pub fn set_settledcash(&mut self, settledcash: f32) {
+    self.settledcash = Some(settledcash);
+  }
+
+  pub fn with_settledcash(mut self, settledcash: f32) -> Ledger {
+    self.settledcash = Some(settledcash);
+    self
+  }
+
+  pub fn settledcash(&self) -> Option<&f32> {
+    self.settledcash.as_ref()
+  }
+
+  pub fn reset_settledcash(&mut self) {
+    self.settledcash = None;
   }
 
   pub fn set_severity(&mut self, severity: i32) {
@@ -440,6 +372,74 @@ impl Ledger {
 
   pub fn reset_severity(&mut self) {
     self.severity = None;
+  }
+
+  pub fn set_stockmarketvalue(&mut self, stockmarketvalue: f32) {
+    self.stockmarketvalue = Some(stockmarketvalue);
+  }
+
+  pub fn with_stockmarketvalue(mut self, stockmarketvalue: f32) -> Ledger {
+    self.stockmarketvalue = Some(stockmarketvalue);
+    self
+  }
+
+  pub fn stockmarketvalue(&self) -> Option<&f32> {
+    self.stockmarketvalue.as_ref()
+  }
+
+  pub fn reset_stockmarketvalue(&mut self) {
+    self.stockmarketvalue = None;
+  }
+
+  pub fn set_timestamp(&mut self, timestamp: i32) {
+    self.timestamp = Some(timestamp);
+  }
+
+  pub fn with_timestamp(mut self, timestamp: i32) -> Ledger {
+    self.timestamp = Some(timestamp);
+    self
+  }
+
+  pub fn timestamp(&self) -> Option<&i32> {
+    self.timestamp.as_ref()
+  }
+
+  pub fn reset_timestamp(&mut self) {
+    self.timestamp = None;
+  }
+
+  pub fn set_unrealizedpnl(&mut self, unrealizedpnl: f32) {
+    self.unrealizedpnl = Some(unrealizedpnl);
+  }
+
+  pub fn with_unrealizedpnl(mut self, unrealizedpnl: f32) -> Ledger {
+    self.unrealizedpnl = Some(unrealizedpnl);
+    self
+  }
+
+  pub fn unrealizedpnl(&self) -> Option<&f32> {
+    self.unrealizedpnl.as_ref()
+  }
+
+  pub fn reset_unrealizedpnl(&mut self) {
+    self.unrealizedpnl = None;
+  }
+
+  pub fn set_warrantsmarketvalue(&mut self, warrantsmarketvalue: f32) {
+    self.warrantsmarketvalue = Some(warrantsmarketvalue);
+  }
+
+  pub fn with_warrantsmarketvalue(mut self, warrantsmarketvalue: f32) -> Ledger {
+    self.warrantsmarketvalue = Some(warrantsmarketvalue);
+    self
+  }
+
+  pub fn warrantsmarketvalue(&self) -> Option<&f32> {
+    self.warrantsmarketvalue.as_ref()
+  }
+
+  pub fn reset_warrantsmarketvalue(&mut self) {
+    self.warrantsmarketvalue = None;
   }
 
 }

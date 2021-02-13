@@ -14,172 +14,32 @@ use serde_json::Value;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct InlineResponse2008 {
-  #[serde(rename = "conid")]
-  conid: Option<i32>,
-  #[serde(rename = "companyHeader")]
-  company_header: Option<String>,
-  #[serde(rename = "companyName")]
-  company_name: Option<String>,
-  #[serde(rename = "symbol")]
-  symbol: Option<String>,
-  #[serde(rename = "description")]
-  description: Option<String>,
-  #[serde(rename = "opt")]
-  opt: Option<String>,
-  #[serde(rename = "war")]
-  war: Option<String>,
-  #[serde(rename = "sections")]
-  sections: Option<Vec<Value>>
+  #[serde(rename = "acctId")]
+  acct_id: Option<Value>
 }
 
 impl InlineResponse2008 {
   pub fn new() -> InlineResponse2008 {
     InlineResponse2008 {
-      conid: None,
-      company_header: None,
-      company_name: None,
-      symbol: None,
-      description: None,
-      opt: None,
-      war: None,
-      sections: None
+      acct_id: None
     }
   }
 
-  pub fn set_conid(&mut self, conid: i32) {
-    self.conid = Some(conid);
+  pub fn set_acct_id(&mut self, acct_id: Value) {
+    self.acct_id = Some(acct_id);
   }
 
-  pub fn with_conid(mut self, conid: i32) -> InlineResponse2008 {
-    self.conid = Some(conid);
+  pub fn with_acct_id(mut self, acct_id: Value) -> InlineResponse2008 {
+    self.acct_id = Some(acct_id);
     self
   }
 
-  pub fn conid(&self) -> Option<&i32> {
-    self.conid.as_ref()
+  pub fn acct_id(&self) -> Option<&Value> {
+    self.acct_id.as_ref()
   }
 
-  pub fn reset_conid(&mut self) {
-    self.conid = None;
-  }
-
-  pub fn set_company_header(&mut self, company_header: String) {
-    self.company_header = Some(company_header);
-  }
-
-  pub fn with_company_header(mut self, company_header: String) -> InlineResponse2008 {
-    self.company_header = Some(company_header);
-    self
-  }
-
-  pub fn company_header(&self) -> Option<&String> {
-    self.company_header.as_ref()
-  }
-
-  pub fn reset_company_header(&mut self) {
-    self.company_header = None;
-  }
-
-  pub fn set_company_name(&mut self, company_name: String) {
-    self.company_name = Some(company_name);
-  }
-
-  pub fn with_company_name(mut self, company_name: String) -> InlineResponse2008 {
-    self.company_name = Some(company_name);
-    self
-  }
-
-  pub fn company_name(&self) -> Option<&String> {
-    self.company_name.as_ref()
-  }
-
-  pub fn reset_company_name(&mut self) {
-    self.company_name = None;
-  }
-
-  pub fn set_symbol(&mut self, symbol: String) {
-    self.symbol = Some(symbol);
-  }
-
-  pub fn with_symbol(mut self, symbol: String) -> InlineResponse2008 {
-    self.symbol = Some(symbol);
-    self
-  }
-
-  pub fn symbol(&self) -> Option<&String> {
-    self.symbol.as_ref()
-  }
-
-  pub fn reset_symbol(&mut self) {
-    self.symbol = None;
-  }
-
-  pub fn set_description(&mut self, description: String) {
-    self.description = Some(description);
-  }
-
-  pub fn with_description(mut self, description: String) -> InlineResponse2008 {
-    self.description = Some(description);
-    self
-  }
-
-  pub fn description(&self) -> Option<&String> {
-    self.description.as_ref()
-  }
-
-  pub fn reset_description(&mut self) {
-    self.description = None;
-  }
-
-  pub fn set_opt(&mut self, opt: String) {
-    self.opt = Some(opt);
-  }
-
-  pub fn with_opt(mut self, opt: String) -> InlineResponse2008 {
-    self.opt = Some(opt);
-    self
-  }
-
-  pub fn opt(&self) -> Option<&String> {
-    self.opt.as_ref()
-  }
-
-  pub fn reset_opt(&mut self) {
-    self.opt = None;
-  }
-
-  pub fn set_war(&mut self, war: String) {
-    self.war = Some(war);
-  }
-
-  pub fn with_war(mut self, war: String) -> InlineResponse2008 {
-    self.war = Some(war);
-    self
-  }
-
-  pub fn war(&self) -> Option<&String> {
-    self.war.as_ref()
-  }
-
-  pub fn reset_war(&mut self) {
-    self.war = None;
-  }
-
-  pub fn set_sections(&mut self, sections: Vec<Value>) {
-    self.sections = Some(sections);
-  }
-
-  pub fn with_sections(mut self, sections: Vec<Value>) -> InlineResponse2008 {
-    self.sections = Some(sections);
-    self
-  }
-
-  pub fn sections(&self) -> Option<&Vec<Value>> {
-    self.sections.as_ref()
-  }
-
-  pub fn reset_sections(&mut self) {
-    self.sections = None;
+  pub fn reset_acct_id(&mut self) {
+    self.acct_id = None;
   }
 
 }

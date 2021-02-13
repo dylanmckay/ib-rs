@@ -15,10 +15,10 @@ use serde_json::Value;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct AllocationInnerGroupShort {
-  #[serde(rename = "Banks")]
-  banks: Option<f32>,
   #[serde(rename = "Airlines")]
   airlines: Option<f32>,
+  #[serde(rename = "Banks")]
+  banks: Option<f32>,
   #[serde(rename = "Internet")]
   internet: Option<f32>
 }
@@ -27,27 +27,10 @@ impl AllocationInnerGroupShort {
   /// short positions allocation
   pub fn new() -> AllocationInnerGroupShort {
     AllocationInnerGroupShort {
-      banks: None,
       airlines: None,
+      banks: None,
       internet: None
     }
-  }
-
-  pub fn set_banks(&mut self, banks: f32) {
-    self.banks = Some(banks);
-  }
-
-  pub fn with_banks(mut self, banks: f32) -> AllocationInnerGroupShort {
-    self.banks = Some(banks);
-    self
-  }
-
-  pub fn banks(&self) -> Option<&f32> {
-    self.banks.as_ref()
-  }
-
-  pub fn reset_banks(&mut self) {
-    self.banks = None;
   }
 
   pub fn set_airlines(&mut self, airlines: f32) {
@@ -65,6 +48,23 @@ impl AllocationInnerGroupShort {
 
   pub fn reset_airlines(&mut self) {
     self.airlines = None;
+  }
+
+  pub fn set_banks(&mut self, banks: f32) {
+    self.banks = Some(banks);
+  }
+
+  pub fn with_banks(mut self, banks: f32) -> AllocationInnerGroupShort {
+    self.banks = Some(banks);
+    self
+  }
+
+  pub fn banks(&self) -> Option<&f32> {
+    self.banks.as_ref()
+  }
+
+  pub fn reset_banks(&mut self) {
+    self.banks = None;
   }
 
   pub fn set_internet(&mut self, internet: f32) {

@@ -13,7 +13,7 @@
 use serde_json::Value;
 
 #[derive(Debug, Serialize, Deserialize)]
-pub struct InlineResponse2005Amount {
+pub struct InlineResponse20010Amount {
   /// for example 23,000 USD
   #[serde(rename = "amount")]
   amount: Option<String>,
@@ -24,9 +24,9 @@ pub struct InlineResponse2005Amount {
   total: Option<String>
 }
 
-impl InlineResponse2005Amount {
-  pub fn new() -> InlineResponse2005Amount {
-    InlineResponse2005Amount {
+impl InlineResponse20010Amount {
+  pub fn new() -> InlineResponse20010Amount {
+    InlineResponse20010Amount {
       amount: None,
       commission: None,
       total: None
@@ -37,7 +37,7 @@ impl InlineResponse2005Amount {
     self.amount = Some(amount);
   }
 
-  pub fn with_amount(mut self, amount: String) -> InlineResponse2005Amount {
+  pub fn with_amount(mut self, amount: String) -> InlineResponse20010Amount {
     self.amount = Some(amount);
     self
   }
@@ -54,7 +54,7 @@ impl InlineResponse2005Amount {
     self.commission = Some(commission);
   }
 
-  pub fn with_commission(mut self, commission: String) -> InlineResponse2005Amount {
+  pub fn with_commission(mut self, commission: String) -> InlineResponse20010Amount {
     self.commission = Some(commission);
     self
   }
@@ -71,7 +71,7 @@ impl InlineResponse2005Amount {
     self.total = Some(total);
   }
 
-  pub fn with_total(mut self, total: String) -> InlineResponse2005Amount {
+  pub fn with_total(mut self, total: String) -> InlineResponse20010Amount {
     self.total = Some(total);
     self
   }

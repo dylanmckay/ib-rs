@@ -15,24 +15,41 @@ use serde_json::Value;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct PerformanceNav {
+  #[serde(rename = "data")]
+  data: Option<Vec<::models::PerformanceCpsData>>,
   /// array of dates, the length should be same as the length of returns inside data.
   #[serde(rename = "dates")]
   dates: Option<Vec<String>>,
   /// D means Day
   #[serde(rename = "freq")]
-  freq: Option<String>,
-  #[serde(rename = "data")]
-  data: Option<Vec<::models::PerformanceCpsData>>
+  freq: Option<String>
 }
 
 impl PerformanceNav {
   /// Net asset value data for the account or consolidated accounts. NAV data is not applicable to benchmarks.
   pub fn new() -> PerformanceNav {
     PerformanceNav {
+      data: None,
       dates: None,
-      freq: None,
-      data: None
+      freq: None
     }
+  }
+
+  pub fn set_data(&mut self, data: Vec<::models::PerformanceCpsData>) {
+    self.data = Some(data);
+  }
+
+  pub fn with_data(mut self, data: Vec<::models::PerformanceCpsData>) -> PerformanceNav {
+    self.data = Some(data);
+    self
+  }
+
+  pub fn data(&self) -> Option<&Vec<::models::PerformanceCpsData>> {
+    self.data.as_ref()
+  }
+
+  pub fn reset_data(&mut self) {
+    self.data = None;
   }
 
   pub fn set_dates(&mut self, dates: Vec<String>) {
@@ -67,23 +84,6 @@ impl PerformanceNav {
 
   pub fn reset_freq(&mut self) {
     self.freq = None;
-  }
-
-  pub fn set_data(&mut self, data: Vec<::models::PerformanceCpsData>) {
-    self.data = Some(data);
-  }
-
-  pub fn with_data(mut self, data: Vec<::models::PerformanceCpsData>) -> PerformanceNav {
-    self.data = Some(data);
-    self
-  }
-
-  pub fn data(&self) -> Option<&Vec<::models::PerformanceCpsData>> {
-    self.data.as_ref()
-  }
-
-  pub fn reset_data(&mut self) {
-    self.data = None;
   }
 
 }

@@ -14,33 +14,92 @@ use serde_json::Value;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Body {
-  /// answer to question, true means yes, false means no
-  #[serde(rename = "confirmed")]
-  confirmed: Option<bool>
+  #[serde(rename = "deviceId")]
+  device_id: Option<String>,
+  #[serde(rename = "devicename")]
+  devicename: Option<String>,
+  #[serde(rename = "enabled")]
+  enabled: Option<bool>,
+  #[serde(rename = "uiName")]
+  ui_name: Option<String>
 }
 
 impl Body {
   pub fn new() -> Body {
     Body {
-      confirmed: None
+      device_id: None,
+      devicename: None,
+      enabled: None,
+      ui_name: None
     }
   }
 
-  pub fn set_confirmed(&mut self, confirmed: bool) {
-    self.confirmed = Some(confirmed);
+  pub fn set_device_id(&mut self, device_id: String) {
+    self.device_id = Some(device_id);
   }
 
-  pub fn with_confirmed(mut self, confirmed: bool) -> Body {
-    self.confirmed = Some(confirmed);
+  pub fn with_device_id(mut self, device_id: String) -> Body {
+    self.device_id = Some(device_id);
     self
   }
 
-  pub fn confirmed(&self) -> Option<&bool> {
-    self.confirmed.as_ref()
+  pub fn device_id(&self) -> Option<&String> {
+    self.device_id.as_ref()
   }
 
-  pub fn reset_confirmed(&mut self) {
-    self.confirmed = None;
+  pub fn reset_device_id(&mut self) {
+    self.device_id = None;
+  }
+
+  pub fn set_devicename(&mut self, devicename: String) {
+    self.devicename = Some(devicename);
+  }
+
+  pub fn with_devicename(mut self, devicename: String) -> Body {
+    self.devicename = Some(devicename);
+    self
+  }
+
+  pub fn devicename(&self) -> Option<&String> {
+    self.devicename.as_ref()
+  }
+
+  pub fn reset_devicename(&mut self) {
+    self.devicename = None;
+  }
+
+  pub fn set_enabled(&mut self, enabled: bool) {
+    self.enabled = Some(enabled);
+  }
+
+  pub fn with_enabled(mut self, enabled: bool) -> Body {
+    self.enabled = Some(enabled);
+    self
+  }
+
+  pub fn enabled(&self) -> Option<&bool> {
+    self.enabled.as_ref()
+  }
+
+  pub fn reset_enabled(&mut self) {
+    self.enabled = None;
+  }
+
+  pub fn set_ui_name(&mut self, ui_name: String) {
+    self.ui_name = Some(ui_name);
+  }
+
+  pub fn with_ui_name(mut self, ui_name: String) -> Body {
+    self.ui_name = Some(ui_name);
+    self
+  }
+
+  pub fn ui_name(&self) -> Option<&String> {
+    self.ui_name.as_ref()
+  }
+
+  pub fn reset_ui_name(&mut self) {
+    self.ui_name = None;
   }
 
 }

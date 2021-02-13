@@ -14,72 +14,33 @@ use serde_json::Value;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct InlineResponse2004 {
-  #[serde(rename = "order_id")]
-  order_id: Option<String>,
-  #[serde(rename = "order_status")]
-  order_status: Option<String>,
-  #[serde(rename = "local_order_id")]
-  local_order_id: Option<String>
+  /// unread number
+  #[serde(rename = "BN")]
+  BN: Option<i32>
 }
 
 impl InlineResponse2004 {
   pub fn new() -> InlineResponse2004 {
     InlineResponse2004 {
-      order_id: None,
-      order_status: None,
-      local_order_id: None
+      BN: None
     }
   }
 
-  pub fn set_order_id(&mut self, order_id: String) {
-    self.order_id = Some(order_id);
+  pub fn set_BN(&mut self, BN: i32) {
+    self.BN = Some(BN);
   }
 
-  pub fn with_order_id(mut self, order_id: String) -> InlineResponse2004 {
-    self.order_id = Some(order_id);
+  pub fn with_BN(mut self, BN: i32) -> InlineResponse2004 {
+    self.BN = Some(BN);
     self
   }
 
-  pub fn order_id(&self) -> Option<&String> {
-    self.order_id.as_ref()
+  pub fn BN(&self) -> Option<&i32> {
+    self.BN.as_ref()
   }
 
-  pub fn reset_order_id(&mut self) {
-    self.order_id = None;
-  }
-
-  pub fn set_order_status(&mut self, order_status: String) {
-    self.order_status = Some(order_status);
-  }
-
-  pub fn with_order_status(mut self, order_status: String) -> InlineResponse2004 {
-    self.order_status = Some(order_status);
-    self
-  }
-
-  pub fn order_status(&self) -> Option<&String> {
-    self.order_status.as_ref()
-  }
-
-  pub fn reset_order_status(&mut self) {
-    self.order_status = None;
-  }
-
-  pub fn set_local_order_id(&mut self, local_order_id: String) {
-    self.local_order_id = Some(local_order_id);
-  }
-
-  pub fn with_local_order_id(mut self, local_order_id: String) -> InlineResponse2004 {
-    self.local_order_id = Some(local_order_id);
-    self
-  }
-
-  pub fn local_order_id(&self) -> Option<&String> {
-    self.local_order_id.as_ref()
-  }
-
-  pub fn reset_local_order_id(&mut self) {
-    self.local_order_id = None;
+  pub fn reset_BN(&mut self) {
+    self.BN = None;
   }
 
 }

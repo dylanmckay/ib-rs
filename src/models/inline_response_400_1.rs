@@ -14,6 +14,7 @@ use serde_json::Value;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct InlineResponse4001 {
+  /// for example-order not confirmed
   #[serde(rename = "error")]
   error: Option<String>,
   #[serde(rename = "statusCode")]

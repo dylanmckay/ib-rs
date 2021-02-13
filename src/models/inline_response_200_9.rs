@@ -14,92 +14,53 @@ use serde_json::Value;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct InlineResponse2009 {
-  #[serde(rename = "scan_type_list")]
-  scan_type_list: Option<Vec<::models::InlineResponse2009ScanTypeList>>,
-  #[serde(rename = "instrument_list")]
-  instrument_list: Option<Vec<::models::InlineResponse2009InstrumentList>>,
-  #[serde(rename = "filter_list")]
-  filter_list: Option<Vec<::models::InlineResponse2009FilterList>>,
-  #[serde(rename = "location_tree")]
-  location_tree: Option<Vec<::models::InlineResponse2009LocationTree>>
+  #[serde(rename = "id")]
+  id: Option<String>,
+  /// Please note here, if the message is a question, you have to reply to question in order to submit the order successfully. See more in the \"/iserver/reply/{replyid}\" end-point. 
+  #[serde(rename = "message")]
+  message: Option<Vec<String>>
 }
 
 impl InlineResponse2009 {
   pub fn new() -> InlineResponse2009 {
     InlineResponse2009 {
-      scan_type_list: None,
-      instrument_list: None,
-      filter_list: None,
-      location_tree: None
+      id: None,
+      message: None
     }
   }
 
-  pub fn set_scan_type_list(&mut self, scan_type_list: Vec<::models::InlineResponse2009ScanTypeList>) {
-    self.scan_type_list = Some(scan_type_list);
+  pub fn set_id(&mut self, id: String) {
+    self.id = Some(id);
   }
 
-  pub fn with_scan_type_list(mut self, scan_type_list: Vec<::models::InlineResponse2009ScanTypeList>) -> InlineResponse2009 {
-    self.scan_type_list = Some(scan_type_list);
+  pub fn with_id(mut self, id: String) -> InlineResponse2009 {
+    self.id = Some(id);
     self
   }
 
-  pub fn scan_type_list(&self) -> Option<&Vec<::models::InlineResponse2009ScanTypeList>> {
-    self.scan_type_list.as_ref()
+  pub fn id(&self) -> Option<&String> {
+    self.id.as_ref()
   }
 
-  pub fn reset_scan_type_list(&mut self) {
-    self.scan_type_list = None;
+  pub fn reset_id(&mut self) {
+    self.id = None;
   }
 
-  pub fn set_instrument_list(&mut self, instrument_list: Vec<::models::InlineResponse2009InstrumentList>) {
-    self.instrument_list = Some(instrument_list);
+  pub fn set_message(&mut self, message: Vec<String>) {
+    self.message = Some(message);
   }
 
-  pub fn with_instrument_list(mut self, instrument_list: Vec<::models::InlineResponse2009InstrumentList>) -> InlineResponse2009 {
-    self.instrument_list = Some(instrument_list);
+  pub fn with_message(mut self, message: Vec<String>) -> InlineResponse2009 {
+    self.message = Some(message);
     self
   }
 
-  pub fn instrument_list(&self) -> Option<&Vec<::models::InlineResponse2009InstrumentList>> {
-    self.instrument_list.as_ref()
+  pub fn message(&self) -> Option<&Vec<String>> {
+    self.message.as_ref()
   }
 
-  pub fn reset_instrument_list(&mut self) {
-    self.instrument_list = None;
-  }
-
-  pub fn set_filter_list(&mut self, filter_list: Vec<::models::InlineResponse2009FilterList>) {
-    self.filter_list = Some(filter_list);
-  }
-
-  pub fn with_filter_list(mut self, filter_list: Vec<::models::InlineResponse2009FilterList>) -> InlineResponse2009 {
-    self.filter_list = Some(filter_list);
-    self
-  }
-
-  pub fn filter_list(&self) -> Option<&Vec<::models::InlineResponse2009FilterList>> {
-    self.filter_list.as_ref()
-  }
-
-  pub fn reset_filter_list(&mut self) {
-    self.filter_list = None;
-  }
-
-  pub fn set_location_tree(&mut self, location_tree: Vec<::models::InlineResponse2009LocationTree>) {
-    self.location_tree = Some(location_tree);
-  }
-
-  pub fn with_location_tree(mut self, location_tree: Vec<::models::InlineResponse2009LocationTree>) -> InlineResponse2009 {
-    self.location_tree = Some(location_tree);
-    self
-  }
-
-  pub fn location_tree(&self) -> Option<&Vec<::models::InlineResponse2009LocationTree>> {
-    self.location_tree.as_ref()
-  }
-
-  pub fn reset_location_tree(&mut self) {
-    self.location_tree = None;
+  pub fn reset_message(&mut self) {
+    self.message = None;
   }
 
 }

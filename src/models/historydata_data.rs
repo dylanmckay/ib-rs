@@ -14,9 +14,6 @@ use serde_json::Value;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct HistorydataData {
-  /// open price
-  #[serde(rename = "o")]
-  o: Option<f32>,
   /// close price
   #[serde(rename = "c")]
   c: Option<f32>,
@@ -26,41 +23,27 @@ pub struct HistorydataData {
   /// low price
   #[serde(rename = "l")]
   l: Option<f32>,
-  /// volume
-  #[serde(rename = "v")]
-  v: Option<f32>,
+  /// open price
+  #[serde(rename = "o")]
+  o: Option<f32>,
   /// unix time stamp
   #[serde(rename = "t")]
-  t: Option<f32>
+  t: Option<f32>,
+  /// volume
+  #[serde(rename = "v")]
+  v: Option<f32>
 }
 
 impl HistorydataData {
   pub fn new() -> HistorydataData {
     HistorydataData {
-      o: None,
       c: None,
       h: None,
       l: None,
-      v: None,
-      t: None
+      o: None,
+      t: None,
+      v: None
     }
-  }
-
-  pub fn set_o(&mut self, o: f32) {
-    self.o = Some(o);
-  }
-
-  pub fn with_o(mut self, o: f32) -> HistorydataData {
-    self.o = Some(o);
-    self
-  }
-
-  pub fn o(&self) -> Option<&f32> {
-    self.o.as_ref()
-  }
-
-  pub fn reset_o(&mut self) {
-    self.o = None;
   }
 
   pub fn set_c(&mut self, c: f32) {
@@ -114,21 +97,21 @@ impl HistorydataData {
     self.l = None;
   }
 
-  pub fn set_v(&mut self, v: f32) {
-    self.v = Some(v);
+  pub fn set_o(&mut self, o: f32) {
+    self.o = Some(o);
   }
 
-  pub fn with_v(mut self, v: f32) -> HistorydataData {
-    self.v = Some(v);
+  pub fn with_o(mut self, o: f32) -> HistorydataData {
+    self.o = Some(o);
     self
   }
 
-  pub fn v(&self) -> Option<&f32> {
-    self.v.as_ref()
+  pub fn o(&self) -> Option<&f32> {
+    self.o.as_ref()
   }
 
-  pub fn reset_v(&mut self) {
-    self.v = None;
+  pub fn reset_o(&mut self) {
+    self.o = None;
   }
 
   pub fn set_t(&mut self, t: f32) {
@@ -146,6 +129,23 @@ impl HistorydataData {
 
   pub fn reset_t(&mut self) {
     self.t = None;
+  }
+
+  pub fn set_v(&mut self, v: f32) {
+    self.v = Some(v);
+  }
+
+  pub fn with_v(mut self, v: f32) -> HistorydataData {
+    self.v = Some(v);
+    self
+  }
+
+  pub fn v(&self) -> Option<&f32> {
+    self.v.as_ref()
+  }
+
+  pub fn reset_v(&mut self) {
+    self.v = None;
   }
 
 }

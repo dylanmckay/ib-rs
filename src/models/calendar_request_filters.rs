@@ -15,93 +15,59 @@ use serde_json::Value;
 #[derive(Debug, Serialize, Deserialize)]
 pub struct CalendarRequestFilters {
   /// value can be 'true' or 'false'.
-  #[serde(rename = "recently_held")]
-  recently_held: Option<String>,
+  #[serde(rename = "DivExDates")]
+  div_ex_dates: Option<String>,
   /// value can be 'true' or 'false'.
   #[serde(rename = "corporate_earnings")]
   corporate_earnings: Option<String>,
   /// value can be 'true' or 'false'.
-  #[serde(rename = "DivExDates")]
-  div_ex_dates: Option<String>,
-  /// value can be 'true' or 'false'.
-  #[serde(rename = "ipo")]
-  ipo: Option<String>,
-  /// value can be 'true' or 'false'.
-  #[serde(rename = "splits")]
-  splits: Option<String>,
-  /// value can be 'true' or 'false'.
   #[serde(rename = "corporate_events")]
   corporate_events: Option<String>,
+  /// default is 'All'.
+  #[serde(rename = "country")]
+  country: Option<String>,
   /// value can be 'true' or 'false'.
   #[serde(rename = "economic_events")]
   economic_events: Option<String>,
+  /// value can be 'true' or 'false'.
+  #[serde(rename = "ipo")]
+  ipo: Option<String>,
+  /// default is '250'.
+  #[serde(rename = "limit")]
+  limit: Option<String>,
+  /// default is '50'.
+  #[serde(rename = "limit_region")]
+  limit_region: Option<String>,
   /// value can be 'true' or 'false'.
   #[serde(rename = "option_show_monthly")]
   option_show_monthly: Option<String>,
   /// value can be 'true' or 'false'.
   #[serde(rename = "option_show_weekly")]
   option_show_weekly: Option<String>,
-  /// default is 'All'.
-  #[serde(rename = "country")]
-  country: Option<String>,
-  /// default is '250'.
-  #[serde(rename = "limit")]
-  limit: Option<String>,
-  /// default is '50'.
-  #[serde(rename = "limit_region")]
-  limit_region: Option<String>
+  /// value can be 'true' or 'false'.
+  #[serde(rename = "recently_held")]
+  recently_held: Option<String>,
+  /// value can be 'true' or 'false'.
+  #[serde(rename = "splits")]
+  splits: Option<String>
 }
 
 impl CalendarRequestFilters {
   pub fn new() -> CalendarRequestFilters {
     CalendarRequestFilters {
-      recently_held: None,
-      corporate_earnings: None,
       div_ex_dates: None,
-      ipo: None,
-      splits: None,
+      corporate_earnings: None,
       corporate_events: None,
+      country: None,
       economic_events: None,
+      ipo: None,
+      limit: None,
+      limit_region: None,
       option_show_monthly: None,
       option_show_weekly: None,
-      country: None,
-      limit: None,
-      limit_region: None
+      recently_held: None,
+      splits: None
     }
-  }
-
-  pub fn set_recently_held(&mut self, recently_held: String) {
-    self.recently_held = Some(recently_held);
-  }
-
-  pub fn with_recently_held(mut self, recently_held: String) -> CalendarRequestFilters {
-    self.recently_held = Some(recently_held);
-    self
-  }
-
-  pub fn recently_held(&self) -> Option<&String> {
-    self.recently_held.as_ref()
-  }
-
-  pub fn reset_recently_held(&mut self) {
-    self.recently_held = None;
-  }
-
-  pub fn set_corporate_earnings(&mut self, corporate_earnings: String) {
-    self.corporate_earnings = Some(corporate_earnings);
-  }
-
-  pub fn with_corporate_earnings(mut self, corporate_earnings: String) -> CalendarRequestFilters {
-    self.corporate_earnings = Some(corporate_earnings);
-    self
-  }
-
-  pub fn corporate_earnings(&self) -> Option<&String> {
-    self.corporate_earnings.as_ref()
-  }
-
-  pub fn reset_corporate_earnings(&mut self) {
-    self.corporate_earnings = None;
   }
 
   pub fn set_div_ex_dates(&mut self, div_ex_dates: String) {
@@ -121,38 +87,21 @@ impl CalendarRequestFilters {
     self.div_ex_dates = None;
   }
 
-  pub fn set_ipo(&mut self, ipo: String) {
-    self.ipo = Some(ipo);
+  pub fn set_corporate_earnings(&mut self, corporate_earnings: String) {
+    self.corporate_earnings = Some(corporate_earnings);
   }
 
-  pub fn with_ipo(mut self, ipo: String) -> CalendarRequestFilters {
-    self.ipo = Some(ipo);
+  pub fn with_corporate_earnings(mut self, corporate_earnings: String) -> CalendarRequestFilters {
+    self.corporate_earnings = Some(corporate_earnings);
     self
   }
 
-  pub fn ipo(&self) -> Option<&String> {
-    self.ipo.as_ref()
+  pub fn corporate_earnings(&self) -> Option<&String> {
+    self.corporate_earnings.as_ref()
   }
 
-  pub fn reset_ipo(&mut self) {
-    self.ipo = None;
-  }
-
-  pub fn set_splits(&mut self, splits: String) {
-    self.splits = Some(splits);
-  }
-
-  pub fn with_splits(mut self, splits: String) -> CalendarRequestFilters {
-    self.splits = Some(splits);
-    self
-  }
-
-  pub fn splits(&self) -> Option<&String> {
-    self.splits.as_ref()
-  }
-
-  pub fn reset_splits(&mut self) {
-    self.splits = None;
+  pub fn reset_corporate_earnings(&mut self) {
+    self.corporate_earnings = None;
   }
 
   pub fn set_corporate_events(&mut self, corporate_events: String) {
@@ -172,6 +121,23 @@ impl CalendarRequestFilters {
     self.corporate_events = None;
   }
 
+  pub fn set_country(&mut self, country: String) {
+    self.country = Some(country);
+  }
+
+  pub fn with_country(mut self, country: String) -> CalendarRequestFilters {
+    self.country = Some(country);
+    self
+  }
+
+  pub fn country(&self) -> Option<&String> {
+    self.country.as_ref()
+  }
+
+  pub fn reset_country(&mut self) {
+    self.country = None;
+  }
+
   pub fn set_economic_events(&mut self, economic_events: String) {
     self.economic_events = Some(economic_events);
   }
@@ -187,6 +153,57 @@ impl CalendarRequestFilters {
 
   pub fn reset_economic_events(&mut self) {
     self.economic_events = None;
+  }
+
+  pub fn set_ipo(&mut self, ipo: String) {
+    self.ipo = Some(ipo);
+  }
+
+  pub fn with_ipo(mut self, ipo: String) -> CalendarRequestFilters {
+    self.ipo = Some(ipo);
+    self
+  }
+
+  pub fn ipo(&self) -> Option<&String> {
+    self.ipo.as_ref()
+  }
+
+  pub fn reset_ipo(&mut self) {
+    self.ipo = None;
+  }
+
+  pub fn set_limit(&mut self, limit: String) {
+    self.limit = Some(limit);
+  }
+
+  pub fn with_limit(mut self, limit: String) -> CalendarRequestFilters {
+    self.limit = Some(limit);
+    self
+  }
+
+  pub fn limit(&self) -> Option<&String> {
+    self.limit.as_ref()
+  }
+
+  pub fn reset_limit(&mut self) {
+    self.limit = None;
+  }
+
+  pub fn set_limit_region(&mut self, limit_region: String) {
+    self.limit_region = Some(limit_region);
+  }
+
+  pub fn with_limit_region(mut self, limit_region: String) -> CalendarRequestFilters {
+    self.limit_region = Some(limit_region);
+    self
+  }
+
+  pub fn limit_region(&self) -> Option<&String> {
+    self.limit_region.as_ref()
+  }
+
+  pub fn reset_limit_region(&mut self) {
+    self.limit_region = None;
   }
 
   pub fn set_option_show_monthly(&mut self, option_show_monthly: String) {
@@ -223,55 +240,38 @@ impl CalendarRequestFilters {
     self.option_show_weekly = None;
   }
 
-  pub fn set_country(&mut self, country: String) {
-    self.country = Some(country);
+  pub fn set_recently_held(&mut self, recently_held: String) {
+    self.recently_held = Some(recently_held);
   }
 
-  pub fn with_country(mut self, country: String) -> CalendarRequestFilters {
-    self.country = Some(country);
+  pub fn with_recently_held(mut self, recently_held: String) -> CalendarRequestFilters {
+    self.recently_held = Some(recently_held);
     self
   }
 
-  pub fn country(&self) -> Option<&String> {
-    self.country.as_ref()
+  pub fn recently_held(&self) -> Option<&String> {
+    self.recently_held.as_ref()
   }
 
-  pub fn reset_country(&mut self) {
-    self.country = None;
+  pub fn reset_recently_held(&mut self) {
+    self.recently_held = None;
   }
 
-  pub fn set_limit(&mut self, limit: String) {
-    self.limit = Some(limit);
+  pub fn set_splits(&mut self, splits: String) {
+    self.splits = Some(splits);
   }
 
-  pub fn with_limit(mut self, limit: String) -> CalendarRequestFilters {
-    self.limit = Some(limit);
+  pub fn with_splits(mut self, splits: String) -> CalendarRequestFilters {
+    self.splits = Some(splits);
     self
   }
 
-  pub fn limit(&self) -> Option<&String> {
-    self.limit.as_ref()
+  pub fn splits(&self) -> Option<&String> {
+    self.splits.as_ref()
   }
 
-  pub fn reset_limit(&mut self) {
-    self.limit = None;
-  }
-
-  pub fn set_limit_region(&mut self, limit_region: String) {
-    self.limit_region = Some(limit_region);
-  }
-
-  pub fn with_limit_region(mut self, limit_region: String) -> CalendarRequestFilters {
-    self.limit_region = Some(limit_region);
-    self
-  }
-
-  pub fn limit_region(&self) -> Option<&String> {
-    self.limit_region.as_ref()
-  }
-
-  pub fn reset_limit_region(&mut self) {
-    self.limit_region = None;
+  pub fn reset_splits(&mut self) {
+    self.splits = None;
   }
 
 }

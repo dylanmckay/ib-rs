@@ -14,92 +14,32 @@ use serde_json::Value;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Body6 {
-  #[serde(rename = "devicename")]
-  devicename: Option<String>,
-  #[serde(rename = "deviceId")]
-  device_id: Option<String>,
-  #[serde(rename = "uiName")]
-  ui_name: Option<String>,
-  #[serde(rename = "enabled")]
-  enabled: Option<bool>
+  #[serde(rename = "acctIds")]
+  acct_ids: Option<Vec<String>>
 }
 
 impl Body6 {
   pub fn new() -> Body6 {
     Body6 {
-      devicename: None,
-      device_id: None,
-      ui_name: None,
-      enabled: None
+      acct_ids: None
     }
   }
 
-  pub fn set_devicename(&mut self, devicename: String) {
-    self.devicename = Some(devicename);
+  pub fn set_acct_ids(&mut self, acct_ids: Vec<String>) {
+    self.acct_ids = Some(acct_ids);
   }
 
-  pub fn with_devicename(mut self, devicename: String) -> Body6 {
-    self.devicename = Some(devicename);
+  pub fn with_acct_ids(mut self, acct_ids: Vec<String>) -> Body6 {
+    self.acct_ids = Some(acct_ids);
     self
   }
 
-  pub fn devicename(&self) -> Option<&String> {
-    self.devicename.as_ref()
+  pub fn acct_ids(&self) -> Option<&Vec<String>> {
+    self.acct_ids.as_ref()
   }
 
-  pub fn reset_devicename(&mut self) {
-    self.devicename = None;
-  }
-
-  pub fn set_device_id(&mut self, device_id: String) {
-    self.device_id = Some(device_id);
-  }
-
-  pub fn with_device_id(mut self, device_id: String) -> Body6 {
-    self.device_id = Some(device_id);
-    self
-  }
-
-  pub fn device_id(&self) -> Option<&String> {
-    self.device_id.as_ref()
-  }
-
-  pub fn reset_device_id(&mut self) {
-    self.device_id = None;
-  }
-
-  pub fn set_ui_name(&mut self, ui_name: String) {
-    self.ui_name = Some(ui_name);
-  }
-
-  pub fn with_ui_name(mut self, ui_name: String) -> Body6 {
-    self.ui_name = Some(ui_name);
-    self
-  }
-
-  pub fn ui_name(&self) -> Option<&String> {
-    self.ui_name.as_ref()
-  }
-
-  pub fn reset_ui_name(&mut self) {
-    self.ui_name = None;
-  }
-
-  pub fn set_enabled(&mut self, enabled: bool) {
-    self.enabled = Some(enabled);
-  }
-
-  pub fn with_enabled(mut self, enabled: bool) -> Body6 {
-    self.enabled = Some(enabled);
-    self
-  }
-
-  pub fn enabled(&self) -> Option<&bool> {
-    self.enabled.as_ref()
-  }
-
-  pub fn reset_enabled(&mut self) {
-    self.enabled = None;
+  pub fn reset_acct_ids(&mut self) {
+    self.acct_ids = None;
   }
 
 }
