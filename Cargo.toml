@@ -9,6 +9,8 @@ description = "A Rust client to the Interactive Brokers HTTP REST API"
 repository = "https://github.com/dylanmckay/ib-rs"
 documentation = "https://docs.rs/ib"
 
+license = "MIT"
+
 [dependencies]
 serde = "1.0"
 serde_derive = "1.0"
