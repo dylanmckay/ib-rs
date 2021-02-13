@@ -1,0 +1,4089 @@
+{
+  "basePath": "/v1/portal",
+  "definitions": {
+    "account": {
+      "description": "account information",
+      "properties": {
+        "accountAlias": {
+          "type": "string"
+        },
+        "accountId": {
+          "type": "string"
+        },
+        "accountStatus": {
+          "type": "number"
+        },
+        "accountTitle": {
+          "type": "string"
+        },
+        "accountVan": {
+          "type": "string"
+        },
+        "covestor": {
+          "type": "boolean"
+        },
+        "currency": {
+          "type": "string"
+        },
+        "desc": {
+          "type": "string"
+        },
+        "displayName": {
+          "type": "string"
+        },
+        "faclient": {
+          "type": "boolean"
+        },
+        "id": {
+          "type": "string"
+        },
+        "master": {
+          "properties": {
+            "officialTitle": {
+              "type": "string"
+            },
+            "title": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "parent": {
+          "type": "string"
+        },
+        "tradingType": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "accounts": {
+      "items": {
+        "$ref": "#/definitions/account"
+      },
+      "type": "array"
+    },
+    "allocation": {
+      "items": {
+        "description": "allocation",
+        "properties": {
+          "assetClass": {
+            "description": "portfolio allocation by asset class",
+            "properties": {
+              "long": {
+                "description": "long positions allocation",
+                "properties": {
+                  "BOND": {
+                    "type": "number"
+                  },
+                  "CASH": {
+                    "type": "number"
+                  },
+                  "FUT": {
+                    "type": "number"
+                  },
+                  "OPT": {
+                    "type": "number"
+                  },
+                  "STK": {
+                    "type": "number"
+                  },
+                  "WAR": {
+                    "type": "number"
+                  }
+                },
+                "type": "object"
+              },
+              "short": {
+                "description": "short positions allocation",
+                "properties": {
+                  "BOND": {
+                    "type": "number"
+                  },
+                  "CASH": {
+                    "type": "number"
+                  },
+                  "FUT": {
+                    "type": "number"
+                  },
+                  "OPT": {
+                    "type": "number"
+                  },
+                  "STK": {
+                    "type": "number"
+                  },
+                  "WAR": {
+                    "type": "number"
+                  }
+                },
+                "type": "object"
+              }
+            },
+            "type": "object"
+          },
+          "group": {
+            "description": "portfolio allocation by group",
+            "properties": {
+              "long": {
+                "description": "long positions allocation",
+                "properties": {
+                  "Apparel": {
+                    "type": "number"
+                  },
+                  "Chemicals": {
+                    "type": "number"
+                  },
+                  "Communications": {
+                    "type": "number"
+                  },
+                  "Computers": {
+                    "type": "number"
+                  },
+                  "Others": {
+                    "type": "number"
+                  },
+                  "Semiconductors": {
+                    "type": "number"
+                  }
+                },
+                "type": "object"
+              },
+              "short": {
+                "description": "short positions allocation",
+                "properties": {
+                  "Airlines": {
+                    "type": "number"
+                  },
+                  "Banks": {
+                    "type": "number"
+                  },
+                  "Internet": {
+                    "type": "number"
+                  }
+                },
+                "type": "object"
+              }
+            },
+            "type": "object"
+          },
+          "sector": {
+            "description": "portfolio allocation by sector",
+            "properties": {
+              "long": {
+                "description": "long positions allocation",
+                "properties": {
+                  "Communications": {
+                    "type": "number"
+                  },
+                  "Energy": {
+                    "type": "number"
+                  },
+                  "Financial": {
+                    "type": "number"
+                  },
+                  "Others": {
+                    "type": "number"
+                  },
+                  "Technology": {
+                    "type": "number"
+                  },
+                  "Utilities": {
+                    "type": "number"
+                  }
+                },
+                "type": "object"
+              },
+              "short": {
+                "description": "short positions allocation",
+                "properties": {
+                  "Consumer": {
+                    "type": "number"
+                  },
+                  "Diversified": {
+                    "type": "number"
+                  },
+                  "Industrial": {
+                    "type": "number"
+                  }
+                },
+                "type": "object"
+              }
+            },
+            "type": "object"
+          }
+        },
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "authStatus": {
+      "properties": {
+        "authenticated": {
+          "description": "Brokerage session is authenticated",
+          "type": "boolean"
+        },
+        "competing": {
+          "description": "Brokerage session is competing, e.g. user is logged in to IBKR Mobile, WebTrader, TWS or other trading platforms.",
+          "type": "boolean"
+        },
+        "connected": {
+          "description": "Connected to backend",
+          "type": "boolean"
+        },
+        "fail": {
+          "description": "Authentication failed, why.",
+          "type": "string"
+        },
+        "message": {
+          "description": "System messages that may affect trading",
+          "type": "string"
+        },
+        "prompts": {
+          "description": "Prompt messages that may affect trading or the account",
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "calendar_request": {
+      "properties": {
+        "date": {
+          "properties": {
+            "end": {
+              "description": "end date of a period. for example 20180808-0400",
+              "type": "string"
+            },
+            "start": {
+              "description": "start date of a period. for example 20180808-0400",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "filters": {
+          "properties": {
+            "DivExDates": {
+              "description": "value can be 'true' or 'false'.",
+              "type": "string"
+            },
+            "corporate_earnings": {
+              "description": "value can be 'true' or 'false'.",
+              "type": "string"
+            },
+            "corporate_events": {
+              "description": "value can be 'true' or 'false'.",
+              "type": "string"
+            },
+            "country": {
+              "description": "default is 'All'.",
+              "type": "string"
+            },
+            "economic_events": {
+              "description": "value can be 'true' or 'false'.",
+              "type": "string"
+            },
+            "ipo": {
+              "description": "value can be 'true' or 'false'.",
+              "type": "string"
+            },
+            "limit": {
+              "description": "default is '250'.",
+              "type": "string"
+            },
+            "limit_region": {
+              "description": "default is '50'.",
+              "type": "string"
+            },
+            "option_show_monthly": {
+              "description": "value can be 'true' or 'false'.",
+              "type": "string"
+            },
+            "option_show_weekly": {
+              "description": "value can be 'true' or 'false'.",
+              "type": "string"
+            },
+            "recently_held": {
+              "description": "value can be 'true' or 'false'.",
+              "type": "string"
+            },
+            "splits": {
+              "description": "value can be 'true' or 'false'.",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    },
+    "contract": {
+      "description": "Contains all details of the contract, including rules you can use when placing orders",
+      "properties": {
+        "category": {
+          "type": "string"
+        },
+        "company_name": {
+          "type": "string"
+        },
+        "con_id": {
+          "description": "same as that in request",
+          "type": "string"
+        },
+        "currency": {
+          "type": "string"
+        },
+        "exchange": {
+          "type": "string"
+        },
+        "industry": {
+          "type": "string"
+        },
+        "instrument_type": {
+          "description": "for example STK",
+          "type": "string"
+        },
+        "local_symbol": {
+          "description": "for exmple FB",
+          "type": "string"
+        },
+        "r_t_h": {
+          "description": "true means you can trade outside RTH(regular trading hours)",
+          "type": "boolean"
+        },
+        "rules": {
+          "properties": {
+            "defaultSize": {
+              "description": "default quantity you can use to place an order",
+              "type": "number"
+            },
+            "displaySize": {
+              "type": "string"
+            },
+            "increment": {
+              "type": "string"
+            },
+            "limitPrice": {
+              "description": "default limit price you can use to prefill your order",
+              "type": "number"
+            },
+            "orderTypes": {
+              "items": {
+                "description": "store available order types for this contract",
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "orderTypesOutside": {
+              "items": {
+                "description": "store available order types for this contract outside regular hours",
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "preview": {
+              "description": "if you can preview the order or not with the whatif end-point",
+              "type": "boolean"
+            },
+            "sizeIncrement": {
+              "type": "number"
+            },
+            "stopprice": {
+              "description": "default stop price you can use to prefill your order",
+              "type": "number"
+            },
+            "tifTypes": {
+              "items": {
+                "description": "store available time-in-force types",
+                "type": "string"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    },
+    "events": {
+      "description": "events",
+      "items": {
+        "properties": {
+          "conids": {
+            "items": {
+              "description": "conid in string",
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "data": {
+            "description": "will be different for different event types",
+            "type": "object"
+          },
+          "event_key": {
+            "description": "for example 11662135",
+            "type": "string"
+          },
+          "event_type": {
+            "type": "string"
+          },
+          "index_date": {
+            "description": "for exmple 20180817T040000+0000",
+            "type": "string"
+          },
+          "index_date_type": {
+            "type": "string"
+          },
+          "source": {
+            "description": "for example RSE",
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "tooltips": {
+            "type": "object"
+          }
+        },
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "futures": {
+      "items": {
+        "description": "future contract information",
+        "properties": {
+          "conid": {
+            "description": "conid of the future contract",
+            "type": "integer"
+          },
+          "expirationDate": {
+            "type": "string"
+          },
+          "ltd": {
+            "description": "last trading day",
+            "type": "string"
+          },
+          "symbol": {
+            "type": "string"
+          },
+          "underlyingConid": {
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "history-data": {
+      "properties": {
+        "barLength": {
+          "type": "integer"
+        },
+        "data": {
+          "items": {
+            "properties": {
+              "c": {
+                "description": "close price",
+                "type": "number"
+              },
+              "h": {
+                "description": "high price",
+                "type": "number"
+              },
+              "l": {
+                "description": "low price",
+                "type": "number"
+              },
+              "o": {
+                "description": "open price",
+                "type": "number"
+              },
+              "t": {
+                "description": "unix time stamp",
+                "type": "number"
+              },
+              "v": {
+                "description": "volume",
+                "type": "number"
+              }
+            },
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "delay": {
+          "type": "integer"
+        },
+        "high": {
+          "description": "price/volume/...",
+          "type": "string"
+        },
+        "low": {
+          "description": "price/volume/...",
+          "type": "string"
+        },
+        "mdAvailability": {
+          "description": "Market Data Availability. The field may contain two chars. The first char is the primary code: R = Realtime, D = Delayed,\nZ = Frozen, Y = Frozen Delayed. The second char is the secondary code: P = Snapshot Available, p = Consolidated.\n",
+          "type": "string"
+        },
+        "points": {
+          "description": "total number of points",
+          "type": "number"
+        },
+        "start": {
+          "description": "start date time",
+          "type": "string"
+        },
+        "symbol": {
+          "type": "string"
+        },
+        "text": {
+          "type": "string"
+        },
+        "tickNum": {
+          "type": "string"
+        },
+        "timePeriod": {
+          "type": "string"
+        },
+        "travelTime": {
+          "type": "number"
+        }
+      },
+      "type": "object"
+    },
+    "ledger": {
+      "properties": {
+        "acctcode": {
+          "type": "string"
+        },
+        "cashbalance": {
+          "type": "number"
+        },
+        "commoditymarketvalue": {
+          "type": "number"
+        },
+        "corporatebondsmarketvalue": {
+          "type": "number"
+        },
+        "currency": {
+          "type": "string"
+        },
+        "exchangerate": {
+          "type": "number"
+        },
+        "funds": {
+          "type": "number"
+        },
+        "futuremarketvalue": {
+          "type": "number"
+        },
+        "interest": {
+          "type": "number"
+        },
+        "issueroptionsmarketvalue": {
+          "type": "number"
+        },
+        "key": {
+          "type": "string"
+        },
+        "moneyfunds": {
+          "type": "number"
+        },
+        "netliquidationvalue": {
+          "type": "number"
+        },
+        "realizedpnl": {
+          "type": "number"
+        },
+        "sessionid": {
+          "type": "integer"
+        },
+        "settledcash": {
+          "type": "number"
+        },
+        "severity": {
+          "type": "integer"
+        },
+        "stockmarketvalue": {
+          "type": "number"
+        },
+        "timestamp": {
+          "type": "integer"
+        },
+        "unrealizedpnl": {
+          "type": "number"
+        },
+        "warrantsmarketvalue": {
+          "type": "number"
+        }
+      },
+      "type": "object"
+    },
+    "modify-order": {
+      "properties": {
+        "acctId": {
+          "type": "string"
+        },
+        "auxPrice": {
+          "type": "number"
+        },
+        "conid": {
+          "type": "integer"
+        },
+        "listingExchange": {
+          "description": "optional, not required",
+          "type": "string"
+        },
+        "orderId": {
+          "description": "customer orderid",
+          "type": "integer"
+        },
+        "orderType": {
+          "description": "for example LMT",
+          "type": "string"
+        },
+        "outsideRTH": {
+          "type": "boolean"
+        },
+        "price": {
+          "type": "number"
+        },
+        "quantity": {
+          "description": "usually integer, for some special cases can be float numbers",
+          "type": "number"
+        },
+        "side": {
+          "description": "SELL or BUY",
+          "type": "string"
+        },
+        "ticker": {
+          "type": "string"
+        },
+        "tif": {
+          "description": "for example DAY",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "notifications": {
+      "items": {
+        "description": "notification",
+        "properties": {
+          "D": {
+            "description": "notification date",
+            "type": "string"
+          },
+          "FC": {
+            "description": "FYI code, we can use it to find whether the disclaimer is accepted or not in settings",
+            "type": "string"
+          },
+          "ID": {
+            "description": "unique way to reference this notification",
+            "type": "string"
+          },
+          "MD": {
+            "description": "content of notification",
+            "type": "string"
+          },
+          "MS": {
+            "description": "title of notification",
+            "type": "string"
+          },
+          "R": {
+            "description": "0-unread, 1-read",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "order": {
+      "description": "contains all the order related info",
+      "properties": {
+        "acct": {
+          "description": "account id",
+          "type": "string"
+        },
+        "bgColor": {
+          "description": "back-ground color",
+          "type": "string"
+        },
+        "companyName": {
+          "type": "string"
+        },
+        "conid": {
+          "type": "integer"
+        },
+        "description1": {
+          "type": "string"
+        },
+        "fgColor": {
+          "type": "string"
+        },
+        "filledQuantity": {
+          "type": "string"
+        },
+        "listingExchange": {
+          "description": "for example NASDAQ.NMS",
+          "type": "string"
+        },
+        "orderDesc": {
+          "type": "string"
+        },
+        "orderId": {
+          "type": "integer"
+        },
+        "origOrderType": {
+          "description": "for example Limit",
+          "type": "string"
+        },
+        "parentId": {
+          "description": "Only exists in child order of bracket",
+          "type": "integer"
+        },
+        "price": {
+          "type": "number"
+        },
+        "remainingQuantity": {
+          "type": "string"
+        },
+        "secType": {
+          "description": "for example STK",
+          "type": "string"
+        },
+        "side": {
+          "description": "BUY or SELL",
+          "type": "string"
+        },
+        "status": {
+          "description": "PendingSubmit - Indicates the order was sent, but confirmation has not been received that it has been received by the destination. \n                Occurs most commonly if an exchange is closed.\nPendingCancel - Indicates that a request has been sent to cancel an order but confirmation has not been received of its cancellation. PreSubmitted - Indicates that a simulated order type has been accepted by the IBKR system and that this order has yet to be elected. \n               The order is held in the IBKR system until the election criteria are met. At that time the order is transmitted to the order destination as specified. \nSubmitted - Indicates that the order has been accepted at the order destination and is working. Cancelled - Indicates that the balance of the order has been confirmed cancelled by the IB system. \n            This could occur unexpectedly when IB or the destination has rejected the order.  \nFilled - Indicates that the order has been completely filled.  Inactive - Indicates the order is not working, for instance if the order was invalid and triggered an error message,\n           or if the order was to short a security and shares have not yet been located. \n",
+          "type": "string"
+        },
+        "ticker": {
+          "description": "for exmple FB",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "order-request": {
+      "properties": {
+        "acctId": {
+          "description": "acctId is optional. It should be one of the accounts returned by\n/iserver/accounts. If not passed, the first one in the list is selected.\n",
+          "type": "string"
+        },
+        "cOID": {
+          "description": "Customer Order ID. An arbitraty string that can be used to identify the order, e.g \"my-fb-order\". The\nvalue must be unique for a 24h span. Please do not set this value for child orders when placing a bracket order.\n",
+          "type": "string"
+        },
+        "conid": {
+          "description": "conid is the identifier of the security you want to trade, you can find the\nconid with /iserver/secdef/search.\n",
+          "type": "integer"
+        },
+        "listingExchange": {
+          "description": "listingExchange is optional. By default we use \"SMART\" routing. Possible values are available via this end\npoint: /v1/portal/iserver/contract/{{conid}}/info, see valid_exchange: e.g: SMART,AMEX,NYSE,\nCBOE,ISE,CHX,ARCA,ISLAND,DRCTEDGE,BEX,BATS,EDGEA,CSFBALGO,JE FFALGO,BYX,IEX,FOXRIVER,TPLUS1,NYSENAT,PSX\n",
+          "type": "string"
+        },
+        "orderType": {
+          "description": "orderType can be one of MKT (Market), LMT (Limit), STP (Stop) or STP_LIMIT (stop limit)\n",
+          "type": "string"
+        },
+        "outsideRTH": {
+          "description": "set to true if the order can be executed outside regular trading hours.\n",
+          "type": "boolean"
+        },
+        "parentId": {
+          "description": "When placing bracket orders, the child parentId must be equal to the cOId (customer order id) of the parent.\n",
+          "type": "string"
+        },
+        "price": {
+          "description": "optional if order is MKT, for LMT, this is the limit price. For STP this is the stop price.\n",
+          "type": "number"
+        },
+        "quantity": {
+          "description": "usually integer, for some special cases can be float numbers",
+          "type": "number"
+        },
+        "referrer": {
+          "description": "for example QuickTrade",
+          "type": "string"
+        },
+        "secType": {
+          "description": "conid:type for example 265598:STK",
+          "type": "string"
+        },
+        "side": {
+          "description": "SELL or BUY",
+          "type": "string"
+        },
+        "ticker": {
+          "description": "",
+          "type": "string"
+        },
+        "tif": {
+          "description": "GTC (Good Till Cancel) or DAY. DAY orders are automatically cancelled at the end of the Day or Trading hours.\n",
+          "type": "string"
+        },
+        "useAdaptive": {
+          "description": "If true, the system will use the Adaptive Algo to submit the order\nhttps://www.interactivebrokers.com/en/index.php?f=19091\n",
+          "type": "boolean"
+        }
+      },
+      "type": "object"
+    },
+    "performance": {
+      "properties": {
+        "cps": {
+          "description": "Cumulative performance data",
+          "properties": {
+            "data": {
+              "items": {
+                "properties": {
+                  "baseCurrency": {
+                    "type": "string"
+                  },
+                  "end": {
+                    "description": "end date-- yyyyMMdd",
+                    "type": "string"
+                  },
+                  "id": {
+                    "type": "string"
+                  },
+                  "idType": {
+                    "description": "for example-- acctid",
+                    "type": "string"
+                  },
+                  "returns": {
+                    "description": "each value stands for price change percent of corresponding date in dates array",
+                    "items": {
+                      "type": "number"
+                    },
+                    "type": "array"
+                  },
+                  "start": {
+                    "description": "start date-- yyyyMMdd",
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "dates": {
+              "description": "array of dates, the length should be same as the length of returns inside data.",
+              "items": {
+                "description": "format-- yyyyMMdd",
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "freq": {
+              "description": "D means Day",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "currencyType": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "included": {
+          "items": {
+            "description": "account id",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "nav": {
+          "description": "Net asset value data for the account or consolidated accounts. NAV data is not applicable to benchmarks.",
+          "properties": {
+            "data": {
+              "items": {
+                "properties": {
+                  "baseCurrency": {
+                    "type": "string"
+                  },
+                  "end": {
+                    "description": "end date-- yyyyMMdd",
+                    "type": "string"
+                  },
+                  "id": {
+                    "type": "string"
+                  },
+                  "idType": {
+                    "description": "for example-- acctid",
+                    "type": "string"
+                  },
+                  "returns": {
+                    "description": "each value stands for price change percent of corresponding date in dates array",
+                    "items": {
+                      "type": "number"
+                    },
+                    "type": "array"
+                  },
+                  "start": {
+                    "description": "start date-- yyyyMMdd",
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "dates": {
+              "description": "array of dates, the length should be same as the length of returns inside data.",
+              "items": {
+                "description": "format--yyyyMMdd",
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "freq": {
+              "description": "D means Day",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "pm": {
+          "type": "string"
+        },
+        "rc": {
+          "type": "integer"
+        },
+        "tpps": {
+          "description": "Time period performance data",
+          "properties": {
+            "data": {
+              "items": {
+                "properties": {
+                  "baseCurrency": {
+                    "type": "string"
+                  },
+                  "end": {
+                    "description": "end date-- yyyyMMdd",
+                    "type": "string"
+                  },
+                  "id": {
+                    "type": "string"
+                  },
+                  "idType": {
+                    "description": "for example-- acctid",
+                    "type": "string"
+                  },
+                  "returns": {
+                    "description": "each value stands for price change percent of corresponding date in dates array",
+                    "items": {
+                      "type": "number"
+                    },
+                    "type": "array"
+                  },
+                  "start": {
+                    "description": "start date-- yyyyMMdd",
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "dates": {
+              "description": "array of dates, the length should be same as the length of returns inside data.",
+              "items": {
+                "description": "format-- yyyyMMdd",
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "freq": {
+              "description": "M means Month",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    },
+    "position": {
+      "items": {
+        "description": "Account Information",
+        "properties": {
+          "acctId": {
+            "type": "string"
+          },
+          "assetClass": {
+            "type": "string"
+          },
+          "avgCost": {
+            "type": "number"
+          },
+          "avgPrice": {
+            "type": "number"
+          },
+          "baseAvgCost": {
+            "type": "number"
+          },
+          "baseAvgPrice": {
+            "type": "number"
+          },
+          "baseMktPrice": {
+            "type": "number"
+          },
+          "baseMktValue": {
+            "type": "number"
+          },
+          "baseRealizedPnl": {
+            "type": "number"
+          },
+          "baseUnrealizedPnl": {
+            "type": "number"
+          },
+          "conExchMap": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "conid": {
+            "type": "integer"
+          },
+          "contractDesc": {
+            "type": "string"
+          },
+          "currency": {
+            "type": "string"
+          },
+          "exchs": {
+            "type": "string"
+          },
+          "exerciseStyle": {
+            "type": "string"
+          },
+          "expiry": {
+            "type": "string"
+          },
+          "fullName": {
+            "type": "string"
+          },
+          "group": {
+            "type": "string"
+          },
+          "lastTradingDay": {
+            "type": "string"
+          },
+          "mktPrice": {
+            "type": "number"
+          },
+          "mktValue": {
+            "type": "number"
+          },
+          "model": {
+            "type": "string"
+          },
+          "multiplier": {
+            "type": "number"
+          },
+          "name": {
+            "type": "string"
+          },
+          "pageSize": {
+            "type": "integer"
+          },
+          "position": {
+            "type": "number"
+          },
+          "putOrCall": {
+            "type": "string"
+          },
+          "realizedPnl": {
+            "type": "number"
+          },
+          "sector": {
+            "type": "string"
+          },
+          "sectorGroup": {
+            "type": "string"
+          },
+          "strike": {
+            "type": "number"
+          },
+          "ticker": {
+            "type": "string"
+          },
+          "undComp": {
+            "type": "string"
+          },
+          "undConid": {
+            "type": "integer"
+          },
+          "undSym": {
+            "type": "string"
+          },
+          "unrealizedPnl": {
+            "type": "number"
+          }
+        },
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "scanner-params": {
+      "properties": {
+        "filter": {
+          "items": {
+            "properties": {
+              "code": {
+                "type": "string"
+              },
+              "value": {
+                "type": "number"
+              }
+            },
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "instrument": {
+          "description": "for example-STK",
+          "type": "string"
+        },
+        "location": {
+          "type": "string"
+        },
+        "size": {
+          "type": "string"
+        },
+        "type": {
+          "description": "for example-TOP_PERC_GAIN",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "secdef": {
+      "items": {
+        "description": "security definition information",
+        "properties": {
+          "assetClass": {
+            "type": "string"
+          },
+          "conid": {
+            "type": "integer"
+          },
+          "expiry": {
+            "type": "string"
+          },
+          "fullName": {
+            "type": "string"
+          },
+          "group": {
+            "type": "string"
+          },
+          "lastTradingDay": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "pageSize": {
+            "type": "integer"
+          },
+          "putOrCall": {
+            "type": "string"
+          },
+          "sector": {
+            "type": "string"
+          },
+          "sectorGroup": {
+            "type": "string"
+          },
+          "strike": {
+            "type": "number"
+          },
+          "ticker": {
+            "type": "string"
+          },
+          "undConid": {
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "set-account": {
+      "properties": {
+        "acctId": {
+          "description": "Account ID",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "summary": {
+      "description": "account information",
+      "properties": {
+        "accountSummaries": {
+          "items": {
+            "properties": {
+              "accountTypeCode": {
+                "type": "string"
+              },
+              "accountTypeName": {
+                "type": "string"
+              },
+              "chg": {
+                "type": "string"
+              },
+              "endVal": {
+                "type": "string"
+              },
+              "hasAccounts": {
+                "type": "string"
+              },
+              "rtn": {
+                "type": "string"
+              },
+              "startVal": {
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "balanceByDate": {
+          "properties": {
+            "series": {
+              "items": {
+                "properties": {
+                  "date": {
+                    "items": {
+                      "items": {
+                        "type": "number"
+                      },
+                      "type": "array"
+                    },
+                    "type": "array"
+                  },
+                  "groupId": {
+                    "type": "string"
+                  },
+                  "id": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
+        },
+        "currency": {
+          "type": "string"
+        },
+        "endDate": {
+          "type": "string"
+        },
+        "excludedAccounts": {
+          "items": {
+            "properties": {
+              "acctId": {
+                "type": "string"
+              },
+              "acctNumAtFI": {
+                "type": "string"
+              },
+              "acctTitle": {
+                "type": "string"
+              },
+              "fiName": {
+                "type": "string"
+              },
+              "harvestCode": {
+                "type": "integer"
+              },
+              "lastUpdate": {
+                "type": "string"
+              },
+              "lastUpdateAttempt": {
+                "type": "string"
+              },
+              "lastUpdateStatusCode": {
+                "type": "string"
+              },
+              "rc": {
+                "type": "integer"
+              }
+            },
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "hasExternalAccounts": {
+          "description": "indicator of user having configured any external accounts",
+          "type": "boolean"
+        },
+        "lastSuccessfulUpdate": {
+          "type": "string"
+        },
+        "pm": {
+          "type": "string"
+        },
+        "rc": {
+          "type": "integer"
+        },
+        "startDate": {
+          "description": "date format-- yyyy-MM-dd",
+          "type": "string"
+        },
+        "total": {
+          "properties": {
+            "chg": {
+              "description": "total change amount",
+              "type": "string"
+            },
+            "endVal": {
+              "type": "string"
+            },
+            "incompleteData": {
+              "description": "set to true if any external account data is not available for starting or ending date, resulting in potentially unusual total values.",
+              "type": "boolean"
+            },
+            "rtn": {
+              "description": "change percent",
+              "type": "string"
+            },
+            "startVal": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "userId": {
+          "type": "string"
+        },
+        "view": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "trade": {
+      "properties": {
+        "account": {
+          "type": "string"
+        },
+        "clearing_id": {
+          "type": "string"
+        },
+        "clearing_name": {
+          "type": "string"
+        },
+        "comission": {
+          "type": "number"
+        },
+        "company_name": {
+          "type": "string"
+        },
+        "conidex": {
+          "type": "string"
+        },
+        "contract_description_1": {
+          "type": "string"
+        },
+        "exchange": {
+          "type": "string"
+        },
+        "execution_id": {
+          "type": "string"
+        },
+        "net_amount": {
+          "type": "number"
+        },
+        "order_description": {
+          "type": "string"
+        },
+        "position": {
+          "type": "string"
+        },
+        "price": {
+          "type": "string"
+        },
+        "sec_type": {
+          "type": "string"
+        },
+        "side": {
+          "type": "string"
+        },
+        "size": {
+          "type": "string"
+        },
+        "submitter": {
+          "type": "string"
+        },
+        "symbol": {
+          "type": "string"
+        },
+        "trade_time": {
+          "type": "string"
+        },
+        "trade_time_r": {
+          "type": "number"
+        }
+      },
+      "type": "object"
+    }
+  },
+  "host": "localhost:5000",
+  "info": {
+    "description": "Production version of the Client Portal Web API",
+    "title": "Client Portal Web API",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/fyi/deliveryoptions": {
+      "get": {
+        "description": "options for sending fyis to email and other devices\n",
+        "responses": {
+          "200": {
+            "description": "An object",
+            "schema": {
+              "properties": {
+                "E": {
+                  "items": {
+                    "description": "device",
+                    "properties": {
+                      "A": {
+                        "description": "device is enabled or not 0-true, 1-false.",
+                        "type": "string"
+                      },
+                      "I": {
+                        "description": "device id",
+                        "type": "string"
+                      },
+                      "NM": {
+                        "description": "device name",
+                        "type": "string"
+                      },
+                      "UI": {
+                        "description": "unique device id",
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "M": {
+                  "description": "Email option is enabled or not 0-off, 1-on.",
+                  "type": "integer"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "summary": "Get delivery options",
+        "tags": [
+          "FYI"
+        ]
+      }
+    },
+    "/fyi/deliveryoptions/device": {
+      "post": {
+        "parameters": [
+          {
+            "description": "device info",
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "properties": {
+                "deviceId": {
+                  "type": "string"
+                },
+                "devicename": {
+                  "type": "string"
+                },
+                "enabled": {
+                  "type": "boolean"
+                },
+                "uiName": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 means successful",
+            "schema": {
+              "properties": {
+                "T": {
+                  "type": "integer"
+                },
+                "V": {
+                  "type": "integer"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "summary": "enable/disable device option",
+        "tags": [
+          "FYI"
+        ]
+      }
+    },
+    "/fyi/deliveryoptions/email": {
+      "put": {
+        "parameters": [
+          {
+            "description": "true/false",
+            "in": "query",
+            "name": "enabled",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 means successful",
+            "schema": {
+              "properties": {
+                "T": {
+                  "type": "integer"
+                },
+                "V": {
+                  "type": "integer"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "summary": "enable/disable email option",
+        "tags": [
+          "FYI"
+        ]
+      }
+    },
+    "/fyi/deliveryoptions/{deviceId}": {
+      "delete": {
+        "parameters": [
+          {
+            "description": "device ID",
+            "in": "path",
+            "name": "deviceId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 means successful",
+            "schema": {
+              "type": "object"
+            }
+          }
+        },
+        "summary": "delete a device",
+        "tags": [
+          "FYI"
+        ]
+      }
+    },
+    "/fyi/disclaimer/{typecode}": {
+      "get": {
+        "parameters": [
+          {
+            "description": "fyi code, for example --M8, EA",
+            "in": "path",
+            "name": "typecode",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "receives the disclaimer message",
+            "schema": {
+              "properties": {
+                "DT": {
+                  "description": "disclaimer message",
+                  "type": "string"
+                },
+                "FC": {
+                  "description": "fyi code",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "summary": "get disclaimer for a certain kind of fyi",
+        "tags": [
+          "FYI"
+        ]
+      },
+      "put": {
+        "parameters": [
+          {
+            "description": "fyi code, for example --M8, EA",
+            "in": "path",
+            "name": "typecode",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 means successful",
+            "schema": {
+              "properties": {
+                "T": {
+                  "type": "integer"
+                },
+                "V": {
+                  "type": "integer"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "summary": "mark disclaimer read",
+        "tags": [
+          "FYI"
+        ]
+      }
+    },
+    "/fyi/notifications": {
+      "get": {
+        "parameters": [
+          {
+            "description": "if set, don't set include",
+            "in": "query",
+            "name": "exclude",
+            "type": "string"
+          },
+          {
+            "description": "if set, don't set exclude",
+            "in": "query",
+            "name": "include",
+            "type": "string"
+          },
+          {
+            "description": "max number of fyis in response",
+            "in": "query",
+            "name": "max",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "An array",
+            "schema": {
+              "$ref": "#/definitions/notifications"
+            }
+          }
+        },
+        "summary": "Get a list of notifications",
+        "tags": [
+          "FYI"
+        ]
+      }
+    },
+    "/fyi/notifications/more": {
+      "get": {
+        "parameters": [
+          {
+            "description": "id of last notification in the list",
+            "in": "query",
+            "name": "id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "An array",
+            "schema": {
+              "$ref": "#/definitions/notifications"
+            }
+          }
+        },
+        "summary": "Get more notifications based on a certain one",
+        "tags": [
+          "FYI"
+        ]
+      }
+    },
+    "/fyi/notifications/{notificationId}": {
+      "put": {
+        "parameters": [
+          {
+            "description": "mark a notification read",
+            "in": "path",
+            "name": "notificationId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "when 200 receives, it means successful",
+            "schema": {
+              "type": "object"
+            }
+          }
+        },
+        "summary": "Get a list of notifications",
+        "tags": [
+          "FYI"
+        ]
+      }
+    },
+    "/fyi/settings": {
+      "get": {
+        "description": "return the current choices of subscriptions, we can toggle the option\n",
+        "responses": {
+          "200": {
+            "description": "An array",
+            "schema": {
+              "items": {
+                "properties": {
+                  "A": {
+                    "description": "optional, if A doesn't exist, it means user can't toggle this option. 0-off, 1-on.",
+                    "type": "integer"
+                  },
+                  "FC": {
+                    "description": "fyi code",
+                    "type": "string"
+                  },
+                  "FD": {
+                    "description": "detailed description",
+                    "type": "string"
+                  },
+                  "FN": {
+                    "description": "title",
+                    "type": "string"
+                  },
+                  "H": {
+                    "description": "disclaimer read, 1 = yes, = 0 no.",
+                    "type": "integer"
+                  }
+                },
+                "type": "object"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "summary": "Get a list of subscriptions",
+        "tags": [
+          "FYI"
+        ]
+      }
+    },
+    "/fyi/settings/{typecode}": {
+      "post": {
+        "parameters": [
+          {
+            "description": "fyi code",
+            "in": "path",
+            "name": "typecode",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "properties": {
+                "enabled": {
+                  "type": "boolean"
+                }
+              },
+              "type": "object"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 means successful",
+            "schema": {
+              "type": "object"
+            }
+          }
+        },
+        "summary": "enable/disable certain subscription",
+        "tags": [
+          "FYI"
+        ]
+      }
+    },
+    "/fyi/unreadnumber": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "An object",
+            "schema": {
+              "properties": {
+                "BN": {
+                  "description": "unread number",
+                  "type": "integer"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "summary": "Get unread number of fyis",
+        "tags": [
+          "FYI"
+        ]
+      }
+    },
+    "/ibcust/entity/info": {
+      "get": {
+        "description": "Returns Applicant Id with all owner related entities",
+        "responses": {
+          "200": {
+            "description": "Search result",
+            "schema": {
+              "items": {
+                "properties": {
+                  "applicantId": {
+                    "type": "number"
+                  },
+                  "entities": {
+                    "items": {
+                      "properties": {
+                        "address": {
+                          "properties": {
+                            "city": {
+                              "type": "string"
+                            },
+                            "compact": {
+                              "type": "string"
+                            },
+                            "country": {
+                              "type": "string"
+                            },
+                            "countryCode": {
+                              "type": "string"
+                            },
+                            "postalCode": {
+                              "type": "string"
+                            },
+                            "state": {
+                              "type": "string"
+                            },
+                            "street": {
+                              "type": "string"
+                            },
+                            "street2": {
+                              "type": "string"
+                            }
+                          },
+                          "type": "object"
+                        },
+                        "canSign": {
+                          "type": "boolean"
+                        },
+                        "canTrade": {
+                          "type": "boolean"
+                        },
+                        "identDocs": {
+                          "items": {
+                            "items": {
+                              "properties": {
+                                "country": {
+                                  "type": "string"
+                                },
+                                "state": {
+                                  "type": "string"
+                                },
+                                "type": {
+                                  "type": "string"
+                                },
+                                "value": {
+                                  "type": "string"
+                                }
+                              },
+                              "type": "object"
+                            },
+                            "type": "object"
+                          },
+                          "type": "array"
+                        },
+                        "name": {
+                          "properties": {
+                            "firstName": {
+                              "type": "string"
+                            },
+                            "lastName": {
+                              "type": "string"
+                            },
+                            "salutation": {
+                              "type": "string"
+                            }
+                          },
+                          "type": "object"
+                        },
+                        "type": {
+                          "type": "string"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "type": "array"
+                  }
+                },
+                "type": "object"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "summary": "IBCust Entity Info",
+        "tags": [
+          "IBCust"
+        ]
+      }
+    },
+    "/iserver/account": {
+      "post": {
+        "description": "If an user has multiple accounts, and user wants to get orders, trades, etc. of an account other than currently selected account, then user can update the currently selected account using this API and then can fetch required information for the newly updated account.",
+        "parameters": [
+          {
+            "description": "account id",
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/set-account"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "an object containing updated account ID",
+            "schema": {
+              "properties": {
+                "acctId": {
+                  "type": "string"
+                },
+                "set": {
+                  "type": "boolean"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "summary": "Updates currently selected account to the provided account",
+        "tags": [
+          "Account"
+        ]
+      }
+    },
+    "/iserver/account/orders": {
+      "get": {
+        "description": "The end-point is meant to be used in polling mode, e.g. requesting every x seconds.\nThe response will contain two objects, one is notification, the other is orders. \nOrders is the list of orders (cancelled, filled, submitted) with activity in the current day. \nNotifications contains information about execute orders as they happen, see status field.\n",
+        "responses": {
+          "200": {
+            "description": "An object contains two arrays",
+            "schema": {
+              "properties": {
+                "notifications": {
+                  "items": {
+                    "description": "contains notifications for different status of orders, the data structure is same to orders",
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "orders": {
+                  "items": {
+                    "$ref": "#/definitions/order"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "summary": "Live Orders",
+        "tags": [
+          "Order"
+        ]
+      }
+    },
+    "/iserver/account/pnl/partitioned": {
+      "get": {
+        "description": "Returns an object containing PnLfor the selected account and its models (if any).",
+        "responses": {
+          "200": {
+            "description": "An object containing account and model(s) pnl",
+            "schema": {
+              "properties": {
+                "acctId": {
+                  "type": "object"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "summary": "PnL for the selected account",
+        "tags": [
+          "PnL",
+          "Account"
+        ]
+      }
+    },
+    "/iserver/account/trades": {
+      "get": {
+        "description": "Returns a list of trades for the currently selected account for current day and six previous days.",
+        "responses": {
+          "200": {
+            "description": "An array of trades",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/trade"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "summary": "List of Trades for the selected account",
+        "tags": [
+          "Trades"
+        ]
+      }
+    },
+    "/iserver/account/{accountId}/order": {
+      "post": {
+        "description": "Please note here, sometimes this end-point alone can't make sure you submit the order successfully,\nyou could receive some questions in the response, you have to to answer them in order to submit the order\nsuccessfully. You can use \"/iserver/reply/{replyid}\" end-point to answer questions\n",
+        "parameters": [
+          {
+            "description": "account id",
+            "in": "path",
+            "name": "accountId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "order request info",
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/order-request"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "returns an array",
+            "schema": {
+              "items": {
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "description": "Please note here, if the message is a question, you have to reply to question in order to submit\nthe order successfully. See more in the \"/iserver/reply/{replyid}\" end-point.\n",
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
+                  }
+                },
+                "type": "object"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "summary": "Place Order",
+        "tags": [
+          "Order"
+        ]
+      }
+    },
+    "/iserver/account/{accountId}/order/whatif": {
+      "post": {
+        "description": "This end-point allows you to preview order without actually submitting the order and you can get\ncommission information in the response.\n",
+        "parameters": [
+          {
+            "description": "account id",
+            "in": "path",
+            "name": "accountId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "order info",
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/order-request"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "returns an object",
+            "schema": {
+              "properties": {
+                "amount": {
+                  "properties": {
+                    "amount": {
+                      "description": "for example 23,000 USD",
+                      "type": "string"
+                    },
+                    "commission": {
+                      "description": "for example 1.1 ... 1.2 USD",
+                      "type": "string"
+                    },
+                    "total": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "equity": {
+                  "properties": {
+                    "after": {
+                      "type": "string"
+                    },
+                    "change": {
+                      "type": "string"
+                    },
+                    "current": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "error": {
+                  "type": "string"
+                },
+                "initial": {
+                  "properties": {
+                    "after": {
+                      "type": "string"
+                    },
+                    "change": {
+                      "type": "string"
+                    },
+                    "current": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "maintenance": {
+                  "properties": {
+                    "after": {
+                      "type": "string"
+                    },
+                    "change": {
+                      "type": "string"
+                    },
+                    "current": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "warn": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "summary": "Preview Order",
+        "tags": [
+          "Order"
+        ]
+      }
+    },
+    "/iserver/account/{accountId}/order/{origCustomerOrderId}": {
+      "delete": {
+        "parameters": [
+          {
+            "description": "account id",
+            "in": "path",
+            "name": "accountId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "Customer OrderId",
+            "in": "path",
+            "name": "origCustomerOrderId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "returns an array",
+            "schema": {
+              "items": {
+                "properties": {
+                  "local_order_id": {
+                    "type": "string"
+                  },
+                  "order_id": {
+                    "type": "string"
+                  },
+                  "order_status": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "summary": "Delete Order",
+        "tags": [
+          "Order"
+        ]
+      },
+      "post": {
+        "description": "Modifies an open order. The /iserver/accounts endpoint must first be called.",
+        "parameters": [
+          {
+            "description": "account id",
+            "in": "path",
+            "name": "accountId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "Customer OrderId",
+            "in": "path",
+            "name": "origCustomerOrderId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "modify-order request",
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/modify-order"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "returns an array",
+            "schema": {
+              "items": {
+                "properties": {
+                  "local_order_id": {
+                    "type": "string"
+                  },
+                  "order_id": {
+                    "type": "string"
+                  },
+                  "order_status": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "summary": "Modify Order",
+        "tags": [
+          "Order"
+        ]
+      }
+    },
+    "/iserver/account/{accountId}/orders": {
+      "post": {
+        "description": "You can pass a list of orders here\n",
+        "parameters": [
+          {
+            "description": "account id",
+            "in": "path",
+            "name": "accountId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "order request info",
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "properties": {
+                "orders": {
+                  "description": "Notes for bracket orders: 1. Children orders will not have its own \"cOID\", so please donot pass \"cOID\"\nparameter in child order.Instead, they will have a \"parentId\" which must be equal to \"cOID\" of parent.\n2. When you cancel a parent order, it will cancel all bracket orders, when you cancel one child order,\nit will also cancel its sibling order.\n",
+                  "items": {
+                    "$ref": "#/definitions/order-request"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "returns an array",
+            "schema": {
+              "items": {
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "description": "Please note here, if the message is a question, you have to reply to question in order to submit\nthe order successfully. See more in the \"/iserver/reply/{replyid}\" end-point.\n",
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
+                  }
+                },
+                "type": "object"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "summary": "Place Orders (Support bracket orders)",
+        "tags": [
+          "Order"
+        ]
+      }
+    },
+    "/iserver/accounts": {
+      "get": {
+        "description": "Returns a list of accounts the user has trading access to, their respective aliases and the currently selected account. Note this endpoint must be called before modifying an order or querying open orders.",
+        "responses": {
+          "200": {
+            "description": "An array of accounts",
+            "schema": {
+              "properties": {
+                "accounts": {
+                  "description": "Unique account id",
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                "aliases": {
+                  "description": "Account Id and its alias",
+                  "type": "object"
+                },
+                "selectedAccount": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "summary": "Brokerage Accounts",
+        "tags": [
+          "Account"
+        ]
+      }
+    },
+    "/iserver/auth/status": {
+      "post": {
+        "description": "Current Authentication status to the Brokerage system. Market Data and Trading is not possible if not authenticated, e.g. authenticated shows false",
+        "responses": {
+          "200": {
+            "description": "Authentication Status",
+            "schema": {
+              "$ref": "#/definitions/authStatus"
+            }
+          }
+        },
+        "summary": "Authentication Status",
+        "tags": [
+          "Session"
+        ]
+      }
+    },
+    "/iserver/contract/{conid}/info": {
+      "get": {
+        "description": "get contract details, you can use this to prefill your order before you submit an order",
+        "parameters": [
+          {
+            "description": "contract id",
+            "in": "path",
+            "name": "conid",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "returns an object",
+            "schema": {
+              "$ref": "#/definitions/contract"
+            }
+          }
+        },
+        "summary": "Contract Info",
+        "tags": [
+          "Contract"
+        ]
+      }
+    },
+    "/iserver/marketdata/history": {
+      "get": {
+        "description": "Get history of market Data for the given conid, length of data is controlled by period and bar. e.g. 1y period with bar =1w returns 52 data points",
+        "parameters": [
+          {
+            "description": "contract id",
+            "in": "query",
+            "name": "conid",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "time period-- 1d,1w,1m,1y",
+            "in": "query",
+            "name": "period",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "possible value-- 5min,1h,1w",
+            "in": "query",
+            "name": "bar",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns an object",
+            "schema": {
+              "$ref": "#/definitions/history-data"
+            }
+          }
+        },
+        "summary": "Market Data History",
+        "tags": [
+          "Market Data"
+        ]
+      }
+    },
+    "/iserver/marketdata/snapshot": {
+      "get": {
+        "description": "Get Market Data for the given conid(s). The end-point will return by default bid, ask, last, change, change pct, close, listing exchange.\nSee response fields for a list of available fields that can be request via fields argument.\nThe endpoint /iserver/accounts should be called prior to /iserver/marketdata/snapshot.\nTo receive all available fields the /snapshot endpoint will need to be called several times.\n",
+        "parameters": [
+          {
+            "description": "list of conids separated by comma",
+            "in": "query",
+            "name": "conids",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "time period since which updates are required. uses epoch time with milliseconds.",
+            "in": "query",
+            "name": "since",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "description": "list of fields separated by comma",
+            "in": "query",
+            "name": "fields",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns an array of objects",
+            "schema": {
+              "items": {
+                "properties": {
+                  "31": {
+                    "description": "Last Price",
+                    "type": "string"
+                  },
+                  "55": {
+                    "description": "Symbol",
+                    "type": "string"
+                  },
+                  "58": {
+                    "description": "Text",
+                    "type": "string"
+                  },
+                  "6004": {
+                    "description": "Exchange",
+                    "type": "string"
+                  },
+                  "6008": {
+                    "description": "Conid",
+                    "type": "string"
+                  },
+                  "6070": {
+                    "description": "Security Type",
+                    "type": "string"
+                  },
+                  "6072": {
+                    "description": "Months",
+                    "type": "string"
+                  },
+                  "6073": {
+                    "description": "Regular Expiry",
+                    "type": "string"
+                  },
+                  "6119": {
+                    "type": "string"
+                  },
+                  "6457": {
+                    "description": "Underlying Conid. Use /trsrv/secdef to get more information about the security",
+                    "type": "string"
+                  },
+                  "6509": {
+                    "description": "Market Data Availability. The field may contain two chars. The first char is the primary code: R = Realtime, D = Delayed,\nZ = Frozen, Y = Frozen Delayed. The second char is the secondary code: P = Snapshot Available, p = Consolidated.\n",
+                    "type": "string"
+                  },
+                  "70": {
+                    "description": "High",
+                    "type": "string"
+                  },
+                  "7051": {
+                    "type": "string"
+                  },
+                  "7094": {
+                    "description": "Conid + Exchange",
+                    "type": "string"
+                  },
+                  "71": {
+                    "description": "Low",
+                    "type": "string"
+                  },
+                  "72": {
+                    "description": "Position",
+                    "type": "string"
+                  },
+                  "7219": {
+                    "description": "Contract Description",
+                    "type": "string"
+                  },
+                  "7220": {
+                    "description": "Contract Description",
+                    "type": "string"
+                  },
+                  "7221": {
+                    "description": "Listing Exchange",
+                    "type": "string"
+                  },
+                  "7280": {
+                    "description": "Industry",
+                    "type": "string"
+                  },
+                  "7281": {
+                    "description": "Category",
+                    "type": "string"
+                  },
+                  "7282": {
+                    "description": "Average Daily Volume",
+                    "type": "string"
+                  },
+                  "7284": {
+                    "description": "Historic Volume (30d)",
+                    "type": "string"
+                  },
+                  "7285": {
+                    "description": "Put/Call Ratio",
+                    "type": "string"
+                  },
+                  "7286": {
+                    "description": "Dividend Amount",
+                    "type": "string"
+                  },
+                  "7287": {
+                    "description": "Dividend Yield %",
+                    "type": "string"
+                  },
+                  "7288": {
+                    "description": "Ex-date of the dividend",
+                    "type": "string"
+                  },
+                  "7289": {
+                    "description": "Market Cap",
+                    "type": "string"
+                  },
+                  "7290": {
+                    "description": "P/E",
+                    "type": "string"
+                  },
+                  "7291": {
+                    "description": "EPS",
+                    "type": "string"
+                  },
+                  "7292": {
+                    "description": "Cost Basis",
+                    "type": "string"
+                  },
+                  "7293": {
+                    "description": "52 Week High",
+                    "type": "string"
+                  },
+                  "7294": {
+                    "description": "52 Week Low",
+                    "type": "string"
+                  },
+                  "7295": {
+                    "description": "Open Price",
+                    "type": "string"
+                  },
+                  "7296": {
+                    "description": "Close Price",
+                    "type": "string"
+                  },
+                  "73": {
+                    "description": "Market Value",
+                    "type": "string"
+                  },
+                  "74": {
+                    "description": "Average Price",
+                    "type": "string"
+                  },
+                  "75": {
+                    "description": "Unrealized PnL",
+                    "type": "string"
+                  },
+                  "76": {
+                    "type": "string"
+                  },
+                  "7633": {
+                    "description": "Implied volatility of the option",
+                    "type": "string"
+                  },
+                  "77": {
+                    "type": "string"
+                  },
+                  "78": {
+                    "type": "string"
+                  },
+                  "82": {
+                    "description": "Change Price",
+                    "type": "string"
+                  },
+                  "83": {
+                    "description": "Change Percent",
+                    "type": "string"
+                  },
+                  "84": {
+                    "description": "Bid Price",
+                    "type": "string"
+                  },
+                  "85": {
+                    "description": "Ask Size",
+                    "type": "string"
+                  },
+                  "86": {
+                    "description": "Ask Price",
+                    "type": "string"
+                  },
+                  "87": {
+                    "description": "Volume",
+                    "type": "string"
+                  },
+                  "88": {
+                    "description": "Bid Size",
+                    "type": "string"
+                  },
+                  "_updated": {
+                    "type": "integer"
+                  },
+                  "conid": {
+                    "type": "integer"
+                  },
+                  "server_id": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              },
+              "type": "array"
+            }
+          },
+          "400": {
+            "description": "sent when accounts are not queried before sending this request",
+            "schema": {
+              "properties": {
+                "error": {
+                  "type": "string"
+                },
+                "statusCode": {
+                  "type": "integer"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "summary": "Market Data",
+        "tags": [
+          "Market Data"
+        ]
+      }
+    },
+    "/iserver/reauthenticate": {
+      "post": {
+        "description": "Provides a way to reauthenticate to the Brokerage system as long as there is a valid SSO session, see /sso/validate.",
+        "responses": {
+          "200": {
+            "description": "Authentication Status",
+            "schema": {
+              "$ref": "#/definitions/authStatus"
+            }
+          }
+        },
+        "summary": "Tries to re-authenticate to Brokerage",
+        "tags": [
+          "Session"
+        ]
+      }
+    },
+    "/iserver/reply/{replyid}": {
+      "post": {
+        "description": "Reply to questions when placing orders and submit orders",
+        "parameters": [
+          {
+            "description": "Please use the \"id\" from the response of \"Place Order\" end-point",
+            "in": "path",
+            "name": "replyid",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "Answer to question",
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "properties": {
+                "confirmed": {
+                  "description": "answer to question, true means yes, false means no",
+                  "type": "boolean"
+                }
+              },
+              "type": "object"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Order is submitted successfully, returns an array contains one object",
+            "schema": {
+              "items": {
+                "properties": {
+                  "local_order_id": {
+                    "type": "string"
+                  },
+                  "order_id": {
+                    "type": "string"
+                  },
+                  "order_status": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              },
+              "type": "array"
+            }
+          },
+          "400": {
+            "description": "When you send \"confirmed-false\" in the request, you will receive this",
+            "schema": {
+              "properties": {
+                "error": {
+                  "description": "for example-order not confirmed",
+                  "type": "string"
+                },
+                "statusCode": {
+                  "type": "integer"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "summary": "Place Order Reply",
+        "tags": [
+          "Order"
+        ]
+      }
+    },
+    "/iserver/scanner/params": {
+      "get": {
+        "description": "Returns an object contains four lists contain all parameters for scanners",
+        "responses": {
+          "200": {
+            "description": "An object contains lists",
+            "schema": {
+              "properties": {
+                "filter_list": {
+                  "items": {
+                    "properties": {
+                      "code": {
+                        "type": "string"
+                      },
+                      "display_name": {
+                        "type": "string"
+                      },
+                      "group": {
+                        "type": "string"
+                      },
+                      "type": {
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "instrument_list": {
+                  "items": {
+                    "properties": {
+                      "display_name": {
+                        "type": "string"
+                      },
+                      "filters": {
+                        "items": {
+                          "description": "code of filter",
+                          "type": "string"
+                        },
+                        "type": "array"
+                      },
+                      "type": {
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "location_tree": {
+                  "items": {
+                    "properties": {
+                      "display_name": {
+                        "type": "string"
+                      },
+                      "locations": {
+                        "items": {
+                          "properties": {
+                            "display_name": {
+                              "type": "string"
+                            },
+                            "type": {
+                              "type": "string"
+                            }
+                          },
+                          "type": "object"
+                        },
+                        "type": "array"
+                      },
+                      "type": {
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "scan_type_list": {
+                  "items": {
+                    "properties": {
+                      "code": {
+                        "type": "string"
+                      },
+                      "display_name": {
+                        "type": "string"
+                      },
+                      "instruments": {
+                        "items": {
+                          "description": "type of instrument",
+                          "type": "string"
+                        },
+                        "type": "array"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "summary": "get lists of available scanners",
+        "tags": [
+          "Scanner"
+        ]
+      }
+    },
+    "/iserver/scanner/run": {
+      "post": {
+        "parameters": [
+          {
+            "description": "modify-order request",
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/scanner-params"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "returns an array",
+            "schema": {
+              "items": {
+                "properties": {
+                  "available_chart_periods": {
+                    "type": "string"
+                  },
+                  "column_name": {
+                    "type": "string"
+                  },
+                  "company_name": {
+                    "type": "string"
+                  },
+                  "con_id": {
+                    "type": "number"
+                  },
+                  "conidex": {
+                    "type": "string"
+                  },
+                  "contract_description_1": {
+                    "type": "string"
+                  },
+                  "listing_exchange": {
+                    "type": "string"
+                  },
+                  "sec_type": {
+                    "type": "string"
+                  },
+                  "server_id": {
+                    "type": "string"
+                  },
+                  "symbol": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "summary": "run scanner to get a list of contracts",
+        "tags": [
+          "Scanner"
+        ]
+      }
+    },
+    "/iserver/secdef/search": {
+      "post": {
+        "parameters": [
+          {
+            "description": "symbol or name to be searched",
+            "in": "body",
+            "name": "symbol",
+            "required": true,
+            "schema": {
+              "properties": {
+                "name": {
+                  "description": "should be true if the search is to be performed by name. false by default.",
+                  "type": "boolean"
+                },
+                "secType": {
+                  "description": "If search is done by name, only the assets provided in this field will be returned. Currently, only STK is supported.",
+                  "type": "string"
+                },
+                "symbol": {
+                  "description": "symbol or name to be searched",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "symbol"
+              ],
+              "type": "object"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "returns an array of results",
+            "schema": {
+              "items": {
+                "properties": {
+                  "companyHeader": {
+                    "type": "string"
+                  },
+                  "companyName": {
+                    "type": "string"
+                  },
+                  "conid": {
+                    "type": "integer"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "opt": {
+                    "type": "string"
+                  },
+                  "sections": {
+                    "items": {
+                      "type": "object"
+                    },
+                    "type": "array"
+                  },
+                  "symbol": {
+                    "type": "string"
+                  },
+                  "war": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              },
+              "type": "array"
+            }
+          },
+          "500": {
+            "description": "error while processing the request",
+            "schema": {
+              "properties": {
+                "error": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "summary": "Search by symbol or name",
+        "tags": [
+          "Contract"
+        ]
+      }
+    },
+    "/logout": {
+      "post": {
+        "description": "Logs the user out of the gateway session. Any further activity requires re-authentication.",
+        "responses": {
+          "200": {
+            "description": "returned status indicates if user is logged in",
+            "schema": {
+              "properties": {
+                "confirmed": {
+                  "description": "true means username is still logged in, false means it is not",
+                  "type": "boolean"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "summary": "Ends the current session",
+        "tags": [
+          "Session"
+        ]
+      }
+    },
+    "/pa/performance": {
+      "post": {
+        "description": "Returns the performance (MTM) for the given accounts, if more than one account is passed, the result is consolidated.",
+        "parameters": [
+          {
+            "description": "an array of account ids",
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "properties": {
+                "acctIds": {
+                  "items": {
+                    "description": "account id",
+                    "type": "string"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "returns an object",
+            "schema": {
+              "$ref": "#/definitions/performance"
+            }
+          }
+        },
+        "summary": "Account Performance",
+        "tags": [
+          "PortfolioAnalyst"
+        ]
+      }
+    },
+    "/pa/summary": {
+      "post": {
+        "description": "Returns a summary of all account balances for the given accounts, if more than one account is passed, the result is consolidated.",
+        "parameters": [
+          {
+            "description": "an array of account ids",
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "properties": {
+                "acctIds": {
+                  "items": {
+                    "description": "account id",
+                    "type": "string"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "returns an object",
+            "schema": {
+              "$ref": "#/definitions/summary"
+            }
+          }
+        },
+        "summary": "Account Balance's Summary",
+        "tags": [
+          "PortfolioAnalyst"
+        ]
+      }
+    },
+    "/portfolio/accounts": {
+      "get": {
+        "description": "In non-tiered account structures, returns a list of accounts for which the user can view position and account information. This endpoint must be called prior  to calling other /portfolio endpoints for those accounts. For querying a list of accounts  which the user can trade, see /iserver/accounts. For a list of subaccounts in tiered  account structures (e.g. financial advisor or ibroker accounts) see /portfolio/subaccounts.",
+        "responses": {
+          "200": {
+            "description": "An array",
+            "schema": {
+              "$ref": "#/definitions/accounts"
+            }
+          }
+        },
+        "summary": "Portfolio Accounts",
+        "tags": [
+          "Account",
+          "Portfolio"
+        ]
+      }
+    },
+    "/portfolio/allocation": {
+      "post": {
+        "description": "Similar to /portfolio/{accountId}/allocation but returns a consolidated view of of all the accounts returned by /portfolio/accounts. /portfolio/accounts or /portfolio/subaccounts must be called prior to this endpoint.",
+        "parameters": [
+          {
+            "description": "accounts info",
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "properties": {
+                "acctIds": {
+                  "items": {
+                    "description": "account id",
+                    "type": "string"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "returns an object of three different allocations",
+            "schema": {
+              "$ref": "#/definitions/allocation"
+            }
+          }
+        },
+        "summary": "Account Alloction (All Accounts)",
+        "tags": [
+          "Portfolio"
+        ]
+      }
+    },
+    "/portfolio/positions/{conid}": {
+      "get": {
+        "description": "Returns an object of all positions matching the conid for all the selected accounts. For portfolio models the conid could be in more than one model, returning an array with the name of the model it belongs to. /portfolio/accounts or /portfolio/subaccounts must be called prior to this endpoint.",
+        "parameters": [
+          {
+            "description": "contract id",
+            "in": "path",
+            "name": "conid",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "returns an object containing account and its position information",
+            "schema": {
+              "properties": {
+                "ACCTID": {
+                  "$ref": "#/definitions/position"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "summary": "Positions by Conid",
+        "tags": [
+          "Portfolio"
+        ]
+      }
+    },
+    "/portfolio/subaccounts": {
+      "get": {
+        "description": "Used in tiered account structures (such as financial advisor and ibroker accounts)  to return a list of sub-accounts for which the user can view position and  account-related information. This endpoint must be called prior to calling other  /portfolio endpoints for those subaccounts.  To query a list of accounts the user can trade, see /iserver/accounts.",
+        "responses": {
+          "200": {
+            "description": "An array",
+            "schema": {
+              "$ref": "#/definitions/account"
+            }
+          }
+        },
+        "summary": "List of Sub-Accounts",
+        "tags": [
+          "Account",
+          "Portfolio"
+        ]
+      }
+    },
+    "/portfolio/{accountId}/allocation": {
+      "get": {
+        "description": "Information about the account's portfolio allocation by Asset Class, Industry and Category.  /portfolio/accounts or /portfolio/subaccounts must be called prior to this endpoint.",
+        "parameters": [
+          {
+            "description": "account id",
+            "in": "path",
+            "name": "accountId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "returns an object of three different allocations",
+            "schema": {
+              "$ref": "#/definitions/allocation"
+            }
+          }
+        },
+        "summary": "Account Allocation",
+        "tags": [
+          "Portfolio"
+        ]
+      }
+    },
+    "/portfolio/{accountId}/ledger": {
+      "get": {
+        "description": "Information regarding settled cash, cash balances, etc. in the account's base currency and any other cash balances hold in other currencies.  /portfolio/accounts or /portfolio/subaccounts must be called prior to this endpoint. The list of supported currencies is available at https://www.interactivebrokers.com/en/index.php?f=3185.",
+        "parameters": [
+          {
+            "description": "account id",
+            "in": "path",
+            "name": "accountId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 means successful",
+            "schema": {
+              "properties": {
+                "BASE": {
+                  "$ref": "#/definitions/ledger"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "summary": "Account Ledger",
+        "tags": [
+          "Account",
+          "Portfolio"
+        ]
+      }
+    },
+    "/portfolio/{accountId}/meta": {
+      "get": {
+        "description": "Account information related to account Id /portfolio/accounts or /portfolio/subaccounts must be called prior to this endpoint.",
+        "parameters": [
+          {
+            "description": "account id",
+            "in": "path",
+            "name": "accountId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "An object",
+            "schema": {
+              "$ref": "#/definitions/accounts"
+            }
+          }
+        },
+        "summary": "Account Information",
+        "tags": [
+          "Account",
+          "Portfolio"
+        ]
+      }
+    },
+    "/portfolio/{accountId}/position/{conid}": {
+      "get": {
+        "description": "Returns a list of all positions matching the conid. For portfolio models the conid could be in more than one model, returning an array with the name of the model it belongs to.  /portfolio/accounts or /portfolio/subaccounts must be called prior to this endpoint.",
+        "parameters": [
+          {
+            "description": "account id",
+            "in": "path",
+            "name": "accountId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "contract id",
+            "in": "path",
+            "name": "conid",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "returns a list containing only one position for the conid",
+            "schema": {
+              "$ref": "#/definitions/position"
+            }
+          }
+        },
+        "summary": "Position by Conid",
+        "tags": [
+          "Portfolio"
+        ]
+      }
+    },
+    "/portfolio/{accountId}/positions/invalidate": {
+      "post": {
+        "parameters": [
+          {
+            "description": "account id",
+            "in": "path",
+            "name": "accountId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 means successful",
+            "schema": {
+              "type": "object"
+            }
+          }
+        },
+        "summary": "Invalidates the backend cache of the Portfolio",
+        "tags": [
+          "Portfolio"
+        ]
+      }
+    },
+    "/portfolio/{accountId}/positions/{pageId}": {
+      "get": {
+        "description": "Returns a list of positions for the given account. The endpoint supports paging, page's default size is 30 positions. /portfolio/accounts or /portfolio/subaccounts must be called prior to this endpoint.",
+        "parameters": [
+          {
+            "description": "account id",
+            "in": "path",
+            "name": "accountId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "default": "0",
+            "description": "page id",
+            "in": "path",
+            "name": "pageId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "optional",
+            "in": "query",
+            "name": "model",
+            "type": "string"
+          },
+          {
+            "description": "declare the table to be sorted by which column",
+            "in": "query",
+            "name": "sort",
+            "type": "string"
+          },
+          {
+            "description": "in which order, a means ascending - d means descending",
+            "in": "query",
+            "name": "direction",
+            "type": "string"
+          },
+          {
+            "description": "period for pnl column, can be 1D, 7D, 1M...",
+            "in": "query",
+            "name": "period",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "returns a list of positions in the portfolio",
+            "schema": {
+              "$ref": "#/definitions/position"
+            }
+          }
+        },
+        "summary": "Portfolio Positions",
+        "tags": [
+          "Portfolio"
+        ]
+      }
+    },
+    "/portfolio/{accountId}/summary": {
+      "get": {
+        "description": "Returns information about margin, cash balances and other information related to specified account. See also /portfolio/{accountId}/ledger. /portfolio/accounts or /portfolio/subaccounts must be called prior to this endpoint.",
+        "parameters": [
+          {
+            "description": "account id",
+            "in": "path",
+            "name": "accountId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "returns an object containing account summary. The object contains multiple properties. A property is sufficed with -c if its provides commodity value, -s if it provides security value and -c if its UKL segment value",
+            "schema": {
+              "properties": {
+                "accountready": {
+                  "$ref": "#/definitions/summary"
+                },
+                "accounttype": {
+                  "$ref": "#/definitions/summary"
+                },
+                "accruedcash": {
+                  "$ref": "#/definitions/summary"
+                },
+                "accruedcash-c": {
+                  "$ref": "#/definitions/summary"
+                },
+                "accruedcash-f": {
+                  "$ref": "#/definitions/summary"
+                },
+                "accruedcash-s": {
+                  "$ref": "#/definitions/summary"
+                },
+                "accrueddividend": {
+                  "$ref": "#/definitions/summary"
+                },
+                "accrueddividend-c": {
+                  "$ref": "#/definitions/summary"
+                },
+                "accrueddividend-f": {
+                  "$ref": "#/definitions/summary"
+                },
+                "accrueddividend-s": {
+                  "$ref": "#/definitions/summary"
+                },
+                "availablefunds": {
+                  "$ref": "#/definitions/summary"
+                },
+                "availablefunds-c": {
+                  "$ref": "#/definitions/summary"
+                },
+                "availablefunds-f": {
+                  "$ref": "#/definitions/summary"
+                },
+                "availablefunds-s": {
+                  "$ref": "#/definitions/summary"
+                },
+                "billable": {
+                  "$ref": "#/definitions/summary"
+                },
+                "billable-c": {
+                  "$ref": "#/definitions/summary"
+                },
+                "billable-f": {
+                  "$ref": "#/definitions/summary"
+                },
+                "billable-s": {
+                  "$ref": "#/definitions/summary"
+                },
+                "buyingpower": {
+                  "$ref": "#/definitions/summary"
+                },
+                "cushion": {
+                  "$ref": "#/definitions/summary"
+                },
+                "daytradesremaining": {
+                  "$ref": "#/definitions/summary"
+                },
+                "daytradesremainingt+1": {
+                  "$ref": "#/definitions/summary"
+                },
+                "daytradesremainingt+2": {
+                  "$ref": "#/definitions/summary"
+                },
+                "daytradesremainingt+3": {
+                  "$ref": "#/definitions/summary"
+                },
+                "daytradesremainingt+4": {
+                  "$ref": "#/definitions/summary"
+                },
+                "equitywithloanvalue": {
+                  "$ref": "#/definitions/summary"
+                },
+                "equitywithloanvalue-c": {
+                  "$ref": "#/definitions/summary"
+                },
+                "equitywithloanvalue-f": {
+                  "$ref": "#/definitions/summary"
+                },
+                "equitywithloanvalue-s": {
+                  "$ref": "#/definitions/summary"
+                },
+                "excessliquidity": {
+                  "$ref": "#/definitions/summary"
+                },
+                "excessliquidity-c": {
+                  "$ref": "#/definitions/summary"
+                },
+                "excessliquidity-f": {
+                  "$ref": "#/definitions/summary"
+                },
+                "excessliquidity-s": {
+                  "$ref": "#/definitions/summary"
+                },
+                "fullavailablefunds": {
+                  "$ref": "#/definitions/summary"
+                },
+                "fullavailablefunds-c": {
+                  "$ref": "#/definitions/summary"
+                },
+                "fullavailablefunds-f": {
+                  "$ref": "#/definitions/summary"
+                },
+                "fullavailablefunds-s": {
+                  "$ref": "#/definitions/summary"
+                },
+                "fullexcessliquidity": {
+                  "$ref": "#/definitions/summary"
+                },
+                "fullexcessliquidity-c": {
+                  "$ref": "#/definitions/summary"
+                },
+                "fullexcessliquidity-f": {
+                  "$ref": "#/definitions/summary"
+                },
+                "fullexcessliquidity-s": {
+                  "$ref": "#/definitions/summary"
+                },
+                "fullinitmarginreq": {
+                  "$ref": "#/definitions/summary"
+                },
+                "fullinitmarginreq-c": {
+                  "$ref": "#/definitions/summary"
+                },
+                "fullinitmarginreq-f": {
+                  "$ref": "#/definitions/summary"
+                },
+                "fullinitmarginreq-s": {
+                  "$ref": "#/definitions/summary"
+                },
+                "fullmaintmarginreq": {
+                  "$ref": "#/definitions/summary"
+                },
+                "fullmaintmarginreq-c": {
+                  "$ref": "#/definitions/summary"
+                },
+                "fullmaintmarginreq-f": {
+                  "$ref": "#/definitions/summary"
+                },
+                "fullmaintmarginreq-s": {
+                  "$ref": "#/definitions/summary"
+                },
+                "grosspositionvalue": {
+                  "$ref": "#/definitions/summary"
+                },
+                "grosspositionvalue-c": {
+                  "$ref": "#/definitions/summary"
+                },
+                "grosspositionvalue-f": {
+                  "$ref": "#/definitions/summary"
+                },
+                "grosspositionvalue-s": {
+                  "$ref": "#/definitions/summary"
+                },
+                "guarantee": {
+                  "$ref": "#/definitions/summary"
+                },
+                "guarantee-c": {
+                  "$ref": "#/definitions/summary"
+                },
+                "guarantee-f": {
+                  "$ref": "#/definitions/summary"
+                },
+                "guarantee-s": {
+                  "$ref": "#/definitions/summary"
+                },
+                "highestseverity": {
+                  "$ref": "#/definitions/summary"
+                },
+                "highestseverity-c": {
+                  "$ref": "#/definitions/summary"
+                },
+                "highestseverity-f": {
+                  "$ref": "#/definitions/summary"
+                },
+                "highestseverity-s": {
+                  "$ref": "#/definitions/summary"
+                },
+                "indianstockhaircut": {
+                  "$ref": "#/definitions/summary"
+                },
+                "indianstockhaircut-c": {
+                  "$ref": "#/definitions/summary"
+                },
+                "indianstockhaircut-f": {
+                  "$ref": "#/definitions/summary"
+                },
+                "indianstockhaircut-s": {
+                  "$ref": "#/definitions/summary"
+                },
+                "initmarginreq": {
+                  "$ref": "#/definitions/summary"
+                },
+                "initmarginreq-c": {
+                  "$ref": "#/definitions/summary"
+                },
+                "initmarginreq-f": {
+                  "$ref": "#/definitions/summary"
+                },
+                "initmarginreq-s": {
+                  "$ref": "#/definitions/summary"
+                },
+                "leverage": {
+                  "$ref": "#/definitions/summary"
+                },
+                "leverage-c": {
+                  "$ref": "#/definitions/summary"
+                },
+                "leverage-f": {
+                  "$ref": "#/definitions/summary"
+                },
+                "leverage-s": {
+                  "$ref": "#/definitions/summary"
+                },
+                "lookaheadavailablefunds": {
+                  "$ref": "#/definitions/summary"
+                },
+                "lookaheadavailablefunds-c": {
+                  "$ref": "#/definitions/summary"
+                },
+                "lookaheadavailablefunds-f": {
+                  "$ref": "#/definitions/summary"
+                },
+                "lookaheadavailablefunds-s": {
+                  "$ref": "#/definitions/summary"
+                },
+                "lookaheadexcessliquidity": {
+                  "$ref": "#/definitions/summary"
+                },
+                "lookaheadexcessliquidity-c": {
+                  "$ref": "#/definitions/summary"
+                },
+                "lookaheadexcessliquidity-f": {
+                  "$ref": "#/definitions/summary"
+                },
+                "lookaheadexcessliquidity-s": {
+                  "$ref": "#/definitions/summary"
+                },
+                "lookaheadinitmarginreq": {
+                  "$ref": "#/definitions/summary"
+                },
+                "lookaheadinitmarginreq-c": {
+                  "$ref": "#/definitions/summary"
+                },
+                "lookaheadinitmarginreq-f": {
+                  "$ref": "#/definitions/summary"
+                },
+                "lookaheadinitmarginreq-s": {
+                  "$ref": "#/definitions/summary"
+                },
+                "lookaheadmaintmarginreq": {
+                  "$ref": "#/definitions/summary"
+                },
+                "lookaheadmaintmarginreq-c": {
+                  "$ref": "#/definitions/summary"
+                },
+                "lookaheadmaintmarginreq-f": {
+                  "$ref": "#/definitions/summary"
+                },
+                "lookaheadmaintmarginreq-s": {
+                  "$ref": "#/definitions/summary"
+                },
+                "lookaheadnextchange": {
+                  "$ref": "#/definitions/summary"
+                },
+                "maintmarginreq": {
+                  "$ref": "#/definitions/summary"
+                },
+                "maintmarginreq-c": {
+                  "$ref": "#/definitions/summary"
+                },
+                "maintmarginreq-f": {
+                  "$ref": "#/definitions/summary"
+                },
+                "maintmarginreq-s": {
+                  "$ref": "#/definitions/summary"
+                },
+                "netliquidation": {
+                  "$ref": "#/definitions/summary"
+                },
+                "netliquidation-c": {
+                  "$ref": "#/definitions/summary"
+                },
+                "netliquidation-f": {
+                  "$ref": "#/definitions/summary"
+                },
+                "netliquidation-s": {
+                  "$ref": "#/definitions/summary"
+                },
+                "netliquidationuncertainty": {
+                  "$ref": "#/definitions/summary"
+                },
+                "nlvandmargininreview": {
+                  "$ref": "#/definitions/summary"
+                },
+                "pasharesvalue": {
+                  "$ref": "#/definitions/summary"
+                },
+                "pasharesvalue-c": {
+                  "$ref": "#/definitions/summary"
+                },
+                "pasharesvalue-f": {
+                  "$ref": "#/definitions/summary"
+                },
+                "pasharesvalue-s": {
+                  "$ref": "#/definitions/summary"
+                },
+                "postexpirationexcess": {
+                  "$ref": "#/definitions/summary"
+                },
+                "postexpirationexcess-c": {
+                  "$ref": "#/definitions/summary"
+                },
+                "postexpirationexcess-f": {
+                  "$ref": "#/definitions/summary"
+                },
+                "postexpirationexcess-s": {
+                  "$ref": "#/definitions/summary"
+                },
+                "postexpirationmargin": {
+                  "$ref": "#/definitions/summary"
+                },
+                "postexpirationmargin-c": {
+                  "$ref": "#/definitions/summary"
+                },
+                "postexpirationmargin-f": {
+                  "$ref": "#/definitions/summary"
+                },
+                "postexpirationmargin-s": {
+                  "$ref": "#/definitions/summary"
+                },
+                "previousdayequitywithloanvalue": {
+                  "$ref": "#/definitions/summary"
+                },
+                "previousdayequitywithloanvalue-c": {
+                  "$ref": "#/definitions/summary"
+                },
+                "previousdayequitywithloanvalue-f": {
+                  "$ref": "#/definitions/summary"
+                },
+                "previousdayequitywithloanvalue-s": {
+                  "$ref": "#/definitions/summary"
+                },
+                "segmenttitle-c": {
+                  "$ref": "#/definitions/summary"
+                },
+                "segmenttitle-f": {
+                  "$ref": "#/definitions/summary"
+                },
+                "segmenttitle-s": {
+                  "$ref": "#/definitions/summary"
+                },
+                "totalcashvalue": {
+                  "$ref": "#/definitions/summary"
+                },
+                "totalcashvalue-c": {
+                  "$ref": "#/definitions/summary"
+                },
+                "totalcashvalue-f": {
+                  "$ref": "#/definitions/summary"
+                },
+                "totalcashvalue-s": {
+                  "$ref": "#/definitions/summary"
+                },
+                "totaldebitcardpendingcharges": {
+                  "$ref": "#/definitions/summary"
+                },
+                "totaldebitcardpendingcharges-c": {
+                  "$ref": "#/definitions/summary"
+                },
+                "totaldebitcardpendingcharges-f": {
+                  "$ref": "#/definitions/summary"
+                },
+                "totaldebitcardpendingcharges-s": {
+                  "$ref": "#/definitions/summary"
+                },
+                "tradingtype-f": {
+                  "$ref": "#/definitions/summary"
+                },
+                "tradingtype-s": {
+                  "$ref": "#/definitions/summary"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "summary": "Account Summary",
+        "tags": [
+          "Account",
+          "Portfolio"
+        ]
+      }
+    },
+    "/sso/validate": {
+      "get": {
+        "description": "Validates the current session for the SSO user",
+        "responses": {
+          "200": {
+            "description": "An Object",
+            "schema": {
+              "properties": {
+                "AUTH_TIME": {
+                  "description": "Time of session validation",
+                  "type": "number"
+                },
+                "LOGIN_TYPE": {
+                  "description": "1 for Live, 2 for Paper",
+                  "type": "number"
+                },
+                "RESULT": {
+                  "description": "true if session was validated; false if not.",
+                  "type": "boolean"
+                },
+                "USER_ID": {
+                  "description": "User ID",
+                  "type": "number"
+                },
+                "USER_NAME": {
+                  "description": "Username",
+                  "type": "string"
+                },
+                "expire": {
+                  "description": "Time in milliseconds until session expires. Caller needs to call the again to re-validate session",
+                  "type": "number"
+                }
+              },
+              "type": "Object"
+            }
+          },
+          "401": {
+            "description": "Authentication failed"
+          },
+          "500": {
+            "description": "System failed"
+          }
+        },
+        "summary": "Validate SSO",
+        "tags": [
+          "Session"
+        ]
+      }
+    },
+    "/tickle": {
+      "post": {
+        "description": "If the gateway has not received any requests for several minutes an open session will automatically timeout. The tickle endpoint pings the server to prevent the session from ending.",
+        "responses": {
+          "200": {
+            "description": "confirms session is open"
+          }
+        },
+        "summary": "Ping the server to keep the session open",
+        "tags": [
+          "Session"
+        ]
+      }
+    },
+    "/trsrv/futures": {
+      "get": {
+        "description": "Returns a list of non-expired future contracts for given symbol(s)",
+        "parameters": [
+          {
+            "description": "list of case-sensitive symbols separated by comma",
+            "in": "query",
+            "name": "symbols",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "returns an object with symbol and and array of its future contracts",
+            "schema": {
+              "properties": {
+                "symbol": {
+                  "$ref": "#/definitions/futures"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "500": {
+            "description": "error while processing the request",
+            "schema": {
+              "properties": {
+                "error": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "summary": "Security Futures by Symbol",
+        "tags": [
+          "Contract"
+        ]
+      }
+    },
+    "/trsrv/secdef": {
+      "post": {
+        "description": "Returns a list of security definitions for the given conids",
+        "parameters": [
+          {
+            "description": "request body",
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "properties": {
+                "conids": {
+                  "items": {
+                    "description": "contract id",
+                    "type": "integer"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "returns an array of secdef info",
+            "schema": {
+              "$ref": "#/definitions/secdef"
+            }
+          }
+        },
+        "summary": "Secdef by Conid",
+        "tags": [
+          "Contract"
+        ]
+      }
+    }
+  },
+  "produces": [
+    "application/json"
+  ],
+  "schemes": [
+    "https"
+  ],
+  "swagger": "2.0"
+}
