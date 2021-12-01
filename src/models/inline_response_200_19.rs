@@ -1,7 +1,7 @@
 /* 
  * Client Portal Web API
  *
- * Production version of the Client Portal Web API
+ * Client Poral Web API
  *
  * OpenAPI spec version: 1.0.0
  * 
@@ -14,32 +14,72 @@ use serde_json::Value;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct InlineResponse20019 {
-  #[serde(rename = "BASE")]
-  BASE: Option<::models::Ledger>
+  #[serde(rename = "local_order_id")]
+  local_order_id: Option<String>,
+  #[serde(rename = "order_id")]
+  order_id: Option<String>,
+  #[serde(rename = "order_status")]
+  order_status: Option<String>
 }
 
 impl InlineResponse20019 {
   pub fn new() -> InlineResponse20019 {
     InlineResponse20019 {
-      BASE: None
+      local_order_id: None,
+      order_id: None,
+      order_status: None
     }
   }
 
-  pub fn set_BASE(&mut self, BASE: ::models::Ledger) {
-    self.BASE = Some(BASE);
+  pub fn set_local_order_id(&mut self, local_order_id: String) {
+    self.local_order_id = Some(local_order_id);
   }
 
-  pub fn with_BASE(mut self, BASE: ::models::Ledger) -> InlineResponse20019 {
-    self.BASE = Some(BASE);
+  pub fn with_local_order_id(mut self, local_order_id: String) -> InlineResponse20019 {
+    self.local_order_id = Some(local_order_id);
     self
   }
 
-  pub fn BASE(&self) -> Option<&::models::Ledger> {
-    self.BASE.as_ref()
+  pub fn local_order_id(&self) -> Option<&String> {
+    self.local_order_id.as_ref()
   }
 
-  pub fn reset_BASE(&mut self) {
-    self.BASE = None;
+  pub fn reset_local_order_id(&mut self) {
+    self.local_order_id = None;
+  }
+
+  pub fn set_order_id(&mut self, order_id: String) {
+    self.order_id = Some(order_id);
+  }
+
+  pub fn with_order_id(mut self, order_id: String) -> InlineResponse20019 {
+    self.order_id = Some(order_id);
+    self
+  }
+
+  pub fn order_id(&self) -> Option<&String> {
+    self.order_id.as_ref()
+  }
+
+  pub fn reset_order_id(&mut self) {
+    self.order_id = None;
+  }
+
+  pub fn set_order_status(&mut self, order_status: String) {
+    self.order_status = Some(order_status);
+  }
+
+  pub fn with_order_status(mut self, order_status: String) -> InlineResponse20019 {
+    self.order_status = Some(order_status);
+    self
+  }
+
+  pub fn order_status(&self) -> Option<&String> {
+    self.order_status.as_ref()
+  }
+
+  pub fn reset_order_status(&mut self) {
+    self.order_status = None;
   }
 
 }

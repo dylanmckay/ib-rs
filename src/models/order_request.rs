@@ -1,7 +1,7 @@
 /* 
  * Client Portal Web API
  *
- * Production version of the Client Portal Web API
+ * Client Poral Web API
  *
  * OpenAPI spec version: 1.0.0
  * 
@@ -17,46 +17,67 @@ pub struct OrderRequest {
   /// acctId is optional. It should be one of the accounts returned by /iserver/accounts. If not passed, the first one in the list is selected. 
   #[serde(rename = "acctId")]
   acct_id: Option<String>,
-  /// Customer Order ID. An arbitraty string that can be used to identify the order, e.g \"my-fb-order\". The value must be unique for a 24h span. Please do not set this value for child orders when placing a bracket order. 
+  /// Set the allocation method when placing an order using an FA account for a group Possible allocation methods are \"NetLiquidity\", \"AvailableEquity\", \"EqualQuantity\" and \"PctChange\". 
+  #[serde(rename = "allocationMethod")]
+  allocation_method: Option<String>,
+  /// optional if order is STOP_LIMIT, this is the stop price. You must specify both price and auxPrice for STOP_LIMIT orders. 
+  #[serde(rename = "auxPrice")]
+  aux_price: Option<Value>,
+  /// Customer Order ID. An arbitrary string that can be used to identify the order, e.g \"my-fb-order\". The value must be unique for a 24h span. Please do not set this value for child orders when placing a bracket order. 
   #[serde(rename = "cOID")]
   c_oid: Option<String>,
   /// conid is the identifier of the security you want to trade, you can find the conid with /iserver/secdef/search. 
   #[serde(rename = "conid")]
   conid: Option<i32>,
-  /// listingExchange is optional. By default we use \"SMART\" routing. Possible values are available via this end point: /v1/portal/iserver/contract/{{conid}}/info, see valid_exchange: e.g: SMART,AMEX,NYSE, CBOE,ISE,CHX,ARCA,ISLAND,DRCTEDGE,BEX,BATS,EDGEA,CSFBALGO,JE FFALGO,BYX,IEX,FOXRIVER,TPLUS1,NYSENAT,PSX 
+  /// double number, this is the cash quantity field which can only be used for FX conversion order. When using 'fxQty' you don't need to specify 'quantity'. 
+  #[serde(rename = "fxQty")]
+  fx_qty: Option<f32>,
+  /// set to true if the order is a FX conversion order 
+  #[serde(rename = "isCcyConv")]
+  is_ccy_conv: Option<bool>,
+  /// set to true if you want to place a single group orders(OCA) 
+  #[serde(rename = "isSingleGroup")]
+  is_single_group: Option<bool>,
+  /// listingExchange is optional. By default we use \"SMART\" routing. Possible values are available via this end point: /v1/portal/iserver/contract/{conid}/info, see valid_exchange: e.g: SMART,AMEX,NYSE, CBOE,ISE,CHX,ARCA,ISLAND,DRCTEDGE,BEX,BATS,EDGEA,CSFBALGO,JE FFALGO,BYX,IEX,FOXRIVER,TPLUS1,NYSENAT,PSX 
   #[serde(rename = "listingExchange")]
   listing_exchange: Option<String>,
-  /// orderType can be one of MKT (Market), LMT (Limit), STP (Stop) or STP_LIMIT (stop limit) 
+  /// The order-type determines what type of order you want to send. LMT - A limit order is an order to buy or sell at the specified price or better. MKT - A market order is an order to buy or sell at the markets current NBBO. STP - A stop order becomes a market order once the specified stop price is attained or penetrated. STOP_LIMIT - A stop limit order becomes a limit order once the specified stop price is attained or penetrated. MIDPRICE - A MidPrice order attempts to fill at the current midpoint of the NBBO or better. 
   #[serde(rename = "orderType")]
   order_type: Option<String>,
   /// set to true if the order can be executed outside regular trading hours. 
   #[serde(rename = "outsideRTH")]
   outside_rth: Option<bool>,
-  /// When placing bracket orders, the child parentId must be equal to the cOId (customer order id) of the parent. 
+  /// Only specify for child orders when placing bracket orders. The parentId for the child order(s) must be equal to the cOId (customer order id) of the parent. 
   #[serde(rename = "parentId")]
   parent_id: Option<String>,
-  /// optional if order is MKT, for LMT, this is the limit price. For STP this is the stop price. 
+  /// optional if order is LMT, or STOP_LIMIT, this is the limit price. For STP this is the stop price. For MIDPRICE this is the option price cap. 
   #[serde(rename = "price")]
   price: Option<f32>,
   /// usually integer, for some special cases can be float numbers
   #[serde(rename = "quantity")]
   quantity: Option<f32>,
-  /// for example QuickTrade
+  /// Custom order reference 
   #[serde(rename = "referrer")]
   referrer: Option<String>,
-  /// conid:type for example 265598:STK
+  /// The contract-identifier (conid) and security type (type) specified as a concatenated value, conid:type
   #[serde(rename = "secType")]
   sec_type: Option<String>,
   /// SELL or BUY
   #[serde(rename = "side")]
   side: Option<String>,
-  /// 
+  /// Specify which IB Algo algorithm to use for this order. 
+  #[serde(rename = "strategy")]
+  strategy: Option<String>,
+  /// The IB Algo parameters for the specified algorithm. 
+  #[serde(rename = "strategyParameters")]
+  strategy_parameters: Option<Value>,
+  /// This is the  underlying symbol for the contract. 
   #[serde(rename = "ticker")]
   ticker: Option<String>,
-  /// GTC (Good Till Cancel) or DAY. DAY orders are automatically cancelled at the end of the Day or Trading hours. 
+  /// The Time-In-Force determines how long the order remains active on the market.   * GTC - use Good-Till-Cancel for orders to remain active until it executes or cancelled.   * OPG - use Open-Price-Guarantee for Limit-On-Open (LOO) or Market-On-Open (MOO) orders.   * DAY - if not executed a Day order will automatically cancel at the end of the markets regular trading hours.   * IOC - any portion of an Immediate-or-Cancel order that is not filled as soon as it becomes available in the market is cancelled. 
   #[serde(rename = "tif")]
   tif: Option<String>,
-  /// If true, the system will use the Adaptive Algo to submit the order https://www.interactivebrokers.com/en/index.php?f=19091 
+  /// If true, the system will use the Price Management Algo to submit the order. https://www.interactivebrokers.com/en/index.php?f=43423 
   #[serde(rename = "useAdaptive")]
   use_adaptive: Option<bool>
 }
@@ -65,8 +86,13 @@ impl OrderRequest {
   pub fn new() -> OrderRequest {
     OrderRequest {
       acct_id: None,
+      allocation_method: None,
+      aux_price: None,
       c_oid: None,
       conid: None,
+      fx_qty: None,
+      is_ccy_conv: None,
+      is_single_group: None,
       listing_exchange: None,
       order_type: None,
       outside_rth: None,
@@ -76,6 +102,8 @@ impl OrderRequest {
       referrer: None,
       sec_type: None,
       side: None,
+      strategy: None,
+      strategy_parameters: None,
       ticker: None,
       tif: None,
       use_adaptive: None
@@ -97,6 +125,40 @@ impl OrderRequest {
 
   pub fn reset_acct_id(&mut self) {
     self.acct_id = None;
+  }
+
+  pub fn set_allocation_method(&mut self, allocation_method: String) {
+    self.allocation_method = Some(allocation_method);
+  }
+
+  pub fn with_allocation_method(mut self, allocation_method: String) -> OrderRequest {
+    self.allocation_method = Some(allocation_method);
+    self
+  }
+
+  pub fn allocation_method(&self) -> Option<&String> {
+    self.allocation_method.as_ref()
+  }
+
+  pub fn reset_allocation_method(&mut self) {
+    self.allocation_method = None;
+  }
+
+  pub fn set_aux_price(&mut self, aux_price: Value) {
+    self.aux_price = Some(aux_price);
+  }
+
+  pub fn with_aux_price(mut self, aux_price: Value) -> OrderRequest {
+    self.aux_price = Some(aux_price);
+    self
+  }
+
+  pub fn aux_price(&self) -> Option<&Value> {
+    self.aux_price.as_ref()
+  }
+
+  pub fn reset_aux_price(&mut self) {
+    self.aux_price = None;
   }
 
   pub fn set_c_oid(&mut self, c_oid: String) {
@@ -131,6 +193,57 @@ impl OrderRequest {
 
   pub fn reset_conid(&mut self) {
     self.conid = None;
+  }
+
+  pub fn set_fx_qty(&mut self, fx_qty: f32) {
+    self.fx_qty = Some(fx_qty);
+  }
+
+  pub fn with_fx_qty(mut self, fx_qty: f32) -> OrderRequest {
+    self.fx_qty = Some(fx_qty);
+    self
+  }
+
+  pub fn fx_qty(&self) -> Option<&f32> {
+    self.fx_qty.as_ref()
+  }
+
+  pub fn reset_fx_qty(&mut self) {
+    self.fx_qty = None;
+  }
+
+  pub fn set_is_ccy_conv(&mut self, is_ccy_conv: bool) {
+    self.is_ccy_conv = Some(is_ccy_conv);
+  }
+
+  pub fn with_is_ccy_conv(mut self, is_ccy_conv: bool) -> OrderRequest {
+    self.is_ccy_conv = Some(is_ccy_conv);
+    self
+  }
+
+  pub fn is_ccy_conv(&self) -> Option<&bool> {
+    self.is_ccy_conv.as_ref()
+  }
+
+  pub fn reset_is_ccy_conv(&mut self) {
+    self.is_ccy_conv = None;
+  }
+
+  pub fn set_is_single_group(&mut self, is_single_group: bool) {
+    self.is_single_group = Some(is_single_group);
+  }
+
+  pub fn with_is_single_group(mut self, is_single_group: bool) -> OrderRequest {
+    self.is_single_group = Some(is_single_group);
+    self
+  }
+
+  pub fn is_single_group(&self) -> Option<&bool> {
+    self.is_single_group.as_ref()
+  }
+
+  pub fn reset_is_single_group(&mut self) {
+    self.is_single_group = None;
   }
 
   pub fn set_listing_exchange(&mut self, listing_exchange: String) {
@@ -284,6 +397,40 @@ impl OrderRequest {
 
   pub fn reset_side(&mut self) {
     self.side = None;
+  }
+
+  pub fn set_strategy(&mut self, strategy: String) {
+    self.strategy = Some(strategy);
+  }
+
+  pub fn with_strategy(mut self, strategy: String) -> OrderRequest {
+    self.strategy = Some(strategy);
+    self
+  }
+
+  pub fn strategy(&self) -> Option<&String> {
+    self.strategy.as_ref()
+  }
+
+  pub fn reset_strategy(&mut self) {
+    self.strategy = None;
+  }
+
+  pub fn set_strategy_parameters(&mut self, strategy_parameters: Value) {
+    self.strategy_parameters = Some(strategy_parameters);
+  }
+
+  pub fn with_strategy_parameters(mut self, strategy_parameters: Value) -> OrderRequest {
+    self.strategy_parameters = Some(strategy_parameters);
+    self
+  }
+
+  pub fn strategy_parameters(&self) -> Option<&Value> {
+    self.strategy_parameters.as_ref()
+  }
+
+  pub fn reset_strategy_parameters(&mut self) {
+    self.strategy_parameters = None;
   }
 
   pub fn set_ticker(&mut self, ticker: String) {

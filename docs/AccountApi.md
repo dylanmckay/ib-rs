@@ -1,11 +1,11 @@
 # \AccountApi
 
-All URIs are relative to *https://localhost:5000/v1/portal*
+All URIs are relative to *https://localhost:5000/v1/api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**iserver_account_pnl_partitioned_get**](AccountApi.md#iserver_account_pnl_partitioned_get) | **Get** /iserver/account/pnl/partitioned | PnL for the selected account
-[**iserver_account_post**](AccountApi.md#iserver_account_post) | **Post** /iserver/account | Updates currently selected account to the provided account
+[**iserver_account_post**](AccountApi.md#iserver_account_post) | **Post** /iserver/account | Switch Account
 [**iserver_accounts_get**](AccountApi.md#iserver_accounts_get) | **Get** /iserver/accounts | Brokerage Accounts
 [**portfolio_account_id_ledger_get**](AccountApi.md#portfolio_account_id_ledger_get) | **Get** /portfolio/{accountId}/ledger | Account Ledger
 [**portfolio_account_id_meta_get**](AccountApi.md#portfolio_account_id_meta_get) | **Get** /portfolio/{accountId}/meta | Account Information
@@ -15,17 +15,17 @@ Method | HTTP request | Description
 
 
 # **iserver_account_pnl_partitioned_get**
-> ::models::InlineResponse2008 iserver_account_pnl_partitioned_get()
+> ::models::InlineResponse20016 iserver_account_pnl_partitioned_get()
 PnL for the selected account
 
-Returns an object containing PnLfor the selected account and its models (if any).
+Returns an object containing PnL for the selected account and its models (if any). To receive streaming PnL the endpoint /ws can be used. Refer to [Streaming WebSocket Data](https://interactivebrokers.github.io/cpwebapi/RealtimeSubscription.html) for details. 
 
 ### Required Parameters
 This endpoint does not need any parameter.
 
 ### Return type
 
-[**::models::InlineResponse2008**](inline_response_200_8.md)
+[**::models::InlineResponse20016**](inline_response_200_16.md)
 
 ### Authorization
 
@@ -39,8 +39,8 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **iserver_account_post**
-> ::models::InlineResponse2006 iserver_account_post(body)
-Updates currently selected account to the provided account
+> ::models::InlineResponse20011 iserver_account_post(body)
+Switch Account
 
 If an user has multiple accounts, and user wants to get orders, trades, etc. of an account other than currently selected account, then user can update the currently selected account using this API and then can fetch required information for the newly updated account.
 
@@ -52,7 +52,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**::models::InlineResponse2006**](inline_response_200_6.md)
+[**::models::InlineResponse20011**](inline_response_200_11.md)
 
 ### Authorization
 
@@ -66,7 +66,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **iserver_accounts_get**
-> ::models::InlineResponse20012 iserver_accounts_get()
+> ::models::InlineResponse20021 iserver_accounts_get()
 Brokerage Accounts
 
 Returns a list of accounts the user has trading access to, their respective aliases and the currently selected account. Note this endpoint must be called before modifying an order or querying open orders.
@@ -76,7 +76,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**::models::InlineResponse20012**](inline_response_200_12.md)
+[**::models::InlineResponse20021**](inline_response_200_21.md)
 
 ### Authorization
 
@@ -90,7 +90,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **portfolio_account_id_ledger_get**
-> ::models::InlineResponse20019 portfolio_account_id_ledger_get(account_id)
+> ::models::InlineResponse20033 portfolio_account_id_ledger_get(account_id)
 Account Ledger
 
 Information regarding settled cash, cash balances, etc. in the account's base currency and any other cash balances hold in other currencies.  /portfolio/accounts or /portfolio/subaccounts must be called prior to this endpoint. The list of supported currencies is available at https://www.interactivebrokers.com/en/index.php?f=3185.
@@ -103,7 +103,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**::models::InlineResponse20019**](inline_response_200_19.md)
+[**::models::InlineResponse20033**](inline_response_200_33.md)
 
 ### Authorization
 
@@ -144,7 +144,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **portfolio_account_id_summary_get**
-> ::models::InlineResponse20020 portfolio_account_id_summary_get(account_id)
+> ::models::InlineResponse20034 portfolio_account_id_summary_get(account_id)
 Account Summary
 
 Returns information about margin, cash balances and other information related to specified account. See also /portfolio/{accountId}/ledger. /portfolio/accounts or /portfolio/subaccounts must be called prior to this endpoint.
@@ -157,7 +157,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**::models::InlineResponse20020**](inline_response_200_20.md)
+[**::models::InlineResponse20034**](inline_response_200_34.md)
 
 ### Authorization
 

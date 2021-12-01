@@ -1,7 +1,7 @@
 /* 
  * Client Portal Web API
  *
- * Production version of the Client Portal Web API
+ * Client Poral Web API
  *
  * OpenAPI spec version: 1.0.0
  * 
@@ -38,6 +38,9 @@ pub struct Order {
   order_desc: Option<String>,
   #[serde(rename = "orderId")]
   order_id: Option<i32>,
+  /// User defined string used to identify the order. Value is set using \"cOID\" field while placing an order.
+  #[serde(rename = "order_ref")]
+  order_ref: Option<String>,
   /// for example Limit
   #[serde(rename = "origOrderType")]
   orig_order_type: Option<String>,
@@ -54,10 +57,10 @@ pub struct Order {
   /// BUY or SELL
   #[serde(rename = "side")]
   side: Option<String>,
-  /// PendingSubmit - Indicates the order was sent, but confirmation has not been received that it has been received by the destination.                  Occurs most commonly if an exchange is closed. PendingCancel - Indicates that a request has been sent to cancel an order but confirmation has not been received of its cancellation. PreSubmitted - Indicates that a simulated order type has been accepted by the IBKR system and that this order has yet to be elected.                 The order is held in the IBKR system until the election criteria are met. At that time the order is transmitted to the order destination as specified.  Submitted - Indicates that the order has been accepted at the order destination and is working. Cancelled - Indicates that the balance of the order has been confirmed cancelled by the IB system.              This could occur unexpectedly when IB or the destination has rejected the order.   Filled - Indicates that the order has been completely filled.  Inactive - Indicates the order is not working, for instance if the order was invalid and triggered an error message,            or if the order was to short a security and shares have not yet been located.  
+  /// * PendingSubmit - Indicates the order was sent, but confirmation has not been received that it has been received by the destination.                   Occurs most commonly if an exchange is closed. * PendingCancel - Indicates that a request has been sent to cancel an order but confirmation has not been received of its cancellation. * PreSubmitted - Indicates that a simulated order type has been accepted by the IBKR system and that this order has yet to be elected.                  The order is held in the IBKR system until the election criteria are met. At that time the order is transmitted to the order destination as specified. * Submitted - Indicates that the order has been accepted at the order destination and is working. * Cancelled - Indicates that the balance of the order has been confirmed cancelled by the IB system.               This could occur unexpectedly when IB or the destination has rejected the order. * Filled - Indicates that the order has been completely filled. * Inactive - Indicates the order is not working, for instance if the order was invalid and triggered an error message,              or if the order was to short a security and shares have not yet been located. 
   #[serde(rename = "status")]
   status: Option<String>,
-  /// for exmple FB
+  /// for example FB
   #[serde(rename = "ticker")]
   ticker: Option<String>
 }
@@ -76,6 +79,7 @@ impl Order {
       listing_exchange: None,
       order_desc: None,
       order_id: None,
+      order_ref: None,
       orig_order_type: None,
       parent_id: None,
       price: None,
@@ -255,6 +259,23 @@ impl Order {
 
   pub fn reset_order_id(&mut self) {
     self.order_id = None;
+  }
+
+  pub fn set_order_ref(&mut self, order_ref: String) {
+    self.order_ref = Some(order_ref);
+  }
+
+  pub fn with_order_ref(mut self, order_ref: String) -> Order {
+    self.order_ref = Some(order_ref);
+    self
+  }
+
+  pub fn order_ref(&self) -> Option<&String> {
+    self.order_ref.as_ref()
+  }
+
+  pub fn reset_order_ref(&mut self) {
+    self.order_ref = None;
   }
 
   pub fn set_orig_order_type(&mut self, orig_order_type: String) {

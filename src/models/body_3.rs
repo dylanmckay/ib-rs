@@ -1,7 +1,7 @@
 /* 
  * Client Portal Web API
  *
- * Production version of the Client Portal Web API
+ * Client Poral Web API
  *
  * OpenAPI spec version: 1.0.0
  * 
@@ -14,33 +14,32 @@ use serde_json::Value;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Body3 {
-  /// answer to question, true means yes, false means no
-  #[serde(rename = "confirmed")]
-  confirmed: Option<bool>
+  #[serde(rename = "filters")]
+  filters: Option<Vec<String>>
 }
 
 impl Body3 {
   pub fn new() -> Body3 {
     Body3 {
-      confirmed: None
+      filters: None
     }
   }
 
-  pub fn set_confirmed(&mut self, confirmed: bool) {
-    self.confirmed = Some(confirmed);
+  pub fn set_filters(&mut self, filters: Vec<String>) {
+    self.filters = Some(filters);
   }
 
-  pub fn with_confirmed(mut self, confirmed: bool) -> Body3 {
-    self.confirmed = Some(confirmed);
+  pub fn with_filters(mut self, filters: Vec<String>) -> Body3 {
+    self.filters = Some(filters);
     self
   }
 
-  pub fn confirmed(&self) -> Option<&bool> {
-    self.confirmed.as_ref()
+  pub fn filters(&self) -> Option<&Vec<String>> {
+    self.filters.as_ref()
   }
 
-  pub fn reset_confirmed(&mut self) {
-    self.confirmed = None;
+  pub fn reset_filters(&mut self) {
+    self.filters = None;
   }
 
 }

@@ -1,7 +1,7 @@
 /* 
  * Client Portal Web API
  *
- * Production version of the Client Portal Web API
+ * Client Poral Web API
  *
  * OpenAPI spec version: 1.0.0
  * 
@@ -14,32 +14,132 @@ use serde_json::Value;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct InlineResponse20018 {
-  #[serde(rename = "ACCTID")]
-  ACCTID: Option<::models::Position>
+  #[serde(rename = "amount")]
+  amount: Option<::models::InlineResponse20018Amount>,
+  #[serde(rename = "equity")]
+  equity: Option<::models::InlineResponse20018Equity>,
+  #[serde(rename = "error")]
+  error: Option<String>,
+  #[serde(rename = "initial")]
+  initial: Option<::models::InlineResponse20018Equity>,
+  #[serde(rename = "maintenance")]
+  maintenance: Option<::models::InlineResponse20018Equity>,
+  #[serde(rename = "warn")]
+  warn: Option<String>
 }
 
 impl InlineResponse20018 {
   pub fn new() -> InlineResponse20018 {
     InlineResponse20018 {
-      ACCTID: None
+      amount: None,
+      equity: None,
+      error: None,
+      initial: None,
+      maintenance: None,
+      warn: None
     }
   }
 
-  pub fn set_ACCTID(&mut self, ACCTID: ::models::Position) {
-    self.ACCTID = Some(ACCTID);
+  pub fn set_amount(&mut self, amount: ::models::InlineResponse20018Amount) {
+    self.amount = Some(amount);
   }
 
-  pub fn with_ACCTID(mut self, ACCTID: ::models::Position) -> InlineResponse20018 {
-    self.ACCTID = Some(ACCTID);
+  pub fn with_amount(mut self, amount: ::models::InlineResponse20018Amount) -> InlineResponse20018 {
+    self.amount = Some(amount);
     self
   }
 
-  pub fn ACCTID(&self) -> Option<&::models::Position> {
-    self.ACCTID.as_ref()
+  pub fn amount(&self) -> Option<&::models::InlineResponse20018Amount> {
+    self.amount.as_ref()
   }
 
-  pub fn reset_ACCTID(&mut self) {
-    self.ACCTID = None;
+  pub fn reset_amount(&mut self) {
+    self.amount = None;
+  }
+
+  pub fn set_equity(&mut self, equity: ::models::InlineResponse20018Equity) {
+    self.equity = Some(equity);
+  }
+
+  pub fn with_equity(mut self, equity: ::models::InlineResponse20018Equity) -> InlineResponse20018 {
+    self.equity = Some(equity);
+    self
+  }
+
+  pub fn equity(&self) -> Option<&::models::InlineResponse20018Equity> {
+    self.equity.as_ref()
+  }
+
+  pub fn reset_equity(&mut self) {
+    self.equity = None;
+  }
+
+  pub fn set_error(&mut self, error: String) {
+    self.error = Some(error);
+  }
+
+  pub fn with_error(mut self, error: String) -> InlineResponse20018 {
+    self.error = Some(error);
+    self
+  }
+
+  pub fn error(&self) -> Option<&String> {
+    self.error.as_ref()
+  }
+
+  pub fn reset_error(&mut self) {
+    self.error = None;
+  }
+
+  pub fn set_initial(&mut self, initial: ::models::InlineResponse20018Equity) {
+    self.initial = Some(initial);
+  }
+
+  pub fn with_initial(mut self, initial: ::models::InlineResponse20018Equity) -> InlineResponse20018 {
+    self.initial = Some(initial);
+    self
+  }
+
+  pub fn initial(&self) -> Option<&::models::InlineResponse20018Equity> {
+    self.initial.as_ref()
+  }
+
+  pub fn reset_initial(&mut self) {
+    self.initial = None;
+  }
+
+  pub fn set_maintenance(&mut self, maintenance: ::models::InlineResponse20018Equity) {
+    self.maintenance = Some(maintenance);
+  }
+
+  pub fn with_maintenance(mut self, maintenance: ::models::InlineResponse20018Equity) -> InlineResponse20018 {
+    self.maintenance = Some(maintenance);
+    self
+  }
+
+  pub fn maintenance(&self) -> Option<&::models::InlineResponse20018Equity> {
+    self.maintenance.as_ref()
+  }
+
+  pub fn reset_maintenance(&mut self) {
+    self.maintenance = None;
+  }
+
+  pub fn set_warn(&mut self, warn: String) {
+    self.warn = Some(warn);
+  }
+
+  pub fn with_warn(mut self, warn: String) -> InlineResponse20018 {
+    self.warn = Some(warn);
+    self
+  }
+
+  pub fn warn(&self) -> Option<&String> {
+    self.warn.as_ref()
+  }
+
+  pub fn reset_warn(&mut self) {
+    self.warn = None;
   }
 
 }

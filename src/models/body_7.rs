@@ -1,7 +1,7 @@
 /* 
  * Client Portal Web API
  *
- * Production version of the Client Portal Web API
+ * Client Poral Web API
  *
  * OpenAPI spec version: 1.0.0
  * 
@@ -14,32 +14,53 @@ use serde_json::Value;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Body7 {
-  #[serde(rename = "conids")]
-  conids: Option<Vec<i32>>
+  #[serde(rename = "acctIds")]
+  acct_ids: Option<Vec<String>>,
+  /// Frequency of cumulative performance data points: 'D'aily, 'M'onthly,'Q'uarterly. 
+  #[serde(rename = "freq")]
+  freq: Option<String>
 }
 
 impl Body7 {
   pub fn new() -> Body7 {
     Body7 {
-      conids: None
+      acct_ids: None,
+      freq: None
     }
   }
 
-  pub fn set_conids(&mut self, conids: Vec<i32>) {
-    self.conids = Some(conids);
+  pub fn set_acct_ids(&mut self, acct_ids: Vec<String>) {
+    self.acct_ids = Some(acct_ids);
   }
 
-  pub fn with_conids(mut self, conids: Vec<i32>) -> Body7 {
-    self.conids = Some(conids);
+  pub fn with_acct_ids(mut self, acct_ids: Vec<String>) -> Body7 {
+    self.acct_ids = Some(acct_ids);
     self
   }
 
-  pub fn conids(&self) -> Option<&Vec<i32>> {
-    self.conids.as_ref()
+  pub fn acct_ids(&self) -> Option<&Vec<String>> {
+    self.acct_ids.as_ref()
   }
 
-  pub fn reset_conids(&mut self) {
-    self.conids = None;
+  pub fn reset_acct_ids(&mut self) {
+    self.acct_ids = None;
+  }
+
+  pub fn set_freq(&mut self, freq: String) {
+    self.freq = Some(freq);
+  }
+
+  pub fn with_freq(mut self, freq: String) -> Body7 {
+    self.freq = Some(freq);
+    self
+  }
+
+  pub fn freq(&self) -> Option<&String> {
+    self.freq.as_ref()
+  }
+
+  pub fn reset_freq(&mut self) {
+    self.freq = None;
   }
 
 }

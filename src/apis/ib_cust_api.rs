@@ -1,7 +1,7 @@
 /* 
  * Client Portal Web API
  *
- * Production version of the Client Portal Web API
+ * Client Poral Web API
  *
  * OpenAPI spec version: 1.0.0
  * 
@@ -35,12 +35,12 @@ impl<C: hyper::client::Connect> IBCustApiClient<C> {
 }
 
 pub trait IBCustApi {
-    fn ibcust_entity_info_get(&self, ) -> Box<Future<Item = Vec<::models::InlineResponse2005>, Error = Error<serde_json::Value>>>;
+    fn ibcust_entity_info_get(&self, ) -> Box<Future<Item = Vec<::models::InlineResponse20010>, Error = Error<serde_json::Value>>>;
 }
 
 
 impl<C: hyper::client::Connect>IBCustApi for IBCustApiClient<C> {
-    fn ibcust_entity_info_get(&self, ) -> Box<Future<Item = Vec<::models::InlineResponse2005>, Error = Error<serde_json::Value>>> {
+    fn ibcust_entity_info_get(&self, ) -> Box<Future<Item = Vec<::models::InlineResponse20010>, Error = Error<serde_json::Value>>> {
         let configuration: &configuration::Configuration<C> = self.configuration.borrow();
 
         let method = hyper::Method::Get;
@@ -84,7 +84,7 @@ impl<C: hyper::client::Connect>IBCustApi for IBCustApiClient<C> {
                 }
             })
             .and_then(|body| {
-                let parsed: Result<Vec<::models::InlineResponse2005>, _> = serde_json::from_slice(&body);
+                let parsed: Result<Vec<::models::InlineResponse20010>, _> = serde_json::from_slice(&body);
                 parsed.map_err(|e| Error::from(e))
             })
         )

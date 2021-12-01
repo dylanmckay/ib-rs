@@ -1,7 +1,7 @@
 /* 
  * Client Portal Web API
  *
- * Production version of the Client Portal Web API
+ * Client Poral Web API
  *
  * OpenAPI spec version: 1.0.0
  * 
@@ -14,44 +14,76 @@ use serde_json::Value;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Trade {
+  /// accountCode
   #[serde(rename = "account")]
   account: Option<String>,
+  /// Account Number
+  #[serde(rename = "acountCode")]
+  acount_code: Option<String>,
+  /// Firm which will settle the trade. For IBExecution customers only.
   #[serde(rename = "clearing_id")]
   clearing_id: Option<String>,
+  /// Specifies the true beneficiary of the order. For IBExecution customers only.
   #[serde(rename = "clearing_name")]
   clearing_name: Option<String>,
-  #[serde(rename = "comission")]
-  comission: Option<f32>,
+  /// Commission of the order
+  #[serde(rename = "commission")]
+  commission: Option<f32>,
+  /// Contracts company name
   #[serde(rename = "company_name")]
   company_name: Option<String>,
+  /// IBKR's contract identifier
+  #[serde(rename = "conid")]
+  conid: Option<String>,
+  /// conid and exchange. Format supports conid or conid@exchange
   #[serde(rename = "conidex")]
   conidex: Option<String>,
+  /// Format contract name
   #[serde(rename = "contract_description_1")]
   contract_description_1: Option<String>,
+  /// Exchange or venue of order
   #[serde(rename = "exchange")]
   exchange: Option<String>,
+  /// execution identifier for the order
   #[serde(rename = "execution_id")]
   execution_id: Option<String>,
+  /// If order adds liquidity to the market.
+  #[serde(rename = "liquidation_trade")]
+  liquidation_trade: Option<f32>,
+  /// Net cost of the order, including contract multiplier and quantity.
   #[serde(rename = "net_amount")]
   net_amount: Option<f32>,
+  /// Formatted description of the order \"%side% %size% @ %price% on %exchange%\".
   #[serde(rename = "order_description")]
   order_description: Option<String>,
+  /// User defined string used to identify the order. Value is set using \"cOID\" field while placing an order.
+  #[serde(rename = "order_ref")]
+  order_ref: Option<String>,
+  /// Total quantity owned for this contract
   #[serde(rename = "position")]
   position: Option<String>,
+  /// Average Price
   #[serde(rename = "price")]
   price: Option<String>,
+  /// Asset class
   #[serde(rename = "sec_type")]
   sec_type: Option<String>,
+  /// The side of the market of the order.   * B - Buy contract near posted ask price   * S - Sell contract near posted bid price   * X - Option expired 
   #[serde(rename = "side")]
   side: Option<String>,
+  /// Quantity of the order
   #[serde(rename = "size")]
   size: Option<String>,
+  /// User that submitted order
   #[serde(rename = "submitter")]
   submitter: Option<String>,
+  /// Underlying Symbol
   #[serde(rename = "symbol")]
   symbol: Option<String>,
+  /// Time of Status update in format \"YYYYMMDD-hh:mm:ss\".
   #[serde(rename = "trade_time")]
   trade_time: Option<String>,
+  /// Time of status update in format unix time.
   #[serde(rename = "trade_time_r")]
   trade_time_r: Option<f32>
 }
@@ -60,16 +92,20 @@ impl Trade {
   pub fn new() -> Trade {
     Trade {
       account: None,
+      acount_code: None,
       clearing_id: None,
       clearing_name: None,
-      comission: None,
+      commission: None,
       company_name: None,
+      conid: None,
       conidex: None,
       contract_description_1: None,
       exchange: None,
       execution_id: None,
+      liquidation_trade: None,
       net_amount: None,
       order_description: None,
+      order_ref: None,
       position: None,
       price: None,
       sec_type: None,
@@ -97,6 +133,23 @@ impl Trade {
 
   pub fn reset_account(&mut self) {
     self.account = None;
+  }
+
+  pub fn set_acount_code(&mut self, acount_code: String) {
+    self.acount_code = Some(acount_code);
+  }
+
+  pub fn with_acount_code(mut self, acount_code: String) -> Trade {
+    self.acount_code = Some(acount_code);
+    self
+  }
+
+  pub fn acount_code(&self) -> Option<&String> {
+    self.acount_code.as_ref()
+  }
+
+  pub fn reset_acount_code(&mut self) {
+    self.acount_code = None;
   }
 
   pub fn set_clearing_id(&mut self, clearing_id: String) {
@@ -133,21 +186,21 @@ impl Trade {
     self.clearing_name = None;
   }
 
-  pub fn set_comission(&mut self, comission: f32) {
-    self.comission = Some(comission);
+  pub fn set_commission(&mut self, commission: f32) {
+    self.commission = Some(commission);
   }
 
-  pub fn with_comission(mut self, comission: f32) -> Trade {
-    self.comission = Some(comission);
+  pub fn with_commission(mut self, commission: f32) -> Trade {
+    self.commission = Some(commission);
     self
   }
 
-  pub fn comission(&self) -> Option<&f32> {
-    self.comission.as_ref()
+  pub fn commission(&self) -> Option<&f32> {
+    self.commission.as_ref()
   }
 
-  pub fn reset_comission(&mut self) {
-    self.comission = None;
+  pub fn reset_commission(&mut self) {
+    self.commission = None;
   }
 
   pub fn set_company_name(&mut self, company_name: String) {
@@ -165,6 +218,23 @@ impl Trade {
 
   pub fn reset_company_name(&mut self) {
     self.company_name = None;
+  }
+
+  pub fn set_conid(&mut self, conid: String) {
+    self.conid = Some(conid);
+  }
+
+  pub fn with_conid(mut self, conid: String) -> Trade {
+    self.conid = Some(conid);
+    self
+  }
+
+  pub fn conid(&self) -> Option<&String> {
+    self.conid.as_ref()
+  }
+
+  pub fn reset_conid(&mut self) {
+    self.conid = None;
   }
 
   pub fn set_conidex(&mut self, conidex: String) {
@@ -235,6 +305,23 @@ impl Trade {
     self.execution_id = None;
   }
 
+  pub fn set_liquidation_trade(&mut self, liquidation_trade: f32) {
+    self.liquidation_trade = Some(liquidation_trade);
+  }
+
+  pub fn with_liquidation_trade(mut self, liquidation_trade: f32) -> Trade {
+    self.liquidation_trade = Some(liquidation_trade);
+    self
+  }
+
+  pub fn liquidation_trade(&self) -> Option<&f32> {
+    self.liquidation_trade.as_ref()
+  }
+
+  pub fn reset_liquidation_trade(&mut self) {
+    self.liquidation_trade = None;
+  }
+
   pub fn set_net_amount(&mut self, net_amount: f32) {
     self.net_amount = Some(net_amount);
   }
@@ -267,6 +354,23 @@ impl Trade {
 
   pub fn reset_order_description(&mut self) {
     self.order_description = None;
+  }
+
+  pub fn set_order_ref(&mut self, order_ref: String) {
+    self.order_ref = Some(order_ref);
+  }
+
+  pub fn with_order_ref(mut self, order_ref: String) -> Trade {
+    self.order_ref = Some(order_ref);
+    self
+  }
+
+  pub fn order_ref(&self) -> Option<&String> {
+    self.order_ref.as_ref()
+  }
+
+  pub fn reset_order_ref(&mut self) {
+    self.order_ref = None;
   }
 
   pub fn set_position(&mut self, position: String) {

@@ -1,7 +1,7 @@
 /* 
  * Client Portal Web API
  *
- * Production version of the Client Portal Web API
+ * Client Poral Web API
  *
  * OpenAPI spec version: 1.0.0
  * 
@@ -23,7 +23,7 @@ pub struct SummaryAccountSummaries {
   #[serde(rename = "endVal")]
   end_val: Option<String>,
   #[serde(rename = "hasAccounts")]
-  has_accounts: Option<String>,
+  has_accounts: Option<bool>,
   #[serde(rename = "rtn")]
   rtn: Option<String>,
   #[serde(rename = "startVal")]
@@ -111,16 +111,16 @@ impl SummaryAccountSummaries {
     self.end_val = None;
   }
 
-  pub fn set_has_accounts(&mut self, has_accounts: String) {
+  pub fn set_has_accounts(&mut self, has_accounts: bool) {
     self.has_accounts = Some(has_accounts);
   }
 
-  pub fn with_has_accounts(mut self, has_accounts: String) -> SummaryAccountSummaries {
+  pub fn with_has_accounts(mut self, has_accounts: bool) -> SummaryAccountSummaries {
     self.has_accounts = Some(has_accounts);
     self
   }
 
-  pub fn has_accounts(&self) -> Option<&String> {
+  pub fn has_accounts(&self) -> Option<&bool> {
     self.has_accounts.as_ref()
   }
 

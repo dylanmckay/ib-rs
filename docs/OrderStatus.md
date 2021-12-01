@@ -1,0 +1,51 @@
+# OrderStatus
+
+## Properties
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**account** | **String** | account id | [optional] [default to null]
+**alert_active** | **i32** |  | [optional] [default to null]
+**allowed_duplicate_opposite** | **bool** | Returns true if contract supports duplicate/opposite side order. | [optional] [default to null]
+**available_chart_periods** | **String** | List of available chart periods | [optional] [default to null]
+**bg_color** | **String** | Background color in hex format | [optional] [default to null]
+**cannot_cancel_order** | **bool** | If true not allowed to cancel order | [optional] [default to null]
+**child_order_type** | **String** | type of the child order | [optional] [default to null]
+**company_name** | **String** | Contracts company name | [optional] [default to null]
+**conidex** | **String** | conid and exchange. Format supports conid or conid@exchange | [optional] [default to null]
+**contract_description_1** | **String** | Format contract name | [optional] [default to null]
+**cum_fill** | **String** | Cumulative fill | [optional] [default to null]
+**currency** | **String** | Contract traded currency | [optional] [default to null]
+**deactivate_order** | **bool** | If true order is de-activated | [optional] [default to null]
+**editable_fields** | **String** | Fields that can be edited in escaped unicode characters | [optional] [default to null]
+**exit_strategy_chart_description** | **String** | Position description to display on chart | [optional] [default to null]
+**exit_strategy_display_price** | **String** | Position display price | [optional] [default to null]
+**exit_strategy_tool_availability** | **String** | * 1: If your account has position or order for contract * 0: If your account has no position or order for contract  | [optional] [default to null]
+**fg_color** | **String** | Foreground color in hex format | [optional] [default to null]
+**limit_price** | **String** | Limit price | [optional] [default to null]
+**listing_exchange** | **String** | Trading Exchange or Venue | [optional] [default to null]
+**oca_group_id** | **String** | only exists for oca orders, oca orders in same group will have same id | [optional] [default to null]
+**option_acct** | **String** |  | [optional] [default to null]
+**order_description** | **String** | Format description of order | [optional] [default to null]
+**order_description_with_contract** | **String** | order_description with the symbol | [optional] [default to null]
+**order_id** | **i32** | system generated order id, unique per account | [optional] [default to null]
+**order_not_editable** | **bool** | If true not allowed to modify order | [optional] [default to null]
+**order_status** | **String** | *  PendingSubmit - Indicates the order was sent, but confirmation has not been received that it has been received by the destination.                    Occurs most commonly if an exchange is closed. *  PendingCancel - Indicates that a request has been sent to cancel an order but confirmation has not been received of its cancellation. *  PreSubmitted - Indicates that a simulated order type has been accepted by the IBKR system and that this order has yet to be elected.                   The order is held in the IBKR system until the election criteria are met. At that time the order is transmitted to the order destination as specified. *  Submitted - Indicates that the order has been accepted at the order destination and is working. *  Cancelled - Indicates that the balance of the order has been confirmed cancelled by the IB system.                This could occur unexpectedly when IB or the destination has rejected the order. *  Filled - Indicates that the order has been completely filled. *  Inactive - Indicates the order is not working, for instance if the order was invalid and triggered an error message,               or if the order was to short a security and shares have not yet been located.  | [optional] [default to null]
+**order_status_description** | **String** | Description of the order status | [optional] [default to null]
+**order_time** | **String** | Time of status update in unix time | [optional] [default to null]
+**order_type** | **String** | Types of orders | [optional] [default to null]
+**outside_rth** | **bool** | If true order trades outside regular trading hours | [optional] [default to null]
+**request_id** | **String** | order request id | [optional] [default to null]
+**sec_type** | **String** | Asset class | [optional] [default to null]
+**side** | **String** | The side of the market of the order.   * B - Buy contract near posted ask price   * S - Sell contract near posted bid price   * X - Option expired  | [optional] [default to null]
+**size** | **String** | Quantity updated | [optional] [default to null]
+**size_and_fills** | **String** | Format fillQuantity\\totalQuantity | [optional] [default to null]
+**stop_price** | **String** | Stop price | [optional] [default to null]
+**sub_type** | **String** | order sub-type | [optional] [default to null]
+**symbol** | **String** | Underlying symbol | [optional] [default to null]
+**tif** | **String** | Time-in-Force - length of time order will continue working before it is canceled. | [optional] [default to null]
+**total_size** | **String** | Total quantity | [optional] [default to null]
+**use_price_mgmt_algo** | **bool** | If true price management algo is enabled, refer to https://www.interactivebrokers.com/en/index.php?f&#x3D;43423 | [optional] [default to null]
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+

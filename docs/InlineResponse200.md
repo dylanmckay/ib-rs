@@ -3,8 +3,8 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**E** | [**Vec<::models::InlineResponse200E>**](inline_response_200_E.md) |  | [optional] [default to null]
-**M** | **i32** | Email option is enabled or not 0-off, 1-on. | [optional] [default to null]
+**acct_list** | [**Vec<::models::InlineResponse200AcctList>**](inline_response_200_acctList.md) | List of tradeable or Sub Accounts | [optional] [default to null]
+**main_acct** | **String** | The primary or parent account. | [optional] [default to null]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

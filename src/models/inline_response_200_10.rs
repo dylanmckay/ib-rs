@@ -1,7 +1,7 @@
 /* 
  * Client Portal Web API
  *
- * Production version of the Client Portal Web API
+ * Client Poral Web API
  *
  * OpenAPI spec version: 1.0.0
  * 
@@ -14,132 +14,52 @@ use serde_json::Value;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct InlineResponse20010 {
-  #[serde(rename = "amount")]
-  amount: Option<::models::InlineResponse20010Amount>,
-  #[serde(rename = "equity")]
-  equity: Option<::models::InlineResponse20010Equity>,
-  #[serde(rename = "error")]
-  error: Option<String>,
-  #[serde(rename = "initial")]
-  initial: Option<::models::InlineResponse20010Equity>,
-  #[serde(rename = "maintenance")]
-  maintenance: Option<::models::InlineResponse20010Equity>,
-  #[serde(rename = "warn")]
-  warn: Option<String>
+  #[serde(rename = "applicantId")]
+  applicant_id: Option<f32>,
+  #[serde(rename = "entities")]
+  entities: Option<Vec<::models::IbcustentityinfoEntities>>
 }
 
 impl InlineResponse20010 {
   pub fn new() -> InlineResponse20010 {
     InlineResponse20010 {
-      amount: None,
-      equity: None,
-      error: None,
-      initial: None,
-      maintenance: None,
-      warn: None
+      applicant_id: None,
+      entities: None
     }
   }
 
-  pub fn set_amount(&mut self, amount: ::models::InlineResponse20010Amount) {
-    self.amount = Some(amount);
+  pub fn set_applicant_id(&mut self, applicant_id: f32) {
+    self.applicant_id = Some(applicant_id);
   }
 
-  pub fn with_amount(mut self, amount: ::models::InlineResponse20010Amount) -> InlineResponse20010 {
-    self.amount = Some(amount);
+  pub fn with_applicant_id(mut self, applicant_id: f32) -> InlineResponse20010 {
+    self.applicant_id = Some(applicant_id);
     self
   }
 
-  pub fn amount(&self) -> Option<&::models::InlineResponse20010Amount> {
-    self.amount.as_ref()
+  pub fn applicant_id(&self) -> Option<&f32> {
+    self.applicant_id.as_ref()
   }
 
-  pub fn reset_amount(&mut self) {
-    self.amount = None;
+  pub fn reset_applicant_id(&mut self) {
+    self.applicant_id = None;
   }
 
-  pub fn set_equity(&mut self, equity: ::models::InlineResponse20010Equity) {
-    self.equity = Some(equity);
+  pub fn set_entities(&mut self, entities: Vec<::models::IbcustentityinfoEntities>) {
+    self.entities = Some(entities);
   }
 
-  pub fn with_equity(mut self, equity: ::models::InlineResponse20010Equity) -> InlineResponse20010 {
-    self.equity = Some(equity);
+  pub fn with_entities(mut self, entities: Vec<::models::IbcustentityinfoEntities>) -> InlineResponse20010 {
+    self.entities = Some(entities);
     self
   }
 
-  pub fn equity(&self) -> Option<&::models::InlineResponse20010Equity> {
-    self.equity.as_ref()
+  pub fn entities(&self) -> Option<&Vec<::models::IbcustentityinfoEntities>> {
+    self.entities.as_ref()
   }
 
-  pub fn reset_equity(&mut self) {
-    self.equity = None;
-  }
-
-  pub fn set_error(&mut self, error: String) {
-    self.error = Some(error);
-  }
-
-  pub fn with_error(mut self, error: String) -> InlineResponse20010 {
-    self.error = Some(error);
-    self
-  }
-
-  pub fn error(&self) -> Option<&String> {
-    self.error.as_ref()
-  }
-
-  pub fn reset_error(&mut self) {
-    self.error = None;
-  }
-
-  pub fn set_initial(&mut self, initial: ::models::InlineResponse20010Equity) {
-    self.initial = Some(initial);
-  }
-
-  pub fn with_initial(mut self, initial: ::models::InlineResponse20010Equity) -> InlineResponse20010 {
-    self.initial = Some(initial);
-    self
-  }
-
-  pub fn initial(&self) -> Option<&::models::InlineResponse20010Equity> {
-    self.initial.as_ref()
-  }
-
-  pub fn reset_initial(&mut self) {
-    self.initial = None;
-  }
-
-  pub fn set_maintenance(&mut self, maintenance: ::models::InlineResponse20010Equity) {
-    self.maintenance = Some(maintenance);
-  }
-
-  pub fn with_maintenance(mut self, maintenance: ::models::InlineResponse20010Equity) -> InlineResponse20010 {
-    self.maintenance = Some(maintenance);
-    self
-  }
-
-  pub fn maintenance(&self) -> Option<&::models::InlineResponse20010Equity> {
-    self.maintenance.as_ref()
-  }
-
-  pub fn reset_maintenance(&mut self) {
-    self.maintenance = None;
-  }
-
-  pub fn set_warn(&mut self, warn: String) {
-    self.warn = Some(warn);
-  }
-
-  pub fn with_warn(mut self, warn: String) -> InlineResponse20010 {
-    self.warn = Some(warn);
-    self
-  }
-
-  pub fn warn(&self) -> Option<&String> {
-    self.warn.as_ref()
-  }
-
-  pub fn reset_warn(&mut self) {
-    self.warn = None;
+  pub fn reset_entities(&mut self) {
+    self.entities = None;
   }
 
 }

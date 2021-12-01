@@ -1,7 +1,7 @@
 /* 
  * Client Portal Web API
  *
- * Production version of the Client Portal Web API
+ * Client Poral Web API
  *
  * OpenAPI spec version: 1.0.0
  * 
@@ -14,1096 +14,157 @@ use serde_json::Value;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct InlineResponse20013 {
-  /// Last Price
-  #[serde(rename = "31")]
-  var_31: Option<String>,
-  /// Symbol
-  #[serde(rename = "55")]
-  var_55: Option<String>,
-  /// Text
-  #[serde(rename = "58")]
-  var_58: Option<String>,
-  /// Exchange
-  #[serde(rename = "6004")]
-  var_6004: Option<String>,
-  /// Conid
-  #[serde(rename = "6008")]
-  var_6008: Option<String>,
-  /// Security Type
-  #[serde(rename = "6070")]
-  var_6070: Option<String>,
-  /// Months
-  #[serde(rename = "6072")]
-  var_6072: Option<String>,
-  /// Regular Expiry
-  #[serde(rename = "6073")]
-  var_6073: Option<String>,
-  #[serde(rename = "6119")]
-  var_6119: Option<String>,
-  /// Underlying Conid. Use /trsrv/secdef to get more information about the security
-  #[serde(rename = "6457")]
-  var_6457: Option<String>,
-  /// Market Data Availability. The field may contain two chars. The first char is the primary code: R = Realtime, D = Delayed, Z = Frozen, Y = Frozen Delayed. The second char is the secondary code: P = Snapshot Available, p = Consolidated. 
-  #[serde(rename = "6509")]
-  var_6509: Option<String>,
-  /// High
-  #[serde(rename = "70")]
-  var_70: Option<String>,
-  #[serde(rename = "7051")]
-  var_7051: Option<String>,
-  /// Conid + Exchange
-  #[serde(rename = "7094")]
-  var_7094: Option<String>,
-  /// Low
-  #[serde(rename = "71")]
-  var_71: Option<String>,
-  /// Position
-  #[serde(rename = "72")]
-  var_72: Option<String>,
-  /// Contract Description
-  #[serde(rename = "7219")]
-  var_7219: Option<String>,
-  /// Contract Description
-  #[serde(rename = "7220")]
-  var_7220: Option<String>,
-  /// Listing Exchange
-  #[serde(rename = "7221")]
-  var_7221: Option<String>,
-  /// Industry
-  #[serde(rename = "7280")]
-  var_7280: Option<String>,
-  /// Category
-  #[serde(rename = "7281")]
-  var_7281: Option<String>,
-  /// Average Daily Volume
-  #[serde(rename = "7282")]
-  var_7282: Option<String>,
-  /// Historic Volume (30d)
-  #[serde(rename = "7284")]
-  var_7284: Option<String>,
-  /// Put/Call Ratio
-  #[serde(rename = "7285")]
-  var_7285: Option<String>,
-  /// Dividend Amount
-  #[serde(rename = "7286")]
-  var_7286: Option<String>,
-  /// Dividend Yield %
-  #[serde(rename = "7287")]
-  var_7287: Option<String>,
-  /// Ex-date of the dividend
-  #[serde(rename = "7288")]
-  var_7288: Option<String>,
-  /// Market Cap
-  #[serde(rename = "7289")]
-  var_7289: Option<String>,
-  /// P/E
-  #[serde(rename = "7290")]
-  var_7290: Option<String>,
-  /// EPS
-  #[serde(rename = "7291")]
-  var_7291: Option<String>,
-  /// Cost Basis
-  #[serde(rename = "7292")]
-  var_7292: Option<String>,
-  /// 52 Week High
-  #[serde(rename = "7293")]
-  var_7293: Option<String>,
-  /// 52 Week Low
-  #[serde(rename = "7294")]
-  var_7294: Option<String>,
-  /// Open Price
-  #[serde(rename = "7295")]
-  var_7295: Option<String>,
-  /// Close Price
-  #[serde(rename = "7296")]
-  var_7296: Option<String>,
-  /// Market Value
-  #[serde(rename = "73")]
-  var_73: Option<String>,
-  /// Average Price
-  #[serde(rename = "74")]
-  var_74: Option<String>,
-  /// Unrealized PnL
-  #[serde(rename = "75")]
-  var_75: Option<String>,
-  #[serde(rename = "76")]
-  var_76: Option<String>,
-  /// Implied volatility of the option
-  #[serde(rename = "7633")]
-  var_7633: Option<String>,
-  #[serde(rename = "77")]
-  var_77: Option<String>,
-  #[serde(rename = "78")]
-  var_78: Option<String>,
-  /// Change Price
-  #[serde(rename = "82")]
-  var_82: Option<String>,
-  /// Change Percent
-  #[serde(rename = "83")]
-  var_83: Option<String>,
-  /// Bid Price
-  #[serde(rename = "84")]
-  var_84: Option<String>,
-  /// Ask Size
-  #[serde(rename = "85")]
-  var_85: Option<String>,
-  /// Ask Price
-  #[serde(rename = "86")]
-  var_86: Option<String>,
-  /// Volume
-  #[serde(rename = "87")]
-  var_87: Option<String>,
-  /// Bid Size
-  #[serde(rename = "88")]
-  var_88: Option<String>,
-  #[serde(rename = "_updated")]
-  _updated: Option<i32>,
-  #[serde(rename = "conid")]
-  conid: Option<i32>,
-  #[serde(rename = "server_id")]
-  server_id: Option<String>
+  /// account id
+  #[serde(rename = "account")]
+  account: Option<String>,
+  /// Value can only be 0 or 1, 1 means active
+  #[serde(rename = "alert_active")]
+  alert_active: Option<i32>,
+  #[serde(rename = "alert_name")]
+  alert_name: Option<String>,
+  /// whether the alert can be repeatable or not, value can be 1 or 0. 1 means true
+  #[serde(rename = "alert_repeatable")]
+  alert_repeatable: Option<i32>,
+  /// whether the alert has been triggered or not
+  #[serde(rename = "alert_triggered")]
+  alert_triggered: Option<bool>,
+  #[serde(rename = "order_id")]
+  order_id: Option<i32>,
+  /// format, YYYYMMDD-HH:mm:ss, the time when you created the alert 
+  #[serde(rename = "order_time")]
+  order_time: Option<String>
 }
 
 impl InlineResponse20013 {
   pub fn new() -> InlineResponse20013 {
     InlineResponse20013 {
-      var_31: None,
-      var_55: None,
-      var_58: None,
-      var_6004: None,
-      var_6008: None,
-      var_6070: None,
-      var_6072: None,
-      var_6073: None,
-      var_6119: None,
-      var_6457: None,
-      var_6509: None,
-      var_70: None,
-      var_7051: None,
-      var_7094: None,
-      var_71: None,
-      var_72: None,
-      var_7219: None,
-      var_7220: None,
-      var_7221: None,
-      var_7280: None,
-      var_7281: None,
-      var_7282: None,
-      var_7284: None,
-      var_7285: None,
-      var_7286: None,
-      var_7287: None,
-      var_7288: None,
-      var_7289: None,
-      var_7290: None,
-      var_7291: None,
-      var_7292: None,
-      var_7293: None,
-      var_7294: None,
-      var_7295: None,
-      var_7296: None,
-      var_73: None,
-      var_74: None,
-      var_75: None,
-      var_76: None,
-      var_7633: None,
-      var_77: None,
-      var_78: None,
-      var_82: None,
-      var_83: None,
-      var_84: None,
-      var_85: None,
-      var_86: None,
-      var_87: None,
-      var_88: None,
-      _updated: None,
-      conid: None,
-      server_id: None
+      account: None,
+      alert_active: None,
+      alert_name: None,
+      alert_repeatable: None,
+      alert_triggered: None,
+      order_id: None,
+      order_time: None
     }
   }
 
-  pub fn set_var_31(&mut self, var_31: String) {
-    self.var_31 = Some(var_31);
+  pub fn set_account(&mut self, account: String) {
+    self.account = Some(account);
   }
 
-  pub fn with_var_31(mut self, var_31: String) -> InlineResponse20013 {
-    self.var_31 = Some(var_31);
+  pub fn with_account(mut self, account: String) -> InlineResponse20013 {
+    self.account = Some(account);
     self
   }
 
-  pub fn var_31(&self) -> Option<&String> {
-    self.var_31.as_ref()
+  pub fn account(&self) -> Option<&String> {
+    self.account.as_ref()
   }
 
-  pub fn reset_var_31(&mut self) {
-    self.var_31 = None;
+  pub fn reset_account(&mut self) {
+    self.account = None;
   }
 
-  pub fn set_var_55(&mut self, var_55: String) {
-    self.var_55 = Some(var_55);
+  pub fn set_alert_active(&mut self, alert_active: i32) {
+    self.alert_active = Some(alert_active);
   }
 
-  pub fn with_var_55(mut self, var_55: String) -> InlineResponse20013 {
-    self.var_55 = Some(var_55);
+  pub fn with_alert_active(mut self, alert_active: i32) -> InlineResponse20013 {
+    self.alert_active = Some(alert_active);
     self
   }
 
-  pub fn var_55(&self) -> Option<&String> {
-    self.var_55.as_ref()
+  pub fn alert_active(&self) -> Option<&i32> {
+    self.alert_active.as_ref()
   }
 
-  pub fn reset_var_55(&mut self) {
-    self.var_55 = None;
+  pub fn reset_alert_active(&mut self) {
+    self.alert_active = None;
   }
 
-  pub fn set_var_58(&mut self, var_58: String) {
-    self.var_58 = Some(var_58);
+  pub fn set_alert_name(&mut self, alert_name: String) {
+    self.alert_name = Some(alert_name);
   }
 
-  pub fn with_var_58(mut self, var_58: String) -> InlineResponse20013 {
-    self.var_58 = Some(var_58);
+  pub fn with_alert_name(mut self, alert_name: String) -> InlineResponse20013 {
+    self.alert_name = Some(alert_name);
     self
   }
 
-  pub fn var_58(&self) -> Option<&String> {
-    self.var_58.as_ref()
+  pub fn alert_name(&self) -> Option<&String> {
+    self.alert_name.as_ref()
   }
 
-  pub fn reset_var_58(&mut self) {
-    self.var_58 = None;
+  pub fn reset_alert_name(&mut self) {
+    self.alert_name = None;
   }
 
-  pub fn set_var_6004(&mut self, var_6004: String) {
-    self.var_6004 = Some(var_6004);
+  pub fn set_alert_repeatable(&mut self, alert_repeatable: i32) {
+    self.alert_repeatable = Some(alert_repeatable);
   }
 
-  pub fn with_var_6004(mut self, var_6004: String) -> InlineResponse20013 {
-    self.var_6004 = Some(var_6004);
+  pub fn with_alert_repeatable(mut self, alert_repeatable: i32) -> InlineResponse20013 {
+    self.alert_repeatable = Some(alert_repeatable);
     self
   }
 
-  pub fn var_6004(&self) -> Option<&String> {
-    self.var_6004.as_ref()
+  pub fn alert_repeatable(&self) -> Option<&i32> {
+    self.alert_repeatable.as_ref()
   }
 
-  pub fn reset_var_6004(&mut self) {
-    self.var_6004 = None;
+  pub fn reset_alert_repeatable(&mut self) {
+    self.alert_repeatable = None;
   }
 
-  pub fn set_var_6008(&mut self, var_6008: String) {
-    self.var_6008 = Some(var_6008);
+  pub fn set_alert_triggered(&mut self, alert_triggered: bool) {
+    self.alert_triggered = Some(alert_triggered);
   }
 
-  pub fn with_var_6008(mut self, var_6008: String) -> InlineResponse20013 {
-    self.var_6008 = Some(var_6008);
+  pub fn with_alert_triggered(mut self, alert_triggered: bool) -> InlineResponse20013 {
+    self.alert_triggered = Some(alert_triggered);
     self
   }
 
-  pub fn var_6008(&self) -> Option<&String> {
-    self.var_6008.as_ref()
+  pub fn alert_triggered(&self) -> Option<&bool> {
+    self.alert_triggered.as_ref()
   }
 
-  pub fn reset_var_6008(&mut self) {
-    self.var_6008 = None;
+  pub fn reset_alert_triggered(&mut self) {
+    self.alert_triggered = None;
   }
 
-  pub fn set_var_6070(&mut self, var_6070: String) {
-    self.var_6070 = Some(var_6070);
+  pub fn set_order_id(&mut self, order_id: i32) {
+    self.order_id = Some(order_id);
   }
 
-  pub fn with_var_6070(mut self, var_6070: String) -> InlineResponse20013 {
-    self.var_6070 = Some(var_6070);
+  pub fn with_order_id(mut self, order_id: i32) -> InlineResponse20013 {
+    self.order_id = Some(order_id);
     self
   }
 
-  pub fn var_6070(&self) -> Option<&String> {
-    self.var_6070.as_ref()
+  pub fn order_id(&self) -> Option<&i32> {
+    self.order_id.as_ref()
   }
 
-  pub fn reset_var_6070(&mut self) {
-    self.var_6070 = None;
+  pub fn reset_order_id(&mut self) {
+    self.order_id = None;
   }
 
-  pub fn set_var_6072(&mut self, var_6072: String) {
-    self.var_6072 = Some(var_6072);
+  pub fn set_order_time(&mut self, order_time: String) {
+    self.order_time = Some(order_time);
   }
 
-  pub fn with_var_6072(mut self, var_6072: String) -> InlineResponse20013 {
-    self.var_6072 = Some(var_6072);
+  pub fn with_order_time(mut self, order_time: String) -> InlineResponse20013 {
+    self.order_time = Some(order_time);
     self
   }
 
-  pub fn var_6072(&self) -> Option<&String> {
-    self.var_6072.as_ref()
+  pub fn order_time(&self) -> Option<&String> {
+    self.order_time.as_ref()
   }
 
-  pub fn reset_var_6072(&mut self) {
-    self.var_6072 = None;
-  }
-
-  pub fn set_var_6073(&mut self, var_6073: String) {
-    self.var_6073 = Some(var_6073);
-  }
-
-  pub fn with_var_6073(mut self, var_6073: String) -> InlineResponse20013 {
-    self.var_6073 = Some(var_6073);
-    self
-  }
-
-  pub fn var_6073(&self) -> Option<&String> {
-    self.var_6073.as_ref()
-  }
-
-  pub fn reset_var_6073(&mut self) {
-    self.var_6073 = None;
-  }
-
-  pub fn set_var_6119(&mut self, var_6119: String) {
-    self.var_6119 = Some(var_6119);
-  }
-
-  pub fn with_var_6119(mut self, var_6119: String) -> InlineResponse20013 {
-    self.var_6119 = Some(var_6119);
-    self
-  }
-
-  pub fn var_6119(&self) -> Option<&String> {
-    self.var_6119.as_ref()
-  }
-
-  pub fn reset_var_6119(&mut self) {
-    self.var_6119 = None;
-  }
-
-  pub fn set_var_6457(&mut self, var_6457: String) {
-    self.var_6457 = Some(var_6457);
-  }
-
-  pub fn with_var_6457(mut self, var_6457: String) -> InlineResponse20013 {
-    self.var_6457 = Some(var_6457);
-    self
-  }
-
-  pub fn var_6457(&self) -> Option<&String> {
-    self.var_6457.as_ref()
-  }
-
-  pub fn reset_var_6457(&mut self) {
-    self.var_6457 = None;
-  }
-
-  pub fn set_var_6509(&mut self, var_6509: String) {
-    self.var_6509 = Some(var_6509);
-  }
-
-  pub fn with_var_6509(mut self, var_6509: String) -> InlineResponse20013 {
-    self.var_6509 = Some(var_6509);
-    self
-  }
-
-  pub fn var_6509(&self) -> Option<&String> {
-    self.var_6509.as_ref()
-  }
-
-  pub fn reset_var_6509(&mut self) {
-    self.var_6509 = None;
-  }
-
-  pub fn set_var_70(&mut self, var_70: String) {
-    self.var_70 = Some(var_70);
-  }
-
-  pub fn with_var_70(mut self, var_70: String) -> InlineResponse20013 {
-    self.var_70 = Some(var_70);
-    self
-  }
-
-  pub fn var_70(&self) -> Option<&String> {
-    self.var_70.as_ref()
-  }
-
-  pub fn reset_var_70(&mut self) {
-    self.var_70 = None;
-  }
-
-  pub fn set_var_7051(&mut self, var_7051: String) {
-    self.var_7051 = Some(var_7051);
-  }
-
-  pub fn with_var_7051(mut self, var_7051: String) -> InlineResponse20013 {
-    self.var_7051 = Some(var_7051);
-    self
-  }
-
-  pub fn var_7051(&self) -> Option<&String> {
-    self.var_7051.as_ref()
-  }
-
-  pub fn reset_var_7051(&mut self) {
-    self.var_7051 = None;
-  }
-
-  pub fn set_var_7094(&mut self, var_7094: String) {
-    self.var_7094 = Some(var_7094);
-  }
-
-  pub fn with_var_7094(mut self, var_7094: String) -> InlineResponse20013 {
-    self.var_7094 = Some(var_7094);
-    self
-  }
-
-  pub fn var_7094(&self) -> Option<&String> {
-    self.var_7094.as_ref()
-  }
-
-  pub fn reset_var_7094(&mut self) {
-    self.var_7094 = None;
-  }
-
-  pub fn set_var_71(&mut self, var_71: String) {
-    self.var_71 = Some(var_71);
-  }
-
-  pub fn with_var_71(mut self, var_71: String) -> InlineResponse20013 {
-    self.var_71 = Some(var_71);
-    self
-  }
-
-  pub fn var_71(&self) -> Option<&String> {
-    self.var_71.as_ref()
-  }
-
-  pub fn reset_var_71(&mut self) {
-    self.var_71 = None;
-  }
-
-  pub fn set_var_72(&mut self, var_72: String) {
-    self.var_72 = Some(var_72);
-  }
-
-  pub fn with_var_72(mut self, var_72: String) -> InlineResponse20013 {
-    self.var_72 = Some(var_72);
-    self
-  }
-
-  pub fn var_72(&self) -> Option<&String> {
-    self.var_72.as_ref()
-  }
-
-  pub fn reset_var_72(&mut self) {
-    self.var_72 = None;
-  }
-
-  pub fn set_var_7219(&mut self, var_7219: String) {
-    self.var_7219 = Some(var_7219);
-  }
-
-  pub fn with_var_7219(mut self, var_7219: String) -> InlineResponse20013 {
-    self.var_7219 = Some(var_7219);
-    self
-  }
-
-  pub fn var_7219(&self) -> Option<&String> {
-    self.var_7219.as_ref()
-  }
-
-  pub fn reset_var_7219(&mut self) {
-    self.var_7219 = None;
-  }
-
-  pub fn set_var_7220(&mut self, var_7220: String) {
-    self.var_7220 = Some(var_7220);
-  }
-
-  pub fn with_var_7220(mut self, var_7220: String) -> InlineResponse20013 {
-    self.var_7220 = Some(var_7220);
-    self
-  }
-
-  pub fn var_7220(&self) -> Option<&String> {
-    self.var_7220.as_ref()
-  }
-
-  pub fn reset_var_7220(&mut self) {
-    self.var_7220 = None;
-  }
-
-  pub fn set_var_7221(&mut self, var_7221: String) {
-    self.var_7221 = Some(var_7221);
-  }
-
-  pub fn with_var_7221(mut self, var_7221: String) -> InlineResponse20013 {
-    self.var_7221 = Some(var_7221);
-    self
-  }
-
-  pub fn var_7221(&self) -> Option<&String> {
-    self.var_7221.as_ref()
-  }
-
-  pub fn reset_var_7221(&mut self) {
-    self.var_7221 = None;
-  }
-
-  pub fn set_var_7280(&mut self, var_7280: String) {
-    self.var_7280 = Some(var_7280);
-  }
-
-  pub fn with_var_7280(mut self, var_7280: String) -> InlineResponse20013 {
-    self.var_7280 = Some(var_7280);
-    self
-  }
-
-  pub fn var_7280(&self) -> Option<&String> {
-    self.var_7280.as_ref()
-  }
-
-  pub fn reset_var_7280(&mut self) {
-    self.var_7280 = None;
-  }
-
-  pub fn set_var_7281(&mut self, var_7281: String) {
-    self.var_7281 = Some(var_7281);
-  }
-
-  pub fn with_var_7281(mut self, var_7281: String) -> InlineResponse20013 {
-    self.var_7281 = Some(var_7281);
-    self
-  }
-
-  pub fn var_7281(&self) -> Option<&String> {
-    self.var_7281.as_ref()
-  }
-
-  pub fn reset_var_7281(&mut self) {
-    self.var_7281 = None;
-  }
-
-  pub fn set_var_7282(&mut self, var_7282: String) {
-    self.var_7282 = Some(var_7282);
-  }
-
-  pub fn with_var_7282(mut self, var_7282: String) -> InlineResponse20013 {
-    self.var_7282 = Some(var_7282);
-    self
-  }
-
-  pub fn var_7282(&self) -> Option<&String> {
-    self.var_7282.as_ref()
-  }
-
-  pub fn reset_var_7282(&mut self) {
-    self.var_7282 = None;
-  }
-
-  pub fn set_var_7284(&mut self, var_7284: String) {
-    self.var_7284 = Some(var_7284);
-  }
-
-  pub fn with_var_7284(mut self, var_7284: String) -> InlineResponse20013 {
-    self.var_7284 = Some(var_7284);
-    self
-  }
-
-  pub fn var_7284(&self) -> Option<&String> {
-    self.var_7284.as_ref()
-  }
-
-  pub fn reset_var_7284(&mut self) {
-    self.var_7284 = None;
-  }
-
-  pub fn set_var_7285(&mut self, var_7285: String) {
-    self.var_7285 = Some(var_7285);
-  }
-
-  pub fn with_var_7285(mut self, var_7285: String) -> InlineResponse20013 {
-    self.var_7285 = Some(var_7285);
-    self
-  }
-
-  pub fn var_7285(&self) -> Option<&String> {
-    self.var_7285.as_ref()
-  }
-
-  pub fn reset_var_7285(&mut self) {
-    self.var_7285 = None;
-  }
-
-  pub fn set_var_7286(&mut self, var_7286: String) {
-    self.var_7286 = Some(var_7286);
-  }
-
-  pub fn with_var_7286(mut self, var_7286: String) -> InlineResponse20013 {
-    self.var_7286 = Some(var_7286);
-    self
-  }
-
-  pub fn var_7286(&self) -> Option<&String> {
-    self.var_7286.as_ref()
-  }
-
-  pub fn reset_var_7286(&mut self) {
-    self.var_7286 = None;
-  }
-
-  pub fn set_var_7287(&mut self, var_7287: String) {
-    self.var_7287 = Some(var_7287);
-  }
-
-  pub fn with_var_7287(mut self, var_7287: String) -> InlineResponse20013 {
-    self.var_7287 = Some(var_7287);
-    self
-  }
-
-  pub fn var_7287(&self) -> Option<&String> {
-    self.var_7287.as_ref()
-  }
-
-  pub fn reset_var_7287(&mut self) {
-    self.var_7287 = None;
-  }
-
-  pub fn set_var_7288(&mut self, var_7288: String) {
-    self.var_7288 = Some(var_7288);
-  }
-
-  pub fn with_var_7288(mut self, var_7288: String) -> InlineResponse20013 {
-    self.var_7288 = Some(var_7288);
-    self
-  }
-
-  pub fn var_7288(&self) -> Option<&String> {
-    self.var_7288.as_ref()
-  }
-
-  pub fn reset_var_7288(&mut self) {
-    self.var_7288 = None;
-  }
-
-  pub fn set_var_7289(&mut self, var_7289: String) {
-    self.var_7289 = Some(var_7289);
-  }
-
-  pub fn with_var_7289(mut self, var_7289: String) -> InlineResponse20013 {
-    self.var_7289 = Some(var_7289);
-    self
-  }
-
-  pub fn var_7289(&self) -> Option<&String> {
-    self.var_7289.as_ref()
-  }
-
-  pub fn reset_var_7289(&mut self) {
-    self.var_7289 = None;
-  }
-
-  pub fn set_var_7290(&mut self, var_7290: String) {
-    self.var_7290 = Some(var_7290);
-  }
-
-  pub fn with_var_7290(mut self, var_7290: String) -> InlineResponse20013 {
-    self.var_7290 = Some(var_7290);
-    self
-  }
-
-  pub fn var_7290(&self) -> Option<&String> {
-    self.var_7290.as_ref()
-  }
-
-  pub fn reset_var_7290(&mut self) {
-    self.var_7290 = None;
-  }
-
-  pub fn set_var_7291(&mut self, var_7291: String) {
-    self.var_7291 = Some(var_7291);
-  }
-
-  pub fn with_var_7291(mut self, var_7291: String) -> InlineResponse20013 {
-    self.var_7291 = Some(var_7291);
-    self
-  }
-
-  pub fn var_7291(&self) -> Option<&String> {
-    self.var_7291.as_ref()
-  }
-
-  pub fn reset_var_7291(&mut self) {
-    self.var_7291 = None;
-  }
-
-  pub fn set_var_7292(&mut self, var_7292: String) {
-    self.var_7292 = Some(var_7292);
-  }
-
-  pub fn with_var_7292(mut self, var_7292: String) -> InlineResponse20013 {
-    self.var_7292 = Some(var_7292);
-    self
-  }
-
-  pub fn var_7292(&self) -> Option<&String> {
-    self.var_7292.as_ref()
-  }
-
-  pub fn reset_var_7292(&mut self) {
-    self.var_7292 = None;
-  }
-
-  pub fn set_var_7293(&mut self, var_7293: String) {
-    self.var_7293 = Some(var_7293);
-  }
-
-  pub fn with_var_7293(mut self, var_7293: String) -> InlineResponse20013 {
-    self.var_7293 = Some(var_7293);
-    self
-  }
-
-  pub fn var_7293(&self) -> Option<&String> {
-    self.var_7293.as_ref()
-  }
-
-  pub fn reset_var_7293(&mut self) {
-    self.var_7293 = None;
-  }
-
-  pub fn set_var_7294(&mut self, var_7294: String) {
-    self.var_7294 = Some(var_7294);
-  }
-
-  pub fn with_var_7294(mut self, var_7294: String) -> InlineResponse20013 {
-    self.var_7294 = Some(var_7294);
-    self
-  }
-
-  pub fn var_7294(&self) -> Option<&String> {
-    self.var_7294.as_ref()
-  }
-
-  pub fn reset_var_7294(&mut self) {
-    self.var_7294 = None;
-  }
-
-  pub fn set_var_7295(&mut self, var_7295: String) {
-    self.var_7295 = Some(var_7295);
-  }
-
-  pub fn with_var_7295(mut self, var_7295: String) -> InlineResponse20013 {
-    self.var_7295 = Some(var_7295);
-    self
-  }
-
-  pub fn var_7295(&self) -> Option<&String> {
-    self.var_7295.as_ref()
-  }
-
-  pub fn reset_var_7295(&mut self) {
-    self.var_7295 = None;
-  }
-
-  pub fn set_var_7296(&mut self, var_7296: String) {
-    self.var_7296 = Some(var_7296);
-  }
-
-  pub fn with_var_7296(mut self, var_7296: String) -> InlineResponse20013 {
-    self.var_7296 = Some(var_7296);
-    self
-  }
-
-  pub fn var_7296(&self) -> Option<&String> {
-    self.var_7296.as_ref()
-  }
-
-  pub fn reset_var_7296(&mut self) {
-    self.var_7296 = None;
-  }
-
-  pub fn set_var_73(&mut self, var_73: String) {
-    self.var_73 = Some(var_73);
-  }
-
-  pub fn with_var_73(mut self, var_73: String) -> InlineResponse20013 {
-    self.var_73 = Some(var_73);
-    self
-  }
-
-  pub fn var_73(&self) -> Option<&String> {
-    self.var_73.as_ref()
-  }
-
-  pub fn reset_var_73(&mut self) {
-    self.var_73 = None;
-  }
-
-  pub fn set_var_74(&mut self, var_74: String) {
-    self.var_74 = Some(var_74);
-  }
-
-  pub fn with_var_74(mut self, var_74: String) -> InlineResponse20013 {
-    self.var_74 = Some(var_74);
-    self
-  }
-
-  pub fn var_74(&self) -> Option<&String> {
-    self.var_74.as_ref()
-  }
-
-  pub fn reset_var_74(&mut self) {
-    self.var_74 = None;
-  }
-
-  pub fn set_var_75(&mut self, var_75: String) {
-    self.var_75 = Some(var_75);
-  }
-
-  pub fn with_var_75(mut self, var_75: String) -> InlineResponse20013 {
-    self.var_75 = Some(var_75);
-    self
-  }
-
-  pub fn var_75(&self) -> Option<&String> {
-    self.var_75.as_ref()
-  }
-
-  pub fn reset_var_75(&mut self) {
-    self.var_75 = None;
-  }
-
-  pub fn set_var_76(&mut self, var_76: String) {
-    self.var_76 = Some(var_76);
-  }
-
-  pub fn with_var_76(mut self, var_76: String) -> InlineResponse20013 {
-    self.var_76 = Some(var_76);
-    self
-  }
-
-  pub fn var_76(&self) -> Option<&String> {
-    self.var_76.as_ref()
-  }
-
-  pub fn reset_var_76(&mut self) {
-    self.var_76 = None;
-  }
-
-  pub fn set_var_7633(&mut self, var_7633: String) {
-    self.var_7633 = Some(var_7633);
-  }
-
-  pub fn with_var_7633(mut self, var_7633: String) -> InlineResponse20013 {
-    self.var_7633 = Some(var_7633);
-    self
-  }
-
-  pub fn var_7633(&self) -> Option<&String> {
-    self.var_7633.as_ref()
-  }
-
-  pub fn reset_var_7633(&mut self) {
-    self.var_7633 = None;
-  }
-
-  pub fn set_var_77(&mut self, var_77: String) {
-    self.var_77 = Some(var_77);
-  }
-
-  pub fn with_var_77(mut self, var_77: String) -> InlineResponse20013 {
-    self.var_77 = Some(var_77);
-    self
-  }
-
-  pub fn var_77(&self) -> Option<&String> {
-    self.var_77.as_ref()
-  }
-
-  pub fn reset_var_77(&mut self) {
-    self.var_77 = None;
-  }
-
-  pub fn set_var_78(&mut self, var_78: String) {
-    self.var_78 = Some(var_78);
-  }
-
-  pub fn with_var_78(mut self, var_78: String) -> InlineResponse20013 {
-    self.var_78 = Some(var_78);
-    self
-  }
-
-  pub fn var_78(&self) -> Option<&String> {
-    self.var_78.as_ref()
-  }
-
-  pub fn reset_var_78(&mut self) {
-    self.var_78 = None;
-  }
-
-  pub fn set_var_82(&mut self, var_82: String) {
-    self.var_82 = Some(var_82);
-  }
-
-  pub fn with_var_82(mut self, var_82: String) -> InlineResponse20013 {
-    self.var_82 = Some(var_82);
-    self
-  }
-
-  pub fn var_82(&self) -> Option<&String> {
-    self.var_82.as_ref()
-  }
-
-  pub fn reset_var_82(&mut self) {
-    self.var_82 = None;
-  }
-
-  pub fn set_var_83(&mut self, var_83: String) {
-    self.var_83 = Some(var_83);
-  }
-
-  pub fn with_var_83(mut self, var_83: String) -> InlineResponse20013 {
-    self.var_83 = Some(var_83);
-    self
-  }
-
-  pub fn var_83(&self) -> Option<&String> {
-    self.var_83.as_ref()
-  }
-
-  pub fn reset_var_83(&mut self) {
-    self.var_83 = None;
-  }
-
-  pub fn set_var_84(&mut self, var_84: String) {
-    self.var_84 = Some(var_84);
-  }
-
-  pub fn with_var_84(mut self, var_84: String) -> InlineResponse20013 {
-    self.var_84 = Some(var_84);
-    self
-  }
-
-  pub fn var_84(&self) -> Option<&String> {
-    self.var_84.as_ref()
-  }
-
-  pub fn reset_var_84(&mut self) {
-    self.var_84 = None;
-  }
-
-  pub fn set_var_85(&mut self, var_85: String) {
-    self.var_85 = Some(var_85);
-  }
-
-  pub fn with_var_85(mut self, var_85: String) -> InlineResponse20013 {
-    self.var_85 = Some(var_85);
-    self
-  }
-
-  pub fn var_85(&self) -> Option<&String> {
-    self.var_85.as_ref()
-  }
-
-  pub fn reset_var_85(&mut self) {
-    self.var_85 = None;
-  }
-
-  pub fn set_var_86(&mut self, var_86: String) {
-    self.var_86 = Some(var_86);
-  }
-
-  pub fn with_var_86(mut self, var_86: String) -> InlineResponse20013 {
-    self.var_86 = Some(var_86);
-    self
-  }
-
-  pub fn var_86(&self) -> Option<&String> {
-    self.var_86.as_ref()
-  }
-
-  pub fn reset_var_86(&mut self) {
-    self.var_86 = None;
-  }
-
-  pub fn set_var_87(&mut self, var_87: String) {
-    self.var_87 = Some(var_87);
-  }
-
-  pub fn with_var_87(mut self, var_87: String) -> InlineResponse20013 {
-    self.var_87 = Some(var_87);
-    self
-  }
-
-  pub fn var_87(&self) -> Option<&String> {
-    self.var_87.as_ref()
-  }
-
-  pub fn reset_var_87(&mut self) {
-    self.var_87 = None;
-  }
-
-  pub fn set_var_88(&mut self, var_88: String) {
-    self.var_88 = Some(var_88);
-  }
-
-  pub fn with_var_88(mut self, var_88: String) -> InlineResponse20013 {
-    self.var_88 = Some(var_88);
-    self
-  }
-
-  pub fn var_88(&self) -> Option<&String> {
-    self.var_88.as_ref()
-  }
-
-  pub fn reset_var_88(&mut self) {
-    self.var_88 = None;
-  }
-
-  pub fn set__updated(&mut self, _updated: i32) {
-    self._updated = Some(_updated);
-  }
-
-  pub fn with__updated(mut self, _updated: i32) -> InlineResponse20013 {
-    self._updated = Some(_updated);
-    self
-  }
-
-  pub fn _updated(&self) -> Option<&i32> {
-    self._updated.as_ref()
-  }
-
-  pub fn reset__updated(&mut self) {
-    self._updated = None;
-  }
-
-  pub fn set_conid(&mut self, conid: i32) {
-    self.conid = Some(conid);
-  }
-
-  pub fn with_conid(mut self, conid: i32) -> InlineResponse20013 {
-    self.conid = Some(conid);
-    self
-  }
-
-  pub fn conid(&self) -> Option<&i32> {
-    self.conid.as_ref()
-  }
-
-  pub fn reset_conid(&mut self) {
-    self.conid = None;
-  }
-
-  pub fn set_server_id(&mut self, server_id: String) {
-    self.server_id = Some(server_id);
-  }
-
-  pub fn with_server_id(mut self, server_id: String) -> InlineResponse20013 {
-    self.server_id = Some(server_id);
-    self
-  }
-
-  pub fn server_id(&self) -> Option<&String> {
-    self.server_id.as_ref()
-  }
-
-  pub fn reset_server_id(&mut self) {
-    self.server_id = None;
+  pub fn reset_order_time(&mut self) {
+    self.order_time = None;
   }
 
 }

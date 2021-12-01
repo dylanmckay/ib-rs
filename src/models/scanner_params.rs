@@ -1,7 +1,7 @@
 /* 
  * Client Portal Web API
  *
- * Production version of the Client Portal Web API
+ * Client Poral Web API
  *
  * OpenAPI spec version: 1.0.0
  * 
@@ -14,114 +14,93 @@ use serde_json::Value;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct ScannerParams {
-  #[serde(rename = "filter")]
-  filter: Option<Vec<::models::ScannerparamsFilter>>,
-  /// for example-STK
-  #[serde(rename = "instrument")]
-  instrument: Option<String>,
-  #[serde(rename = "location")]
-  location: Option<String>,
-  #[serde(rename = "size")]
-  size: Option<String>,
-  /// for example-TOP_PERC_GAIN
-  #[serde(rename = "type")]
-  _type: Option<String>
+  /// Contains list of filters supported for the scanner
+  #[serde(rename = "FilterList")]
+  filter_list: Option<Vec<Value>>,
+  #[serde(rename = "InstrumentList")]
+  instrument_list: Option<::models::ScannerparamsInstrumentList>,
+  #[serde(rename = "LocationTree")]
+  location_tree: Option<::models::ScannerparamsLocationTree>,
+  #[serde(rename = "ScanTypeList")]
+  scan_type_list: Option<::models::ScannerparamsScanTypeList>
 }
 
 impl ScannerParams {
   pub fn new() -> ScannerParams {
     ScannerParams {
-      filter: None,
-      instrument: None,
-      location: None,
-      size: None,
-      _type: None
+      filter_list: None,
+      instrument_list: None,
+      location_tree: None,
+      scan_type_list: None
     }
   }
 
-  pub fn set_filter(&mut self, filter: Vec<::models::ScannerparamsFilter>) {
-    self.filter = Some(filter);
+  pub fn set_filter_list(&mut self, filter_list: Vec<Value>) {
+    self.filter_list = Some(filter_list);
   }
 
-  pub fn with_filter(mut self, filter: Vec<::models::ScannerparamsFilter>) -> ScannerParams {
-    self.filter = Some(filter);
+  pub fn with_filter_list(mut self, filter_list: Vec<Value>) -> ScannerParams {
+    self.filter_list = Some(filter_list);
     self
   }
 
-  pub fn filter(&self) -> Option<&Vec<::models::ScannerparamsFilter>> {
-    self.filter.as_ref()
+  pub fn filter_list(&self) -> Option<&Vec<Value>> {
+    self.filter_list.as_ref()
   }
 
-  pub fn reset_filter(&mut self) {
-    self.filter = None;
+  pub fn reset_filter_list(&mut self) {
+    self.filter_list = None;
   }
 
-  pub fn set_instrument(&mut self, instrument: String) {
-    self.instrument = Some(instrument);
+  pub fn set_instrument_list(&mut self, instrument_list: ::models::ScannerparamsInstrumentList) {
+    self.instrument_list = Some(instrument_list);
   }
 
-  pub fn with_instrument(mut self, instrument: String) -> ScannerParams {
-    self.instrument = Some(instrument);
+  pub fn with_instrument_list(mut self, instrument_list: ::models::ScannerparamsInstrumentList) -> ScannerParams {
+    self.instrument_list = Some(instrument_list);
     self
   }
 
-  pub fn instrument(&self) -> Option<&String> {
-    self.instrument.as_ref()
+  pub fn instrument_list(&self) -> Option<&::models::ScannerparamsInstrumentList> {
+    self.instrument_list.as_ref()
   }
 
-  pub fn reset_instrument(&mut self) {
-    self.instrument = None;
+  pub fn reset_instrument_list(&mut self) {
+    self.instrument_list = None;
   }
 
-  pub fn set_location(&mut self, location: String) {
-    self.location = Some(location);
+  pub fn set_location_tree(&mut self, location_tree: ::models::ScannerparamsLocationTree) {
+    self.location_tree = Some(location_tree);
   }
 
-  pub fn with_location(mut self, location: String) -> ScannerParams {
-    self.location = Some(location);
+  pub fn with_location_tree(mut self, location_tree: ::models::ScannerparamsLocationTree) -> ScannerParams {
+    self.location_tree = Some(location_tree);
     self
   }
 
-  pub fn location(&self) -> Option<&String> {
-    self.location.as_ref()
+  pub fn location_tree(&self) -> Option<&::models::ScannerparamsLocationTree> {
+    self.location_tree.as_ref()
   }
 
-  pub fn reset_location(&mut self) {
-    self.location = None;
+  pub fn reset_location_tree(&mut self) {
+    self.location_tree = None;
   }
 
-  pub fn set_size(&mut self, size: String) {
-    self.size = Some(size);
+  pub fn set_scan_type_list(&mut self, scan_type_list: ::models::ScannerparamsScanTypeList) {
+    self.scan_type_list = Some(scan_type_list);
   }
 
-  pub fn with_size(mut self, size: String) -> ScannerParams {
-    self.size = Some(size);
+  pub fn with_scan_type_list(mut self, scan_type_list: ::models::ScannerparamsScanTypeList) -> ScannerParams {
+    self.scan_type_list = Some(scan_type_list);
     self
   }
 
-  pub fn size(&self) -> Option<&String> {
-    self.size.as_ref()
+  pub fn scan_type_list(&self) -> Option<&::models::ScannerparamsScanTypeList> {
+    self.scan_type_list.as_ref()
   }
 
-  pub fn reset_size(&mut self) {
-    self.size = None;
-  }
-
-  pub fn set__type(&mut self, _type: String) {
-    self._type = Some(_type);
-  }
-
-  pub fn with__type(mut self, _type: String) -> ScannerParams {
-    self._type = Some(_type);
-    self
-  }
-
-  pub fn _type(&self) -> Option<&String> {
-    self._type.as_ref()
-  }
-
-  pub fn reset__type(&mut self) {
-    self._type = None;
+  pub fn reset_scan_type_list(&mut self) {
+    self.scan_type_list = None;
   }
 
 }

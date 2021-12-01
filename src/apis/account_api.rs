@@ -1,7 +1,7 @@
 /* 
  * Client Portal Web API
  *
- * Production version of the Client Portal Web API
+ * Client Poral Web API
  *
  * OpenAPI spec version: 1.0.0
  * 
@@ -35,19 +35,19 @@ impl<C: hyper::client::Connect> AccountApiClient<C> {
 }
 
 pub trait AccountApi {
-    fn iserver_account_pnl_partitioned_get(&self, ) -> Box<Future<Item = ::models::InlineResponse2008, Error = Error<serde_json::Value>>>;
-    fn iserver_account_post(&self, body: ::models::SetAccount) -> Box<Future<Item = ::models::InlineResponse2006, Error = Error<serde_json::Value>>>;
-    fn iserver_accounts_get(&self, ) -> Box<Future<Item = ::models::InlineResponse20012, Error = Error<serde_json::Value>>>;
-    fn portfolio_account_id_ledger_get(&self, account_id: &str) -> Box<Future<Item = ::models::InlineResponse20019, Error = Error<serde_json::Value>>>;
+    fn iserver_account_pnl_partitioned_get(&self, ) -> Box<Future<Item = ::models::InlineResponse20016, Error = Error<serde_json::Value>>>;
+    fn iserver_account_post(&self, body: ::models::SetAccount) -> Box<Future<Item = ::models::InlineResponse20011, Error = Error<serde_json::Value>>>;
+    fn iserver_accounts_get(&self, ) -> Box<Future<Item = ::models::InlineResponse20021, Error = Error<serde_json::Value>>>;
+    fn portfolio_account_id_ledger_get(&self, account_id: &str) -> Box<Future<Item = ::models::InlineResponse20033, Error = Error<serde_json::Value>>>;
     fn portfolio_account_id_meta_get(&self, account_id: &str) -> Box<Future<Item = ::models::Accounts, Error = Error<serde_json::Value>>>;
-    fn portfolio_account_id_summary_get(&self, account_id: &str) -> Box<Future<Item = ::models::InlineResponse20020, Error = Error<serde_json::Value>>>;
+    fn portfolio_account_id_summary_get(&self, account_id: &str) -> Box<Future<Item = ::models::InlineResponse20034, Error = Error<serde_json::Value>>>;
     fn portfolio_accounts_get(&self, ) -> Box<Future<Item = ::models::Accounts, Error = Error<serde_json::Value>>>;
     fn portfolio_subaccounts_get(&self, ) -> Box<Future<Item = ::models::Account, Error = Error<serde_json::Value>>>;
 }
 
 
 impl<C: hyper::client::Connect>AccountApi for AccountApiClient<C> {
-    fn iserver_account_pnl_partitioned_get(&self, ) -> Box<Future<Item = ::models::InlineResponse2008, Error = Error<serde_json::Value>>> {
+    fn iserver_account_pnl_partitioned_get(&self, ) -> Box<Future<Item = ::models::InlineResponse20016, Error = Error<serde_json::Value>>> {
         let configuration: &configuration::Configuration<C> = self.configuration.borrow();
 
         let method = hyper::Method::Get;
@@ -91,13 +91,13 @@ impl<C: hyper::client::Connect>AccountApi for AccountApiClient<C> {
                 }
             })
             .and_then(|body| {
-                let parsed: Result<::models::InlineResponse2008, _> = serde_json::from_slice(&body);
+                let parsed: Result<::models::InlineResponse20016, _> = serde_json::from_slice(&body);
                 parsed.map_err(|e| Error::from(e))
             })
         )
     }
 
-    fn iserver_account_post(&self, body: ::models::SetAccount) -> Box<Future<Item = ::models::InlineResponse2006, Error = Error<serde_json::Value>>> {
+    fn iserver_account_post(&self, body: ::models::SetAccount) -> Box<Future<Item = ::models::InlineResponse20011, Error = Error<serde_json::Value>>> {
         let configuration: &configuration::Configuration<C> = self.configuration.borrow();
 
         let method = hyper::Method::Post;
@@ -145,13 +145,13 @@ impl<C: hyper::client::Connect>AccountApi for AccountApiClient<C> {
                 }
             })
             .and_then(|body| {
-                let parsed: Result<::models::InlineResponse2006, _> = serde_json::from_slice(&body);
+                let parsed: Result<::models::InlineResponse20011, _> = serde_json::from_slice(&body);
                 parsed.map_err(|e| Error::from(e))
             })
         )
     }
 
-    fn iserver_accounts_get(&self, ) -> Box<Future<Item = ::models::InlineResponse20012, Error = Error<serde_json::Value>>> {
+    fn iserver_accounts_get(&self, ) -> Box<Future<Item = ::models::InlineResponse20021, Error = Error<serde_json::Value>>> {
         let configuration: &configuration::Configuration<C> = self.configuration.borrow();
 
         let method = hyper::Method::Get;
@@ -195,13 +195,13 @@ impl<C: hyper::client::Connect>AccountApi for AccountApiClient<C> {
                 }
             })
             .and_then(|body| {
-                let parsed: Result<::models::InlineResponse20012, _> = serde_json::from_slice(&body);
+                let parsed: Result<::models::InlineResponse20021, _> = serde_json::from_slice(&body);
                 parsed.map_err(|e| Error::from(e))
             })
         )
     }
 
-    fn portfolio_account_id_ledger_get(&self, account_id: &str) -> Box<Future<Item = ::models::InlineResponse20019, Error = Error<serde_json::Value>>> {
+    fn portfolio_account_id_ledger_get(&self, account_id: &str) -> Box<Future<Item = ::models::InlineResponse20033, Error = Error<serde_json::Value>>> {
         let configuration: &configuration::Configuration<C> = self.configuration.borrow();
 
         let method = hyper::Method::Get;
@@ -245,7 +245,7 @@ impl<C: hyper::client::Connect>AccountApi for AccountApiClient<C> {
                 }
             })
             .and_then(|body| {
-                let parsed: Result<::models::InlineResponse20019, _> = serde_json::from_slice(&body);
+                let parsed: Result<::models::InlineResponse20033, _> = serde_json::from_slice(&body);
                 parsed.map_err(|e| Error::from(e))
             })
         )
@@ -301,7 +301,7 @@ impl<C: hyper::client::Connect>AccountApi for AccountApiClient<C> {
         )
     }
 
-    fn portfolio_account_id_summary_get(&self, account_id: &str) -> Box<Future<Item = ::models::InlineResponse20020, Error = Error<serde_json::Value>>> {
+    fn portfolio_account_id_summary_get(&self, account_id: &str) -> Box<Future<Item = ::models::InlineResponse20034, Error = Error<serde_json::Value>>> {
         let configuration: &configuration::Configuration<C> = self.configuration.borrow();
 
         let method = hyper::Method::Get;
@@ -345,7 +345,7 @@ impl<C: hyper::client::Connect>AccountApi for AccountApiClient<C> {
                 }
             })
             .and_then(|body| {
-                let parsed: Result<::models::InlineResponse20020, _> = serde_json::from_slice(&body);
+                let parsed: Result<::models::InlineResponse20034, _> = serde_json::from_slice(&body);
                 parsed.map_err(|e| Error::from(e))
             })
         )

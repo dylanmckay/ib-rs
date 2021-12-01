@@ -1,7 +1,7 @@
 /* 
  * Client Portal Web API
  *
- * Production version of the Client Portal Web API
+ * Client Poral Web API
  *
  * OpenAPI spec version: 1.0.0
  * 
@@ -31,7 +31,7 @@ pub struct ApiKey {
 impl<C: hyper::client::Connect> Configuration<C> {
   pub fn new(client: hyper::client::Client<C>) -> Configuration<C> {
     Configuration {
-      base_path: "https://localhost:5000/v1/portal".to_owned(),
+      base_path: "https://localhost:5000/v1/api".to_owned(),
       user_agent: Some("Swagger-Codegen/1.0.0/rust".to_owned()),
       client: client,
       basic_auth: None,

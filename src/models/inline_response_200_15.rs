@@ -1,7 +1,7 @@
 /* 
  * Client Portal Web API
  *
- * Production version of the Client Portal Web API
+ * Client Poral Web API
  *
  * OpenAPI spec version: 1.0.0
  * 
@@ -14,212 +14,53 @@ use serde_json::Value;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct InlineResponse20015 {
-  #[serde(rename = "available_chart_periods")]
-  available_chart_periods: Option<String>,
-  #[serde(rename = "column_name")]
-  column_name: Option<String>,
-  #[serde(rename = "company_name")]
-  company_name: Option<String>,
-  #[serde(rename = "con_id")]
-  con_id: Option<f32>,
-  #[serde(rename = "conidex")]
-  conidex: Option<String>,
-  #[serde(rename = "contract_description_1")]
-  contract_description_1: Option<String>,
-  #[serde(rename = "listing_exchange")]
-  listing_exchange: Option<String>,
-  #[serde(rename = "sec_type")]
-  sec_type: Option<String>,
-  #[serde(rename = "server_id")]
-  server_id: Option<String>,
-  #[serde(rename = "symbol")]
-  symbol: Option<String>
+  #[serde(rename = "id")]
+  id: Option<String>,
+  /// Please note here, if the message is a question, you have to reply to question in order to submit the order successfully. See more in the \"/iserver/reply/{replyid}\" endpoint. 
+  #[serde(rename = "message")]
+  message: Option<Vec<String>>
 }
 
 impl InlineResponse20015 {
   pub fn new() -> InlineResponse20015 {
     InlineResponse20015 {
-      available_chart_periods: None,
-      column_name: None,
-      company_name: None,
-      con_id: None,
-      conidex: None,
-      contract_description_1: None,
-      listing_exchange: None,
-      sec_type: None,
-      server_id: None,
-      symbol: None
+      id: None,
+      message: None
     }
   }
 
-  pub fn set_available_chart_periods(&mut self, available_chart_periods: String) {
-    self.available_chart_periods = Some(available_chart_periods);
+  pub fn set_id(&mut self, id: String) {
+    self.id = Some(id);
   }
 
-  pub fn with_available_chart_periods(mut self, available_chart_periods: String) -> InlineResponse20015 {
-    self.available_chart_periods = Some(available_chart_periods);
+  pub fn with_id(mut self, id: String) -> InlineResponse20015 {
+    self.id = Some(id);
     self
   }
 
-  pub fn available_chart_periods(&self) -> Option<&String> {
-    self.available_chart_periods.as_ref()
+  pub fn id(&self) -> Option<&String> {
+    self.id.as_ref()
   }
 
-  pub fn reset_available_chart_periods(&mut self) {
-    self.available_chart_periods = None;
+  pub fn reset_id(&mut self) {
+    self.id = None;
   }
 
-  pub fn set_column_name(&mut self, column_name: String) {
-    self.column_name = Some(column_name);
+  pub fn set_message(&mut self, message: Vec<String>) {
+    self.message = Some(message);
   }
 
-  pub fn with_column_name(mut self, column_name: String) -> InlineResponse20015 {
-    self.column_name = Some(column_name);
+  pub fn with_message(mut self, message: Vec<String>) -> InlineResponse20015 {
+    self.message = Some(message);
     self
   }
 
-  pub fn column_name(&self) -> Option<&String> {
-    self.column_name.as_ref()
+  pub fn message(&self) -> Option<&Vec<String>> {
+    self.message.as_ref()
   }
 
-  pub fn reset_column_name(&mut self) {
-    self.column_name = None;
-  }
-
-  pub fn set_company_name(&mut self, company_name: String) {
-    self.company_name = Some(company_name);
-  }
-
-  pub fn with_company_name(mut self, company_name: String) -> InlineResponse20015 {
-    self.company_name = Some(company_name);
-    self
-  }
-
-  pub fn company_name(&self) -> Option<&String> {
-    self.company_name.as_ref()
-  }
-
-  pub fn reset_company_name(&mut self) {
-    self.company_name = None;
-  }
-
-  pub fn set_con_id(&mut self, con_id: f32) {
-    self.con_id = Some(con_id);
-  }
-
-  pub fn with_con_id(mut self, con_id: f32) -> InlineResponse20015 {
-    self.con_id = Some(con_id);
-    self
-  }
-
-  pub fn con_id(&self) -> Option<&f32> {
-    self.con_id.as_ref()
-  }
-
-  pub fn reset_con_id(&mut self) {
-    self.con_id = None;
-  }
-
-  pub fn set_conidex(&mut self, conidex: String) {
-    self.conidex = Some(conidex);
-  }
-
-  pub fn with_conidex(mut self, conidex: String) -> InlineResponse20015 {
-    self.conidex = Some(conidex);
-    self
-  }
-
-  pub fn conidex(&self) -> Option<&String> {
-    self.conidex.as_ref()
-  }
-
-  pub fn reset_conidex(&mut self) {
-    self.conidex = None;
-  }
-
-  pub fn set_contract_description_1(&mut self, contract_description_1: String) {
-    self.contract_description_1 = Some(contract_description_1);
-  }
-
-  pub fn with_contract_description_1(mut self, contract_description_1: String) -> InlineResponse20015 {
-    self.contract_description_1 = Some(contract_description_1);
-    self
-  }
-
-  pub fn contract_description_1(&self) -> Option<&String> {
-    self.contract_description_1.as_ref()
-  }
-
-  pub fn reset_contract_description_1(&mut self) {
-    self.contract_description_1 = None;
-  }
-
-  pub fn set_listing_exchange(&mut self, listing_exchange: String) {
-    self.listing_exchange = Some(listing_exchange);
-  }
-
-  pub fn with_listing_exchange(mut self, listing_exchange: String) -> InlineResponse20015 {
-    self.listing_exchange = Some(listing_exchange);
-    self
-  }
-
-  pub fn listing_exchange(&self) -> Option<&String> {
-    self.listing_exchange.as_ref()
-  }
-
-  pub fn reset_listing_exchange(&mut self) {
-    self.listing_exchange = None;
-  }
-
-  pub fn set_sec_type(&mut self, sec_type: String) {
-    self.sec_type = Some(sec_type);
-  }
-
-  pub fn with_sec_type(mut self, sec_type: String) -> InlineResponse20015 {
-    self.sec_type = Some(sec_type);
-    self
-  }
-
-  pub fn sec_type(&self) -> Option<&String> {
-    self.sec_type.as_ref()
-  }
-
-  pub fn reset_sec_type(&mut self) {
-    self.sec_type = None;
-  }
-
-  pub fn set_server_id(&mut self, server_id: String) {
-    self.server_id = Some(server_id);
-  }
-
-  pub fn with_server_id(mut self, server_id: String) -> InlineResponse20015 {
-    self.server_id = Some(server_id);
-    self
-  }
-
-  pub fn server_id(&self) -> Option<&String> {
-    self.server_id.as_ref()
-  }
-
-  pub fn reset_server_id(&mut self) {
-    self.server_id = None;
-  }
-
-  pub fn set_symbol(&mut self, symbol: String) {
-    self.symbol = Some(symbol);
-  }
-
-  pub fn with_symbol(mut self, symbol: String) -> InlineResponse20015 {
-    self.symbol = Some(symbol);
-    self
-  }
-
-  pub fn symbol(&self) -> Option<&String> {
-    self.symbol.as_ref()
-  }
-
-  pub fn reset_symbol(&mut self) {
-    self.symbol = None;
+  pub fn reset_message(&mut self) {
+    self.message = None;
   }
 
 }

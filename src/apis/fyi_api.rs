@@ -1,7 +1,7 @@
 /* 
  * Client Portal Web API
  *
- * Production version of the Client Portal Web API
+ * Client Poral Web API
  *
  * OpenAPI spec version: 1.0.0
  * 
@@ -36,17 +36,17 @@ impl<C: hyper::client::Connect> FYIApiClient<C> {
 
 pub trait FYIApi {
     fn fyi_deliveryoptions_device_id_delete(&self, device_id: &str) -> Box<Future<Item = Value, Error = Error<serde_json::Value>>>;
-    fn fyi_deliveryoptions_device_post(&self, body: ::models::Body) -> Box<Future<Item = ::models::InlineResponse2001, Error = Error<serde_json::Value>>>;
-    fn fyi_deliveryoptions_email_put(&self, enabled: &str) -> Box<Future<Item = ::models::InlineResponse2001, Error = Error<serde_json::Value>>>;
-    fn fyi_deliveryoptions_get(&self, ) -> Box<Future<Item = ::models::InlineResponse200, Error = Error<serde_json::Value>>>;
-    fn fyi_disclaimer_typecode_get(&self, typecode: &str) -> Box<Future<Item = ::models::InlineResponse2002, Error = Error<serde_json::Value>>>;
-    fn fyi_disclaimer_typecode_put(&self, typecode: &str) -> Box<Future<Item = ::models::InlineResponse2001, Error = Error<serde_json::Value>>>;
+    fn fyi_deliveryoptions_device_post(&self, body: ::models::Body) -> Box<Future<Item = ::models::InlineResponse2006, Error = Error<serde_json::Value>>>;
+    fn fyi_deliveryoptions_email_put(&self, enabled: &str) -> Box<Future<Item = ::models::InlineResponse2006, Error = Error<serde_json::Value>>>;
+    fn fyi_deliveryoptions_get(&self, ) -> Box<Future<Item = ::models::InlineResponse2005, Error = Error<serde_json::Value>>>;
+    fn fyi_disclaimer_typecode_get(&self, typecode: &str) -> Box<Future<Item = ::models::InlineResponse2007, Error = Error<serde_json::Value>>>;
+    fn fyi_disclaimer_typecode_put(&self, typecode: &str) -> Box<Future<Item = ::models::InlineResponse2006, Error = Error<serde_json::Value>>>;
     fn fyi_notifications_get(&self, max: &str, exclude: &str, include: &str) -> Box<Future<Item = ::models::Notifications, Error = Error<serde_json::Value>>>;
     fn fyi_notifications_more_get(&self, id: &str) -> Box<Future<Item = ::models::Notifications, Error = Error<serde_json::Value>>>;
     fn fyi_notifications_notification_id_put(&self, notification_id: &str) -> Box<Future<Item = Value, Error = Error<serde_json::Value>>>;
-    fn fyi_settings_get(&self, ) -> Box<Future<Item = Vec<::models::InlineResponse2003>, Error = Error<serde_json::Value>>>;
+    fn fyi_settings_get(&self, ) -> Box<Future<Item = Vec<::models::InlineResponse2008>, Error = Error<serde_json::Value>>>;
     fn fyi_settings_typecode_post(&self, typecode: &str, body: ::models::Body1) -> Box<Future<Item = Value, Error = Error<serde_json::Value>>>;
-    fn fyi_unreadnumber_get(&self, ) -> Box<Future<Item = ::models::InlineResponse2004, Error = Error<serde_json::Value>>>;
+    fn fyi_unreadnumber_get(&self, ) -> Box<Future<Item = ::models::InlineResponse2009, Error = Error<serde_json::Value>>>;
 }
 
 
@@ -101,7 +101,7 @@ impl<C: hyper::client::Connect>FYIApi for FYIApiClient<C> {
         )
     }
 
-    fn fyi_deliveryoptions_device_post(&self, body: ::models::Body) -> Box<Future<Item = ::models::InlineResponse2001, Error = Error<serde_json::Value>>> {
+    fn fyi_deliveryoptions_device_post(&self, body: ::models::Body) -> Box<Future<Item = ::models::InlineResponse2006, Error = Error<serde_json::Value>>> {
         let configuration: &configuration::Configuration<C> = self.configuration.borrow();
 
         let method = hyper::Method::Post;
@@ -149,13 +149,13 @@ impl<C: hyper::client::Connect>FYIApi for FYIApiClient<C> {
                 }
             })
             .and_then(|body| {
-                let parsed: Result<::models::InlineResponse2001, _> = serde_json::from_slice(&body);
+                let parsed: Result<::models::InlineResponse2006, _> = serde_json::from_slice(&body);
                 parsed.map_err(|e| Error::from(e))
             })
         )
     }
 
-    fn fyi_deliveryoptions_email_put(&self, enabled: &str) -> Box<Future<Item = ::models::InlineResponse2001, Error = Error<serde_json::Value>>> {
+    fn fyi_deliveryoptions_email_put(&self, enabled: &str) -> Box<Future<Item = ::models::InlineResponse2006, Error = Error<serde_json::Value>>> {
         let configuration: &configuration::Configuration<C> = self.configuration.borrow();
 
         let method = hyper::Method::Put;
@@ -200,13 +200,13 @@ impl<C: hyper::client::Connect>FYIApi for FYIApiClient<C> {
                 }
             })
             .and_then(|body| {
-                let parsed: Result<::models::InlineResponse2001, _> = serde_json::from_slice(&body);
+                let parsed: Result<::models::InlineResponse2006, _> = serde_json::from_slice(&body);
                 parsed.map_err(|e| Error::from(e))
             })
         )
     }
 
-    fn fyi_deliveryoptions_get(&self, ) -> Box<Future<Item = ::models::InlineResponse200, Error = Error<serde_json::Value>>> {
+    fn fyi_deliveryoptions_get(&self, ) -> Box<Future<Item = ::models::InlineResponse2005, Error = Error<serde_json::Value>>> {
         let configuration: &configuration::Configuration<C> = self.configuration.borrow();
 
         let method = hyper::Method::Get;
@@ -250,13 +250,13 @@ impl<C: hyper::client::Connect>FYIApi for FYIApiClient<C> {
                 }
             })
             .and_then(|body| {
-                let parsed: Result<::models::InlineResponse200, _> = serde_json::from_slice(&body);
+                let parsed: Result<::models::InlineResponse2005, _> = serde_json::from_slice(&body);
                 parsed.map_err(|e| Error::from(e))
             })
         )
     }
 
-    fn fyi_disclaimer_typecode_get(&self, typecode: &str) -> Box<Future<Item = ::models::InlineResponse2002, Error = Error<serde_json::Value>>> {
+    fn fyi_disclaimer_typecode_get(&self, typecode: &str) -> Box<Future<Item = ::models::InlineResponse2007, Error = Error<serde_json::Value>>> {
         let configuration: &configuration::Configuration<C> = self.configuration.borrow();
 
         let method = hyper::Method::Get;
@@ -300,13 +300,13 @@ impl<C: hyper::client::Connect>FYIApi for FYIApiClient<C> {
                 }
             })
             .and_then(|body| {
-                let parsed: Result<::models::InlineResponse2002, _> = serde_json::from_slice(&body);
+                let parsed: Result<::models::InlineResponse2007, _> = serde_json::from_slice(&body);
                 parsed.map_err(|e| Error::from(e))
             })
         )
     }
 
-    fn fyi_disclaimer_typecode_put(&self, typecode: &str) -> Box<Future<Item = ::models::InlineResponse2001, Error = Error<serde_json::Value>>> {
+    fn fyi_disclaimer_typecode_put(&self, typecode: &str) -> Box<Future<Item = ::models::InlineResponse2006, Error = Error<serde_json::Value>>> {
         let configuration: &configuration::Configuration<C> = self.configuration.borrow();
 
         let method = hyper::Method::Put;
@@ -350,7 +350,7 @@ impl<C: hyper::client::Connect>FYIApi for FYIApiClient<C> {
                 }
             })
             .and_then(|body| {
-                let parsed: Result<::models::InlineResponse2001, _> = serde_json::from_slice(&body);
+                let parsed: Result<::models::InlineResponse2006, _> = serde_json::from_slice(&body);
                 parsed.map_err(|e| Error::from(e))
             })
         )
@@ -510,7 +510,7 @@ impl<C: hyper::client::Connect>FYIApi for FYIApiClient<C> {
         )
     }
 
-    fn fyi_settings_get(&self, ) -> Box<Future<Item = Vec<::models::InlineResponse2003>, Error = Error<serde_json::Value>>> {
+    fn fyi_settings_get(&self, ) -> Box<Future<Item = Vec<::models::InlineResponse2008>, Error = Error<serde_json::Value>>> {
         let configuration: &configuration::Configuration<C> = self.configuration.borrow();
 
         let method = hyper::Method::Get;
@@ -554,7 +554,7 @@ impl<C: hyper::client::Connect>FYIApi for FYIApiClient<C> {
                 }
             })
             .and_then(|body| {
-                let parsed: Result<Vec<::models::InlineResponse2003>, _> = serde_json::from_slice(&body);
+                let parsed: Result<Vec<::models::InlineResponse2008>, _> = serde_json::from_slice(&body);
                 parsed.map_err(|e| Error::from(e))
             })
         )
@@ -614,7 +614,7 @@ impl<C: hyper::client::Connect>FYIApi for FYIApiClient<C> {
         )
     }
 
-    fn fyi_unreadnumber_get(&self, ) -> Box<Future<Item = ::models::InlineResponse2004, Error = Error<serde_json::Value>>> {
+    fn fyi_unreadnumber_get(&self, ) -> Box<Future<Item = ::models::InlineResponse2009, Error = Error<serde_json::Value>>> {
         let configuration: &configuration::Configuration<C> = self.configuration.borrow();
 
         let method = hyper::Method::Get;
@@ -658,7 +658,7 @@ impl<C: hyper::client::Connect>FYIApi for FYIApiClient<C> {
                 }
             })
             .and_then(|body| {
-                let parsed: Result<::models::InlineResponse2004, _> = serde_json::from_slice(&body);
+                let parsed: Result<::models::InlineResponse2009, _> = serde_json::from_slice(&body);
                 parsed.map_err(|e| Error::from(e))
             })
         )

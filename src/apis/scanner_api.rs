@@ -1,7 +1,7 @@
 /* 
  * Client Portal Web API
  *
- * Production version of the Client Portal Web API
+ * Client Poral Web API
  *
  * OpenAPI spec version: 1.0.0
  * 
@@ -35,13 +35,13 @@ impl<C: hyper::client::Connect> ScannerApiClient<C> {
 }
 
 pub trait ScannerApi {
-    fn iserver_scanner_params_get(&self, ) -> Box<Future<Item = ::models::InlineResponse20014, Error = Error<serde_json::Value>>>;
-    fn iserver_scanner_run_post(&self, body: ::models::ScannerParams) -> Box<Future<Item = Vec<::models::InlineResponse20015>, Error = Error<serde_json::Value>>>;
+    fn iserver_scanner_params_get(&self, ) -> Box<Future<Item = ::models::InlineResponse20027, Error = Error<serde_json::Value>>>;
+    fn iserver_scanner_run_post(&self, body: ::models::ScannerParams) -> Box<Future<Item = Vec<::models::InlineResponse20028>, Error = Error<serde_json::Value>>>;
 }
 
 
 impl<C: hyper::client::Connect>ScannerApi for ScannerApiClient<C> {
-    fn iserver_scanner_params_get(&self, ) -> Box<Future<Item = ::models::InlineResponse20014, Error = Error<serde_json::Value>>> {
+    fn iserver_scanner_params_get(&self, ) -> Box<Future<Item = ::models::InlineResponse20027, Error = Error<serde_json::Value>>> {
         let configuration: &configuration::Configuration<C> = self.configuration.borrow();
 
         let method = hyper::Method::Get;
@@ -85,13 +85,13 @@ impl<C: hyper::client::Connect>ScannerApi for ScannerApiClient<C> {
                 }
             })
             .and_then(|body| {
-                let parsed: Result<::models::InlineResponse20014, _> = serde_json::from_slice(&body);
+                let parsed: Result<::models::InlineResponse20027, _> = serde_json::from_slice(&body);
                 parsed.map_err(|e| Error::from(e))
             })
         )
     }
 
-    fn iserver_scanner_run_post(&self, body: ::models::ScannerParams) -> Box<Future<Item = Vec<::models::InlineResponse20015>, Error = Error<serde_json::Value>>> {
+    fn iserver_scanner_run_post(&self, body: ::models::ScannerParams) -> Box<Future<Item = Vec<::models::InlineResponse20028>, Error = Error<serde_json::Value>>> {
         let configuration: &configuration::Configuration<C> = self.configuration.borrow();
 
         let method = hyper::Method::Post;
@@ -139,7 +139,7 @@ impl<C: hyper::client::Connect>ScannerApi for ScannerApiClient<C> {
                 }
             })
             .and_then(|body| {
-                let parsed: Result<Vec<::models::InlineResponse20015>, _> = serde_json::from_slice(&body);
+                let parsed: Result<Vec<::models::InlineResponse20028>, _> = serde_json::from_slice(&body);
                 parsed.map_err(|e| Error::from(e))
             })
         )

@@ -1,7 +1,7 @@
 /* 
  * Client Portal Web API
  *
- * Production version of the Client Portal Web API
+ * Client Poral Web API
  *
  * OpenAPI spec version: 1.0.0
  * 
@@ -14,54 +14,96 @@ use serde_json::Value;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct InlineResponse2002 {
-  /// disclaimer message
-  #[serde(rename = "DT")]
-  DT: Option<String>,
-  /// fyi code
-  #[serde(rename = "FC")]
-  FC: Option<String>
+  /// If connection is authenticated
+  #[serde(rename = "authenticated")]
+  authenticated: Option<bool>,
+  /// If user already has an existing brokerage session running.
+  #[serde(rename = "competing")]
+  competing: Option<bool>,
+  /// Connected to CCP session
+  #[serde(rename = "connected")]
+  connected: Option<bool>,
+  /// If sso authentication completed
+  #[serde(rename = "passed")]
+  passed: Option<bool>
 }
 
 impl InlineResponse2002 {
   pub fn new() -> InlineResponse2002 {
     InlineResponse2002 {
-      DT: None,
-      FC: None
+      authenticated: None,
+      competing: None,
+      connected: None,
+      passed: None
     }
   }
 
-  pub fn set_DT(&mut self, DT: String) {
-    self.DT = Some(DT);
+  pub fn set_authenticated(&mut self, authenticated: bool) {
+    self.authenticated = Some(authenticated);
   }
 
-  pub fn with_DT(mut self, DT: String) -> InlineResponse2002 {
-    self.DT = Some(DT);
+  pub fn with_authenticated(mut self, authenticated: bool) -> InlineResponse2002 {
+    self.authenticated = Some(authenticated);
     self
   }
 
-  pub fn DT(&self) -> Option<&String> {
-    self.DT.as_ref()
+  pub fn authenticated(&self) -> Option<&bool> {
+    self.authenticated.as_ref()
   }
 
-  pub fn reset_DT(&mut self) {
-    self.DT = None;
+  pub fn reset_authenticated(&mut self) {
+    self.authenticated = None;
   }
 
-  pub fn set_FC(&mut self, FC: String) {
-    self.FC = Some(FC);
+  pub fn set_competing(&mut self, competing: bool) {
+    self.competing = Some(competing);
   }
 
-  pub fn with_FC(mut self, FC: String) -> InlineResponse2002 {
-    self.FC = Some(FC);
+  pub fn with_competing(mut self, competing: bool) -> InlineResponse2002 {
+    self.competing = Some(competing);
     self
   }
 
-  pub fn FC(&self) -> Option<&String> {
-    self.FC.as_ref()
+  pub fn competing(&self) -> Option<&bool> {
+    self.competing.as_ref()
   }
 
-  pub fn reset_FC(&mut self) {
-    self.FC = None;
+  pub fn reset_competing(&mut self) {
+    self.competing = None;
+  }
+
+  pub fn set_connected(&mut self, connected: bool) {
+    self.connected = Some(connected);
+  }
+
+  pub fn with_connected(mut self, connected: bool) -> InlineResponse2002 {
+    self.connected = Some(connected);
+    self
+  }
+
+  pub fn connected(&self) -> Option<&bool> {
+    self.connected.as_ref()
+  }
+
+  pub fn reset_connected(&mut self) {
+    self.connected = None;
+  }
+
+  pub fn set_passed(&mut self, passed: bool) {
+    self.passed = Some(passed);
+  }
+
+  pub fn with_passed(mut self, passed: bool) -> InlineResponse2002 {
+    self.passed = Some(passed);
+    self
+  }
+
+  pub fn passed(&self) -> Option<&bool> {
+    self.passed.as_ref()
+  }
+
+  pub fn reset_passed(&mut self) {
+    self.passed = None;
   }
 
 }

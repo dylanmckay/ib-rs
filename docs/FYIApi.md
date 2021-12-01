@@ -1,26 +1,26 @@
 # \FYIApi
 
-All URIs are relative to *https://localhost:5000/v1/portal*
+All URIs are relative to *https://localhost:5000/v1/api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**fyi_deliveryoptions_device_id_delete**](FYIApi.md#fyi_deliveryoptions_device_id_delete) | **Delete** /fyi/deliveryoptions/{deviceId} | delete a device
-[**fyi_deliveryoptions_device_post**](FYIApi.md#fyi_deliveryoptions_device_post) | **Post** /fyi/deliveryoptions/device | enable/disable device option
-[**fyi_deliveryoptions_email_put**](FYIApi.md#fyi_deliveryoptions_email_put) | **Put** /fyi/deliveryoptions/email | enable/disable email option
+[**fyi_deliveryoptions_device_id_delete**](FYIApi.md#fyi_deliveryoptions_device_id_delete) | **Delete** /fyi/deliveryoptions/{deviceId} | Delete a device
+[**fyi_deliveryoptions_device_post**](FYIApi.md#fyi_deliveryoptions_device_post) | **Post** /fyi/deliveryoptions/device | Enable/Disable device option
+[**fyi_deliveryoptions_email_put**](FYIApi.md#fyi_deliveryoptions_email_put) | **Put** /fyi/deliveryoptions/email | Enable/Disable email option
 [**fyi_deliveryoptions_get**](FYIApi.md#fyi_deliveryoptions_get) | **Get** /fyi/deliveryoptions | Get delivery options
-[**fyi_disclaimer_typecode_get**](FYIApi.md#fyi_disclaimer_typecode_get) | **Get** /fyi/disclaimer/{typecode} | get disclaimer for a certain kind of fyi
-[**fyi_disclaimer_typecode_put**](FYIApi.md#fyi_disclaimer_typecode_put) | **Put** /fyi/disclaimer/{typecode} | mark disclaimer read
+[**fyi_disclaimer_typecode_get**](FYIApi.md#fyi_disclaimer_typecode_get) | **Get** /fyi/disclaimer/{typecode} | Get disclaimer for a certain kind of fyi
+[**fyi_disclaimer_typecode_put**](FYIApi.md#fyi_disclaimer_typecode_put) | **Put** /fyi/disclaimer/{typecode} | Mark disclaimer read
 [**fyi_notifications_get**](FYIApi.md#fyi_notifications_get) | **Get** /fyi/notifications | Get a list of notifications
 [**fyi_notifications_more_get**](FYIApi.md#fyi_notifications_more_get) | **Get** /fyi/notifications/more | Get more notifications based on a certain one
 [**fyi_notifications_notification_id_put**](FYIApi.md#fyi_notifications_notification_id_put) | **Put** /fyi/notifications/{notificationId} | Get a list of notifications
 [**fyi_settings_get**](FYIApi.md#fyi_settings_get) | **Get** /fyi/settings | Get a list of subscriptions
-[**fyi_settings_typecode_post**](FYIApi.md#fyi_settings_typecode_post) | **Post** /fyi/settings/{typecode} | enable/disable certain subscription
-[**fyi_unreadnumber_get**](FYIApi.md#fyi_unreadnumber_get) | **Get** /fyi/unreadnumber | Get unread number of fyis
+[**fyi_settings_typecode_post**](FYIApi.md#fyi_settings_typecode_post) | **Post** /fyi/settings/{typecode} | Enable/Disable certain subscription
+[**fyi_unreadnumber_get**](FYIApi.md#fyi_unreadnumber_get) | **Get** /fyi/unreadnumber | Get unread number of fyis. The HTTP method POST is also supported.
 
 
 # **fyi_deliveryoptions_device_id_delete**
 > Value fyi_deliveryoptions_device_id_delete(device_id)
-delete a device
+Delete a device
 
 ### Required Parameters
 
@@ -44,8 +44,8 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **fyi_deliveryoptions_device_post**
-> ::models::InlineResponse2001 fyi_deliveryoptions_device_post(body)
-enable/disable device option
+> ::models::InlineResponse2006 fyi_deliveryoptions_device_post(body)
+Enable/Disable device option
 
 ### Required Parameters
 
@@ -55,7 +55,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**::models::InlineResponse2001**](inline_response_200_1.md)
+[**::models::InlineResponse2006**](inline_response_200_6.md)
 
 ### Authorization
 
@@ -69,8 +69,8 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **fyi_deliveryoptions_email_put**
-> ::models::InlineResponse2001 fyi_deliveryoptions_email_put(enabled)
-enable/disable email option
+> ::models::InlineResponse2006 fyi_deliveryoptions_email_put(enabled)
+Enable/Disable email option
 
 ### Required Parameters
 
@@ -80,7 +80,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**::models::InlineResponse2001**](inline_response_200_1.md)
+[**::models::InlineResponse2006**](inline_response_200_6.md)
 
 ### Authorization
 
@@ -94,7 +94,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **fyi_deliveryoptions_get**
-> ::models::InlineResponse200 fyi_deliveryoptions_get()
+> ::models::InlineResponse2005 fyi_deliveryoptions_get()
 Get delivery options
 
 options for sending fyis to email and other devices 
@@ -104,7 +104,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**::models::InlineResponse200**](inline_response_200.md)
+[**::models::InlineResponse2005**](inline_response_200_5.md)
 
 ### Authorization
 
@@ -118,8 +118,8 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **fyi_disclaimer_typecode_get**
-> ::models::InlineResponse2002 fyi_disclaimer_typecode_get(typecode)
-get disclaimer for a certain kind of fyi
+> ::models::InlineResponse2007 fyi_disclaimer_typecode_get(typecode)
+Get disclaimer for a certain kind of fyi
 
 ### Required Parameters
 
@@ -129,7 +129,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**::models::InlineResponse2002**](inline_response_200_2.md)
+[**::models::InlineResponse2007**](inline_response_200_7.md)
 
 ### Authorization
 
@@ -143,8 +143,8 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **fyi_disclaimer_typecode_put**
-> ::models::InlineResponse2001 fyi_disclaimer_typecode_put(typecode)
-mark disclaimer read
+> ::models::InlineResponse2006 fyi_disclaimer_typecode_put(typecode)
+Mark disclaimer read
 
 ### Required Parameters
 
@@ -154,7 +154,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**::models::InlineResponse2001**](inline_response_200_1.md)
+[**::models::InlineResponse2006**](inline_response_200_6.md)
 
 ### Authorization
 
@@ -253,17 +253,17 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **fyi_settings_get**
-> Vec<::models::InlineResponse2003> fyi_settings_get()
+> Vec<::models::InlineResponse2008> fyi_settings_get()
 Get a list of subscriptions
 
-return the current choices of subscriptions, we can toggle the option 
+Return the current choices of subscriptions, we can toggle the option 
 
 ### Required Parameters
 This endpoint does not need any parameter.
 
 ### Return type
 
-[**Vec<::models::InlineResponse2003>**](inline_response_200_3.md)
+[**Vec<::models::InlineResponse2008>**](inline_response_200_8.md)
 
 ### Authorization
 
@@ -278,7 +278,9 @@ No authorization required
 
 # **fyi_settings_typecode_post**
 > Value fyi_settings_typecode_post(typecode, body)
-enable/disable certain subscription
+Enable/Disable certain subscription
+
+Configure which typecode you would like to enable/disable. 
 
 ### Required Parameters
 
@@ -303,15 +305,17 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **fyi_unreadnumber_get**
-> ::models::InlineResponse2004 fyi_unreadnumber_get()
-Get unread number of fyis
+> ::models::InlineResponse2009 fyi_unreadnumber_get()
+Get unread number of fyis. The HTTP method POST is also supported.
+
+Returns the total number of unread fyis 
 
 ### Required Parameters
 This endpoint does not need any parameter.
 
 ### Return type
 
-[**::models::InlineResponse2004**](inline_response_200_4.md)
+[**::models::InlineResponse2009**](inline_response_200_9.md)
 
 ### Authorization
 

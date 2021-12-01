@@ -1,6 +1,6 @@
 # \PnLApi
 
-All URIs are relative to *https://localhost:5000/v1/portal*
+All URIs are relative to *https://localhost:5000/v1/api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -8,17 +8,17 @@ Method | HTTP request | Description
 
 
 # **iserver_account_pnl_partitioned_get**
-> ::models::InlineResponse2008 iserver_account_pnl_partitioned_get()
+> ::models::InlineResponse20016 iserver_account_pnl_partitioned_get()
 PnL for the selected account
 
-Returns an object containing PnLfor the selected account and its models (if any).
+Returns an object containing PnL for the selected account and its models (if any). To receive streaming PnL the endpoint /ws can be used. Refer to [Streaming WebSocket Data](https://interactivebrokers.github.io/cpwebapi/RealtimeSubscription.html) for details. 
 
 ### Required Parameters
 This endpoint does not need any parameter.
 
 ### Return type
 
-[**::models::InlineResponse2008**](inline_response_200_8.md)
+[**::models::InlineResponse20016**](inline_response_200_16.md)
 
 ### Authorization
 

@@ -3,16 +3,8 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**available_chart_periods** | **String** |  | [optional] [default to null]
-**column_name** | **String** |  | [optional] [default to null]
-**company_name** | **String** |  | [optional] [default to null]
-**con_id** | **f32** |  | [optional] [default to null]
-**conidex** | **String** |  | [optional] [default to null]
-**contract_description_1** | **String** |  | [optional] [default to null]
-**listing_exchange** | **String** |  | [optional] [default to null]
-**sec_type** | **String** |  | [optional] [default to null]
-**server_id** | **String** |  | [optional] [default to null]
-**symbol** | **String** |  | [optional] [default to null]
+**id** | **String** |  | [optional] [default to null]
+**message** | **Vec<String>** | Please note here, if the message is a question, you have to reply to question in order to submit the order successfully. See more in the \&quot;/iserver/reply/{replyid}\&quot; endpoint.  | [optional] [default to null]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

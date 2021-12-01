@@ -4,7 +4,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **category** | **String** |  | [optional] [default to null]
-**company_name** | **String** |  | [optional] [default to null]
+**company_name** | **String** | Contracts company name | [optional] [default to null]
 **con_id** | **String** | same as that in request | [optional] [default to null]
 **currency** | **String** |  | [optional] [default to null]
 **exchange** | **String** |  | [optional] [default to null]

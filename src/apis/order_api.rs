@@ -1,7 +1,7 @@
 /* 
  * Client Portal Web API
  *
- * Production version of the Client Portal Web API
+ * Client Poral Web API
  *
  * OpenAPI spec version: 1.0.0
  * 
@@ -35,18 +35,21 @@ impl<C: hyper::client::Connect> OrderApiClient<C> {
 }
 
 pub trait OrderApi {
-    fn iserver_account_account_id_order_orig_customer_order_id_delete(&self, account_id: &str, orig_customer_order_id: &str) -> Box<Future<Item = Vec<::models::InlineResponse20011>, Error = Error<serde_json::Value>>>;
-    fn iserver_account_account_id_order_orig_customer_order_id_post(&self, account_id: &str, orig_customer_order_id: &str, body: ::models::ModifyOrder) -> Box<Future<Item = Vec<::models::InlineResponse20011>, Error = Error<serde_json::Value>>>;
-    fn iserver_account_account_id_order_post(&self, account_id: &str, body: ::models::OrderRequest) -> Box<Future<Item = Vec<::models::InlineResponse2009>, Error = Error<serde_json::Value>>>;
-    fn iserver_account_account_id_order_whatif_post(&self, account_id: &str, body: ::models::OrderRequest) -> Box<Future<Item = ::models::InlineResponse20010, Error = Error<serde_json::Value>>>;
-    fn iserver_account_account_id_orders_post(&self, account_id: &str, body: ::models::Body2) -> Box<Future<Item = Vec<::models::InlineResponse2009>, Error = Error<serde_json::Value>>>;
-    fn iserver_account_orders_get(&self, ) -> Box<Future<Item = ::models::InlineResponse2007, Error = Error<serde_json::Value>>>;
-    fn iserver_reply_replyid_post(&self, replyid: &str, body: ::models::Body3) -> Box<Future<Item = Vec<::models::InlineResponse20011>, Error = Error<serde_json::Value>>>;
+    fn iserver_account_account_id_order_order_id_delete(&self, account_id: &str, order_id: &str) -> Box<Future<Item = ::models::InlineResponse20020, Error = Error<serde_json::Value>>>;
+    fn iserver_account_account_id_order_order_id_post(&self, account_id: &str, order_id: &str, body: ::models::ModifyOrder) -> Box<Future<Item = Vec<::models::InlineResponse20019>, Error = Error<serde_json::Value>>>;
+    fn iserver_account_account_id_order_post(&self, account_id: &str, body: ::models::OrderRequest) -> Box<Future<Item = Vec<::models::InlineResponse20015>, Error = Error<serde_json::Value>>>;
+    fn iserver_account_account_id_order_whatif_post(&self, account_id: &str, body: ::models::OrderRequest) -> Box<Future<Item = ::models::InlineResponse20018, Error = Error<serde_json::Value>>>;
+    fn iserver_account_account_id_orders_post(&self, account_id: &str, body: ::models::Body4) -> Box<Future<Item = Vec<::models::InlineResponse20015>, Error = Error<serde_json::Value>>>;
+    fn iserver_account_account_id_orders_whatif_post(&self, account_id: &str, body: ::models::Body5) -> Box<Future<Item = ::models::InlineResponse20018, Error = Error<serde_json::Value>>>;
+    fn iserver_account_order_status_order_id_get(&self, order_id: &str) -> Box<Future<Item = ::models::OrderStatus, Error = Error<serde_json::Value>>>;
+    fn iserver_account_orders_fa_group_post(&self, fa_group: &str, body: ::models::OrderRequest) -> Box<Future<Item = Vec<::models::InlineResponse20015>, Error = Error<serde_json::Value>>>;
+    fn iserver_account_orders_get(&self, body: ::models::Body3) -> Box<Future<Item = ::models::InlineResponse20014, Error = Error<serde_json::Value>>>;
+    fn iserver_reply_replyid_post(&self, replyid: &str, body: ::models::Body6) -> Box<Future<Item = Vec<::models::InlineResponse20019>, Error = Error<serde_json::Value>>>;
 }
 
 
 impl<C: hyper::client::Connect>OrderApi for OrderApiClient<C> {
-    fn iserver_account_account_id_order_orig_customer_order_id_delete(&self, account_id: &str, orig_customer_order_id: &str) -> Box<Future<Item = Vec<::models::InlineResponse20011>, Error = Error<serde_json::Value>>> {
+    fn iserver_account_account_id_order_order_id_delete(&self, account_id: &str, order_id: &str) -> Box<Future<Item = ::models::InlineResponse20020, Error = Error<serde_json::Value>>> {
         let configuration: &configuration::Configuration<C> = self.configuration.borrow();
 
         let method = hyper::Method::Delete;
@@ -55,7 +58,7 @@ impl<C: hyper::client::Connect>OrderApi for OrderApiClient<C> {
             let mut query = ::url::form_urlencoded::Serializer::new(String::new());
             query.finish()
         };
-        let uri_str = format!("{}/iserver/account/{accountId}/order/{origCustomerOrderId}?{}", configuration.base_path, query_string, accountId=account_id, origCustomerOrderId=orig_customer_order_id);
+        let uri_str = format!("{}/iserver/account/{accountId}/order/{orderId}?{}", configuration.base_path, query_string, accountId=account_id, orderId=order_id);
 
         // TODO(farcaller): handle error
         // if let Err(e) = uri {
@@ -90,13 +93,13 @@ impl<C: hyper::client::Connect>OrderApi for OrderApiClient<C> {
                 }
             })
             .and_then(|body| {
-                let parsed: Result<Vec<::models::InlineResponse20011>, _> = serde_json::from_slice(&body);
+                let parsed: Result<::models::InlineResponse20020, _> = serde_json::from_slice(&body);
                 parsed.map_err(|e| Error::from(e))
             })
         )
     }
 
-    fn iserver_account_account_id_order_orig_customer_order_id_post(&self, account_id: &str, orig_customer_order_id: &str, body: ::models::ModifyOrder) -> Box<Future<Item = Vec<::models::InlineResponse20011>, Error = Error<serde_json::Value>>> {
+    fn iserver_account_account_id_order_order_id_post(&self, account_id: &str, order_id: &str, body: ::models::ModifyOrder) -> Box<Future<Item = Vec<::models::InlineResponse20019>, Error = Error<serde_json::Value>>> {
         let configuration: &configuration::Configuration<C> = self.configuration.borrow();
 
         let method = hyper::Method::Post;
@@ -105,7 +108,7 @@ impl<C: hyper::client::Connect>OrderApi for OrderApiClient<C> {
             let mut query = ::url::form_urlencoded::Serializer::new(String::new());
             query.finish()
         };
-        let uri_str = format!("{}/iserver/account/{accountId}/order/{origCustomerOrderId}?{}", configuration.base_path, query_string, accountId=account_id, origCustomerOrderId=orig_customer_order_id);
+        let uri_str = format!("{}/iserver/account/{accountId}/order/{orderId}?{}", configuration.base_path, query_string, accountId=account_id, orderId=order_id);
 
         // TODO(farcaller): handle error
         // if let Err(e) = uri {
@@ -144,13 +147,13 @@ impl<C: hyper::client::Connect>OrderApi for OrderApiClient<C> {
                 }
             })
             .and_then(|body| {
-                let parsed: Result<Vec<::models::InlineResponse20011>, _> = serde_json::from_slice(&body);
+                let parsed: Result<Vec<::models::InlineResponse20019>, _> = serde_json::from_slice(&body);
                 parsed.map_err(|e| Error::from(e))
             })
         )
     }
 
-    fn iserver_account_account_id_order_post(&self, account_id: &str, body: ::models::OrderRequest) -> Box<Future<Item = Vec<::models::InlineResponse2009>, Error = Error<serde_json::Value>>> {
+    fn iserver_account_account_id_order_post(&self, account_id: &str, body: ::models::OrderRequest) -> Box<Future<Item = Vec<::models::InlineResponse20015>, Error = Error<serde_json::Value>>> {
         let configuration: &configuration::Configuration<C> = self.configuration.borrow();
 
         let method = hyper::Method::Post;
@@ -198,13 +201,13 @@ impl<C: hyper::client::Connect>OrderApi for OrderApiClient<C> {
                 }
             })
             .and_then(|body| {
-                let parsed: Result<Vec<::models::InlineResponse2009>, _> = serde_json::from_slice(&body);
+                let parsed: Result<Vec<::models::InlineResponse20015>, _> = serde_json::from_slice(&body);
                 parsed.map_err(|e| Error::from(e))
             })
         )
     }
 
-    fn iserver_account_account_id_order_whatif_post(&self, account_id: &str, body: ::models::OrderRequest) -> Box<Future<Item = ::models::InlineResponse20010, Error = Error<serde_json::Value>>> {
+    fn iserver_account_account_id_order_whatif_post(&self, account_id: &str, body: ::models::OrderRequest) -> Box<Future<Item = ::models::InlineResponse20018, Error = Error<serde_json::Value>>> {
         let configuration: &configuration::Configuration<C> = self.configuration.borrow();
 
         let method = hyper::Method::Post;
@@ -252,13 +255,13 @@ impl<C: hyper::client::Connect>OrderApi for OrderApiClient<C> {
                 }
             })
             .and_then(|body| {
-                let parsed: Result<::models::InlineResponse20010, _> = serde_json::from_slice(&body);
+                let parsed: Result<::models::InlineResponse20018, _> = serde_json::from_slice(&body);
                 parsed.map_err(|e| Error::from(e))
             })
         )
     }
 
-    fn iserver_account_account_id_orders_post(&self, account_id: &str, body: ::models::Body2) -> Box<Future<Item = Vec<::models::InlineResponse2009>, Error = Error<serde_json::Value>>> {
+    fn iserver_account_account_id_orders_post(&self, account_id: &str, body: ::models::Body4) -> Box<Future<Item = Vec<::models::InlineResponse20015>, Error = Error<serde_json::Value>>> {
         let configuration: &configuration::Configuration<C> = self.configuration.borrow();
 
         let method = hyper::Method::Post;
@@ -306,13 +309,67 @@ impl<C: hyper::client::Connect>OrderApi for OrderApiClient<C> {
                 }
             })
             .and_then(|body| {
-                let parsed: Result<Vec<::models::InlineResponse2009>, _> = serde_json::from_slice(&body);
+                let parsed: Result<Vec<::models::InlineResponse20015>, _> = serde_json::from_slice(&body);
                 parsed.map_err(|e| Error::from(e))
             })
         )
     }
 
-    fn iserver_account_orders_get(&self, ) -> Box<Future<Item = ::models::InlineResponse2007, Error = Error<serde_json::Value>>> {
+    fn iserver_account_account_id_orders_whatif_post(&self, account_id: &str, body: ::models::Body5) -> Box<Future<Item = ::models::InlineResponse20018, Error = Error<serde_json::Value>>> {
+        let configuration: &configuration::Configuration<C> = self.configuration.borrow();
+
+        let method = hyper::Method::Post;
+
+        let query_string = {
+            let mut query = ::url::form_urlencoded::Serializer::new(String::new());
+            query.finish()
+        };
+        let uri_str = format!("{}/iserver/account/{accountId}/orders/whatif?{}", configuration.base_path, query_string, accountId=account_id);
+
+        // TODO(farcaller): handle error
+        // if let Err(e) = uri {
+        //     return Box::new(futures::future::err(e));
+        // }
+        let mut uri: hyper::Uri = uri_str.parse().unwrap();
+
+        let mut req = hyper::Request::new(method, uri);
+
+        if let Some(ref user_agent) = configuration.user_agent {
+            req.headers_mut().set(UserAgent::new(Cow::Owned(user_agent.clone())));
+        }
+
+
+
+        let serialized = serde_json::to_string(&body).unwrap();
+        req.headers_mut().set(hyper::header::ContentType::json());
+        req.headers_mut().set(hyper::header::ContentLength(serialized.len() as u64));
+        req.set_body(serialized);
+
+        // send request
+        Box::new(
+        configuration.client.request(req)
+            .map_err(|e| Error::from(e))
+            .and_then(|resp| {
+                let status = resp.status();
+                resp.body().concat2()
+                    .and_then(move |body| Ok((status, body)))
+                    .map_err(|e| Error::from(e))
+            })
+            .and_then(|(status, body)| {
+                if status.is_success() {
+                    Ok(body)
+                } else {
+                    Err(Error::from((status, &*body)))
+                }
+            })
+            .and_then(|body| {
+                let parsed: Result<::models::InlineResponse20018, _> = serde_json::from_slice(&body);
+                parsed.map_err(|e| Error::from(e))
+            })
+        )
+    }
+
+    fn iserver_account_order_status_order_id_get(&self, order_id: &str) -> Box<Future<Item = ::models::OrderStatus, Error = Error<serde_json::Value>>> {
         let configuration: &configuration::Configuration<C> = self.configuration.borrow();
 
         let method = hyper::Method::Get;
@@ -321,7 +378,7 @@ impl<C: hyper::client::Connect>OrderApi for OrderApiClient<C> {
             let mut query = ::url::form_urlencoded::Serializer::new(String::new());
             query.finish()
         };
-        let uri_str = format!("{}/iserver/account/orders?{}", configuration.base_path, query_string);
+        let uri_str = format!("{}/iserver/account/order/status/{orderId}?{}", configuration.base_path, query_string, orderId=order_id);
 
         // TODO(farcaller): handle error
         // if let Err(e) = uri {
@@ -356,13 +413,121 @@ impl<C: hyper::client::Connect>OrderApi for OrderApiClient<C> {
                 }
             })
             .and_then(|body| {
-                let parsed: Result<::models::InlineResponse2007, _> = serde_json::from_slice(&body);
+                let parsed: Result<::models::OrderStatus, _> = serde_json::from_slice(&body);
                 parsed.map_err(|e| Error::from(e))
             })
         )
     }
 
-    fn iserver_reply_replyid_post(&self, replyid: &str, body: ::models::Body3) -> Box<Future<Item = Vec<::models::InlineResponse20011>, Error = Error<serde_json::Value>>> {
+    fn iserver_account_orders_fa_group_post(&self, fa_group: &str, body: ::models::OrderRequest) -> Box<Future<Item = Vec<::models::InlineResponse20015>, Error = Error<serde_json::Value>>> {
+        let configuration: &configuration::Configuration<C> = self.configuration.borrow();
+
+        let method = hyper::Method::Post;
+
+        let query_string = {
+            let mut query = ::url::form_urlencoded::Serializer::new(String::new());
+            query.finish()
+        };
+        let uri_str = format!("{}/iserver/account/orders/{faGroup}?{}", configuration.base_path, query_string, faGroup=fa_group);
+
+        // TODO(farcaller): handle error
+        // if let Err(e) = uri {
+        //     return Box::new(futures::future::err(e));
+        // }
+        let mut uri: hyper::Uri = uri_str.parse().unwrap();
+
+        let mut req = hyper::Request::new(method, uri);
+
+        if let Some(ref user_agent) = configuration.user_agent {
+            req.headers_mut().set(UserAgent::new(Cow::Owned(user_agent.clone())));
+        }
+
+
+
+        let serialized = serde_json::to_string(&body).unwrap();
+        req.headers_mut().set(hyper::header::ContentType::json());
+        req.headers_mut().set(hyper::header::ContentLength(serialized.len() as u64));
+        req.set_body(serialized);
+
+        // send request
+        Box::new(
+        configuration.client.request(req)
+            .map_err(|e| Error::from(e))
+            .and_then(|resp| {
+                let status = resp.status();
+                resp.body().concat2()
+                    .and_then(move |body| Ok((status, body)))
+                    .map_err(|e| Error::from(e))
+            })
+            .and_then(|(status, body)| {
+                if status.is_success() {
+                    Ok(body)
+                } else {
+                    Err(Error::from((status, &*body)))
+                }
+            })
+            .and_then(|body| {
+                let parsed: Result<Vec<::models::InlineResponse20015>, _> = serde_json::from_slice(&body);
+                parsed.map_err(|e| Error::from(e))
+            })
+        )
+    }
+
+    fn iserver_account_orders_get(&self, body: ::models::Body3) -> Box<Future<Item = ::models::InlineResponse20014, Error = Error<serde_json::Value>>> {
+        let configuration: &configuration::Configuration<C> = self.configuration.borrow();
+
+        let method = hyper::Method::Get;
+
+        let query_string = {
+            let mut query = ::url::form_urlencoded::Serializer::new(String::new());
+            query.finish()
+        };
+        let uri_str = format!("{}/iserver/account/orders?{}", configuration.base_path, query_string);
+
+        // TODO(farcaller): handle error
+        // if let Err(e) = uri {
+        //     return Box::new(futures::future::err(e));
+        // }
+        let mut uri: hyper::Uri = uri_str.parse().unwrap();
+
+        let mut req = hyper::Request::new(method, uri);
+
+        if let Some(ref user_agent) = configuration.user_agent {
+            req.headers_mut().set(UserAgent::new(Cow::Owned(user_agent.clone())));
+        }
+
+
+
+        let serialized = serde_json::to_string(&body).unwrap();
+        req.headers_mut().set(hyper::header::ContentType::json());
+        req.headers_mut().set(hyper::header::ContentLength(serialized.len() as u64));
+        req.set_body(serialized);
+
+        // send request
+        Box::new(
+        configuration.client.request(req)
+            .map_err(|e| Error::from(e))
+            .and_then(|resp| {
+                let status = resp.status();
+                resp.body().concat2()
+                    .and_then(move |body| Ok((status, body)))
+                    .map_err(|e| Error::from(e))
+            })
+            .and_then(|(status, body)| {
+                if status.is_success() {
+                    Ok(body)
+                } else {
+                    Err(Error::from((status, &*body)))
+                }
+            })
+            .and_then(|body| {
+                let parsed: Result<::models::InlineResponse20014, _> = serde_json::from_slice(&body);
+                parsed.map_err(|e| Error::from(e))
+            })
+        )
+    }
+
+    fn iserver_reply_replyid_post(&self, replyid: &str, body: ::models::Body6) -> Box<Future<Item = Vec<::models::InlineResponse20019>, Error = Error<serde_json::Value>>> {
         let configuration: &configuration::Configuration<C> = self.configuration.borrow();
 
         let method = hyper::Method::Post;
@@ -410,7 +575,7 @@ impl<C: hyper::client::Connect>OrderApi for OrderApiClient<C> {
                 }
             })
             .and_then(|body| {
-                let parsed: Result<Vec<::models::InlineResponse20011>, _> = serde_json::from_slice(&body);
+                let parsed: Result<Vec<::models::InlineResponse20019>, _> = serde_json::from_slice(&body);
                 parsed.map_err(|e| Error::from(e))
             })
         )

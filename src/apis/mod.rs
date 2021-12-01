@@ -52,6 +52,10 @@ use super::models::*;
 
 mod account_api;
 pub use self::account_api::{ AccountApi, AccountApiClient };
+mod alert_api;
+pub use self::alert_api::{ AlertApi, AlertApiClient };
+mod ccp_beta_api;
+pub use self::ccp_beta_api::{ CCPBetaApi, CCPBetaApiClient };
 mod contract_api;
 pub use self::contract_api::{ ContractApi, ContractApiClient };
 mod fyi_api;
@@ -72,6 +76,8 @@ mod scanner_api;
 pub use self::scanner_api::{ ScannerApi, ScannerApiClient };
 mod session_api;
 pub use self::session_api::{ SessionApi, SessionApiClient };
+mod streaming_api;
+pub use self::streaming_api::{ StreamingApi, StreamingApiClient };
 mod trades_api;
 pub use self::trades_api::{ TradesApi, TradesApiClient };
 

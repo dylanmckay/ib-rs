@@ -1,7 +1,7 @@
 /* 
  * Client Portal Web API
  *
- * Production version of the Client Portal Web API
+ * Client Poral Web API
  *
  * OpenAPI spec version: 1.0.0
  * 
@@ -15,34 +15,48 @@ use serde_json::Value;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Account {
+  /// User customizable account alias. Refer to [Configure Account Alias](https://guides.interactivebrokers.com/cp/cp.htm#am/settings/accountalias.htm) for details.
   #[serde(rename = "accountAlias")]
   account_alias: Option<String>,
+  /// The account number
   #[serde(rename = "accountId")]
   account_id: Option<String>,
+  /// When the account was opened in unix time.
   #[serde(rename = "accountStatus")]
   account_status: Option<f32>,
+  /// Title of the account
   #[serde(rename = "accountTitle")]
   account_title: Option<String>,
+  /// The accountAlias
   #[serde(rename = "accountVan")]
   account_van: Option<String>,
+  /// Status of the Account   * O = Open   * P or N = Pending   * A = Abandoned   * R = Rejected   * C = Closed 
+  #[serde(rename = "clearingStatus")]
+  clearing_status: Option<String>,
+  /// Is a Covestor Account
   #[serde(rename = "covestor")]
   covestor: Option<bool>,
+  /// Base currency of the account.
   #[serde(rename = "currency")]
   currency: Option<String>,
+  /// Formatted \"accountId - accountAlias\"
   #[serde(rename = "desc")]
   desc: Option<String>,
+  /// Whichever value is not null in this priority
   #[serde(rename = "displayName")]
   display_name: Option<String>,
+  /// If an account is a sub-account to a Financial Advisor.
   #[serde(rename = "faclient")]
   faclient: Option<bool>,
+  /// The account identification value
   #[serde(rename = "id")]
   id: Option<String>,
-  #[serde(rename = "master")]
-  master: Option<::models::AccountMaster>,
   #[serde(rename = "parent")]
-  parent: Option<String>,
+  parent: Option<::models::AccountParent>,
+  /// UNI - Deprecated property
   #[serde(rename = "tradingType")]
   trading_type: Option<String>,
+  /// Account Type
   #[serde(rename = "type")]
   _type: Option<String>
 }
@@ -56,13 +70,13 @@ impl Account {
       account_status: None,
       account_title: None,
       account_van: None,
+      clearing_status: None,
       covestor: None,
       currency: None,
       desc: None,
       display_name: None,
       faclient: None,
       id: None,
-      master: None,
       parent: None,
       trading_type: None,
       _type: None
@@ -152,6 +166,23 @@ impl Account {
 
   pub fn reset_account_van(&mut self) {
     self.account_van = None;
+  }
+
+  pub fn set_clearing_status(&mut self, clearing_status: String) {
+    self.clearing_status = Some(clearing_status);
+  }
+
+  pub fn with_clearing_status(mut self, clearing_status: String) -> Account {
+    self.clearing_status = Some(clearing_status);
+    self
+  }
+
+  pub fn clearing_status(&self) -> Option<&String> {
+    self.clearing_status.as_ref()
+  }
+
+  pub fn reset_clearing_status(&mut self) {
+    self.clearing_status = None;
   }
 
   pub fn set_covestor(&mut self, covestor: bool) {
@@ -256,33 +287,16 @@ impl Account {
     self.id = None;
   }
 
-  pub fn set_master(&mut self, master: ::models::AccountMaster) {
-    self.master = Some(master);
-  }
-
-  pub fn with_master(mut self, master: ::models::AccountMaster) -> Account {
-    self.master = Some(master);
-    self
-  }
-
-  pub fn master(&self) -> Option<&::models::AccountMaster> {
-    self.master.as_ref()
-  }
-
-  pub fn reset_master(&mut self) {
-    self.master = None;
-  }
-
-  pub fn set_parent(&mut self, parent: String) {
+  pub fn set_parent(&mut self, parent: ::models::AccountParent) {
     self.parent = Some(parent);
   }
 
-  pub fn with_parent(mut self, parent: String) -> Account {
+  pub fn with_parent(mut self, parent: ::models::AccountParent) -> Account {
     self.parent = Some(parent);
     self
   }
 
-  pub fn parent(&self) -> Option<&String> {
+  pub fn parent(&self) -> Option<&::models::AccountParent> {
     self.parent.as_ref()
   }
 

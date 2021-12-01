@@ -1,7 +1,7 @@
 /* 
  * Client Portal Web API
  *
- * Production version of the Client Portal Web API
+ * Client Poral Web API
  *
  * OpenAPI spec version: 1.0.0
  * 
@@ -20,12 +20,12 @@ pub struct ModifyOrder {
   aux_price: Option<f32>,
   #[serde(rename = "conid")]
   conid: Option<i32>,
+  /// Set to true if you want to pause a working order. For details refer to the [TWS Users' Guide:](https://guides.interactivebrokers.com/tws/twsguide.html#usersguidebook/getstarted/pause_execution.htm) 
+  #[serde(rename = "deactivated")]
+  deactivated: Option<bool>,
   /// optional, not required
   #[serde(rename = "listingExchange")]
   listing_exchange: Option<String>,
-  /// customer orderid
-  #[serde(rename = "orderId")]
-  order_id: Option<i32>,
   /// for example LMT
   #[serde(rename = "orderType")]
   order_type: Option<String>,
@@ -39,9 +39,10 @@ pub struct ModifyOrder {
   /// SELL or BUY
   #[serde(rename = "side")]
   side: Option<String>,
+  /// The ticker symbol of the original place order
   #[serde(rename = "ticker")]
   ticker: Option<String>,
-  /// for example DAY
+  /// Specify a time in force to change how long your order will continue to work in the market
   #[serde(rename = "tif")]
   tif: Option<String>
 }
@@ -52,8 +53,8 @@ impl ModifyOrder {
       acct_id: None,
       aux_price: None,
       conid: None,
+      deactivated: None,
       listing_exchange: None,
-      order_id: None,
       order_type: None,
       outside_rth: None,
       price: None,
@@ -115,6 +116,23 @@ impl ModifyOrder {
     self.conid = None;
   }
 
+  pub fn set_deactivated(&mut self, deactivated: bool) {
+    self.deactivated = Some(deactivated);
+  }
+
+  pub fn with_deactivated(mut self, deactivated: bool) -> ModifyOrder {
+    self.deactivated = Some(deactivated);
+    self
+  }
+
+  pub fn deactivated(&self) -> Option<&bool> {
+    self.deactivated.as_ref()
+  }
+
+  pub fn reset_deactivated(&mut self) {
+    self.deactivated = None;
+  }
+
   pub fn set_listing_exchange(&mut self, listing_exchange: String) {
     self.listing_exchange = Some(listing_exchange);
   }
@@ -130,23 +148,6 @@ impl ModifyOrder {
 
   pub fn reset_listing_exchange(&mut self) {
     self.listing_exchange = None;
-  }
-
-  pub fn set_order_id(&mut self, order_id: i32) {
-    self.order_id = Some(order_id);
-  }
-
-  pub fn with_order_id(mut self, order_id: i32) -> ModifyOrder {
-    self.order_id = Some(order_id);
-    self
-  }
-
-  pub fn order_id(&self) -> Option<&i32> {
-    self.order_id.as_ref()
-  }
-
-  pub fn reset_order_id(&mut self) {
-    self.order_id = None;
   }
 
   pub fn set_order_type(&mut self, order_type: String) {

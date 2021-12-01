@@ -1,7 +1,7 @@
 /* 
  * Client Portal Web API
  *
- * Production version of the Client Portal Web API
+ * Client Poral Web API
  *
  * OpenAPI spec version: 1.0.0
  * 
@@ -36,15 +36,15 @@ impl<C: hyper::client::Connect> PortfolioApiClient<C> {
 
 pub trait PortfolioApi {
     fn portfolio_account_id_allocation_get(&self, account_id: &str) -> Box<Future<Item = ::models::Allocation, Error = Error<serde_json::Value>>>;
-    fn portfolio_account_id_ledger_get(&self, account_id: &str) -> Box<Future<Item = ::models::InlineResponse20019, Error = Error<serde_json::Value>>>;
+    fn portfolio_account_id_ledger_get(&self, account_id: &str) -> Box<Future<Item = ::models::InlineResponse20033, Error = Error<serde_json::Value>>>;
     fn portfolio_account_id_meta_get(&self, account_id: &str) -> Box<Future<Item = ::models::Accounts, Error = Error<serde_json::Value>>>;
     fn portfolio_account_id_position_conid_get(&self, account_id: &str, conid: i32) -> Box<Future<Item = ::models::Position, Error = Error<serde_json::Value>>>;
     fn portfolio_account_id_positions_invalidate_post(&self, account_id: &str) -> Box<Future<Item = Value, Error = Error<serde_json::Value>>>;
     fn portfolio_account_id_positions_page_id_get(&self, account_id: &str, page_id: &str, model: &str, sort: &str, direction: &str, period: &str) -> Box<Future<Item = ::models::Position, Error = Error<serde_json::Value>>>;
-    fn portfolio_account_id_summary_get(&self, account_id: &str) -> Box<Future<Item = ::models::InlineResponse20020, Error = Error<serde_json::Value>>>;
+    fn portfolio_account_id_summary_get(&self, account_id: &str) -> Box<Future<Item = ::models::InlineResponse20034, Error = Error<serde_json::Value>>>;
     fn portfolio_accounts_get(&self, ) -> Box<Future<Item = ::models::Accounts, Error = Error<serde_json::Value>>>;
-    fn portfolio_allocation_post(&self, body: ::models::Body6) -> Box<Future<Item = ::models::Allocation, Error = Error<serde_json::Value>>>;
-    fn portfolio_positions_conid_get(&self, conid: i32) -> Box<Future<Item = ::models::InlineResponse20018, Error = Error<serde_json::Value>>>;
+    fn portfolio_allocation_post(&self, body: ::models::Body10) -> Box<Future<Item = ::models::Allocation, Error = Error<serde_json::Value>>>;
+    fn portfolio_positions_conid_get(&self, conid: i32) -> Box<Future<Item = ::models::InlineResponse20032, Error = Error<serde_json::Value>>>;
     fn portfolio_subaccounts_get(&self, ) -> Box<Future<Item = ::models::Account, Error = Error<serde_json::Value>>>;
 }
 
@@ -100,7 +100,7 @@ impl<C: hyper::client::Connect>PortfolioApi for PortfolioApiClient<C> {
         )
     }
 
-    fn portfolio_account_id_ledger_get(&self, account_id: &str) -> Box<Future<Item = ::models::InlineResponse20019, Error = Error<serde_json::Value>>> {
+    fn portfolio_account_id_ledger_get(&self, account_id: &str) -> Box<Future<Item = ::models::InlineResponse20033, Error = Error<serde_json::Value>>> {
         let configuration: &configuration::Configuration<C> = self.configuration.borrow();
 
         let method = hyper::Method::Get;
@@ -144,7 +144,7 @@ impl<C: hyper::client::Connect>PortfolioApi for PortfolioApiClient<C> {
                 }
             })
             .and_then(|body| {
-                let parsed: Result<::models::InlineResponse20019, _> = serde_json::from_slice(&body);
+                let parsed: Result<::models::InlineResponse20033, _> = serde_json::from_slice(&body);
                 parsed.map_err(|e| Error::from(e))
             })
         )
@@ -354,7 +354,7 @@ impl<C: hyper::client::Connect>PortfolioApi for PortfolioApiClient<C> {
         )
     }
 
-    fn portfolio_account_id_summary_get(&self, account_id: &str) -> Box<Future<Item = ::models::InlineResponse20020, Error = Error<serde_json::Value>>> {
+    fn portfolio_account_id_summary_get(&self, account_id: &str) -> Box<Future<Item = ::models::InlineResponse20034, Error = Error<serde_json::Value>>> {
         let configuration: &configuration::Configuration<C> = self.configuration.borrow();
 
         let method = hyper::Method::Get;
@@ -398,7 +398,7 @@ impl<C: hyper::client::Connect>PortfolioApi for PortfolioApiClient<C> {
                 }
             })
             .and_then(|body| {
-                let parsed: Result<::models::InlineResponse20020, _> = serde_json::from_slice(&body);
+                let parsed: Result<::models::InlineResponse20034, _> = serde_json::from_slice(&body);
                 parsed.map_err(|e| Error::from(e))
             })
         )
@@ -454,7 +454,7 @@ impl<C: hyper::client::Connect>PortfolioApi for PortfolioApiClient<C> {
         )
     }
 
-    fn portfolio_allocation_post(&self, body: ::models::Body6) -> Box<Future<Item = ::models::Allocation, Error = Error<serde_json::Value>>> {
+    fn portfolio_allocation_post(&self, body: ::models::Body10) -> Box<Future<Item = ::models::Allocation, Error = Error<serde_json::Value>>> {
         let configuration: &configuration::Configuration<C> = self.configuration.borrow();
 
         let method = hyper::Method::Post;
@@ -508,7 +508,7 @@ impl<C: hyper::client::Connect>PortfolioApi for PortfolioApiClient<C> {
         )
     }
 
-    fn portfolio_positions_conid_get(&self, conid: i32) -> Box<Future<Item = ::models::InlineResponse20018, Error = Error<serde_json::Value>>> {
+    fn portfolio_positions_conid_get(&self, conid: i32) -> Box<Future<Item = ::models::InlineResponse20032, Error = Error<serde_json::Value>>> {
         let configuration: &configuration::Configuration<C> = self.configuration.borrow();
 
         let method = hyper::Method::Get;
@@ -552,7 +552,7 @@ impl<C: hyper::client::Connect>PortfolioApi for PortfolioApiClient<C> {
                 }
             })
             .and_then(|body| {
-                let parsed: Result<::models::InlineResponse20018, _> = serde_json::from_slice(&body);
+                let parsed: Result<::models::InlineResponse20032, _> = serde_json::from_slice(&body);
                 parsed.map_err(|e| Error::from(e))
             })
         )

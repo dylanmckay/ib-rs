@@ -1,7 +1,7 @@
 /* 
  * Client Portal Web API
  *
- * Production version of the Client Portal Web API
+ * Client Poral Web API
  *
  * OpenAPI spec version: 1.0.0
  * 
@@ -35,12 +35,12 @@ impl<C: hyper::client::Connect> PnLApiClient<C> {
 }
 
 pub trait PnLApi {
-    fn iserver_account_pnl_partitioned_get(&self, ) -> Box<Future<Item = ::models::InlineResponse2008, Error = Error<serde_json::Value>>>;
+    fn iserver_account_pnl_partitioned_get(&self, ) -> Box<Future<Item = ::models::InlineResponse20016, Error = Error<serde_json::Value>>>;
 }
 
 
 impl<C: hyper::client::Connect>PnLApi for PnLApiClient<C> {
-    fn iserver_account_pnl_partitioned_get(&self, ) -> Box<Future<Item = ::models::InlineResponse2008, Error = Error<serde_json::Value>>> {
+    fn iserver_account_pnl_partitioned_get(&self, ) -> Box<Future<Item = ::models::InlineResponse20016, Error = Error<serde_json::Value>>> {
         let configuration: &configuration::Configuration<C> = self.configuration.borrow();
 
         let method = hyper::Method::Get;
@@ -84,7 +84,7 @@ impl<C: hyper::client::Connect>PnLApi for PnLApiClient<C> {
                 }
             })
             .and_then(|body| {
-                let parsed: Result<::models::InlineResponse2008, _> = serde_json::from_slice(&body);
+                let parsed: Result<::models::InlineResponse20016, _> = serde_json::from_slice(&body);
                 parsed.map_err(|e| Error::from(e))
             })
         )

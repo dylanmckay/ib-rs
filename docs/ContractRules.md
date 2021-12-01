@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **limit_price** | **f32** | default limit price you can use to prefill your order | [optional] [default to null]
 **order_types** | **Vec<String>** |  | [optional] [default to null]
 **order_types_outside** | **Vec<String>** |  | [optional] [default to null]
-**preview** | **bool** | if you can preview the order or not with the whatif end-point | [optional] [default to null]
+**preview** | **bool** | if you can preview the order or not with the whatif endpoint | [optional] [default to null]
 **size_increment** | **f32** |  | [optional] [default to null]
 **stopprice** | **f32** | default stop price you can use to prefill your order | [optional] [default to null]
 **tif_types** | **Vec<String>** |  | [optional] [default to null]

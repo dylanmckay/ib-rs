@@ -1,7 +1,7 @@
 /* 
  * Client Portal Web API
  *
- * Production version of the Client Portal Web API
+ * Client Poral Web API
  *
  * OpenAPI spec version: 1.0.0
  * 
@@ -14,33 +14,54 @@ use serde_json::Value;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Body2 {
-  /// Notes for bracket orders: 1. Children orders will not have its own \"cOID\", so please donot pass \"cOID\" parameter in child order.Instead, they will have a \"parentId\" which must be equal to \"cOID\" of parent. 2. When you cancel a parent order, it will cancel all bracket orders, when you cancel one child order, it will also cancel its sibling order. 
-  #[serde(rename = "orders")]
-  orders: Option<Vec<::models::OrderRequest>>
+  /// 1 to activate, 0 to deactivate
+  #[serde(rename = "alertActive")]
+  alert_active: Option<i32>,
+  /// alert id(order id)
+  #[serde(rename = "alertId")]
+  alert_id: Option<i32>
 }
 
 impl Body2 {
   pub fn new() -> Body2 {
     Body2 {
-      orders: None
+      alert_active: None,
+      alert_id: None
     }
   }
 
-  pub fn set_orders(&mut self, orders: Vec<::models::OrderRequest>) {
-    self.orders = Some(orders);
+  pub fn set_alert_active(&mut self, alert_active: i32) {
+    self.alert_active = Some(alert_active);
   }
 
-  pub fn with_orders(mut self, orders: Vec<::models::OrderRequest>) -> Body2 {
-    self.orders = Some(orders);
+  pub fn with_alert_active(mut self, alert_active: i32) -> Body2 {
+    self.alert_active = Some(alert_active);
     self
   }
 
-  pub fn orders(&self) -> Option<&Vec<::models::OrderRequest>> {
-    self.orders.as_ref()
+  pub fn alert_active(&self) -> Option<&i32> {
+    self.alert_active.as_ref()
   }
 
-  pub fn reset_orders(&mut self) {
-    self.orders = None;
+  pub fn reset_alert_active(&mut self) {
+    self.alert_active = None;
+  }
+
+  pub fn set_alert_id(&mut self, alert_id: i32) {
+    self.alert_id = Some(alert_id);
+  }
+
+  pub fn with_alert_id(mut self, alert_id: i32) -> Body2 {
+    self.alert_id = Some(alert_id);
+    self
+  }
+
+  pub fn alert_id(&self) -> Option<&i32> {
+    self.alert_id.as_ref()
+  }
+
+  pub fn reset_alert_id(&mut self) {
+    self.alert_id = None;
   }
 
 }

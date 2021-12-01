@@ -6,6 +6,8 @@ use super::configuration::Configuration;
 pub struct APIClient<C: hyper::client::Connect> {
   configuration: Rc<Configuration<C>>,
   account_api: Box<::apis::AccountApi>,
+  alert_api: Box<::apis::AlertApi>,
+  ccp_beta_api: Box<::apis::CCPBetaApi>,
   contract_api: Box<::apis::ContractApi>,
   fyi_api: Box<::apis::FYIApi>,
   ib_cust_api: Box<::apis::IBCustApi>,
@@ -16,6 +18,7 @@ pub struct APIClient<C: hyper::client::Connect> {
   portfolio_analyst_api: Box<::apis::PortfolioAnalystApi>,
   scanner_api: Box<::apis::ScannerApi>,
   session_api: Box<::apis::SessionApi>,
+  streaming_api: Box<::apis::StreamingApi>,
   trades_api: Box<::apis::TradesApi>,
 }
 
@@ -26,6 +29,8 @@ impl<C: hyper::client::Connect> APIClient<C> {
     APIClient {
       configuration: rc.clone(),
       account_api: Box::new(::apis::AccountApiClient::new(rc.clone())),
+      alert_api: Box::new(::apis::AlertApiClient::new(rc.clone())),
+      ccp_beta_api: Box::new(::apis::CCPBetaApiClient::new(rc.clone())),
       contract_api: Box::new(::apis::ContractApiClient::new(rc.clone())),
       fyi_api: Box::new(::apis::FYIApiClient::new(rc.clone())),
       ib_cust_api: Box::new(::apis::IBCustApiClient::new(rc.clone())),
@@ -36,12 +41,21 @@ impl<C: hyper::client::Connect> APIClient<C> {
       portfolio_analyst_api: Box::new(::apis::PortfolioAnalystApiClient::new(rc.clone())),
       scanner_api: Box::new(::apis::ScannerApiClient::new(rc.clone())),
       session_api: Box::new(::apis::SessionApiClient::new(rc.clone())),
+      streaming_api: Box::new(::apis::StreamingApiClient::new(rc.clone())),
       trades_api: Box::new(::apis::TradesApiClient::new(rc.clone())),
     }
   }
 
   pub fn account_api(&self) -> &::apis::AccountApi{
     self.account_api.as_ref()
+  }
+
+  pub fn alert_api(&self) -> &::apis::AlertApi{
+    self.alert_api.as_ref()
+  }
+
+  pub fn ccp_beta_api(&self) -> &::apis::CCPBetaApi{
+    self.ccp_beta_api.as_ref()
   }
 
   pub fn contract_api(&self) -> &::apis::ContractApi{
@@ -82,6 +96,10 @@ impl<C: hyper::client::Connect> APIClient<C> {
 
   pub fn session_api(&self) -> &::apis::SessionApi{
     self.session_api.as_ref()
+  }
+
+  pub fn streaming_api(&self) -> &::apis::StreamingApi{
+    self.streaming_api.as_ref()
   }
 
   pub fn trades_api(&self) -> &::apis::TradesApi{

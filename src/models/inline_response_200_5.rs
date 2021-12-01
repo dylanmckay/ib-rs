@@ -1,7 +1,7 @@
 /* 
  * Client Portal Web API
  *
- * Production version of the Client Portal Web API
+ * Client Poral Web API
  *
  * OpenAPI spec version: 1.0.0
  * 
@@ -14,52 +14,53 @@ use serde_json::Value;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct InlineResponse2005 {
-  #[serde(rename = "applicantId")]
-  applicant_id: Option<f32>,
-  #[serde(rename = "entities")]
-  entities: Option<Vec<::models::IbcustentityinfoEntities>>
+  #[serde(rename = "E")]
+  E: Option<Vec<::models::InlineResponse2005E>>,
+  /// Email option is enabled or not 0-off, 1-on.
+  #[serde(rename = "M")]
+  M: Option<i32>
 }
 
 impl InlineResponse2005 {
   pub fn new() -> InlineResponse2005 {
     InlineResponse2005 {
-      applicant_id: None,
-      entities: None
+      E: None,
+      M: None
     }
   }
 
-  pub fn set_applicant_id(&mut self, applicant_id: f32) {
-    self.applicant_id = Some(applicant_id);
+  pub fn set_E(&mut self, E: Vec<::models::InlineResponse2005E>) {
+    self.E = Some(E);
   }
 
-  pub fn with_applicant_id(mut self, applicant_id: f32) -> InlineResponse2005 {
-    self.applicant_id = Some(applicant_id);
+  pub fn with_E(mut self, E: Vec<::models::InlineResponse2005E>) -> InlineResponse2005 {
+    self.E = Some(E);
     self
   }
 
-  pub fn applicant_id(&self) -> Option<&f32> {
-    self.applicant_id.as_ref()
+  pub fn E(&self) -> Option<&Vec<::models::InlineResponse2005E>> {
+    self.E.as_ref()
   }
 
-  pub fn reset_applicant_id(&mut self) {
-    self.applicant_id = None;
+  pub fn reset_E(&mut self) {
+    self.E = None;
   }
 
-  pub fn set_entities(&mut self, entities: Vec<::models::IbcustentityinfoEntities>) {
-    self.entities = Some(entities);
+  pub fn set_M(&mut self, M: i32) {
+    self.M = Some(M);
   }
 
-  pub fn with_entities(mut self, entities: Vec<::models::IbcustentityinfoEntities>) -> InlineResponse2005 {
-    self.entities = Some(entities);
+  pub fn with_M(mut self, M: i32) -> InlineResponse2005 {
+    self.M = Some(M);
     self
   }
 
-  pub fn entities(&self) -> Option<&Vec<::models::IbcustentityinfoEntities>> {
-    self.entities.as_ref()
+  pub fn M(&self) -> Option<&i32> {
+    self.M.as_ref()
   }
 
-  pub fn reset_entities(&mut self) {
-    self.entities = None;
+  pub fn reset_M(&mut self) {
+    self.M = None;
   }
 
 }

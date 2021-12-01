@@ -1,7 +1,7 @@
 /* 
  * Client Portal Web API
  *
- * Production version of the Client Portal Web API
+ * Client Poral Web API
  *
  * OpenAPI spec version: 1.0.0
  * 
@@ -35,13 +35,14 @@ impl<C: hyper::client::Connect> PortfolioAnalystApiClient<C> {
 }
 
 pub trait PortfolioAnalystApi {
-    fn pa_performance_post(&self, body: ::models::Body4) -> Box<Future<Item = ::models::Performance, Error = Error<serde_json::Value>>>;
-    fn pa_summary_post(&self, body: ::models::Body5) -> Box<Future<Item = ::models::Summary, Error = Error<serde_json::Value>>>;
+    fn pa_performance_post(&self, body: ::models::Body7) -> Box<Future<Item = ::models::Performance, Error = Error<serde_json::Value>>>;
+    fn pa_summary_post(&self, body: ::models::Body8) -> Box<Future<Item = ::models::Summary, Error = Error<serde_json::Value>>>;
+    fn pa_transactions_post(&self, body: ::models::Body9) -> Box<Future<Item = ::models::Transactions, Error = Error<serde_json::Value>>>;
 }
 
 
 impl<C: hyper::client::Connect>PortfolioAnalystApi for PortfolioAnalystApiClient<C> {
-    fn pa_performance_post(&self, body: ::models::Body4) -> Box<Future<Item = ::models::Performance, Error = Error<serde_json::Value>>> {
+    fn pa_performance_post(&self, body: ::models::Body7) -> Box<Future<Item = ::models::Performance, Error = Error<serde_json::Value>>> {
         let configuration: &configuration::Configuration<C> = self.configuration.borrow();
 
         let method = hyper::Method::Post;
@@ -95,7 +96,7 @@ impl<C: hyper::client::Connect>PortfolioAnalystApi for PortfolioAnalystApiClient
         )
     }
 
-    fn pa_summary_post(&self, body: ::models::Body5) -> Box<Future<Item = ::models::Summary, Error = Error<serde_json::Value>>> {
+    fn pa_summary_post(&self, body: ::models::Body8) -> Box<Future<Item = ::models::Summary, Error = Error<serde_json::Value>>> {
         let configuration: &configuration::Configuration<C> = self.configuration.borrow();
 
         let method = hyper::Method::Post;
@@ -144,6 +145,60 @@ impl<C: hyper::client::Connect>PortfolioAnalystApi for PortfolioAnalystApiClient
             })
             .and_then(|body| {
                 let parsed: Result<::models::Summary, _> = serde_json::from_slice(&body);
+                parsed.map_err(|e| Error::from(e))
+            })
+        )
+    }
+
+    fn pa_transactions_post(&self, body: ::models::Body9) -> Box<Future<Item = ::models::Transactions, Error = Error<serde_json::Value>>> {
+        let configuration: &configuration::Configuration<C> = self.configuration.borrow();
+
+        let method = hyper::Method::Post;
+
+        let query_string = {
+            let mut query = ::url::form_urlencoded::Serializer::new(String::new());
+            query.finish()
+        };
+        let uri_str = format!("{}/pa/transactions?{}", configuration.base_path, query_string);
+
+        // TODO(farcaller): handle error
+        // if let Err(e) = uri {
+        //     return Box::new(futures::future::err(e));
+        // }
+        let mut uri: hyper::Uri = uri_str.parse().unwrap();
+
+        let mut req = hyper::Request::new(method, uri);
+
+        if let Some(ref user_agent) = configuration.user_agent {
+            req.headers_mut().set(UserAgent::new(Cow::Owned(user_agent.clone())));
+        }
+
+
+
+        let serialized = serde_json::to_string(&body).unwrap();
+        req.headers_mut().set(hyper::header::ContentType::json());
+        req.headers_mut().set(hyper::header::ContentLength(serialized.len() as u64));
+        req.set_body(serialized);
+
+        // send request
+        Box::new(
+        configuration.client.request(req)
+            .map_err(|e| Error::from(e))
+            .and_then(|resp| {
+                let status = resp.status();
+                resp.body().concat2()
+                    .and_then(move |body| Ok((status, body)))
+                    .map_err(|e| Error::from(e))
+            })
+            .and_then(|(status, body)| {
+                if status.is_success() {
+                    Ok(body)
+                } else {
+                    Err(Error::from((status, &*body)))
+                }
+            })
+            .and_then(|body| {
+                let parsed: Result<::models::Transactions, _> = serde_json::from_slice(&body);
                 parsed.map_err(|e| Error::from(e))
             })
         )

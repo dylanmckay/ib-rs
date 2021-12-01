@@ -1,7 +1,7 @@
 /* 
  * Client Portal Web API
  *
- * Production version of the Client Portal Web API
+ * Client Poral Web API
  *
  * OpenAPI spec version: 1.0.0
  * 
@@ -14,32 +14,33 @@ use serde_json::Value;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Body4 {
-  #[serde(rename = "acctIds")]
-  acct_ids: Option<Vec<String>>
+  /// Notes for bracket orders: 1. Children orders will not have its own \"cOID\", so please donot pass \"cOID\" parameter in child order.Instead, they will have a \"parentId\" which must be equal to \"cOID\" of parent. 2. When you cancel a parent order, it will cancel all bracket orders, when you cancel one child order, it will also cancel its sibling order. 
+  #[serde(rename = "orders")]
+  orders: Option<Vec<::models::OrderRequest>>
 }
 
 impl Body4 {
   pub fn new() -> Body4 {
     Body4 {
-      acct_ids: None
+      orders: None
     }
   }
 
-  pub fn set_acct_ids(&mut self, acct_ids: Vec<String>) {
-    self.acct_ids = Some(acct_ids);
+  pub fn set_orders(&mut self, orders: Vec<::models::OrderRequest>) {
+    self.orders = Some(orders);
   }
 
-  pub fn with_acct_ids(mut self, acct_ids: Vec<String>) -> Body4 {
-    self.acct_ids = Some(acct_ids);
+  pub fn with_orders(mut self, orders: Vec<::models::OrderRequest>) -> Body4 {
+    self.orders = Some(orders);
     self
   }
 
-  pub fn acct_ids(&self) -> Option<&Vec<String>> {
-    self.acct_ids.as_ref()
+  pub fn orders(&self) -> Option<&Vec<::models::OrderRequest>> {
+    self.orders.as_ref()
   }
 
-  pub fn reset_acct_ids(&mut self) {
-    self.acct_ids = None;
+  pub fn reset_orders(&mut self) {
+    self.orders = None;
   }
 
 }

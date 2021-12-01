@@ -1,7 +1,7 @@
 /* 
  * Client Portal Web API
  *
- * Production version of the Client Portal Web API
+ * Client Poral Web API
  *
  * OpenAPI spec version: 1.0.0
  * 
@@ -17,6 +17,7 @@ use serde_json::Value;
 pub struct Contract {
   #[serde(rename = "category")]
   category: Option<String>,
+  /// Contracts company name
   #[serde(rename = "company_name")]
   company_name: Option<String>,
   /// same as that in request

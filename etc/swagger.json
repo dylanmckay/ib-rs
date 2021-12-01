@@ -1,60 +1,135 @@
 {
-  "basePath": "/v1/portal",
+  "basePath": "/v1/api",
   "definitions": {
     "account": {
       "description": "account information",
       "properties": {
         "accountAlias": {
+          "description": "User customizable account alias. Refer to [Configure Account Alias](https://guides.interactivebrokers.com/cp/cp.htm#am/settings/accountalias.htm) for details.",
           "type": "string"
         },
         "accountId": {
+          "description": "The account number",
+          "example": "U12345678 for Individual Live Accounts, DU12345678 for Individual Paper Accounts",
           "type": "string"
         },
         "accountStatus": {
+          "description": "When the account was opened in unix time.",
           "type": "number"
         },
         "accountTitle": {
+          "description": "Title of the account",
           "type": "string"
         },
         "accountVan": {
+          "description": "The accountAlias",
+          "type": "string"
+        },
+        "clearingStatus": {
+          "description": "Status of the Account\n  * O = Open\n  * P or N = Pending\n  * A = Abandoned\n  * R = Rejected\n  * C = Closed\n",
+          "enum": [
+            "O",
+            "P",
+            "N",
+            "A",
+            "R",
+            "C"
+          ],
           "type": "string"
         },
         "covestor": {
+          "description": "Is a Covestor Account",
           "type": "boolean"
         },
         "currency": {
+          "description": "Base currency of the account.",
+          "enum": [
+            "AUD",
+            "GBP",
+            "CAD",
+            "CNH",
+            "CZK",
+            "DKK",
+            "EUR",
+            "HKD",
+            "HUF",
+            "INR",
+            "ILS",
+            "JPY",
+            "MXN",
+            "NOK",
+            "NZD",
+            "PLN",
+            "RUB",
+            "SGD",
+            "SEK",
+            "CHF",
+            "USD"
+          ],
           "type": "string"
         },
         "desc": {
+          "description": "Formatted \"accountId - accountAlias\"",
           "type": "string"
         },
         "displayName": {
+          "description": "Whichever value is not null in this priority",
+          "enum": [
+            "accountTitle",
+            "accountVan",
+            "accountId"
+          ],
           "type": "string"
         },
         "faclient": {
+          "description": "If an account is a sub-account to a Financial Advisor.",
           "type": "boolean"
         },
         "id": {
+          "description": "The account identification value",
           "type": "string"
         },
-        "master": {
+        "parent": {
           "properties": {
-            "officialTitle": {
+            "accountId": {
+              "description": "Account Number for Money Manager Client",
               "type": "string"
             },
-            "title": {
-              "type": "string"
+            "isMChild": {
+              "description": "Is MM a Child Account",
+              "type": "boolean"
+            },
+            "isMParent": {
+              "description": "Is MM a Parent Account",
+              "type": "boolean"
+            },
+            "isMultiplex": {
+              "description": "Is a Multiplex Account. These are account models with individual account being parent and managed account being child.",
+              "type": "boolean"
+            },
+            "mmc": {
+              "items": {
+                "description": "Money Manager Client (MMC) Account",
+                "type": "string"
+              },
+              "type": "array"
             }
           },
           "type": "object"
         },
-        "parent": {
-          "type": "string"
-        },
         "tradingType": {
+          "description": "UNI - Deprecated property",
           "type": "string"
         },
         "type": {
+          "description": "Account Type",
+          "enum": [
+            "INDIVIDUAL",
+            "JOINT",
+            "ORG",
+            "TRUST",
+            "DEMO"
+          ],
           "type": "string"
         }
       },
@@ -65,6 +140,251 @@
         "$ref": "#/definitions/account"
       },
       "type": "array"
+    },
+    "alert-request": {
+      "properties": {
+        "alertMessage": {
+          "description": "The message you want to receive via email or text message",
+          "type": "string"
+        },
+        "alertName": {
+          "description": "name of alert",
+          "type": "string"
+        },
+        "alertRepeatable": {
+          "description": "whether alert is repeatable or not, so value can only be 0 or 1, this has to be 1 for MTA alert",
+          "type": "integer"
+        },
+        "conditions": {
+          "items": {
+            "properties": {
+              "conidex": {
+                "description": "conid and exchange. Format supports conid or conid@exchange",
+                "example": "8314@SMART",
+                "type": "string"
+              },
+              "logicBind": {
+                "description": "\"a\" means \"AND\", \"o\" means \"OR\", \"n\" means \"END\",\nthe last one condition in the condition array should \"n\"\n",
+                "type": "string"
+              },
+              "operator": {
+                "description": "optional, operator for the current condition, can be >= or <=",
+                "example": ">=",
+                "type": "string"
+              },
+              "timeZone": {
+                "description": "only needed for some MTA alert condition",
+                "type": "string"
+              },
+              "triggerMethod": {
+                "description": "optional, only some type of conditions have triggerMethod",
+                "example": "0",
+                "type": "string"
+              },
+              "type": {
+                "description": "Types: 1-Price, 3-Time, 4-Margin, 5-Trade, 6-Volume, 7: MTA market 8: MTA Position, 9: MTA Acc. Daily PN&\n",
+                "type": "integer"
+              },
+              "value": {
+                "description": "can not be empty, can pass default value \"*\"",
+                "example": "220",
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "email": {
+          "description": "email address to receive alert",
+          "type": "string"
+        },
+        "expireTime": {
+          "description": "format, YYYYMMDD-HH:mm:ss, please NOTE this will only work when tif is GTD\n",
+          "example": "20201105-19:51:14",
+          "type": "string"
+        },
+        "iTWSOrdersOnly": {
+          "description": "value can only be 0 or 1, set to 1 to enable the alert only in IBKR mobile\n",
+          "type": "integer"
+        },
+        "orderId": {
+          "description": "orderId is required when modifying alert. You can get it from /iserver/account/:accountId/alerts\n",
+          "type": "integer"
+        },
+        "outsideRth": {
+          "description": "value can only be 0 or 1, set to 1 if the alert can be triggered outside regular trading hours.\n",
+          "type": "integer"
+        },
+        "playAudio": {
+          "description": "audio message to play when alert is triggered",
+          "type": "string"
+        },
+        "sendMessage": {
+          "description": "whether allowing to send email or not, so value can only be 0 or 1,\n",
+          "type": "integer"
+        },
+        "showPopup": {
+          "description": "value can only be 0 or 1, set to 1 to allow to show alert in pop-ups",
+          "type": "integer"
+        },
+        "tif": {
+          "description": "time in force, can only be GTC or GTD",
+          "type": "string"
+        },
+        "toolId": {
+          "description": "for MTA alert only, each user has a unique toolId and it will stay the same, do not send for normal alert\n",
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    },
+    "alert-response": {
+      "properties": {
+        "account": {
+          "description": "account id",
+          "type": "string"
+        },
+        "alert_active": {
+          "description": "whether alert is active or not, so value can only be 0 or 1",
+          "type": "integer"
+        },
+        "alert_default_type": {
+          "description": "MTA alert only",
+          "type": "string"
+        },
+        "alert_email": {
+          "description": "email address to receive alert",
+          "type": "string"
+        },
+        "alert_message": {
+          "description": "The message you want to receive via email or text message",
+          "type": "string"
+        },
+        "alert_mta_currency": {
+          "description": "MTA alert only",
+          "type": "string"
+        },
+        "alert_mta_defaults": {
+          "description": "MTA alert only",
+          "type": "string"
+        },
+        "alert_name": {
+          "description": "name of alert",
+          "type": "string"
+        },
+        "alert_play_audio": {
+          "description": "audio message to play when alert is triggered",
+          "type": "string"
+        },
+        "alert_repeatable": {
+          "description": "whether alert is repeatable or not, so value can only be 0 or 1",
+          "type": "integer"
+        },
+        "alert_send_message": {
+          "description": "whether allowing to send email or not, so value can only be 0 or 1,\n",
+          "type": "integer"
+        },
+        "alert_show_popup": {
+          "description": "value can only be 0 or 1, set to 1 to allow to show alert in pop-ups",
+          "type": "integer"
+        },
+        "alert_triggered": {
+          "description": "whether the alert has been triggered",
+          "type": "boolean"
+        },
+        "condition_outside_rth": {
+          "description": "whether allowing the condition can be triggered outside of regular trading hours, 1 means allow",
+          "type": "integer"
+        },
+        "condition_size": {
+          "description": "size of conditions array",
+          "type": "integer"
+        },
+        "conditions": {
+          "items": {
+            "properties": {
+              "condition_logic_bind": {
+                "description": "Condition array should end with \"n\"\n  * a - AND\n  * o - OR\n  * n - END\n",
+                "type": "string"
+              },
+              "condition_operator": {
+                "description": "optional, operator for the current condition\n  * >= Greater than or equal to\n  * <= Less than or equal to\n",
+                "example": "- >= - <=\n",
+                "type": "string"
+              },
+              "condition_time_zone": {
+                "description": "only needed for some MTA alert condition",
+                "type": "string"
+              },
+              "condition_trigger_method": {
+                "description": "optional, only some type of conditions have triggerMethod",
+                "example": "0",
+                "type": "string"
+              },
+              "condition_type": {
+                "description": "Types: 1-Price, 3-Time, 4-Margin, 5-Trade, 6-Volume, 7: MTA market 8: MTA Position, 9: MTA Acc. Daily PN&\n",
+                "type": "integer"
+              },
+              "condition_value": {
+                "description": "can not be empty, can pass default value \"*\"",
+                "example": "220",
+                "type": "string"
+              },
+              "conidex": {
+                "description": "conid and exchange. Format supports conid or conid@exchange",
+                "example": "8314@SMART",
+                "type": "string"
+              },
+              "contract_description_1": {
+                "description": "Format contract name",
+                "example": "FB Stock (NASDAQ.NMS)",
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "expire_time": {
+          "description": "format, YYYYMMDD-HH:mm:ss\n",
+          "example": "20201105-19:51:14",
+          "type": "string"
+        },
+        "itws_orders_only": {
+          "description": "value can only be 0 or 1, set to 1 to enable the alert only in IBKR mobile\n",
+          "type": "integer"
+        },
+        "order_id": {
+          "type": "integer"
+        },
+        "order_not_editable": {
+          "description": "whether the alert can be edited",
+          "type": "boolean"
+        },
+        "order_status": {
+          "description": "status of alert",
+          "example": "Submitted",
+          "type": "string"
+        },
+        "outsideRth": {
+          "description": "value can only be 0 or 1, set to 1 if the alert can be triggered outside regular trading hours.\n",
+          "type": "integer"
+        },
+        "tif": {
+          "description": "time in force, can only be GTC or GTD",
+          "type": "string"
+        },
+        "time_zone": {
+          "description": "MTA alert only",
+          "type": "string"
+        },
+        "tool_id": {
+          "description": "for MTA alert only, each user has a unique toolId and it will stay the same, do not send for normal alert\n",
+          "type": "integer"
+        }
+      },
+      "type": "object"
     },
     "allocation": {
       "items": {
@@ -329,6 +649,7 @@
           "type": "string"
         },
         "company_name": {
+          "description": "Contracts company name",
           "type": "string"
         },
         "con_id": {
@@ -387,7 +708,7 @@
               "type": "array"
             },
             "preview": {
-              "description": "if you can preview the order or not with the whatif end-point",
+              "description": "if you can preview the order or not with the whatif endpoint",
               "type": "boolean"
             },
             "sizeIncrement": {
@@ -483,6 +804,7 @@
     "history-data": {
       "properties": {
         "barLength": {
+          "description": "The number of seconds in a bar",
           "type": "integer"
         },
         "data": {
@@ -517,46 +839,123 @@
           },
           "type": "array"
         },
-        "delay": {
-          "type": "integer"
-        },
         "high": {
-          "description": "price/volume/...",
+          "description": "High value during this time series with format %h/%v/%t. %h is the high price (scaled by priceFactor), %v is volume\n(volume factor will always be 100 (reported volume = actual volume/100)) and %t is minutes from start time of the chart\n",
           "type": "string"
         },
         "low": {
-          "description": "price/volume/...",
+          "description": "Low value during this time series with format %l/%v/%t. %l is the low price (scaled by priceFactor), %v is volume\n(volume factor will always be 100 (reported volume = actual volume/100)) and %t is minutes from start time of the chart\n",
           "type": "string"
         },
         "mdAvailability": {
-          "description": "Market Data Availability. The field may contain two chars. The first char is the primary code: R = Realtime, D = Delayed,\nZ = Frozen, Y = Frozen Delayed. The second char is the secondary code: P = Snapshot Available, p = Consolidated.\n",
+          "description": "Market Data Availability. The field may contain two chars. The first char is the primary code: S = Streaming, R = Realtime, D = Delayed,\nZ = Frozen, Y = Frozen Delayed. The second char is the secondary code: P = Snapshot Available, p = Consolidated.\n",
           "type": "string"
+        },
+        "messageVersion": {
+          "type": "integer"
+        },
+        "mktDataDelay": {
+          "description": "The time it takes, in milliseconds, to process the historical data request",
+          "type": "integer"
+        },
+        "negativeCapable": {
+          "type": "boolean"
+        },
+        "outsideRth": {
+          "description": "The historical data returned includes outside of regular trading hours\n",
+          "type": "boolean"
         },
         "points": {
           "description": "total number of points",
-          "type": "number"
+          "type": "integer"
         },
-        "start": {
-          "description": "start date time",
+        "priceDisplayRule": {
+          "type": "integer"
+        },
+        "priceDisplayValue": {
+          "type": "string"
+        },
+        "priceFactor": {
+          "description": "priceFactor is price increment obtained from display rule",
+          "example": 100,
+          "type": "integer"
+        },
+        "startTime": {
+          "description": "start date time in the format YYYYMMDD-HH:mm:ss",
           "type": "string"
         },
         "symbol": {
+          "description": "Underlying symbol",
           "type": "string"
         },
         "text": {
-          "type": "string"
-        },
-        "tickNum": {
+          "description": "companyName",
           "type": "string"
         },
         "timePeriod": {
+          "description": "The duration for the historical data request",
           "type": "string"
         },
+        "tradingDayDuration": {
+          "description": "The number of seconds in the trading day",
+          "type": "integer"
+        },
         "travelTime": {
-          "type": "number"
+          "type": "integer"
+        },
+        "volumeFactor": {
+          "type": "integer"
         }
       },
       "type": "object"
+    },
+    "history-result": {
+      "properties": {
+        "bars": {
+          "properties": {
+            "close": {
+              "type": "number"
+            },
+            "count": {
+              "type": "number"
+            },
+            "endTime": {
+              "type": "string"
+            },
+            "high": {
+              "type": "number"
+            },
+            "low": {
+              "type": "number"
+            },
+            "open": {
+              "type": "number"
+            },
+            "time": {
+              "type": "string"
+            },
+            "volume": {
+              "type": "number"
+            },
+            "weightedAvg": {
+              "type": "number"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    },
+    "inds": {
+      "items": {
+        "properties": {
+          "conid": {
+            "type": "number"
+          }
+        },
+        "type": "object"
+      },
+      "type": "array"
     },
     "ledger": {
       "properties": {
@@ -626,6 +1025,40 @@
       },
       "type": "object"
     },
+    "market-data": {
+      "properties": {
+        "Ask": {
+          "type": "number"
+        },
+        "AskSize": {
+          "type": "number"
+        },
+        "Bid": {
+          "type": "number"
+        },
+        "BidSize": {
+          "type": "number"
+        },
+        "Conid": {
+          "description": "IBKR Contract ID",
+          "type": "number"
+        },
+        "Exchange": {
+          "description": "Exchange",
+          "type": "string"
+        },
+        "Last": {
+          "type": "number"
+        },
+        "LastSize": {
+          "type": "number"
+        },
+        "minTick": {
+          "type": "number"
+        }
+      },
+      "type": "object"
+    },
     "modify-order": {
       "properties": {
         "acctId": {
@@ -637,13 +1070,13 @@
         "conid": {
           "type": "integer"
         },
+        "deactivated": {
+          "description": "Set to true if you want to pause a working order.\nFor details refer to the [TWS Users' Guide:](https://guides.interactivebrokers.com/tws/twsguide.html#usersguidebook/getstarted/pause_execution.htm)\n",
+          "type": "boolean"
+        },
         "listingExchange": {
           "description": "optional, not required",
           "type": "string"
-        },
-        "orderId": {
-          "description": "customer orderid",
-          "type": "integer"
         },
         "orderType": {
           "description": "for example LMT",
@@ -664,10 +1097,12 @@
           "type": "string"
         },
         "ticker": {
+          "description": "The ticker symbol of the original place order",
           "type": "string"
         },
         "tif": {
-          "description": "for example DAY",
+          "description": "Specify a time in force to change how long your order will continue to work in the market",
+          "example": "tif = DAY to tif = GTC",
           "type": "string"
         }
       },
@@ -742,6 +1177,10 @@
         "orderId": {
           "type": "integer"
         },
+        "order_ref": {
+          "description": "User defined string used to identify the order. Value is set using \"cOID\" field while placing an order.",
+          "type": "string"
+        },
         "origOrderType": {
           "description": "for example Limit",
           "type": "string"
@@ -765,12 +1204,216 @@
           "type": "string"
         },
         "status": {
-          "description": "PendingSubmit - Indicates the order was sent, but confirmation has not been received that it has been received by the destination. \n                Occurs most commonly if an exchange is closed.\nPendingCancel - Indicates that a request has been sent to cancel an order but confirmation has not been received of its cancellation. PreSubmitted - Indicates that a simulated order type has been accepted by the IBKR system and that this order has yet to be elected. \n               The order is held in the IBKR system until the election criteria are met. At that time the order is transmitted to the order destination as specified. \nSubmitted - Indicates that the order has been accepted at the order destination and is working. Cancelled - Indicates that the balance of the order has been confirmed cancelled by the IB system. \n            This could occur unexpectedly when IB or the destination has rejected the order.  \nFilled - Indicates that the order has been completely filled.  Inactive - Indicates the order is not working, for instance if the order was invalid and triggered an error message,\n           or if the order was to short a security and shares have not yet been located. \n",
+          "description": "* PendingSubmit - Indicates the order was sent, but confirmation has not been received that it has been received by the destination.\n                  Occurs most commonly if an exchange is closed.\n* PendingCancel - Indicates that a request has been sent to cancel an order but confirmation has not been received of its cancellation. * PreSubmitted - Indicates that a simulated order type has been accepted by the IBKR system and that this order has yet to be elected.\n                 The order is held in the IBKR system until the election criteria are met. At that time the order is transmitted to the order destination as specified.\n* Submitted - Indicates that the order has been accepted at the order destination and is working. * Cancelled - Indicates that the balance of the order has been confirmed cancelled by the IB system.\n              This could occur unexpectedly when IB or the destination has rejected the order.\n* Filled - Indicates that the order has been completely filled. * Inactive - Indicates the order is not working, for instance if the order was invalid and triggered an error message,\n             or if the order was to short a security and shares have not yet been located.\n",
           "type": "string"
         },
         "ticker": {
-          "description": "for exmple FB",
+          "description": "for example FB",
           "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "order-data": {
+      "properties": {
+        "account": {
+          "description": "Account number",
+          "type": "string"
+        },
+        "avgPrice": {
+          "description": "Average fill price",
+          "type": "string"
+        },
+        "clientOrderId": {
+          "type": "string"
+        },
+        "commCurr": {
+          "description": "Commission currency",
+          "type": "string"
+        },
+        "comms": {
+          "description": "Commissions",
+          "type": "string"
+        },
+        "conid": {
+          "description": "Contract identifier from IBKR's database.",
+          "type": "string"
+        },
+        "cumQty": {
+          "description": "Cumulative fill quantity",
+          "type": "string"
+        },
+        "currency": {
+          "description": "Trading currency",
+          "type": "string"
+        },
+        "exchange": {
+          "description": "Exchange or venue",
+          "type": "string"
+        },
+        "execId": {
+          "type": "string"
+        },
+        "execType": {
+          "enum": [
+            "-1 \"Invalid\"",
+            "0 \"New\"",
+            "1 \"Partially Filled\"",
+            "2 \"Filled\"",
+            "3 \"Done for the Day\"",
+            "4 \"Canceled\"",
+            "5 \"Replaced\"",
+            "6 \"Pending Cancel\"",
+            "7 \"Stopped\"",
+            "8 \"Rejected\"",
+            "9 \"Suspended\"",
+            "A \"Pending New\"",
+            "B \"Calculated\"",
+            "C \"Expired\"",
+            "D \"Restated\"",
+            "E \"Pending Replace\"",
+            "F \"Trade\"",
+            "G \"Trade Correct\"",
+            "H \"Trade Cancel\"",
+            "I \"Order Status\""
+          ],
+          "type": "string"
+        },
+        "lastPrice": {
+          "description": "Price of the last partial fill",
+          "type": "string"
+        },
+        "lastShares": {
+          "description": "Quantity of the last partial fill",
+          "type": "string"
+        },
+        "leavesQty": {
+          "description": "Remaining quantity to be filled",
+          "type": "string"
+        },
+        "listingExchange": {
+          "description": "Listing Exchange",
+          "type": "string"
+        },
+        "orderId": {
+          "description": "Order identifier",
+          "type": "string"
+        },
+        "orderQty": {
+          "description": "Quantity of active order",
+          "type": "string"
+        },
+        "orderStatus": {
+          "enum": [
+            "-1 \"Invalid Order Status\"",
+            "0 \"New\"",
+            "1 \"Partially Filled\"",
+            "2 \"Filled\"",
+            "3 \"Done for the Day\"",
+            "4 \"Canceled\"",
+            "5 \"Replaced\"",
+            "6 \"Pending Cancel\"",
+            "7 \"Stopped\"",
+            "8 \"Rejected\"",
+            "9 \"Suspended\"",
+            "A \"Pending New\"",
+            "B \"Calculated\"",
+            "C \"Expired\"",
+            "D \"Restated\"",
+            "E \"Pending Replace\""
+          ],
+          "type": "string"
+        },
+        "orderType": {
+          "enum": [
+            "1 \"Market\"",
+            "2 \"Limit\"",
+            "3 \"Stop\"",
+            "4 \"Stop Limit\"",
+            "5 \"Market on Close\"",
+            "6 \"With or Without\"",
+            "7 \"Limit or Better\"",
+            "8 \"Limit With or Without\"",
+            "9 \"On Basis\"",
+            "A \"On Close\"",
+            "B \"Limit On Close\"",
+            "C \"Forex Market\"",
+            "D \"Previously Quoted\"",
+            "E \"Previously Indicated\"",
+            "F \"Forex Limit\"",
+            "G \"Forex Swap\"",
+            "H \"Forex Previously Quoted\"",
+            "I \"Funari\"",
+            "K \"Market To Limit\"",
+            "P \"Pegged\""
+          ],
+          "type": "string"
+        },
+        "price": {
+          "description": "Price of active order",
+          "type": "string"
+        },
+        "rcptTime": {
+          "description": "Time of receipt in GMT, format YYYYMMDD-hh:mm:ss",
+          "type": "string"
+        },
+        "realizedPnl": {
+          "description": "Realized PnL",
+          "type": "string"
+        },
+        "secType": {
+          "description": "Contracts asset class",
+          "enum": [
+            "CS \"Stock\"",
+            "CASH \"Forex\"",
+            "CFD \"Contract for Difference\"",
+            "FUT \"Future\"",
+            "OPT \"Option\""
+          ],
+          "type": "string"
+        },
+        "side": {
+          "enum": [
+            "1 \"Buy\"",
+            "2 \"Sell\"",
+            "3 \"Buy Minus\"",
+            "4 \"Sell Plus\"",
+            "5 \"Sell Short\"",
+            "6 \"Sell Short Exempt\""
+          ],
+          "type": "string"
+        },
+        "symbol": {
+          "description": "Underlying symbol for contract",
+          "type": "string"
+        },
+        "text": {
+          "description": "error message",
+          "type": "number"
+        },
+        "tif": {
+          "description": "Time in Force",
+          "enum": [
+            "0 \"Day\"",
+            "1 \"GTC\"",
+            "2 \"At the Opening\""
+          ],
+          "type": "string"
+        },
+        "txTime": {
+          "description": "Time of transaction in GMT, format YYYYMMDD-hh:m:ss",
+          "type": "string"
+        },
+        "warnings": {
+          "properties": {
+            "PRICECAP": {
+              "type": "string"
+            },
+            "TIME": {
+              "type": "string"
+            }
+          },
+          "type": "object"
         }
       },
       "type": "object"
@@ -781,20 +1424,39 @@
           "description": "acctId is optional. It should be one of the accounts returned by\n/iserver/accounts. If not passed, the first one in the list is selected.\n",
           "type": "string"
         },
+        "allocationMethod": {
+          "description": "Set the allocation method when placing an order using an FA account for a group\nPossible allocation methods are \"NetLiquidity\", \"AvailableEquity\", \"EqualQuantity\" and \"PctChange\".\n",
+          "type": "string"
+        },
+        "auxPrice": {
+          "description": "optional if order is STOP_LIMIT, this is the stop price. You must specify both price and auxPrice for STOP_LIMIT orders.\n"
+        },
         "cOID": {
-          "description": "Customer Order ID. An arbitraty string that can be used to identify the order, e.g \"my-fb-order\". The\nvalue must be unique for a 24h span. Please do not set this value for child orders when placing a bracket order.\n",
+          "description": "Customer Order ID. An arbitrary string that can be used to identify the order, e.g \"my-fb-order\". The\nvalue must be unique for a 24h span. Please do not set this value for child orders when placing a bracket order.\n",
           "type": "string"
         },
         "conid": {
           "description": "conid is the identifier of the security you want to trade, you can find the\nconid with /iserver/secdef/search.\n",
           "type": "integer"
         },
+        "fxQty": {
+          "description": "double number, this is the cash quantity field which can only be used for FX conversion order. When using 'fxQty' you don't need to specify 'quantity'.\n",
+          "type": "number"
+        },
+        "isCcyConv": {
+          "description": "set to true if the order is a FX conversion order\n",
+          "type": "boolean"
+        },
+        "isSingleGroup": {
+          "description": "set to true if you want to place a single group orders(OCA)\n",
+          "type": "boolean"
+        },
         "listingExchange": {
-          "description": "listingExchange is optional. By default we use \"SMART\" routing. Possible values are available via this end\npoint: /v1/portal/iserver/contract/{{conid}}/info, see valid_exchange: e.g: SMART,AMEX,NYSE,\nCBOE,ISE,CHX,ARCA,ISLAND,DRCTEDGE,BEX,BATS,EDGEA,CSFBALGO,JE FFALGO,BYX,IEX,FOXRIVER,TPLUS1,NYSENAT,PSX\n",
+          "description": "listingExchange is optional. By default we use \"SMART\" routing. Possible values are available via this end\npoint: /v1/portal/iserver/contract/{conid}/info, see valid_exchange: e.g: SMART,AMEX,NYSE,\nCBOE,ISE,CHX,ARCA,ISLAND,DRCTEDGE,BEX,BATS,EDGEA,CSFBALGO,JE FFALGO,BYX,IEX,FOXRIVER,TPLUS1,NYSENAT,PSX\n",
           "type": "string"
         },
         "orderType": {
-          "description": "orderType can be one of MKT (Market), LMT (Limit), STP (Stop) or STP_LIMIT (stop limit)\n",
+          "description": "The order-type determines what type of order you want to send.\nLMT - A limit order is an order to buy or sell at the specified price or better.\nMKT - A market order is an order to buy or sell at the markets current NBBO.\nSTP - A stop order becomes a market order once the specified stop price is attained or penetrated.\nSTOP_LIMIT - A stop limit order becomes a limit order once the specified stop price is attained or penetrated.\nMIDPRICE - A MidPrice order attempts to fill at the current midpoint of the NBBO or better.\n",
           "type": "string"
         },
         "outsideRTH": {
@@ -802,11 +1464,11 @@
           "type": "boolean"
         },
         "parentId": {
-          "description": "When placing bracket orders, the child parentId must be equal to the cOId (customer order id) of the parent.\n",
+          "description": "Only specify for child orders when placing bracket orders. The parentId for the child order(s) must be equal to the cOId (customer order id) of the parent.\n",
           "type": "string"
         },
         "price": {
-          "description": "optional if order is MKT, for LMT, this is the limit price. For STP this is the stop price.\n",
+          "description": "optional if order is LMT, or STOP_LIMIT, this is the limit price. For STP this is the stop price. For MIDPRICE this is the option price cap.\n",
           "type": "number"
         },
         "quantity": {
@@ -814,27 +1476,228 @@
           "type": "number"
         },
         "referrer": {
-          "description": "for example QuickTrade",
+          "description": "Custom order reference\n",
+          "example": "QuickTrade",
           "type": "string"
         },
         "secType": {
-          "description": "conid:type for example 265598:STK",
+          "description": "The contract-identifier (conid) and security type (type) specified as a concatenated value, conid:type",
+          "example": "secType = 265598:STK",
           "type": "string"
         },
         "side": {
           "description": "SELL or BUY",
           "type": "string"
         },
+        "strategy": {
+          "description": "Specify which IB Algo algorithm to use for this order.\n",
+          "type": "string"
+        },
+        "strategyParameters": {
+          "description": "The IB Algo parameters for the specified algorithm.\n",
+          "type": "object"
+        },
         "ticker": {
-          "description": "",
+          "description": "This is the  underlying symbol for the contract.\n",
           "type": "string"
         },
         "tif": {
-          "description": "GTC (Good Till Cancel) or DAY. DAY orders are automatically cancelled at the end of the Day or Trading hours.\n",
+          "description": "The Time-In-Force determines how long the order remains active on the market.\n  * GTC - use Good-Till-Cancel for orders to remain active until it executes or cancelled.\n  * OPG - use Open-Price-Guarantee for Limit-On-Open (LOO) or Market-On-Open (MOO) orders.\n  * DAY - if not executed a Day order will automatically cancel at the end of the markets regular trading hours.\n  * IOC - any portion of an Immediate-or-Cancel order that is not filled as soon as it becomes available in the market is cancelled.\n",
           "type": "string"
         },
         "useAdaptive": {
-          "description": "If true, the system will use the Adaptive Algo to submit the order\nhttps://www.interactivebrokers.com/en/index.php?f=19091\n",
+          "description": "If true, the system will use the Price Management Algo to submit the order.\nhttps://www.interactivebrokers.com/en/index.php?f=43423\n",
+          "type": "boolean"
+        }
+      },
+      "type": "object"
+    },
+    "order-status": {
+      "description": "contains all the details of an order",
+      "properties": {
+        "account": {
+          "description": "account id",
+          "type": "string"
+        },
+        "alert_active": {
+          "type": "integer"
+        },
+        "allowed_duplicate_opposite": {
+          "description": "Returns true if contract supports duplicate/opposite side order.",
+          "type": "boolean"
+        },
+        "available_chart_periods": {
+          "description": "List of available chart periods",
+          "type": "string"
+        },
+        "bg_color": {
+          "description": "Background color in hex format",
+          "type": "string"
+        },
+        "cannot_cancel_order": {
+          "description": "If true not allowed to cancel order",
+          "type": "boolean"
+        },
+        "child_order_type": {
+          "description": "type of the child order",
+          "example": "A=attached, B=beta-hedge, etc",
+          "type": "string"
+        },
+        "company_name": {
+          "description": "Contracts company name",
+          "example": "APPLE INC",
+          "type": "string"
+        },
+        "conidex": {
+          "description": "conid and exchange. Format supports conid or conid@exchange",
+          "type": "string"
+        },
+        "contract_description_1": {
+          "description": "Format contract name",
+          "example": "FB Stock (NASDAQ.NMS)",
+          "type": "string"
+        },
+        "cum_fill": {
+          "description": "Cumulative fill",
+          "type": "string"
+        },
+        "currency": {
+          "description": "Contract traded currency",
+          "type": "string"
+        },
+        "deactivate_order": {
+          "description": "If true order is de-activated",
+          "type": "boolean"
+        },
+        "editable_fields": {
+          "description": "Fields that can be edited in escaped unicode characters",
+          "example": "\\u001E",
+          "type": "string"
+        },
+        "exit_strategy_chart_description": {
+          "description": "Position description to display on chart",
+          "type": "string"
+        },
+        "exit_strategy_display_price": {
+          "description": "Position display price",
+          "type": "string"
+        },
+        "exit_strategy_tool_availability": {
+          "description": "* 1: If your account has position or order for contract * 0: If your account has no position or order for contract\n",
+          "enum": [
+            1,
+            0
+          ],
+          "type": "string"
+        },
+        "fg_color": {
+          "description": "Foreground color in hex format",
+          "type": "string"
+        },
+        "limit_price": {
+          "description": "Limit price",
+          "type": "string"
+        },
+        "listing_exchange": {
+          "description": "Trading Exchange or Venue",
+          "example": "NASDAQ.NMS",
+          "type": "string"
+        },
+        "oca_group_id": {
+          "description": "only exists for oca orders, oca orders in same group will have same id",
+          "type": "string"
+        },
+        "option_acct": {
+          "type": "string"
+        },
+        "order_description": {
+          "description": "Format description of order",
+          "example": "BUY 100 LIMIT 125.0 DAY",
+          "type": "string"
+        },
+        "order_description_with_contract": {
+          "description": "order_description with the symbol",
+          "example": "BUY 100 AAPL LIMIT 125.0 DAY",
+          "type": "string"
+        },
+        "order_id": {
+          "description": "system generated order id, unique per account",
+          "type": "integer"
+        },
+        "order_not_editable": {
+          "description": "If true not allowed to modify order",
+          "type": "boolean"
+        },
+        "order_status": {
+          "description": "*  PendingSubmit - Indicates the order was sent, but confirmation has not been received that it has been received by the destination.\n                   Occurs most commonly if an exchange is closed.\n*  PendingCancel - Indicates that a request has been sent to cancel an order but confirmation has not been received of its cancellation. *  PreSubmitted - Indicates that a simulated order type has been accepted by the IBKR system and that this order has yet to be elected.\n                  The order is held in the IBKR system until the election criteria are met. At that time the order is transmitted to the order destination as specified.\n*  Submitted - Indicates that the order has been accepted at the order destination and is working. *  Cancelled - Indicates that the balance of the order has been confirmed cancelled by the IB system.\n               This could occur unexpectedly when IB or the destination has rejected the order.\n*  Filled - Indicates that the order has been completely filled. *  Inactive - Indicates the order is not working, for instance if the order was invalid and triggered an error message,\n              or if the order was to short a security and shares have not yet been located.\n",
+          "type": "string"
+        },
+        "order_status_description": {
+          "description": "Description of the order status",
+          "type": "string"
+        },
+        "order_time": {
+          "description": "Time of status update in unix time",
+          "type": "string"
+        },
+        "order_type": {
+          "description": "Types of orders",
+          "example": "LIMIT",
+          "type": "string"
+        },
+        "outside_rth": {
+          "description": "If true order trades outside regular trading hours",
+          "type": "boolean"
+        },
+        "request_id": {
+          "description": "order request id",
+          "type": "string"
+        },
+        "sec_type": {
+          "description": "Asset class",
+          "example": "STK",
+          "type": "string"
+        },
+        "side": {
+          "description": "The side of the market of the order.\n  * B - Buy contract near posted ask price\n  * S - Sell contract near posted bid price\n  * X - Option expired\n",
+          "enum": [
+            "B",
+            "S",
+            "X"
+          ],
+          "type": "string"
+        },
+        "size": {
+          "description": "Quantity updated",
+          "type": "string"
+        },
+        "size_and_fills": {
+          "description": "Format fillQuantity\\totalQuantity",
+          "example": "0/9",
+          "type": "string"
+        },
+        "stop_price": {
+          "description": "Stop price",
+          "type": "string"
+        },
+        "sub_type": {
+          "description": "order sub-type",
+          "type": "string"
+        },
+        "symbol": {
+          "description": "Underlying symbol",
+          "type": "string"
+        },
+        "tif": {
+          "description": "Time-in-Force - length of time order will continue working before it is canceled.",
+          "type": "string"
+        },
+        "total_size": {
+          "description": "Total quantity",
+          "type": "string"
+        },
+        "use_price_mgmt_algo": {
+          "description": "If true price management algo is enabled, refer to https://www.interactivebrokers.com/en/index.php?f=43423",
           "type": "boolean"
         }
       },
@@ -1140,89 +2003,353 @@
       },
       "type": "array"
     },
+    "position-data": {
+      "properties": {
+        "avgCost": {
+          "description": "Average cost of the position.",
+          "type": "number"
+        },
+        "conid": {
+          "description": "Contract identifier from IBKR's database.",
+          "type": "number"
+        },
+        "position": {
+          "description": "Number of shares or quantity of the position.",
+          "type": "number"
+        }
+      },
+      "type": "object"
+    },
     "scanner-params": {
       "properties": {
-        "filter": {
+        "FilterList": {
+          "description": "Contains list of filters supported for the scanner",
           "items": {
-            "properties": {
-              "code": {
-                "type": "string"
-              },
-              "value": {
-                "type": "number"
-              }
-            },
+            "description": "Contains list of supported filters. The code of the filter along with user-specified value has to be sued to apply a filter to scanner query.",
             "type": "object"
           },
           "type": "array"
         },
-        "instrument": {
-          "description": "for example-STK",
+        "InstrumentList": {
+          "description": "Contains list of instruments for which scanner can be ran",
+          "properties": {
+            "Instrument": {
+              "description": "Contains information like name, supported filters, etc. for an instrument",
+              "items": {
+                "properties": {
+                  "filters": {
+                    "description": "Supported filters for the instrument separated by a comma",
+                    "type": "string"
+                  },
+                  "name": {
+                    "description": "Display name for the instrument",
+                    "type": "string"
+                  },
+                  "secType": {
+                    "description": "Sec Type of the instrument. This field is not provided if its value is same as 'type'",
+                    "type": "string"
+                  },
+                  "shortName": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "description": "Type of the asset",
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
+        },
+        "LocationTree": {
+          "description": "Contains list of instruments for which scanner can be ran",
+          "properties": {
+            "Location": {
+              "description": "Contains information like name, supported filters, etc. for an instrument. A location can contain more locations forming a tree-like structure which allows user to control the lcoation at more granular level. locationCode has to be used to specify lcoations while querying a scanner.",
+              "items": {
+                "properties": {
+                  "displayName": {
+                    "type": "string"
+                  },
+                  "instruments": {
+                    "type": "string"
+                  },
+                  "locationCode": {
+                    "type": "string"
+                  },
+                  "routeExchange": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
+        },
+        "ScanTypeList": {
+          "description": "Contains list of scan types for which scanner can be ran",
+          "properties": {
+            "ScanType": {
+              "items": {
+                "properties": {
+                  "displayName": {
+                    "type": "string"
+                  },
+                  "instruments": {
+                    "description": "Instrument types separated by a comma which are supported for this scan type",
+                    "type": "string"
+                  },
+                  "scanCode": {
+                    "description": "scan code which ahs to be provided while querying scanner with this scan type",
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    },
+    "scanner-result": {
+      "properties": {
+        "Contracts": {
+          "description": "Contains list of contracts matching the scanner query",
+          "properties": {
+            "Contract": {
+              "items": {
+                "properties": {
+                  "contractID": {
+                    "type": "integer"
+                  },
+                  "distance": {
+                    "type": "integer"
+                  },
+                  "inScanTime": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
+        },
+        "id": {
+          "type": "number"
+        },
+        "offset": {
+          "type": "integer"
+        },
+        "position": {
           "type": "string"
         },
-        "location": {
+        "scanTime": {
           "type": "string"
         },
         "size": {
-          "type": "string"
+          "type": "integer"
         },
-        "type": {
-          "description": "for example-TOP_PERC_GAIN",
-          "type": "string"
+        "total": {
+          "type": "integer"
         }
       },
       "type": "object"
     },
     "secdef": {
       "items": {
-        "description": "security definition information",
+        "description": "security definition information.",
         "properties": {
+          "allExchanges": {
+            "description": "List of exchanges and venues contract trades.",
+            "type": "string"
+          },
           "assetClass": {
+            "description": "Group of financial instruments which have similar financial characteristics and behave similar in the marketplace.",
+            "type": "string"
+          },
+          "chineseName": {
+            "description": "HTML encoded company description in Chinese.",
             "type": "string"
           },
           "conid": {
+            "description": "IBKR contract identifier.",
             "type": "integer"
           },
+          "crossCurrency": {
+            "description": "Defines if a derivative contract has a different currency.",
+            "type": "boolean"
+          },
+          "currency": {
+            "description": "Currency contract trades in.",
+            "type": "string"
+          },
           "expiry": {
+            "description": "Specific data contract expires.",
             "type": "string"
           },
           "fullName": {
+            "description": "Formatted company name with underlying symbol, expiration, strike, right.",
             "type": "string"
           },
           "group": {
+            "description": "Potential characteristic of each product.",
             "type": "string"
+          },
+          "hasOptions": {
+            "description": "If contract has an option.",
+            "type": "boolean"
+          },
+          "incrementRules": {
+            "description": "Price increment value contract trades.",
+            "properties": {
+              "increment": {
+                "description": "The minimum increment value for contract price.",
+                "type": "number"
+              },
+              "lowerEdge": {
+                "description": "The minimum contract price on the market that supports the specified increment.",
+                "type": "number"
+              }
+            },
+            "type": "object"
+          },
+          "isUS": {
+            "description": "If contract is a US contract. Currently supported for stocks, options and warrants.",
+            "type": "boolean"
           },
           "lastTradingDay": {
+            "description": "Final day derivative contract can be traded before delivery of the underlying asset or cash settlement.",
             "type": "string"
           },
-          "name": {
+          "listingExchange": {
+            "description": "Main trading venue.",
             "type": "string"
           },
-          "pageSize": {
+          "multiplier": {
+            "description": "Multiplier for total premium paid or received for derivative contract.",
             "type": "integer"
           },
+          "name": {
+            "description": "Company Name.",
+            "type": "string"
+          },
           "putOrCall": {
+            "description": "Defines the right to buy or sell of the underlying security.",
             "type": "string"
           },
           "sector": {
+            "description": "The category of the economy.",
             "type": "string"
           },
           "sectorGroup": {
+            "description": "Stock Group contract belongs too.",
             "type": "string"
           },
           "strike": {
+            "description": "Set price at which a derivative contract can be bought or sold.",
             "type": "number"
           },
           "ticker": {
+            "description": "Contract symbol.",
+            "type": "string"
+          },
+          "time": {
+            "type": "integer"
+          },
+          "type": {
+            "description": "Stock type.",
+            "type": "string"
+          },
+          "undComp": {
+            "description": "Company name for underlying contract.",
             "type": "string"
           },
           "undConid": {
+            "description": "Underlying contract identifier.",
             "type": "integer"
+          },
+          "undSym": {
+            "description": "IBKR Symbol for underlying contract.",
+            "type": "string"
           }
         },
         "type": "object"
       },
       "type": "array"
+    },
+    "secdef-info": {
+      "description": "Contains some basic info of contract",
+      "properties": {
+        "conid": {
+          "type": "number"
+        },
+        "coupon": {
+          "description": "Annual interest rate paid on a bond",
+          "type": "string"
+        },
+        "currency": {
+          "description": "Currency the contract trades in",
+          "type": "string"
+        },
+        "cusip": {
+          "description": "Committee on Uniform Securities Identification Procedures number",
+          "type": "string"
+        },
+        "desc1": {
+          "description": "Formatted symbol",
+          "type": "string"
+        },
+        "desc2": {
+          "description": "Formatted expiration, strike and right",
+          "type": "string"
+        },
+        "exchange": {
+          "type": "string"
+        },
+        "listingExchange": {
+          "type": "string"
+        },
+        "maturityDate": {
+          "description": "Format YYYYMMDD, the date on which the underlying transaction settles if the option is exercised",
+          "type": "string"
+        },
+        "multiplier": {
+          "description": "total premium paid or received for an option contract",
+          "type": "string"
+        },
+        "right": {
+          "description": "C = Call Option, P = Put Option",
+          "type": "string"
+        },
+        "secType": {
+          "type": "string"
+        },
+        "strike": {
+          "description": "The strike price also known as exercise price",
+          "type": "string"
+        },
+        "symbol": {
+          "description": "Underlying symbol",
+          "type": "string"
+        },
+        "tradingClass": {
+          "type": "string"
+        },
+        "validExchanges": {
+          "type": "string"
+        }
+      },
+      "type": "object"
     },
     "set-account": {
       "properties": {
@@ -1232,6 +2359,69 @@
         }
       },
       "type": "object"
+    },
+    "stats-data": {
+      "properties": {
+        "Conid": {
+          "type": "number"
+        },
+        "Exchange": {
+          "type": "string"
+        },
+        "P": {
+          "description": "Object, payload depends on event type. See confluence page for IGEvntUpd.",
+          "type": "string"
+        },
+        "T": {
+          "type": "number"
+        },
+        "TT": {
+          "type": "number"
+        },
+        "V": {
+          "type": "number"
+        }
+      },
+      "type": "object"
+    },
+    "stocks": {
+      "description": "This is an array of object(s), there could be multiple results under same symbol\n",
+      "items": {
+        "description": "future contract information",
+        "properties": {
+          "assetClass": {
+            "example": "STK",
+            "type": "string"
+          },
+          "chineseName": {
+            "description": "company name in Chinese",
+            "type": "string"
+          },
+          "contracts": {
+            "description": "array of contracts from different exchanges",
+            "items": {
+              "properties": {
+                "conid": {
+                  "description": "conid of the stock contract",
+                  "type": "integer"
+                },
+                "exchange": {
+                  "example": "NYSE",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "name": {
+            "description": "company name",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "type": "array"
     },
     "summary": {
       "description": "account information",
@@ -1252,7 +2442,7 @@
                 "type": "string"
               },
               "hasAccounts": {
-                "type": "string"
+                "type": "boolean"
               },
               "rtn": {
                 "type": "string"
@@ -1386,79 +2576,735 @@
       },
       "type": "object"
     },
+    "system-error": {
+      "properties": {
+        "error": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
     "trade": {
       "properties": {
         "account": {
+          "description": "accountCode",
+          "type": "string"
+        },
+        "acountCode": {
+          "description": "Account Number",
           "type": "string"
         },
         "clearing_id": {
+          "description": "Firm which will settle the trade. For IBExecution customers only.",
           "type": "string"
         },
         "clearing_name": {
+          "description": "Specifies the true beneficiary of the order. For IBExecution customers only.",
           "type": "string"
         },
-        "comission": {
+        "commission": {
+          "description": "Commission of the order",
           "type": "number"
         },
         "company_name": {
+          "description": "Contracts company name",
+          "type": "string"
+        },
+        "conid": {
+          "description": "IBKR's contract identifier",
           "type": "string"
         },
         "conidex": {
+          "description": "conid and exchange. Format supports conid or conid@exchange",
           "type": "string"
         },
         "contract_description_1": {
+          "description": "Format contract name",
+          "example": "FB Stock (NASDAQ.NMS)",
           "type": "string"
         },
         "exchange": {
+          "description": "Exchange or venue of order",
           "type": "string"
         },
         "execution_id": {
+          "description": "execution identifier for the order",
           "type": "string"
         },
+        "liquidation_trade": {
+          "description": "If order adds liquidity to the market.",
+          "type": "number"
+        },
         "net_amount": {
+          "description": "Net cost of the order, including contract multiplier and quantity.",
           "type": "number"
         },
         "order_description": {
+          "description": "Formatted description of the order \"%side% %size% @ %price% on %exchange%\".",
+          "type": "string"
+        },
+        "order_ref": {
+          "description": "User defined string used to identify the order. Value is set using \"cOID\" field while placing an order.",
           "type": "string"
         },
         "position": {
+          "description": "Total quantity owned for this contract",
           "type": "string"
         },
         "price": {
+          "description": "Average Price",
           "type": "string"
         },
         "sec_type": {
+          "description": "Asset class",
+          "example": "STK, FUT, OPT",
           "type": "string"
         },
         "side": {
+          "description": "The side of the market of the order.\n  * B - Buy contract near posted ask price\n  * S - Sell contract near posted bid price\n  * X - Option expired\n",
+          "enum": [
+            "B",
+            "S",
+            "X"
+          ],
           "type": "string"
         },
         "size": {
+          "description": "Quantity of the order",
           "type": "string"
         },
         "submitter": {
+          "description": "User that submitted order",
           "type": "string"
         },
         "symbol": {
+          "description": "Underlying Symbol",
           "type": "string"
         },
         "trade_time": {
+          "description": "Time of Status update in format \"YYYYMMDD-hh:mm:ss\".",
           "type": "string"
         },
         "trade_time_r": {
+          "description": "Time of status update in format unix time.",
           "type": "number"
         }
       },
       "type": "object"
+    },
+    "transactions": {
+      "description": "account transactions",
+      "properties": {
+        "currency": {
+          "description": "same as request",
+          "type": "string"
+        },
+        "from": {
+          "description": "Period start date. Epoch time, GMT",
+          "type": "number"
+        },
+        "id": {
+          "description": "will always be getTransactions",
+          "type": "string"
+        },
+        "includesRealTime": {
+          "description": "Indicates whether current day and realtime data is included in the result",
+          "type": "boolean"
+        },
+        "to": {
+          "description": "Period end date. Epoch time, GMT",
+          "type": "number"
+        },
+        "transactions": {
+          "description": "Sorted by date descending",
+          "items": {
+            "properties": {
+              "acctid": {
+                "type": "string"
+              },
+              "amt": {
+                "description": "Raw value, no formatting. Transaction amount. For trades does not include commission.\nIn asset currency",
+                "type": "number"
+              },
+              "conid": {
+                "type": "number"
+              },
+              "cur": {
+                "description": "currency code",
+                "type": "string"
+              },
+              "date": {
+                "description": "Date of transaction.  Epoch time, GMT",
+                "type": "string"
+              },
+              "desc": {
+                "description": "Transaction description",
+                "type": "string"
+              },
+              "fxRate": {
+                "description": "Conversion rate from asset currency to response currency",
+                "type": "number"
+              },
+              "pr": {
+                "description": "In asset currency. Not be applicable for all transaction types.",
+                "type": "number"
+              },
+              "qty": {
+                "description": "Not applicable for all transaction types",
+                "type": "number"
+              },
+              "type": {
+                "description": "Transaction Type Name: Examples: \"Sell\", \"Buy\", \"Corporate Action\",\n\"Dividend Payment\", \"Transfer\", \"Payment in Lieu\"\nDividends and Transfers do not have price and quantity in response\n",
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "wagers": {
+      "items": {
+        "description": "List of wagers",
+        "properties": {
+          "conid": {
+            "type": "number"
+          },
+          "curr": {
+            "type": "string"
+          },
+          "desc": {
+            "type": "string"
+          },
+          "part": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "type": "array"
     }
   },
   "host": "localhost:5000",
   "info": {
-    "description": "Production version of the Client Portal Web API",
+    "description": "Client Poral Web API",
     "title": "Client Portal Web API",
     "version": "1.0.0"
   },
+  "name": "swagger",
   "paths": {
+    "/ccp/account": {
+      "get": {
+        "description": "Provides the list of tradeable accounts",
+        "responses": {
+          "200": {
+            "description": "An array of accounts",
+            "schema": {
+              "properties": {
+                "acctList": {
+                  "description": "List of tradeable or Sub Accounts",
+                  "items": {
+                    "properties": {
+                      "0": {
+                        "description": "For multi-account structures each trading account will numbered from 0 to ...",
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "mainAcct": {
+                  "description": "The primary or parent account.",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "summary": "Brokerage Accounts",
+        "tags": [
+          "CCP (Beta)"
+        ]
+      }
+    },
+    "/ccp/auth/init": {
+      "post": {
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "description": "Initiate a brokerage session to CCP. Only one brokerage session type can run at a time. If an existing brokerage session to iServer is running then call the endpoint /logout first. Note at this time only order management is possible from CCP session, market data and scanner endpoints can't be used since they are only available from iServer session. Work is in progress to provide new CCP endpoints for market data and scanners.",
+        "parameters": [
+          {
+            "description": "Allow competing CCP session to run",
+            "in": "formData",
+            "name": "compete",
+            "type": "boolean"
+          },
+          {
+            "description": "Concatenate value for language and region, set to \"en_US\"",
+            "in": "formData",
+            "name": "locale",
+            "type": "string"
+          },
+          {
+            "description": "Local MAC Address",
+            "in": "formData",
+            "name": "mac",
+            "type": "string"
+          },
+          {
+            "description": "Local machine ID",
+            "in": "formData",
+            "name": "machineId",
+            "type": "string"
+          },
+          {
+            "description": "Login user, set to dash \"-\"",
+            "in": "formData",
+            "name": "username",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns challenge for connection",
+            "schema": {
+              "properties": {
+                "challenge": {
+                  "description": "Challenge in hex format"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "401": {
+            "description": "Access denied"
+          },
+          "500": {
+            "description": "System error"
+          }
+        },
+        "summary": "Start CCP Session",
+        "tags": [
+          "CCP (Beta)"
+        ]
+      }
+    },
+    "/ccp/auth/response": {
+      "post": {
+        "description": "Session Token Authentication",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "auth",
+            "schema": {
+              "properties": {
+                "response": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Valid result",
+            "schema": {
+              "properties": {
+                "authenticated": {
+                  "description": "If connection is authenticated",
+                  "type": "boolean"
+                },
+                "competing": {
+                  "description": "If user already has an existing brokerage session running.",
+                  "type": "boolean"
+                },
+                "connected": {
+                  "description": "Connected to CCP session",
+                  "type": "boolean"
+                },
+                "passed": {
+                  "description": "If sso authentication completed",
+                  "type": "boolean"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "401": {
+            "description": "Access denied"
+          },
+          "500": {
+            "description": "System error"
+          }
+        },
+        "summary": "Complete CCP Session",
+        "tags": [
+          "CCP (Beta)"
+        ]
+      }
+    },
+    "/ccp/order": {
+      "delete": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Sends an Order cancellation request. The status of the order can be queried through /ccp/order. Passing arguments as GET is also supported (requires passing action=delete) (GET is meant for development only)\n",
+        "parameters": [
+          {
+            "description": "Account Number",
+            "in": "query",
+            "name": "acct",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "Order Identifier of original submit order",
+            "in": "query",
+            "name": "id",
+            "required": true,
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "An Object",
+            "schema": {
+              "$ref": "#/definitions/order-data"
+            }
+          },
+          "401": {
+            "description": "Access denied"
+          },
+          "500": {
+            "description": "System error, for example when connection to CCP failed"
+          }
+        },
+        "summary": "Delete Order",
+        "tags": [
+          "CCP (Beta)"
+        ]
+      },
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Submits an Order.\n",
+        "parameters": [
+          {
+            "description": "User Account",
+            "in": "query",
+            "name": "acct",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "Contract identifier from IBKR's database.",
+            "in": "query",
+            "name": "conid",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "description": "Contract Currency",
+            "enum": [
+              "USD",
+              "GBP",
+              "EUR"
+            ],
+            "in": "query",
+            "name": "ccy",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "Exchange",
+            "enum": [
+              "NYSE",
+              "CBOE",
+              "NYMEX"
+            ],
+            "in": "query",
+            "name": "exchange",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "Order Quantity",
+            "in": "query",
+            "name": "qty",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "description": "Order Price; required if order type is limit",
+            "enum": [
+              "limit",
+              "market"
+            ],
+            "in": "query",
+            "name": "type",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "Side",
+            "enum": [
+              "sell",
+              "buy"
+            ],
+            "in": "query",
+            "name": "side",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "Order Price; required if order type is limit",
+            "in": "query",
+            "name": "price",
+            "required": false,
+            "type": "number"
+          },
+          {
+            "description": "Time in Force",
+            "enum": [
+              "IOC",
+              "GTC"
+            ],
+            "in": "query",
+            "name": "tif",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "An Object",
+            "schema": {
+              "$ref": "#/definitions/order-data"
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Access denied"
+          },
+          "500": {
+            "description": "System error, for example when connection to CCP failed"
+          }
+        },
+        "summary": "Submit Order",
+        "tags": [
+          "CCP (Beta)"
+        ]
+      },
+      "put": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Updates an Order. Updating an order requires the same arguments as placing an order besides the conid. Note: The status of the order can be queried through GET /ccp/order.\n",
+        "parameters": [
+          {
+            "description": "User Account",
+            "in": "query",
+            "name": "acct",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "Order ID to be modified",
+            "in": "query",
+            "name": "id",
+            "required": true,
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "An Object",
+            "schema": {
+              "$ref": "#/definitions/order-data"
+            }
+          },
+          "401": {
+            "description": "Access denied"
+          },
+          "500": {
+            "description": "System error, for example when connection to CCP failed"
+          }
+        },
+        "summary": "Update Order",
+        "tags": [
+          "CCP (Beta)"
+        ]
+      }
+    },
+    "/ccp/orders": {
+      "get": {
+        "description": "Get status for all orders",
+        "parameters": [
+          {
+            "description": "User Account",
+            "in": "query",
+            "name": "acct",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "Return only Rejected or Cancelled orders since today midnight",
+            "in": "query",
+            "name": "cancelled",
+            "required": false,
+            "type": "boolean"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "An Object",
+            "schema": {
+              "properties": {
+                "orders": {
+                  "items": {
+                    "$ref": "#/definitions/order-data"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "401": {
+            "description": "Access denied"
+          },
+          "500": {
+            "description": "System error"
+          }
+        },
+        "summary": "Order Status",
+        "tags": [
+          "CCP (Beta)"
+        ]
+      }
+    },
+    "/ccp/positions": {
+      "get": {
+        "description": "List of positions",
+        "responses": {
+          "200": {
+            "description": "Valid result",
+            "schema": {
+              "$ref": "#/definitions/position-data"
+            }
+          },
+          "401": {
+            "description": "Access denied"
+          },
+          "500": {
+            "description": "System error"
+          }
+        },
+        "summary": "Positions",
+        "tags": [
+          "CCP (Beta)"
+        ]
+      }
+    },
+    "/ccp/status": {
+      "get": {
+        "description": "Provide the current CCP session status. When using the Gateway this endpoint will also initiate a brokerage session to CCP by sending /auth/init and response.",
+        "responses": {
+          "200": {
+            "description": "Valid result",
+            "schema": {
+              "properties": {
+                "authenticated": {
+                  "description": "Login session is authenticated to the CCP.",
+                  "type": "boolean"
+                },
+                "connected": {
+                  "description": "Login session is connected",
+                  "type": "boolean"
+                },
+                "name": {
+                  "description": "server name",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "401": {
+            "description": "Access denied"
+          },
+          "500": {
+            "description": "System error"
+          }
+        },
+        "summary": "CCP Status",
+        "tags": [
+          "CCP (Beta)"
+        ]
+      }
+    },
+    "/ccp/trades": {
+      "get": {
+        "description": "Get a list of Trades, by default, the list is from today midnight to Date.now().\n",
+        "parameters": [
+          {
+            "description": "From Date (YYYYMMDD-HH:mm:ss) or offset (-1,-2,-3..)",
+            "in": "query",
+            "name": "from",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "To Date (YYYYMMDD-HH:mm:ss) or offset (-1,-2,-3..). To value should be bigger than from value.\n",
+            "in": "query",
+            "name": "to",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "An Object",
+            "schema": {
+              "properties": {
+                "orders": {
+                  "items": {
+                    "$ref": "#/definitions/order-data"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "401": {
+            "description": "Access denied"
+          },
+          "500": {
+            "description": "System error"
+          }
+        },
+        "summary": "Trades",
+        "tags": [
+          "CCP (Beta)"
+        ]
+      }
+    },
     "/fyi/deliveryoptions": {
       "get": {
         "description": "options for sending fyis to email and other devices\n",
@@ -1550,7 +3396,7 @@
             }
           }
         },
-        "summary": "enable/disable device option",
+        "summary": "Enable/Disable device option",
         "tags": [
           "FYI"
         ]
@@ -1583,7 +3429,7 @@
             }
           }
         },
-        "summary": "enable/disable email option",
+        "summary": "Enable/Disable email option",
         "tags": [
           "FYI"
         ]
@@ -1608,7 +3454,7 @@
             }
           }
         },
-        "summary": "delete a device",
+        "summary": "Delete a device",
         "tags": [
           "FYI"
         ]
@@ -1643,7 +3489,7 @@
             }
           }
         },
-        "summary": "get disclaimer for a certain kind of fyi",
+        "summary": "Get disclaimer for a certain kind of fyi",
         "tags": [
           "FYI"
         ]
@@ -1674,7 +3520,7 @@
             }
           }
         },
-        "summary": "mark disclaimer read",
+        "summary": "Mark disclaimer read",
         "tags": [
           "FYI"
         ]
@@ -1769,7 +3615,7 @@
     },
     "/fyi/settings": {
       "get": {
-        "description": "return the current choices of subscriptions, we can toggle the option\n",
+        "description": "Return the current choices of subscriptions, we can toggle the option\n",
         "responses": {
           "200": {
             "description": "An array",
@@ -1811,6 +3657,7 @@
     },
     "/fyi/settings/{typecode}": {
       "post": {
+        "description": "Configure which typecode you would like to enable/disable.\n",
         "parameters": [
           {
             "description": "fyi code",
@@ -1841,7 +3688,7 @@
             }
           }
         },
-        "summary": "enable/disable certain subscription",
+        "summary": "Enable/Disable certain subscription",
         "tags": [
           "FYI"
         ]
@@ -1849,6 +3696,7 @@
     },
     "/fyi/unreadnumber": {
       "get": {
+        "description": "Returns the total number of unread fyis\n",
         "responses": {
           "200": {
             "description": "An object",
@@ -1863,7 +3711,7 @@
             }
           }
         },
-        "summary": "Get unread number of fyis",
+        "summary": "Get unread number of fyis. The HTTP method POST is also supported.",
         "tags": [
           "FYI"
         ]
@@ -2007,32 +3855,414 @@
             }
           }
         },
-        "summary": "Updates currently selected account to the provided account",
+        "summary": "Switch Account",
         "tags": [
           "Account"
         ]
       }
     },
+    "/iserver/account/:accountId/alert/:alertId": {
+      "delete": {
+        "description": "Please be careful, if alertId is 0, it will delete all alerts",
+        "parameters": [
+          {
+            "description": "account id",
+            "in": "path",
+            "name": "accountId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "alert id",
+            "in": "path",
+            "name": "alertId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "returns an object",
+            "schema": {
+              "properties": {
+                "failure_list": {
+                  "type": "string"
+                },
+                "order_id": {
+                  "type": "integer"
+                },
+                "order_status": {
+                  "type": "string"
+                },
+                "request_id": {
+                  "type": "integer"
+                },
+                "success": {
+                  "type": "boolean"
+                },
+                "text": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "summary": "Delete an alert",
+        "tags": [
+          "Alert"
+        ]
+      }
+    },
+    "/iserver/account/:accountId/alert/activate": {
+      "post": {
+        "description": "Please note, if alertId is 0, it will activate/deactivate all alerts",
+        "parameters": [
+          {
+            "description": "account id",
+            "in": "path",
+            "name": "accountId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "order request info",
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "properties": {
+                "alertActive": {
+                  "description": "1 to activate, 0 to deactivate",
+                  "type": "integer"
+                },
+                "alertId": {
+                  "description": "alert id(order id)",
+                  "type": "integer"
+                }
+              },
+              "type": "object"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "returns an object",
+            "schema": {
+              "properties": {
+                "failure_list": {
+                  "type": "string"
+                },
+                "order_id": {
+                  "type": "integer"
+                },
+                "order_status": {
+                  "type": "string"
+                },
+                "request_id": {
+                  "type": "integer"
+                },
+                "success": {
+                  "type": "boolean"
+                },
+                "text": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "summary": "Activate or deactivate an alert",
+        "tags": [
+          "Alert"
+        ]
+      }
+    },
+    "/iserver/account/:accountId/alerts": {
+      "get": {
+        "description": "The response will contain both active and inactive alerts, but it won't have MTA alert",
+        "parameters": [
+          {
+            "description": "account id",
+            "in": "path",
+            "name": "accountId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "returns an array of objects",
+            "schema": {
+              "items": {
+                "properties": {
+                  "account": {
+                    "description": "account id",
+                    "type": "string"
+                  },
+                  "alert_active": {
+                    "description": "Value can only be 0 or 1, 1 means active",
+                    "type": "integer"
+                  },
+                  "alert_name": {
+                    "type": "string"
+                  },
+                  "alert_repeatable": {
+                    "description": "whether the alert can be repeatable or not, value can be 1 or 0. 1 means true",
+                    "type": "integer"
+                  },
+                  "alert_triggered": {
+                    "description": "whether the alert has been triggered or not",
+                    "type": "boolean"
+                  },
+                  "order_id": {
+                    "type": "integer"
+                  },
+                  "order_time": {
+                    "description": "format, YYYYMMDD-HH:mm:ss, the time when you created the alert\n",
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "summary": "Get a list of available alerts",
+        "tags": [
+          "Alert"
+        ]
+      }
+    },
+    "/iserver/account/alert/:id": {
+      "get": {
+        "description": "Use the endpoint /iserver/account/:accountId/alerts to receive the alert id.\nThe order_id in the response is the alert id.\n",
+        "parameters": [
+          {
+            "description": "alert id",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "returns an object",
+            "schema": {
+              "$ref": "#/definitions/alert-response"
+            }
+          }
+        },
+        "summary": "Get details of an alert",
+        "tags": [
+          "Alert"
+        ]
+      }
+    },
+    "/iserver/account/mta": {
+      "get": {
+        "description": "Each login user only has one mobile trading assistant (MTA) alert with it's own unique tool id.\nThe tool id cannot be changed. When modified a new order Id is generated. MTA alerts can not\nbe created or deleted. If you call delete /iserver/account/:accountId/alert/:alertId,\nit will reset MTA to default. See [here](https://www.interactivebrokers.com/en/software/mobileiphonemobile/mobileiphone.htm#monitor/trading-assistant.htm) for more information on MTA alerts.\n",
+        "responses": {
+          "200": {
+            "description": "returns an object",
+            "schema": {
+              "$ref": "#/definitions/alert-response"
+            }
+          }
+        },
+        "summary": "Get MTA alert",
+        "tags": [
+          "Alert"
+        ]
+      }
+    },
+    "/iserver/account/order/status/{orderId}": {
+      "get": {
+        "parameters": [
+          {
+            "description": "Customer order id, use /iservers/account/orders endpoint to query orderId.",
+            "in": "path",
+            "name": "orderId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "returns an object",
+            "schema": {
+              "$ref": "#/definitions/order-status"
+            }
+          }
+        },
+        "summary": "Order Status",
+        "tags": [
+          "Order"
+        ]
+      }
+    },
     "/iserver/account/orders": {
       "get": {
-        "description": "The end-point is meant to be used in polling mode, e.g. requesting every x seconds.\nThe response will contain two objects, one is notification, the other is orders. \nOrders is the list of orders (cancelled, filled, submitted) with activity in the current day. \nNotifications contains information about execute orders as they happen, see status field.\n",
+        "description": "The endpoint is meant to be used in polling mode, e.g. requesting every x seconds.\nThe response will contain two objects, one is notification, the other is orders.\nOrders is the list of live orders (cancelled, filled, submitted).\nNotifications contains information about execute orders as they happen, see status field.\nTo receive streaming live orders the endpoint /ws can be used. Refer to [Streaming WebSocket Data](https://interactivebrokers.github.io/cpwebapi/RealtimeSubscription.html) for details.\n",
+        "parameters": [
+          {
+            "description": "an array of filters",
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "properties": {
+                "filters": {
+                  "items": {
+                    "description": "Only return list of orders for filter value. More than one filter can be specified comma separated.\n  * inactive: Order was received by the system but is no longer active because it was rejected or cancelled.\n  * pending_submit: Order has been transmitted but have not received confirmation yet that order accepted by destination exchange or venue.\n  * pre_submitted: Simulated order transmitted but the order has yet to be elected. Order is held by IB system until election criteria are met.\n  * submitted: Order has been accepted by the system.\n  * filled: Order has been completely filled.\n  * pending_cancel: Sent an order cancellation request but have not yet received confirmation order cancelled by destination exchange or venue.\n  * cancelled: The balance of your order has been confirmed canceled by the system.\n  * warn_state: Order has a specific warning message such as for basket orders.\n  * sort_by_time: There is an initial sort by order state performed so active orders are always above inactive and filled then orders are sorted chronologically.\n",
+                    "enum": [
+                      "inactive",
+                      "pending_submit",
+                      "pre_submitted",
+                      "submitted",
+                      "filled",
+                      "pending_cancel",
+                      "cancelled",
+                      "warn_state",
+                      "sort_by_time"
+                    ],
+                    "type": "string"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "An object contains two arrays",
             "schema": {
               "properties": {
-                "notifications": {
+                "orders": {
                   "items": {
-                    "description": "contains notifications for different status of orders, the data structure is same to orders",
+                    "properties": {
+                      "acct": {
+                        "description": "Account number",
+                        "type": "string"
+                      },
+                      "bgColor": {
+                        "description": "Background color in hex format",
+                        "type": "string"
+                      },
+                      "cashCcy": {
+                        "description": "Cash currency",
+                        "type": "string"
+                      },
+                      "companyName": {
+                        "description": "Company Name",
+                        "type": "string"
+                      },
+                      "conid": {
+                        "description": "Contract identifier",
+                        "type": "number"
+                      },
+                      "conidex": {
+                        "description": "conid and exchange. Format supports conid or conid@exchange",
+                        "type": "string"
+                      },
+                      "description1": {
+                        "description": "Formatted ticker description",
+                        "type": "string"
+                      },
+                      "fgColor": {
+                        "description": "Foreground color in hex format",
+                        "type": "string"
+                      },
+                      "filledQuantity": {
+                        "description": "Quantity filled",
+                        "type": "number"
+                      },
+                      "lastExecutionTime": {
+                        "description": "Last status update in format YYMMDDhhmms based in GMT",
+                        "type": "number"
+                      },
+                      "lastExecutionTime_r": {
+                        "description": "Last status update unix time in ms",
+                        "type": "number"
+                      },
+                      "listingExchange": {
+                        "description": "Listing Exchange",
+                        "type": "string"
+                      },
+                      "orderDesc": {
+                        "description": "Order description",
+                        "type": "string"
+                      },
+                      "orderId": {
+                        "description": "Order identifier",
+                        "type": "string"
+                      },
+                      "orderType": {
+                        "description": "Order type",
+                        "type": "string"
+                      },
+                      "order_ref": {
+                        "description": "Order reference",
+                        "type": "string"
+                      },
+                      "origOrderType": {
+                        "description": "Original order type",
+                        "type": "string"
+                      },
+                      "price": {
+                        "description": "Price of order",
+                        "type": "number"
+                      },
+                      "remainingQuantity": {
+                        "description": "Quantity remaining",
+                        "type": "number"
+                      },
+                      "secType": {
+                        "description": "Asset class",
+                        "type": "string"
+                      },
+                      "side": {
+                        "description": "The side of the market of the order.\n * BUY: Buy contract near posted ask price\n * SELL: Sell contract near posted bid price\n * ASSN: Option Assignment, if BUYSELL=BUY and OptionType=PUT or BUYSELL=SELL and OptionType=CALL\n * EXER: Option Exercise, if BUYSELL=SELL and OptionType=PUT or BUYSELL=BUY and OptionType=CALL\n",
+                        "enum": [
+                          "BUY",
+                          "SELL",
+                          "ASSN",
+                          "EXER"
+                        ],
+                        "type": "string"
+                      },
+                      "sizeAndFills": {
+                        "description": "Quantity outstanding and total quantity concatenated with forward slash separator",
+                        "type": "number"
+                      },
+                      "status": {
+                        "description": "Status of the order",
+                        "type": "string"
+                      },
+                      "supportsTaxOpt": {
+                        "description": "Supports Tax Optimization with 0 for no and 1 for yes",
+                        "type": "number"
+                      },
+                      "ticker": {
+                        "description": "Underlying symbol",
+                        "type": "string"
+                      },
+                      "timeInForce": {
+                        "description": "Time in force",
+                        "type": "string"
+                      }
+                    },
                     "type": "object"
                   },
                   "type": "array"
                 },
-                "orders": {
-                  "items": {
-                    "$ref": "#/definitions/order"
-                  },
-                  "type": "array"
+                "snapshot": {
+                  "description": "If live order update is a snapshot",
+                  "type": "boolean"
                 }
               },
               "type": "object"
@@ -2045,9 +4275,59 @@
         ]
       }
     },
+    "/iserver/account/orders/{faGroup}": {
+      "post": {
+        "description": "Financial Advisors can use this endpoint to place an order for a specified group. To place an order for a specified account use the endpoint /iserver/account/{accountId}/order.\nMore information about groups can be found in the [TWS Users' Guide:](https://guides.interactivebrokers.com/twsguide/twsguide.htm#usersguidebook/financialadvisors/create_an_account_group_for_share_allocation.htm).\n",
+        "parameters": [
+          {
+            "description": "financial advisor group",
+            "in": "path",
+            "name": "faGroup",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "order request info",
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/order-request"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "returns an array",
+            "schema": {
+              "items": {
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "description": "Please note here, if the message is a question, you have to reply to question in order to submit\nthe order successfully. See more in the \"/iserver/reply/{replyid}\" endpoint.\n",
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
+                  }
+                },
+                "type": "object"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "summary": "Place Orders for FA",
+        "tags": [
+          "Order"
+        ]
+      }
+    },
     "/iserver/account/pnl/partitioned": {
       "get": {
-        "description": "Returns an object containing PnLfor the selected account and its models (if any).",
+        "description": "Returns an object containing PnL for the selected account and its models (if any).\nTo receive streaming PnL the endpoint /ws can be used. Refer to [Streaming WebSocket Data](https://interactivebrokers.github.io/cpwebapi/RealtimeSubscription.html) for details.\n",
         "responses": {
           "200": {
             "description": "An object containing account and model(s) pnl",
@@ -2070,7 +4350,7 @@
     },
     "/iserver/account/trades": {
       "get": {
-        "description": "Returns a list of trades for the currently selected account for current day and six previous days.",
+        "description": "Returns a list of trades for the currently selected account for current day and six previous days. It is advised to call this endpoint once per session.\n",
         "responses": {
           "200": {
             "description": "An array of trades",
@@ -2088,9 +4368,65 @@
         ]
       }
     },
+    "/iserver/account/{accountId}/alert": {
+      "post": {
+        "description": "Please note here, DO NOT pass orderId when creating a new alert, toolId is only required for MTA alert\n",
+        "parameters": [
+          {
+            "description": "account id",
+            "in": "path",
+            "name": "accountId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "alert info",
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/alert-request"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "returns an object",
+            "schema": {
+              "properties": {
+                "order_id": {
+                  "type": "integer"
+                },
+                "order_status": {
+                  "type": "string"
+                },
+                "request_id": {
+                  "type": "integer"
+                },
+                "success": {
+                  "type": "boolean"
+                },
+                "text": {
+                  "type": "string"
+                },
+                "warning_message": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "summary": "Create or modify alert",
+        "tags": [
+          "Alert"
+        ]
+      }
+    },
     "/iserver/account/{accountId}/order": {
       "post": {
-        "description": "Please note here, sometimes this end-point alone can't make sure you submit the order successfully,\nyou could receive some questions in the response, you have to to answer them in order to submit the order\nsuccessfully. You can use \"/iserver/reply/{replyid}\" end-point to answer questions\n",
+        "deprecated": true,
+        "description": "This end-point is going to be deprecated, you can use /iserver/account/{accountId}/orders, just pass one order\nin the array, the order structure will be same.\nPlease note here, sometimes this endpoint alone can't make sure you submit the order successfully,\nyou could receive some questions in the response, you have to to answer them in order to submit the order\nsuccessfully. You can use \"/iserver/reply/{replyid}\" endpoint to answer questions\n",
         "parameters": [
           {
             "description": "account id",
@@ -2119,7 +4455,7 @@
                     "type": "string"
                   },
                   "message": {
-                    "description": "Please note here, if the message is a question, you have to reply to question in order to submit\nthe order successfully. See more in the \"/iserver/reply/{replyid}\" end-point.\n",
+                    "description": "Please note here, if the message is a question, you have to reply to question in order to submit\nthe order successfully. See more in the \"/iserver/reply/{replyid}\" endpoint.\n",
                     "items": {
                       "type": "string"
                     },
@@ -2132,7 +4468,7 @@
             }
           }
         },
-        "summary": "Place Order",
+        "summary": "Place Order (Deprecated)",
         "tags": [
           "Order"
         ]
@@ -2140,7 +4476,8 @@
     },
     "/iserver/account/{accountId}/order/whatif": {
       "post": {
-        "description": "This end-point allows you to preview order without actually submitting the order and you can get\ncommission information in the response.\n",
+        "deprecated": true,
+        "description": "This end-point is going to be deprecated, you can use /iserver/account/{accountId}/orders/whatif,\njust pass one order in the array, the order structure will be same.\nThis endpoint allows you to preview order without actually submitting the order and you can get\ncommission information in the response.\n",
         "parameters": [
           {
             "description": "account id",
@@ -2233,71 +4570,72 @@
             }
           }
         },
-        "summary": "Preview Order",
+        "summary": "Preview Order (Deprecated)",
         "tags": [
           "Order"
         ]
       }
     },
-    "/iserver/account/{accountId}/order/{origCustomerOrderId}": {
+    "/iserver/account/{accountId}/order/{orderId}": {
       "delete": {
+        "description": "Cancels an open order. Must call /iserver/accounts endpoint prior to cancelling an order. Use /iservers/account/orders endpoint to review open-order(s) and get latest order status.",
         "parameters": [
           {
-            "description": "account id",
+            "description": "account id, or fa group if deleting a group order",
             "in": "path",
             "name": "accountId",
             "required": true,
             "type": "string"
           },
           {
-            "description": "Customer OrderId",
+            "description": "Customer order id, use /iservers/account/orders endpoint to query orderId.",
             "in": "path",
-            "name": "origCustomerOrderId",
+            "name": "orderId",
             "required": true,
             "type": "string"
           }
         ],
         "responses": {
           "200": {
-            "description": "returns an array",
+            "description": "returns an object with order id, message, conid and account id",
             "schema": {
-              "items": {
-                "properties": {
-                  "local_order_id": {
-                    "type": "string"
-                  },
-                  "order_id": {
-                    "type": "string"
-                  },
-                  "order_status": {
-                    "type": "string"
-                  }
+              "properties": {
+                "account": {
+                  "type": "string"
                 },
-                "type": "object"
+                "conid": {
+                  "type": "integer"
+                },
+                "msg": {
+                  "type": "string"
+                },
+                "order_id": {
+                  "type": "string"
+                }
               },
-              "type": "array"
+              "type": "object"
             }
           }
         },
-        "summary": "Delete Order",
+        "summary": "Cancel Order",
         "tags": [
           "Order"
         ]
       },
       "post": {
-        "description": "Modifies an open order. The /iserver/accounts endpoint must first be called.",
+        "description": "Modifies an open order. Must call /iserver/accounts endpoint prior to modifying an order. Use /iservers/account/orders endpoint to review open-order(s).",
         "parameters": [
           {
-            "description": "account id",
+            "description": "account id, or fa group if modifying a group order",
             "in": "path",
             "name": "accountId",
             "required": true,
             "type": "string"
           },
           {
-            "description": "Customer OrderId",
+            "description": "Customer order id, use /iservers/account/orders endpoint to query orderId.",
             "in": "path",
-            "name": "origCustomerOrderId",
+            "name": "orderId",
             "required": true,
             "type": "string"
           },
@@ -2341,7 +4679,7 @@
     },
     "/iserver/account/{accountId}/orders": {
       "post": {
-        "description": "You can pass a list of orders here\n",
+        "description": "You can pass a list of orders here such as bracket and OCA orders.\nNotes for OCA(one cancel all orders) orders: 1. if one order in the group is filled/cancelled, all the\nothers in the same group will be cancelled. 2. To create OCA orders, please set isSingleGroup to true in\neach order 3. All orders in the same group will have same oca_group_id, you can get oca_group_id\nfrom /iserver/account/order/status/{orderId} end-point after orders are placed successfully\n",
         "parameters": [
           {
             "description": "account id",
@@ -2379,7 +4717,7 @@
                     "type": "string"
                   },
                   "message": {
-                    "description": "Please note here, if the message is a question, you have to reply to question in order to submit\nthe order successfully. See more in the \"/iserver/reply/{replyid}\" end-point.\n",
+                    "description": "Please note here, if the message is a question, you have to reply to question in order to submit\nthe order successfully. See more in the \"/iserver/reply/{replyid}\" endpoint.\n",
                     "items": {
                       "type": "string"
                     },
@@ -2392,7 +4730,117 @@
             }
           }
         },
-        "summary": "Place Orders (Support bracket orders)",
+        "summary": "Place Orders",
+        "tags": [
+          "Order"
+        ]
+      }
+    },
+    "/iserver/account/{accountId}/orders/whatif": {
+      "post": {
+        "description": "This endpoint allows you to preview order without actually submitting the order and you can get\ncommission information in the response. Also supports bracket orders.\n",
+        "parameters": [
+          {
+            "description": "account id",
+            "in": "path",
+            "name": "accountId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "order info",
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "properties": {
+                "orders": {
+                  "description": "Notes for bracket orders: 1. Children orders will not have its own \"cOID\", so please donot pass \"cOID\"\nparameter in child order.Instead, they will have a \"parentId\" which must be equal to \"cOID\" of parent.\n2. When you cancel a parent order, it will cancel all bracket orders, when you cancel one child order,\nit will also cancel its sibling order.\n",
+                  "items": {
+                    "$ref": "#/definitions/order-request"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "returns an object",
+            "schema": {
+              "properties": {
+                "amount": {
+                  "properties": {
+                    "amount": {
+                      "description": "for example 23,000 USD",
+                      "type": "string"
+                    },
+                    "commission": {
+                      "description": "for example 1.1 ... 1.2 USD",
+                      "type": "string"
+                    },
+                    "total": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "equity": {
+                  "properties": {
+                    "after": {
+                      "type": "string"
+                    },
+                    "change": {
+                      "type": "string"
+                    },
+                    "current": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "error": {
+                  "type": "string"
+                },
+                "initial": {
+                  "properties": {
+                    "after": {
+                      "type": "string"
+                    },
+                    "change": {
+                      "type": "string"
+                    },
+                    "current": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "maintenance": {
+                  "properties": {
+                    "after": {
+                      "type": "string"
+                    },
+                    "change": {
+                      "type": "string"
+                    },
+                    "current": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "warn": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "summary": "Preview Orders",
         "tags": [
           "Order"
         ]
@@ -2448,9 +4896,147 @@
         ]
       }
     },
+    "/iserver/contract/{conid}/algos": {
+      "get": {
+        "description": "Returns supported IB Algos for contract. Must be called a second time to query the list of available parameters.",
+        "parameters": [
+          {
+            "description": "IBKR contract identifier",
+            "in": "path",
+            "name": "conid",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "List of algo ids delimited by \";\" to filter by. Max of 8 algos ids can be specified.",
+            "in": "query",
+            "name": "algos",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "Whether or not to add algo descriptions to response. Set to 1 for yes, 0 for no.",
+            "in": "query",
+            "name": "addDescription",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "Whether or not to show algo parameters.  Set to 1 for yes, 0 for no.",
+            "in": "query",
+            "name": "addParams",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "returns an array of algos",
+            "schema": {
+              "items": {
+                "properties": {
+                  "description": {
+                    "type": "string"
+                  },
+                  "id": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "parameters": {
+                    "items": {
+                      "properties": {
+                        "defaultValue": {
+                          "description": "User configured preset for this parameter.",
+                          "type": "boolean"
+                        },
+                        "description": {
+                          "description": "Detailed description of the parameter.",
+                          "type": "string"
+                        },
+                        "enabledConditions": {
+                          "description": "The rules that UI should apply to algo parameters depending on chosen order type:\n * MKT:speedUp:=:no - hide SpeedUp param when MKT is chosen for order type.\n * LMT:strategyType:<>:empty - strategyType param cannot be empty when LMT is chosen for order type.\n * MKT:strategyType:=:Marketable - set strategyType param to Marketable and disable (no other choice) when MKT is chosen for order type.\n",
+                          "enum": [
+                            "MKT:speedUp:=:no",
+                            "LMT:strategyType:<>:empty",
+                            "MKT:strategyType:=:Marketable"
+                          ],
+                          "type": "string"
+                        },
+                        "guiRank": {
+                          "description": "The order in UI, used when building dynamic UI so that more important parameters are presented first.",
+                          "type": "number"
+                        },
+                        "id": {
+                          "description": "The algo parameter",
+                          "type": "string"
+                        },
+                        "legalStrings": {
+                          "description": "The list of choices",
+                          "example": [
+                            "ALL:Get Done",
+                            "ALL:Aggressive",
+                            "ALL:Neutral",
+                            "ALL:Passive"
+                          ],
+                          "type": "string"
+                        },
+                        "maxValue": {
+                          "description": "Largest value, only applies to parameters with valueClassName=Double.",
+                          "type": "number"
+                        },
+                        "minValue": {
+                          "description": "Smallest value, only applies to parameters with valueClassName=Double.",
+                          "type": "number"
+                        },
+                        "name": {
+                          "description": "Descriptive name of the parameter.",
+                          "type": "string"
+                        },
+                        "priceMarketRule": {
+                          "description": "If true, must specify parameter using market rule format. Only applies to parameters with valueClassName=Double.",
+                          "type": "boolean"
+                        },
+                        "required": {
+                          "description": "If true a value must be entered.",
+                          "type": "boolean"
+                        },
+                        "valueClassName": {
+                          "description": "Format of the parameter.",
+                          "enum": [
+                            "double",
+                            "string",
+                            "time",
+                            "boolean"
+                          ],
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "valueClassName"
+                      ],
+                      "type": "object"
+                    },
+                    "type": "array"
+                  }
+                },
+                "type": "object"
+              },
+              "type": "array"
+            }
+          }
+        },
+        "summary": "IB Algo Params",
+        "tags": [
+          "Contract"
+        ]
+      }
+    },
     "/iserver/contract/{conid}/info": {
       "get": {
-        "description": "get contract details, you can use this to prefill your order before you submit an order",
+        "description": "Using the Contract Identifier get contract info. You can use this to prefill your order before you submit an order",
         "parameters": [
           {
             "description": "contract id",
@@ -2468,7 +5054,351 @@
             }
           }
         },
-        "summary": "Contract Info",
+        "summary": "Contract Details",
+        "tags": [
+          "Contract"
+        ]
+      }
+    },
+    "/iserver/contract/{conid}/info-and-rules": {
+      "get": {
+        "description": "Returns trading related rules and info for contract",
+        "parameters": [
+          {
+            "description": "IBKR contract identifier",
+            "in": "path",
+            "name": "conid",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "Side of the market rules apply too. Set to true for Buy Orders, set to false for Sell Orders",
+            "in": "query",
+            "name": "isBuy",
+            "required": true,
+            "type": "boolean"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "returns an array",
+            "schema": {
+              "properties": {
+                "allow_sell_long": {
+                  "description": "Allowed to sell shares that you own",
+                  "type": "boolean"
+                },
+                "cfi_code": {
+                  "description": "Classification of Financial Instrument codes",
+                  "type": "string"
+                },
+                "classifier": {
+                  "type": "string"
+                },
+                "company_name": {
+                  "description": "Contracts company name",
+                  "type": "string"
+                },
+                "con_id": {
+                  "description": "IBKRs contract identifier",
+                  "type": "number"
+                },
+                "contract_month": {
+                  "description": "Month the contract must be satisfied by making or accepting delivery",
+                  "type": "string"
+                },
+                "currency": {
+                  "description": "Currency contract trades in",
+                  "type": "string"
+                },
+                "cusip": {
+                  "type": "string"
+                },
+                "exchange": {
+                  "description": "Primary Exchange, Routing or Trading Venue",
+                  "type": "string"
+                },
+                "expiry_full": {
+                  "description": "Expiration Date in the format YYYYMMDD",
+                  "type": "number"
+                },
+                "industry": {
+                  "description": "Specific group of companies or businesses.",
+                  "type": "string"
+                },
+                "instrument_type": {
+                  "description": "Asset Class of the contract",
+                  "type": "string"
+                },
+                "is_zero_commission_security": {
+                  "description": "Supports zero commission trades",
+                  "type": "boolean"
+                },
+                "local_symbol": {
+                  "description": "Contracts symbol from primary exchange. For options it is the OCC symbol.",
+                  "type": "string"
+                },
+                "maturity_date": {
+                  "description": "Date on which the underlying transaction settles if the option is exercised",
+                  "type": "number"
+                },
+                "multiplier": {
+                  "description": "numerical value of each point of price movement",
+                  "type": "string"
+                },
+                "r_t_h": {
+                  "description": "Provides trading outside of Regular Trading Hours",
+                  "type": "boolean"
+                },
+                "right": {
+                  "description": "Put or Call of the option",
+                  "type": "string"
+                },
+                "rules": {
+                  "items": {
+                    "properties": {
+                      "algoEligible": {
+                        "type": "boolean"
+                      },
+                      "cashCcy": {
+                        "description": "Cash currency for the contract",
+                        "type": "string"
+                      },
+                      "cashQtyIncr": {
+                        "description": "Increment value for cash quantity",
+                        "type": "number"
+                      },
+                      "cashSize": {
+                        "description": "cash value",
+                        "type": "integer"
+                      },
+                      "cqtTypes": {
+                        "items": {
+                          "properties": {
+                            "0": {
+                              "description": "order types that support cqt trades",
+                              "type": "string"
+                            }
+                          },
+                          "type": "integer"
+                        },
+                        "type": "array"
+                      },
+                      "defaultSize": {
+                        "description": "Default quantity",
+                        "type": "integer"
+                      },
+                      "defaultTIF": {
+                        "description": "Default time in force value",
+                        "type": "string"
+                      },
+                      "displaySize": {
+                        "type": "number"
+                      },
+                      "error": {
+                        "type": "string"
+                      },
+                      "fraqInt": {
+                        "description": "decimal places for fractional order size",
+                        "type": "number"
+                      },
+                      "fraqTypes": {
+                        "items": {
+                          "properties": {
+                            "0": {
+                              "description": "order types that support fractional trades",
+                              "type": "string"
+                            }
+                          },
+                          "type": "integer"
+                        },
+                        "type": "array"
+                      },
+                      "ibalgoTypes": {
+                        "items": {
+                          "properties": {
+                            "0": {
+                              "description": "order types that support IB Algos",
+                              "type": "string"
+                            }
+                          },
+                          "type": "integer"
+                        },
+                        "type": "array"
+                      },
+                      "increment": {
+                        "description": "Price increment value",
+                        "type": "number"
+                      },
+                      "incrementDigits": {
+                        "description": "Number of digits for price increment",
+                        "type": "integer"
+                      },
+                      "limitPrice": {
+                        "description": "Limit price",
+                        "type": "number"
+                      },
+                      "negativeCapable": {
+                        "description": "trading negative price support",
+                        "type": "boolean"
+                      },
+                      "orderDefaults": {
+                        "description": "If object returned will provide the defaults based on user settings",
+                        "items": {
+                          "properties": {
+                            "string": {
+                              "description": "orderType",
+                              "items": {
+                                "properties": {
+                                  "LP": {
+                                    "description": "Limit Price value",
+                                    "type": "string"
+                                  },
+                                  "ORTH": {
+                                    "description": "Outside of Regular Trading Hours",
+                                    "type": "boolean"
+                                  },
+                                  "PC": {
+                                    "description": "Price Cap value",
+                                    "type": "string"
+                                  },
+                                  "ROA": {
+                                    "description": "Releative offset amount",
+                                    "type": "string"
+                                  },
+                                  "ROP": {
+                                    "description": "Relative offset percent",
+                                    "type": "string"
+                                  },
+                                  "SP": {
+                                    "description": "Stop Price value",
+                                    "type": "string"
+                                  },
+                                  "TA": {
+                                    "description": "Trailing amount value",
+                                    "type": "string"
+                                  },
+                                  "TT": {
+                                    "description": "Touch trigger price",
+                                    "type": "string"
+                                  },
+                                  "TU": {
+                                    "description": "Trailing unit",
+                                    "type": "string"
+                                  },
+                                  "UNP": {
+                                    "description": "Use Net Price for Bonds",
+                                    "type": "boolean"
+                                  }
+                                },
+                                "type": "string"
+                              },
+                              "type": "array"
+                            }
+                          },
+                          "type": "object"
+                        },
+                        "type": "array"
+                      },
+                      "orderOrigination": {
+                        "description": "Order origin designation for US securities options and Options Clearing Corporation",
+                        "type": "number"
+                      },
+                      "orderTypes": {
+                        "items": {
+                          "properties": {
+                            "0": {
+                              "description": "list of available order types",
+                              "type": "string"
+                            }
+                          },
+                          "type": "integer"
+                        },
+                        "type": "array"
+                      },
+                      "orderTypesOutside": {
+                        "items": {
+                          "properties": {
+                            "0": {
+                              "description": "order types that support outside of regular trading hours",
+                              "type": "string"
+                            }
+                          },
+                          "type": "integer"
+                        },
+                        "type": "array"
+                      },
+                      "preview": {
+                        "description": "order preview required",
+                        "type": "boolean"
+                      },
+                      "priceMagnifier": {
+                        "description": "Price Magnifier",
+                        "type": "number"
+                      },
+                      "sizeIncrement": {
+                        "description": "increment quantity value",
+                        "type": "integer"
+                      },
+                      "stopprice": {
+                        "description": "Stop price",
+                        "type": "number"
+                      },
+                      "tifTypes": {
+                        "items": {
+                          "properties": {
+                            "0": {
+                              "description": "Time in Force values, formatted with o for supporting Outside regular trading hours and a for Algo trading",
+                              "type": "string"
+                            }
+                          },
+                          "type": "integer"
+                        },
+                        "type": "array"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "smart_available": {
+                  "description": "Support IBKRs SMART routing",
+                  "type": "boolean"
+                },
+                "strike": {
+                  "description": "fixed price at which the owner of the option buys or sells the underlying",
+                  "type": "string"
+                },
+                "symbol": {
+                  "description": "Underlying symbol",
+                  "type": "string"
+                },
+                "text": {
+                  "description": "Formatted contract parameters",
+                  "type": "string"
+                },
+                "trading_class": {
+                  "description": "Designation of the contract",
+                  "type": "string"
+                },
+                "underlying_con_id": {
+                  "description": "IBKRs contract identifier for the underlying instrument",
+                  "type": "number"
+                },
+                "underlying_issuer": {
+                  "description": "Legal entity for underlying contract",
+                  "type": "string"
+                },
+                "valid_exchanges": {
+                  "description": "Comma separated list of exchanges or trading venues",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "summary": "Info and Rules",
         "tags": [
           "Contract"
         ]
@@ -2476,7 +5406,7 @@
     },
     "/iserver/marketdata/history": {
       "get": {
-        "description": "Get history of market Data for the given conid, length of data is controlled by period and bar. e.g. 1y period with bar =1w returns 52 data points",
+        "description": "Get historical market Data for given conid, length of data is controlled by 'period' and 'bar'.\nFormatted as: min=minute, h=hour, d=day, w=week, m=month, y=year\ne.g. period =1y with bar =1w returns 52 data points (Max of 1000 data points supported).\n**Note**: There's a limit of 5 concurrent requests. Excessive requests will return a 'Too many requests' status 429 response.\n",
         "parameters": [
           {
             "description": "contract id",
@@ -2486,18 +5416,32 @@
             "type": "string"
           },
           {
-            "description": "time period-- 1d,1w,1m,1y",
+            "description": "Exchange of the conid (e.g. ISLAND, NYSE, etc.). Default value is empty which corresponds to primary exchange of the conid.",
+            "in": "query",
+            "name": "exchange",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "available time period-- {1-30}min, {1-8}h, {1-1000}d, {1-792}w, {1-182}m, {1-15}y",
             "in": "query",
             "name": "period",
             "required": true,
             "type": "string"
           },
           {
-            "description": "possible value-- 5min,1h,1w",
+            "description": "possible value-- 1min, 2min, 3min, 5min, 10min, 15min, 30min, 1h, 2h, 3h, 4h, 8h, 1d, 1w, 1m",
             "in": "query",
             "name": "bar",
             "required": false,
             "type": "string"
+          },
+          {
+            "description": "For contracts that support it, will determine if historical data includes outside of regular trading hours.",
+            "in": "query",
+            "name": "outsideRth",
+            "required": false,
+            "type": "boolean"
           }
         ],
         "responses": {
@@ -2505,6 +5449,23 @@
             "description": "Returns an object",
             "schema": {
               "$ref": "#/definitions/history-data"
+            }
+          },
+          "429": {
+            "description": "Too many requests",
+            "schema": {
+              "properties": {
+                "error": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "500": {
+            "description": "System Error",
+            "schema": {
+              "$ref": "#/definitions/system-error"
             }
           }
         },
@@ -2516,7 +5477,7 @@
     },
     "/iserver/marketdata/snapshot": {
       "get": {
-        "description": "Get Market Data for the given conid(s). The end-point will return by default bid, ask, last, change, change pct, close, listing exchange.\nSee response fields for a list of available fields that can be request via fields argument.\nThe endpoint /iserver/accounts should be called prior to /iserver/marketdata/snapshot.\nTo receive all available fields the /snapshot endpoint will need to be called several times.\n",
+        "description": "Get Market Data for the given conid(s). The endpoint will return by default bid, ask, last, change, change pct, close, listing exchange.\nSee response fields for a list of available fields that can be request via fields argument.\nThe endpoint /iserver/accounts must be called prior to /iserver/marketdata/snapshot.\nFor derivative contracts the endpoint /iserver/secdef/search must be called first.\nFirst /snapshot endpoint call for given conid will initiate the market data request. \nTo receive all available fields the /snapshot endpoint will need to be called several times.\nTo receive streaming market data the endpoint /ws can be used. Refer to [Streaming WebSocket Data](https://interactivebrokers.github.io/cpwebapi/RealtimeSubscription.html) for details.\n",
         "parameters": [
           {
             "description": "list of conids separated by comma",
@@ -2547,7 +5508,7 @@
               "items": {
                 "properties": {
                   "31": {
-                    "description": "Last Price",
+                    "description": "Last Price - The last price at which the contract traded. \"C\" identifies this price as the previous day's closing price. \"H\" means that the trading is halted.",
                     "type": "string"
                   },
                   "55": {
@@ -2563,11 +5524,11 @@
                     "type": "string"
                   },
                   "6008": {
-                    "description": "Conid",
-                    "type": "string"
+                    "description": "Conid - Contract identifier from IBKR's database.",
+                    "type": "integer"
                   },
                   "6070": {
-                    "description": "Security Type",
+                    "description": "SecType - The asset class of the instrument.",
                     "type": "string"
                   },
                   "6072": {
@@ -2579,21 +5540,63 @@
                     "type": "string"
                   },
                   "6119": {
+                    "description": "Marker for market data delivery method (similar to request id)",
                     "type": "string"
                   },
                   "6457": {
                     "description": "Underlying Conid. Use /trsrv/secdef to get more information about the security",
-                    "type": "string"
+                    "type": "integer"
                   },
                   "6509": {
-                    "description": "Market Data Availability. The field may contain two chars. The first char is the primary code: R = Realtime, D = Delayed,\nZ = Frozen, Y = Frozen Delayed. The second char is the secondary code: P = Snapshot Available, p = Consolidated.\n",
+                    "description": "Market Data Availability. The field may contain two chars. The first char is the primary code: R = Realtime, D = Delayed,\nZ = Frozen, Y = Frozen Delayed. The second char is the secondary code: P = Snapshot Available, p = Consolidated.\nThe third char defines: B = Book\n",
                     "type": "string"
                   },
                   "70": {
-                    "description": "High",
+                    "description": "High - Current day high price",
                     "type": "string"
                   },
                   "7051": {
+                    "description": "Company name",
+                    "type": "string"
+                  },
+                  "7057": {
+                    "description": "Ask Exch - Displays the exchange(s) offering the SMART price. A=AMEX, C=CBOE, I=ISE, X=PHLX, N=PSE, B=BOX, Q=NASDAQOM, Z=BATS, W=CBOE2, T=NASDAQBX, M=MIAX, H=GEMINI, E=EDGX, J=MERCURY\n",
+                    "type": "string"
+                  },
+                  "7058": {
+                    "description": "Last Exch - Displays the exchange(s) offering the SMART price. A=AMEX, C=CBOE, I=ISE, X=PHLX, N=PSE, B=BOX, Q=NASDAQOM, Z=BATS, W=CBOE2, T=NASDAQBX, M=MIAX, H=GEMINI, E=EDGX, J=MERCURY\n",
+                    "type": "string"
+                  },
+                  "7059": {
+                    "description": "Last Size - The number of unites traded at the last price",
+                    "type": "string"
+                  },
+                  "7068": {
+                    "description": "Bid Exch - Displays the exchange(s) offering the SMART price. A=AMEX, C=CBOE, I=ISE, X=PHLX, N=PSE, B=BOX, Q=NASDAQOM, Z=BATS, W=CBOE2, T=NASDAQBX, M=MIAX, H=GEMINI, E=EDGX, J=MERCURY\n",
+                    "type": "string"
+                  },
+                  "7084": {
+                    "description": "Implied Vol./Hist. Vol % - The ratio of the implied volatility over the historical volatility, expressed as a percentage.",
+                    "type": "string"
+                  },
+                  "7085": {
+                    "description": "Put/Call Interest - Put option open interest/call option open interest for the trading day.",
+                    "type": "string"
+                  },
+                  "7086": {
+                    "description": "Put/Call Volume - Put option volume/call option volume for the trading day.",
+                    "type": "string"
+                  },
+                  "7087": {
+                    "description": "Hist. Vol. % - 30-day real-time historical volatility.",
+                    "type": "string"
+                  },
+                  "7088": {
+                    "description": "Hist. Vol. Close % - Shows the historical volatility based on previous close price.",
+                    "type": "string"
+                  },
+                  "7089": {
+                    "description": "Opt. Volume - Option Volume",
                     "type": "string"
                   },
                   "7094": {
@@ -2601,11 +5604,15 @@
                     "type": "string"
                   },
                   "71": {
-                    "description": "Low",
+                    "description": "Low - Current day low price",
+                    "type": "string"
+                  },
+                  "7184": {
+                    "description": "canBeTraded - If contract is a trade-able instrument. Returns 1(true) or 0(false).",
                     "type": "string"
                   },
                   "72": {
-                    "description": "Position",
+                    "description": "Position - The current aggregate position for the specified account or group.",
                     "type": "string"
                   },
                   "7219": {
@@ -2621,15 +5628,19 @@
                     "type": "string"
                   },
                   "7280": {
-                    "description": "Industry",
+                    "description": "Industry - Displays the type of industry under which the underlying company can be categorized.",
                     "type": "string"
                   },
                   "7281": {
-                    "description": "Category",
+                    "description": "Category - Displays a more detailed level of description within the industry under which the underlying company can be categorized.",
                     "type": "string"
                   },
                   "7282": {
-                    "description": "Average Daily Volume",
+                    "description": "Average Volume - The average daily trading volume over 90 days.",
+                    "type": "string"
+                  },
+                  "7283": {
+                    "description": "Option Implied Vol. % - A prediction of how volatile an underlying will be in the future.\nAt the market volatility estimated for a maturity thirty calendar days forward of the current trading day, and based on option prices from two consecutive expiration months.\nTo query the Implied Vol. % of a specific strike refer to field 7633.\n",
                     "type": "string"
                   },
                   "7284": {
@@ -2641,11 +5652,11 @@
                     "type": "string"
                   },
                   "7286": {
-                    "description": "Dividend Amount",
+                    "description": "Dividend Amount - Displays the amount of the next dividend.",
                     "type": "string"
                   },
                   "7287": {
-                    "description": "Dividend Yield %",
+                    "description": "Dividend Yield % - This value is the toal of the expected dividend payments over the next twelve months per share divided by the Current Price and is expressed as a percentage.\nFor derivatives, this displays the total of the expected dividend payments over the expiry date.\n",
                     "type": "string"
                   },
                   "7288": {
@@ -2665,76 +5676,291 @@
                     "type": "string"
                   },
                   "7292": {
-                    "description": "Cost Basis",
+                    "description": "Cost Basis - Your current position in this security multiplied by the average price and multiplier.",
                     "type": "string"
                   },
                   "7293": {
-                    "description": "52 Week High",
+                    "description": "52 Week High - The highest price for the past 52 weeks.",
                     "type": "string"
                   },
                   "7294": {
-                    "description": "52 Week Low",
+                    "description": "52 Week Low - The lowest price for the past 52 weeks.",
                     "type": "string"
                   },
                   "7295": {
-                    "description": "Open Price",
+                    "description": "Open - Today's opening price.",
                     "type": "string"
                   },
                   "7296": {
-                    "description": "Close Price",
+                    "description": "Close - Today's closing price.",
                     "type": "string"
                   },
                   "73": {
-                    "description": "Market Value",
+                    "description": "Market Value - The current market value of  your position in the security. Market Value is calculated with realtime market data (even when not subscribed to market data).",
+                    "type": "string"
+                  },
+                  "7308": {
+                    "description": "Delta - The ratio of the change in the price of the option to the corresponding change in the price of the underlying.",
+                    "type": "string"
+                  },
+                  "7309": {
+                    "description": "Gamma - The rate of change for the delta with respect to the underlying asset's price.",
+                    "type": "string"
+                  },
+                  "7310": {
+                    "description": "Theta - A measure of the rate of decline the value of an option due to the passage of time.",
+                    "type": "string"
+                  },
+                  "7311": {
+                    "description": "Vega - The amount that the price of an option changes compared to a 1% change in the volatility.",
                     "type": "string"
                   },
                   "74": {
-                    "description": "Average Price",
+                    "description": "Avg Price - The average price of the position.",
                     "type": "string"
                   },
                   "75": {
-                    "description": "Unrealized PnL",
+                    "description": "Unrealized PnL - Unrealized profit or loss. Unrealized PnL is calculated with realtime market data (even when not subscribed to market data).",
                     "type": "string"
                   },
                   "76": {
+                    "description": "Formatted position",
+                    "type": "string"
+                  },
+                  "7607": {
+                    "description": "Opt. Volume Change % - Today's option volume as a percentage of the average option volume.",
                     "type": "string"
                   },
                   "7633": {
-                    "description": "Implied volatility of the option",
+                    "description": "Implied Vol. % - The implied volatility for the specific strike of the option in percentage. To query the Option Implied Vol. % from the underlying refer to field 7283. \n",
+                    "type": "string"
+                  },
+                  "7635": {
+                    "description": "Mark - The mark price is, the ask price if ask is less than last price, the bid price if bid is more than the last price, otherwise it's equal to last price.",
+                    "type": "string"
+                  },
+                  "7636": {
+                    "description": "Shortable Shares - Number of shares available for shorting.",
+                    "type": "string"
+                  },
+                  "7637": {
+                    "description": "Fee Rate - Interest rate charged on borrowed shares.",
+                    "type": "string"
+                  },
+                  "7638": {
+                    "description": "Option Open Interest",
+                    "type": "string"
+                  },
+                  "7639": {
+                    "description": "% of Mark Value - Displays the market value of the contract as a percentage of the total market value of the account.\nDaily PnL is calculated with realtime market data (even when not subscribed to market data).\n",
+                    "type": "string"
+                  },
+                  "7644": {
+                    "description": "Shortable - Describes the level of difficulty with which the security can be sold short.",
+                    "type": "string"
+                  },
+                  "7655": {
+                    "description": "Morningstar Rating - Displays Morningstar Rating provided value. Requires [Morningstar](https://www.interactivebrokers.com/en/index.php?f=14262) subscription.",
+                    "type": "string"
+                  },
+                  "7671": {
+                    "description": "Dividends - This value is the total of the expected dividend payments over the next twelve months per share.",
+                    "type": "string"
+                  },
+                  "7672": {
+                    "description": "Dividends TTM - This value is the total of the expected dividend payments over the last twelve months per share.",
+                    "type": "string"
+                  },
+                  "7674": {
+                    "description": "EMA(200) - Exponential moving average (N=200).",
+                    "type": "string"
+                  },
+                  "7675": {
+                    "description": "EMA(100) - Exponential moving average (N=100).",
+                    "type": "string"
+                  },
+                  "7676": {
+                    "description": "EMA(50) - Exponential moving average (N=50).",
+                    "type": "string"
+                  },
+                  "7677": {
+                    "description": "EMA(20) - Exponential moving average (N=20).",
+                    "type": "string"
+                  },
+                  "7678": {
+                    "description": "Price/EMA(200) - Price to Exponential moving average (N=200) ratio -1, displayed in percents.",
+                    "type": "string"
+                  },
+                  "7679": {
+                    "description": "Price/EMA(100) - Price to Exponential moving average (N=100) ratio -1, displayed in percents.",
+                    "type": "string"
+                  },
+                  "7680": {
+                    "description": "Price/EMA(50) - Price to Exponential moving average (N=50) ratio -1, displayed in percents.",
+                    "type": "string"
+                  },
+                  "7681": {
+                    "description": "Price/EMA(20) - Price to Exponential moving average (N=20) ratio -1, displayed in percents.",
+                    "type": "string"
+                  },
+                  "7682": {
+                    "description": "Change Since Open - The difference between the last price and the open price.",
+                    "type": "string"
+                  },
+                  "7683": {
+                    "description": "Upcoming Event - Shows the next major company event. Requires [Wall Street Horizon](https://www.interactivebrokers.com/en/index.php?f=24674) subscription.",
+                    "type": "string"
+                  },
+                  "7684": {
+                    "description": "Upcoming Event Date - The date of the next major company event. Requires [Wall Street Horizon](https://www.interactivebrokers.com/en/index.php?f=24674) subscription.",
+                    "type": "string"
+                  },
+                  "7685": {
+                    "description": "Upcoming Analyst Meeting - The date and time of the next scheduled analyst meeting. Requires [Wall Street Horizon](https://www.interactivebrokers.com/en/index.php?f=24674) subscription.",
+                    "type": "string"
+                  },
+                  "7686": {
+                    "description": "Upcoming Earnings - The date and time of the next scheduled earnings/earnings call event. Requires [Wall Street Horizon](https://www.interactivebrokers.com/en/index.php?f=24674) subscription.",
+                    "type": "string"
+                  },
+                  "7687": {
+                    "description": "Upcoming Misc Event - The date and time of the next shareholder meeting, presentation or other event. Requires [Wall Street Horizon](https://www.interactivebrokers.com/en/index.php?f=24674) subscription.",
+                    "type": "string"
+                  },
+                  "7688": {
+                    "description": "Recent Analyst Meeting - The date and time of the most recent analyst meeting. Requires [Wall Street Horizon](https://www.interactivebrokers.com/en/index.php?f=24674) subscription.",
+                    "type": "string"
+                  },
+                  "7689": {
+                    "description": "Recent Earnings - The date and time of the most recent earnings/earning call event. Requires [Wall Street Horizon](https://www.interactivebrokers.com/en/index.php?f=24674) subscription.",
+                    "type": "string"
+                  },
+                  "7690": {
+                    "description": "Recent Misc Event - The date and time of the most recent shareholder meeting, presentation or other event. Requires [Wall Street Horizon](https://www.interactivebrokers.com/en/index.php?f=24674) subscription.",
+                    "type": "string"
+                  },
+                  "7694": {
+                    "description": "Probability of Max Return - Customer implied probability of maximum potential gain.",
+                    "type": "string"
+                  },
+                  "7695": {
+                    "description": "Break Even - Break even points",
+                    "type": "string"
+                  },
+                  "7696": {
+                    "description": "SPX Delta - Beta Weighted Delta is calculated using the formula; Delta x dollar adjusted beta, where adjusted beta is adjusted by the ratio of the close price.",
+                    "type": "string"
+                  },
+                  "7697": {
+                    "description": "Futures Open Interest - Total number of outstanding futures contracts",
+                    "type": "string"
+                  },
+                  "7698": {
+                    "description": "Last Yield - Implied yield of the bond if it is purchased at the current last price. Last yield is calculated using the Last price on all possible call dates.\nIt is assumed that prepayment occurs if the bond has call or put provisions and the issuer can offer a lower coupon rate based on current market rates.\nThe yield to worst will be the lowest of the yield to maturity or yield to call (if the bond has prepayment provisions). Yield to worse may be the same as yield to maturity but never higher.\n",
+                    "type": "string"
+                  },
+                  "7699": {
+                    "description": "Bid Yield - Implied yield of the bond if it is purchased at the current bid price. Bid yield is calculated using the Ask on all possible call dates.\nIt is assumed that prepayment occurs if the bond has call or put provisions and the issuer can offer a lower coupon rate based on current market rates.\nThe yield to worst will be the lowest of the yield to maturity or yield to call (if the bond has prepayment provisions). Yield to worse may be the same as yield to maturity but never higher.\n",
                     "type": "string"
                   },
                   "77": {
+                    "description": "Formatted Unrealized PnL",
+                    "type": "string"
+                  },
+                  "7700": {
+                    "description": "Probability of Max Return - Customer implied probability of maximum potential gain.",
+                    "type": "string"
+                  },
+                  "7702": {
+                    "description": "Probability of Max Loss - Customer implied probability of maximum potential loss.",
+                    "type": "string"
+                  },
+                  "7703": {
+                    "description": "Profit Probability - Customer implied probability of any gain.",
+                    "type": "string"
+                  },
+                  "7704": {
+                    "description": "Organization Type",
+                    "type": "string"
+                  },
+                  "7705": {
+                    "description": "Debt Class",
+                    "type": "string"
+                  },
+                  "7706": {
+                    "description": "Ratings - Ratings issued for bond contract.",
+                    "type": "string"
+                  },
+                  "7707": {
+                    "description": "Bond State Code",
+                    "type": "string"
+                  },
+                  "7708": {
+                    "description": "Bond Type",
+                    "type": "string"
+                  },
+                  "7714": {
+                    "description": "Last Trading Date",
+                    "type": "string"
+                  },
+                  "7715": {
+                    "description": "Issue Date",
+                    "type": "string"
+                  },
+                  "7718": {
+                    "description": "Beta - Beta is against standard index.",
+                    "type": "string"
+                  },
+                  "7720": {
+                    "description": "Ask Yield - Implied yield of the bond if it is purchased at the current offer. Ask yield is calculated using the Bid on all possible call dates.\nIt is assumed that prepayment occurs if the bond has call or put provisions and the issuer can offer a lower coupon rate based on current market rates.\nThe yield to worst will be the lowest of the yield to maturity or yield to call (if the bond has prepayment provisions). Yield to worse may be the same as yield to maturity but never higher.\n",
+                    "type": "string"
+                  },
+                  "7741": {
+                    "description": "Prior Close - Yesterday's closing price",
+                    "type": "string"
+                  },
+                  "7762": {
+                    "description": "Volume Long - High precision volume for the day. For formatted volume refer to field 87.",
+                    "type": "string"
+                  },
+                  "7768": {
+                    "description": "hasTradingPermissions - if user has trading permissions for specified contract. Returns 1(true) or 0(false).",
                     "type": "string"
                   },
                   "78": {
+                    "description": "Daily PnL - Your profit or loss of the day since prior close. Daily PnL is calculated with realtime market data (even when not subscribed to market data).",
                     "type": "string"
                   },
                   "82": {
-                    "description": "Change Price",
+                    "description": "Change - The difference between the last price and the close on the previous trading day",
                     "type": "string"
                   },
                   "83": {
-                    "description": "Change Percent",
+                    "description": "Change % - The difference between the last price and the close on the previous trading day in percentage.",
                     "type": "string"
                   },
                   "84": {
-                    "description": "Bid Price",
+                    "description": "Bid Price - The highest-priced bid on the contract.",
                     "type": "string"
                   },
                   "85": {
-                    "description": "Ask Size",
+                    "description": "Ask Size - The number of contracts or shares offered at the ask price. For US stocks, the number displayed is divided by 100.",
                     "type": "string"
                   },
                   "86": {
-                    "description": "Ask Price",
+                    "description": "Ask Price - The lowest-priced offer on the contract.",
                     "type": "string"
                   },
                   "87": {
-                    "description": "Volume",
+                    "description": "Volume - Volume for the day, formatted with 'K' for thousands or 'M' for millions. For higher precision volume refer to field 7762.",
+                    "type": "string"
+                  },
+                  "87_raw (deprecated)": {
+                    "description": "Raw Volume - Volume for the day, provided in long form without formatted with K/M. This field value is deprecated, for high precision volume refer to field 7762.",
                     "type": "string"
                   },
                   "88": {
-                    "description": "Bid Size",
+                    "description": "Bid Size - The number of contracts or shares bid for at the bid price. For US stocks, the number displayed is divided by 100.",
                     "type": "string"
                   },
                   "_updated": {
@@ -2773,9 +5999,67 @@
         ]
       }
     },
+    "/iserver/marketdata/unsubscribeall": {
+      "get": {
+        "description": "Cancel all market data request(s). To cancel market data for given conid, see /iserver/marketdata/{conid}/unsubscribe.\n",
+        "responses": {
+          "200": {
+            "description": "confirms market data is cancelled",
+            "schema": {
+              "properties": {
+                "confirmed": {
+                  "description": "true means market data is cancelled, false means it is not.",
+                  "type": "boolean"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "summary": "Market Data Cancel (All)",
+        "tags": [
+          "Market Data"
+        ]
+      }
+    },
+    "/iserver/marketdata/{conid}/unsubscribe": {
+      "get": {
+        "description": "Cancel market data for given conid. To cancel all market data request(s), see /iserver/marketdata/unsubscribeall.\n",
+        "parameters": [
+          {
+            "description": "contract id",
+            "in": "path",
+            "name": "conid",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "confirms market data for conid is cancelled",
+            "schema": {
+              "properties": {
+                "confirmed": {
+                  "description": "success means market data was cancelled.",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "500": {
+            "description": "cancel failed"
+          }
+        },
+        "summary": "Market Data Cancel (Single)",
+        "tags": [
+          "Market Data"
+        ]
+      }
+    },
     "/iserver/reauthenticate": {
       "post": {
-        "description": "Provides a way to reauthenticate to the Brokerage system as long as there is a valid SSO session, see /sso/validate.",
+        "description": "When using the CP Gateway, this endpoint provides a way to reauthenticate to the Brokerage system as long as there is a valid SSO session, see /sso/validate.\n",
         "responses": {
           "200": {
             "description": "Authentication Status",
@@ -2795,7 +6079,7 @@
         "description": "Reply to questions when placing orders and submit orders",
         "parameters": [
           {
-            "description": "Please use the \"id\" from the response of \"Place Order\" end-point",
+            "description": "Please use the \"id\" from the response of \"Place Order\" endpoint",
             "in": "path",
             "name": "replyid",
             "required": true,
@@ -2963,7 +6247,7 @@
             }
           }
         },
-        "summary": "get lists of available scanners",
+        "summary": "Scanner Parameters",
         "tags": [
           "Scanner"
         ]
@@ -2973,7 +6257,7 @@
       "post": {
         "parameters": [
           {
-            "description": "modify-order request",
+            "description": "scanner-params request",
             "in": "body",
             "name": "body",
             "required": true,
@@ -2989,21 +6273,26 @@
               "items": {
                 "properties": {
                   "available_chart_periods": {
+                    "description": "List of available chart periods",
                     "type": "string"
                   },
                   "column_name": {
                     "type": "string"
                   },
                   "company_name": {
+                    "description": "Contracts company name",
                     "type": "string"
                   },
                   "con_id": {
                     "type": "number"
                   },
                   "conidex": {
+                    "description": "conid and exchange. Format supports conid or conid@exchange",
                     "type": "string"
                   },
                   "contract_description_1": {
+                    "description": "Format contract name",
+                    "example": "FB Stock (NASDAQ.NMS)",
                     "type": "string"
                   },
                   "listing_exchange": {
@@ -3016,6 +6305,7 @@
                     "type": "string"
                   },
                   "symbol": {
+                    "description": "Underlying symbol",
                     "type": "string"
                   }
                 },
@@ -3031,11 +6321,86 @@
         ]
       }
     },
-    "/iserver/secdef/search": {
-      "post": {
+    "/iserver/secdef/info": {
+      "get": {
+        "description": "Provides Contract Details of Futures, Options, Warrants, Cash and CFDs based on conid. To get the strike price for Options/Warrants use \"/iserver/secdef/strikes\" endpoint. Must call /secdef/search for the underlying contract first.",
         "parameters": [
           {
-            "description": "symbol or name to be searched",
+            "description": "underlying contract id",
+            "in": "query",
+            "name": "conid",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "FUT/OPT/WAR/CASH/CFD",
+            "in": "query",
+            "name": "sectype",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "contract month, only required for FUT/OPT/WAR in the format MMMYY, example JAN00",
+            "in": "query",
+            "name": "month",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "optional, default is SMART",
+            "in": "query",
+            "name": "exchange",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "optional, only required for OPT/WAR",
+            "in": "query",
+            "name": "strike",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "C for call, P for put",
+            "in": "query",
+            "name": "right",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "returns an array of objects",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/secdef-info"
+              }
+            }
+          },
+          "500": {
+            "description": "error while processing the request",
+            "schema": {
+              "properties": {
+                "error": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "summary": "Secdef Info",
+        "tags": [
+          "Contract"
+        ]
+      }
+    },
+    "/iserver/secdef/search": {
+      "post": {
+        "description": "Search by underlying symbol or company name. Relays back what derivative contract(s) it has. This endpoint must be called before using /secdef/info.\nIf company name is specified will only receive limited response: conid, companyName, companyHeader and symbol.\n",
+        "parameters": [
+          {
+            "description": "Symbol or Company Name to be searched",
             "in": "body",
             "name": "symbol",
             "required": true,
@@ -3068,30 +6433,65 @@
               "items": {
                 "properties": {
                   "companyHeader": {
+                    "description": "Company Name - Exchange",
                     "type": "string"
                   },
                   "companyName": {
                     "type": "string"
                   },
                   "conid": {
+                    "description": "Contract Identifier",
                     "type": "integer"
                   },
                   "description": {
+                    "description": "Exchange",
+                    "type": "string"
+                  },
+                  "fop": {
+                    "description": "List of Future Option expirations in YYYMMDD format separated by semicolon",
                     "type": "string"
                   },
                   "opt": {
+                    "description": "List of Option expirations in YYYYMMDD format separated by semicolon",
+                    "type": "string"
+                  },
+                  "restricted": {
                     "type": "string"
                   },
                   "sections": {
                     "items": {
+                      "properties": {
+                        "exchange": {
+                          "description": "Listing Exchange",
+                          "type": "string"
+                        },
+                        "legSecType": {
+                          "description": "For combo's defines the asset class for each leg",
+                          "type": "string"
+                        },
+                        "months": {
+                          "description": "List of expiration month(s) and year(s) in MMMYY format separated by semicolon",
+                          "type": "string"
+                        },
+                        "secType": {
+                          "description": "Asset Class",
+                          "type": "string"
+                        },
+                        "symbol": {
+                          "description": "Underlying symbol",
+                          "type": "string"
+                        }
+                      },
                       "type": "object"
                     },
                     "type": "array"
                   },
                   "symbol": {
+                    "description": "Underlying symbol",
                     "type": "string"
                   },
                   "war": {
+                    "description": "List of Warrant expirations in YYYYMMDD format separated by semicolon",
                     "type": "string"
                   }
                 },
@@ -3112,7 +6512,89 @@
             }
           }
         },
-        "summary": "Search by symbol or name",
+        "summary": "Search by Symbol or Name",
+        "tags": [
+          "Contract"
+        ]
+      }
+    },
+    "/iserver/secdef/strikes": {
+      "get": {
+        "description": "Query strikes for Options/Warrants. For the conid of the underlying contract, available contract months and exchanges use \"/iserver/secdef/search\"",
+        "parameters": [
+          {
+            "description": "contract id of the underlying contract",
+            "in": "query",
+            "name": "conid",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "OPT/WAR",
+            "in": "query",
+            "name": "sectype",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "contract month",
+            "in": "query",
+            "name": "month",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "optional, default is SMART",
+            "in": "query",
+            "name": "exchange",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "returns an object contains call/put strike prices",
+            "schema": {
+              "properties": {
+                "call": {
+                  "items": {
+                    "example": [
+                      "5",
+                      "10",
+                      "20"
+                    ],
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                "put": {
+                  "items": {
+                    "example": [
+                      "5",
+                      "10",
+                      "20"
+                    ],
+                    "type": "string"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "500": {
+            "description": "error while processing the request",
+            "schema": {
+              "properties": {
+                "error": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "summary": "Search Strikes",
         "tags": [
           "Contract"
         ]
@@ -3158,6 +6640,15 @@
                     "type": "string"
                   },
                   "type": "array"
+                },
+                "freq": {
+                  "description": "Frequency of cumulative performance data points: 'D'aily, 'M'onthly,'Q'uarterly.\n",
+                  "enum": [
+                    "D",
+                    "M",
+                    "Q"
+                  ],
+                  "type": "string"
                 }
               },
               "type": "object"
@@ -3210,6 +6701,59 @@
           }
         },
         "summary": "Account Balance's Summary",
+        "tags": [
+          "PortfolioAnalyst"
+        ]
+      }
+    },
+    "/pa/transactions": {
+      "post": {
+        "description": "transaction history for a given number of conids and accounts.\nTypes of transactions include dividend payments, buy and sell transactions, transfers.\n",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "properties": {
+                "acctIds": {
+                  "items": {
+                    "description": "account id",
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                "conids": {
+                  "items": {
+                    "description": "array only supports one conid at a time.",
+                    "type": "number"
+                  },
+                  "type": "array"
+                },
+                "currency": {
+                  "description": "optional defaults to USD.",
+                  "example": "USD",
+                  "type": "string"
+                },
+                "days": {
+                  "description": "optional, default value is 90",
+                  "example": 7,
+                  "type": "number"
+                }
+              },
+              "type": "object"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "returns an object",
+            "schema": {
+              "$ref": "#/definitions/transactions"
+            }
+          }
+        },
+        "summary": "Position's Transaction History",
         "tags": [
           "PortfolioAnalyst"
         ]
@@ -3450,7 +6994,7 @@
         ],
         "responses": {
           "200": {
-            "description": "200 means successful",
+            "description": "Means successful",
             "schema": {
               "type": "object"
             }
@@ -3969,7 +7513,7 @@
                   "type": "number"
                 }
               },
-              "type": "Object"
+              "type": "object"
             }
           },
           "401": {
@@ -4075,6 +7619,166 @@
         "summary": "Secdef by Conid",
         "tags": [
           "Contract"
+        ]
+      }
+    },
+    "/trsrv/secdef/schedule": {
+      "get": {
+        "description": "Returns the trading schedule up to a month for the requested contract",
+        "parameters": [
+          {
+            "description": "specify the asset class of the contract.\nAvailable values-- Stock: STK, Option: OPT, Future: FUT, Contract For Difference: CFD, Warrant: WAR, Forex: SWP, Mutual Fund: FND, Bond: BND, Inter-Commodity Spreads: ICS\n",
+            "in": "query",
+            "name": "assetClass",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "Underlying Symbol for specified contract, for example 'AAPL' for US Stock - Apple Inc.",
+            "in": "query",
+            "name": "symbol",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "Native exchange for contract, for example 'NASDAQ' for US Stock - Apple Inc.",
+            "in": "query",
+            "name": "exchange",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "Response only returns trading schedule for specified exchange",
+            "in": "query",
+            "name": "exchangeFilter",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns an object",
+            "schema": {
+              "properties": {
+                "id": {
+                  "description": "Exchange parameter id",
+                  "type": "string"
+                },
+                "schedules": {
+                  "description": "Always contains at least one 'tradingTime'  and zero or more 'sessionTime' tags",
+                  "items": {
+                    "properties": {
+                      "clearingCycleEndTime": {
+                        "type": "integer"
+                      },
+                      "sessions": {
+                        "description": "If the LIQUID hours differs from the total trading day then a separate 'session' tag is returned.",
+                        "properties": {
+                          "closingTime": {
+                            "type": "integer"
+                          },
+                          "openingTime": {
+                            "type": "integer"
+                          },
+                          "prop": {
+                            "description": "If the whole trading day is considered LIQUID then the value 'LIQUID' is returned.",
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "tradingScheduleDate": {
+                        "description": "20000101 stands for any Sat, 20000102 stands for any Sun, ... 20000107 stands for any Fri. Any other date stands for itself.",
+                        "type": "integer"
+                      },
+                      "tradingTimes": {
+                        "description": "Returns tradingTime in exchange time zone.",
+                        "properties": {
+                          "cancelDayOrders": {
+                            "type": "string"
+                          },
+                          "closingTime": {
+                            "type": "integer"
+                          },
+                          "openingTime": {
+                            "type": "integer"
+                          }
+                        },
+                        "type": "object"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "tradeVenueId": {
+                  "description": "Reference on a trade venue of given exchange parameter",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "summary": "Get trading schedule for symbol",
+        "tags": [
+          "Contract"
+        ]
+      }
+    },
+    "/trsrv/stocks": {
+      "get": {
+        "description": "Returns an object contains all stock contracts for given symbol(s)",
+        "parameters": [
+          {
+            "description": "list of upper-sensitive symbols separated by comma",
+            "in": "query",
+            "name": "symbols",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "returns an object with symbols",
+            "schema": {
+              "properties": {
+                "symbol": {
+                  "$ref": "#/definitions/stocks"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "500": {
+            "description": "error while processing the request",
+            "schema": {
+              "properties": {
+                "error": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          }
+        },
+        "summary": "Security Stocks by Symbol",
+        "tags": [
+          "Contract"
+        ]
+      }
+    },
+    "/ws": {
+      "post": {
+        "description": "The streaming API is documented under [Streaming WebSocket Data](https://interactivebrokers.github.io/cpwebapi/RealtimeSubscription.html) for details.",
+        "responses": {
+          "200": {
+            "description": "confirms session is open"
+          }
+        },
+        "summary": "Websocket Endpoint",
+        "tags": [
+          "Streaming"
         ]
       }
     }

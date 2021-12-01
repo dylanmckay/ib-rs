@@ -1,7 +1,7 @@
 /* 
  * Client Portal Web API
  *
- * Production version of the Client Portal Web API
+ * Client Poral Web API
  *
  * OpenAPI spec version: 1.0.0
  * 
@@ -14,33 +14,75 @@ use serde_json::Value;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct InlineResponse2004 {
-  /// unread number
-  #[serde(rename = "BN")]
-  BN: Option<i32>
+  /// Login session is authenticated to the CCP.
+  #[serde(rename = "authenticated")]
+  authenticated: Option<bool>,
+  /// Login session is connected
+  #[serde(rename = "connected")]
+  connected: Option<bool>,
+  /// server name
+  #[serde(rename = "name")]
+  name: Option<String>
 }
 
 impl InlineResponse2004 {
   pub fn new() -> InlineResponse2004 {
     InlineResponse2004 {
-      BN: None
+      authenticated: None,
+      connected: None,
+      name: None
     }
   }
 
-  pub fn set_BN(&mut self, BN: i32) {
-    self.BN = Some(BN);
+  pub fn set_authenticated(&mut self, authenticated: bool) {
+    self.authenticated = Some(authenticated);
   }
 
-  pub fn with_BN(mut self, BN: i32) -> InlineResponse2004 {
-    self.BN = Some(BN);
+  pub fn with_authenticated(mut self, authenticated: bool) -> InlineResponse2004 {
+    self.authenticated = Some(authenticated);
     self
   }
 
-  pub fn BN(&self) -> Option<&i32> {
-    self.BN.as_ref()
+  pub fn authenticated(&self) -> Option<&bool> {
+    self.authenticated.as_ref()
   }
 
-  pub fn reset_BN(&mut self) {
-    self.BN = None;
+  pub fn reset_authenticated(&mut self) {
+    self.authenticated = None;
+  }
+
+  pub fn set_connected(&mut self, connected: bool) {
+    self.connected = Some(connected);
+  }
+
+  pub fn with_connected(mut self, connected: bool) -> InlineResponse2004 {
+    self.connected = Some(connected);
+    self
+  }
+
+  pub fn connected(&self) -> Option<&bool> {
+    self.connected.as_ref()
+  }
+
+  pub fn reset_connected(&mut self) {
+    self.connected = None;
+  }
+
+  pub fn set_name(&mut self, name: String) {
+    self.name = Some(name);
+  }
+
+  pub fn with_name(mut self, name: String) -> InlineResponse2004 {
+    self.name = Some(name);
+    self
+  }
+
+  pub fn name(&self) -> Option<&String> {
+    self.name.as_ref()
+  }
+
+  pub fn reset_name(&mut self) {
+    self.name = None;
   }
 
 }

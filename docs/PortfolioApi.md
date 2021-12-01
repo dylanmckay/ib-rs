@@ -1,6 +1,6 @@
 # \PortfolioApi
 
-All URIs are relative to *https://localhost:5000/v1/portal*
+All URIs are relative to *https://localhost:5000/v1/api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -45,7 +45,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **portfolio_account_id_ledger_get**
-> ::models::InlineResponse20019 portfolio_account_id_ledger_get(account_id)
+> ::models::InlineResponse20033 portfolio_account_id_ledger_get(account_id)
 Account Ledger
 
 Information regarding settled cash, cash balances, etc. in the account's base currency and any other cash balances hold in other currencies.  /portfolio/accounts or /portfolio/subaccounts must be called prior to this endpoint. The list of supported currencies is available at https://www.interactivebrokers.com/en/index.php?f=3185.
@@ -58,7 +58,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**::models::InlineResponse20019**](inline_response_200_19.md)
+[**::models::InlineResponse20033**](inline_response_200_33.md)
 
 ### Authorization
 
@@ -193,7 +193,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **portfolio_account_id_summary_get**
-> ::models::InlineResponse20020 portfolio_account_id_summary_get(account_id)
+> ::models::InlineResponse20034 portfolio_account_id_summary_get(account_id)
 Account Summary
 
 Returns information about margin, cash balances and other information related to specified account. See also /portfolio/{accountId}/ledger. /portfolio/accounts or /portfolio/subaccounts must be called prior to this endpoint.
@@ -206,7 +206,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**::models::InlineResponse20020**](inline_response_200_20.md)
+[**::models::InlineResponse20034**](inline_response_200_34.md)
 
 ### Authorization
 
@@ -253,7 +253,7 @@ Similar to /portfolio/{accountId}/allocation but returns a consolidated view of 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-  **body** | [**Body6**](Body6.md)| accounts info | 
+  **body** | [**Body10**](Body10.md)| accounts info | 
 
 ### Return type
 
@@ -271,7 +271,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **portfolio_positions_conid_get**
-> ::models::InlineResponse20018 portfolio_positions_conid_get(conid)
+> ::models::InlineResponse20032 portfolio_positions_conid_get(conid)
 Positions by Conid
 
 Returns an object of all positions matching the conid for all the selected accounts. For portfolio models the conid could be in more than one model, returning an array with the name of the model it belongs to. /portfolio/accounts or /portfolio/subaccounts must be called prior to this endpoint.
@@ -284,7 +284,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**::models::InlineResponse20018**](inline_response_200_18.md)
+[**::models::InlineResponse20032**](inline_response_200_32.md)
 
 ### Authorization
 

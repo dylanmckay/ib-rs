@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **account_type_name** | **String** |  | [optional] [default to null]
 **chg** | **String** |  | [optional] [default to null]
 **end_val** | **String** |  | [optional] [default to null]
-**has_accounts** | **String** |  | [optional] [default to null]
+**has_accounts** | **bool** |  | [optional] [default to null]
 **rtn** | **String** |  | [optional] [default to null]
 **start_val** | **String** |  | [optional] [default to null]
 

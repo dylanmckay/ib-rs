@@ -1,7 +1,7 @@
 /* 
  * Client Portal Web API
  *
- * Production version of the Client Portal Web API
+ * Client Poral Web API
  *
  * OpenAPI spec version: 1.0.0
  * 
@@ -14,52 +14,52 @@ use serde_json::Value;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct InlineResponse2006 {
-  #[serde(rename = "acctId")]
-  acct_id: Option<String>,
-  #[serde(rename = "set")]
-  set: Option<bool>
+  #[serde(rename = "T")]
+  T: Option<i32>,
+  #[serde(rename = "V")]
+  V: Option<i32>
 }
 
 impl InlineResponse2006 {
   pub fn new() -> InlineResponse2006 {
     InlineResponse2006 {
-      acct_id: None,
-      set: None
+      T: None,
+      V: None
     }
   }
 
-  pub fn set_acct_id(&mut self, acct_id: String) {
-    self.acct_id = Some(acct_id);
+  pub fn set_T(&mut self, T: i32) {
+    self.T = Some(T);
   }
 
-  pub fn with_acct_id(mut self, acct_id: String) -> InlineResponse2006 {
-    self.acct_id = Some(acct_id);
+  pub fn with_T(mut self, T: i32) -> InlineResponse2006 {
+    self.T = Some(T);
     self
   }
 
-  pub fn acct_id(&self) -> Option<&String> {
-    self.acct_id.as_ref()
+  pub fn T(&self) -> Option<&i32> {
+    self.T.as_ref()
   }
 
-  pub fn reset_acct_id(&mut self) {
-    self.acct_id = None;
+  pub fn reset_T(&mut self) {
+    self.T = None;
   }
 
-  pub fn set_set(&mut self, set: bool) {
-    self.set = Some(set);
+  pub fn set_V(&mut self, V: i32) {
+    self.V = Some(V);
   }
 
-  pub fn with_set(mut self, set: bool) -> InlineResponse2006 {
-    self.set = Some(set);
+  pub fn with_V(mut self, V: i32) -> InlineResponse2006 {
+    self.V = Some(V);
     self
   }
 
-  pub fn set(&self) -> Option<&bool> {
-    self.set.as_ref()
+  pub fn V(&self) -> Option<&i32> {
+    self.V.as_ref()
   }
 
-  pub fn reset_set(&mut self) {
-    self.set = None;
+  pub fn reset_V(&mut self) {
+    self.V = None;
   }
 
 }

@@ -1,7 +1,7 @@
 /* 
  * Client Portal Web API
  *
- * Production version of the Client Portal Web API
+ * Client Poral Web API
  *
  * OpenAPI spec version: 1.0.0
  * 
@@ -28,7 +28,7 @@ pub struct ContractRules {
   order_types: Option<Vec<String>>,
   #[serde(rename = "orderTypesOutside")]
   order_types_outside: Option<Vec<String>>,
-  /// if you can preview the order or not with the whatif end-point
+  /// if you can preview the order or not with the whatif endpoint
   #[serde(rename = "preview")]
   preview: Option<bool>,
   #[serde(rename = "sizeIncrement")]

@@ -3,8 +3,8 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**applicant_id** | **f32** |  | [optional] [default to null]
-**entities** | [**Vec<::models::IbcustentityinfoEntities>**](ibcustentityinfo_entities.md) |  | [optional] [default to null]
+**E** | [**Vec<::models::InlineResponse2005E>**](inline_response_200_5_E.md) |  | [optional] [default to null]
+**M** | **i32** | Email option is enabled or not 0-off, 1-on. | [optional] [default to null]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

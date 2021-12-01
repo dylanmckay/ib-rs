@@ -1,6 +1,6 @@
 # \SessionApi
 
-All URIs are relative to *https://localhost:5000/v1/portal*
+All URIs are relative to *https://localhost:5000/v1/api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -39,7 +39,7 @@ No authorization required
 > ::models::AuthStatus iserver_reauthenticate_post()
 Tries to re-authenticate to Brokerage
 
-Provides a way to reauthenticate to the Brokerage system as long as there is a valid SSO session, see /sso/validate.
+When using the CP Gateway, this endpoint provides a way to reauthenticate to the Brokerage system as long as there is a valid SSO session, see /sso/validate. 
 
 ### Required Parameters
 This endpoint does not need any parameter.
@@ -60,7 +60,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **logout_post**
-> ::models::InlineResponse20017 logout_post()
+> ::models::InlineResponse20031 logout_post()
 Ends the current session
 
 Logs the user out of the gateway session. Any further activity requires re-authentication.
@@ -70,7 +70,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**::models::InlineResponse20017**](inline_response_200_17.md)
+[**::models::InlineResponse20031**](inline_response_200_31.md)
 
 ### Authorization
 
@@ -84,7 +84,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **sso_validate_get**
-> sso_validate_get()
+> ::models::InlineResponse20035 sso_validate_get()
 Validate SSO
 
 Validates the current session for the SSO user
@@ -94,7 +94,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
- (empty response body)
+[**::models::InlineResponse20035**](inline_response_200_35.md)
 
 ### Authorization
 

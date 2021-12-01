@@ -1,6 +1,6 @@
 # \TradesApi
 
-All URIs are relative to *https://localhost:5000/v1/portal*
+All URIs are relative to *https://localhost:5000/v1/api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -11,7 +11,7 @@ Method | HTTP request | Description
 > Vec<::models::Trade> iserver_account_trades_get()
 List of Trades for the selected account
 
-Returns a list of trades for the currently selected account for current day and six previous days.
+Returns a list of trades for the currently selected account for current day and six previous days. It is advised to call this endpoint once per session. 
 
 ### Required Parameters
 This endpoint does not need any parameter.
