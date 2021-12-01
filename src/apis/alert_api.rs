@@ -108,7 +108,7 @@ impl<C: hyper::client::Connect>AlertApi for AlertApiClient<C> {
             let mut query = ::url::form_urlencoded::Serializer::new(String::new());
             query.finish()
         };
-        let uri_str = format!("{}/iserver/account/alert/:id?{}", configuration.base_path, query_string, id=id);
+        let uri_str = format!("{}/iserver/account/alert/{}?{}", configuration.base_path, id, query_string);
 
         // TODO(farcaller): handle error
         // if let Err(e) = uri {
@@ -208,7 +208,7 @@ impl<C: hyper::client::Connect>AlertApi for AlertApiClient<C> {
             let mut query = ::url::form_urlencoded::Serializer::new(String::new());
             query.finish()
         };
-        let uri_str = format!("{}/iserver/account/:accountId/alert/activate?{}", configuration.base_path, query_string, accountId=account_id);
+        let uri_str = format!("{}/iserver/account/{accountId}/alert/activate?{query_string}", configuration.base_path, accountId=account_id, query_string=query_string);
 
         // TODO(farcaller): handle error
         // if let Err(e) = uri {
@@ -262,7 +262,7 @@ impl<C: hyper::client::Connect>AlertApi for AlertApiClient<C> {
             let mut query = ::url::form_urlencoded::Serializer::new(String::new());
             query.finish()
         };
-        let uri_str = format!("{}/iserver/account/:accountId/alert/:alertId?{}", configuration.base_path, query_string, accountId=account_id, alertId=alert_id);
+        let uri_str = format!("{}/iserver/account/{accountId}/alert/{alertId}?{query_string}", configuration.base_path, accountId=account_id, alertId=alert_id, query_string=query_string);
 
         // TODO(farcaller): handle error
         // if let Err(e) = uri {
@@ -312,7 +312,7 @@ impl<C: hyper::client::Connect>AlertApi for AlertApiClient<C> {
             let mut query = ::url::form_urlencoded::Serializer::new(String::new());
             query.finish()
         };
-        let uri_str = format!("{}/iserver/account/:accountId/alerts?{}", configuration.base_path, query_string, accountId=account_id);
+        let uri_str = format!("{}/iserver/account/{accountId}/alerts?{query_string}", configuration.base_path, accountId=account_id, query_string=query_string);
 
         // TODO(farcaller): handle error
         // if let Err(e) = uri {
